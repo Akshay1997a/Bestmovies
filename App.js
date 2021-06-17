@@ -7,9 +7,10 @@ import {
   View,
   TouchableHighlight,
   Modal,
-  Image
+  Image,
+  Dimensions
   } from 'react-native';
-
+const {width} = Dimensions.get('window')
 class App extends React.Component {
 state = {
   posts: [],
@@ -51,7 +52,6 @@ render() {
   visible={this.state.modalVisible}
   onRequestClose={() => this.setState({ modalVisible: false })}
 >
-
   <TouchableHighlight activeOpacity={1} onPress={() => this.setState({ modalVisible: false })}>
     <Image
       source={{ uri: this.state.selectedImage }}
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   tile: {
-    flexBasis: '20%',
-    height: 370,
+    flexBasis: width*0.2,
+    height: width*0.15,
     marginTop: 10,
     marginBottom: 20,
     padding: 10,
