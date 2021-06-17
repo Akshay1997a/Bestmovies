@@ -11,7 +11,7 @@ import {
   Dimensions
   } from 'react-native';
 const {width} = Dimensions.get('window')
-class App extends React.Component {
+class MyListScreen extends React.Component {
 state = {
   posts: [],
   modalVisible:false,
@@ -28,6 +28,10 @@ componentDidMount() {
 
 render() {
   return (
+    <>
+    <TouchableHighlight onPress={()=> this.props.navigation.goBack()}>
+    <Text>MyList Screen</Text>
+  </TouchableHighlight>
 <ScrollView contentContainerStyle={styles.container}>
 {this.state.posts.map(post => (
   <View style={styles.tile} key={post.id}>
@@ -60,12 +64,12 @@ render() {
   </TouchableHighlight>
 </Modal>
 </ScrollView>
-
+</>
   );
 }
 }
 
-export default App;
+export default MyListScreen;
 
 
 const styles = StyleSheet.create({
