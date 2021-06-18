@@ -5,6 +5,7 @@ const initialState = {
   };
   // Redux: Counter Reducer
   const counterReducer = (state = initialState, action) => {
+    console.log("Reducer Call ", action.type, action.value)
     switch (action.type) {
       case INCREASE_COUNTER: {
         return {
@@ -25,6 +26,8 @@ const initialState = {
         };
       }
       default: {
+        console.log("REDUCER CALL DEFAULT:")
+    
         return {...state};
       }
     }

@@ -13,8 +13,6 @@ import { rootSaga } from './sagas';
 // Middleware: Redux Saga
 const sagaMiddleware = createSagaMiddleware();
 
-console.log("typeof rootReducer- ",typeof rootReducer)
-
 // Redux: Store
 const store = createStore(
     rootReducer,

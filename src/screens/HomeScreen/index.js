@@ -47,7 +47,9 @@ render() {
       <Text> + </Text>
   </TouchableHighlight>
 
-  <TouchableHighlight onPress={()=> this.props.reduxSetCounter(0)} >
+  <TouchableHighlight onPress={()=> {
+    this.props.reduxSetCounter(0)
+    }} >
       <Text> Reset </Text>
   </TouchableHighlight>
 
