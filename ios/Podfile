@@ -21,6 +21,8 @@ target 'BestMovies' do
 # They have not yet been adapted to work in tvOS.
 # use_flipper_tvos! works for both iOS and tvOS.
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'BestMoviesTests' do
     inherit! :complete
     # Pods for testing
