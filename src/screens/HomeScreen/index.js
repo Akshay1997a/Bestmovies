@@ -14,48 +14,21 @@ import {
   import { connect } from 'react-redux';
   import {INCREASE_COUNTER, DECREASE_COUNTER} from 'src/redux/const'
 import { SET_COUNTER } from '../../redux/const';
-import colors from 'src/helper/colors'
+import RenderTV from './renderTV'
+import RenderMobile from './renderMobile'
+import colors from 'src/helper/colors';
+import StyleConfig from 'src/helper/StyleConfig';
 //import firebase from '../../helper/firebase';
 // import crashlytics from '@react-native-firebase/crashlytics';
 const {width} = Dimensions.get('window')
-const [MY_LIST, MINUS, PLUS, RESET] = [0, 1, 2, 3]
 class HomeScreen extends React.Component {
 state = {
   posts: [],
-  modalVisible:false,
-  cursorState:0
+  modalVisible:false
 };
 
-   _tvEventHandler=undefined
 
-  _enableTVEventHandler() {
-    console.log("_enableTVEventHandler...1")
-    this._tvEventHandler = new TVEventHandler();
-    console.log("_enableTVEventHandler...2")
-    this._tvEventHandler.enable(this, function(cmp, evt) {
-      console.log("_enableTVEventHandler...3", evt);
-      if (evt && evt.eventType === 'right') {
-        console.log("RIGHT")
-      } else if(evt && evt.eventType === 'up') {
-        console.log("UP")
-      } else if(evt && evt.eventType === 'left') {
-        console.log("LEFT")
-      } else if(evt && evt.eventType === 'down') {
-        console.log("DOWN")
-      }
-    });
-  }
-
-  _disableTVEventHandler() {
-    if (this._tvEventHandler) {
-      this._tvEventHandler.disable();
-      delete this._tvEventHandler;
-    }
-  }
-
-  componentWillUnmount() {
-    this._disableTVEventHandler();
-  }
+  
 async componentDidMount() {
   fetch('https://www.reddit.com/r/pic/top.json?t=year')
     .then(response => response.json())
@@ -63,108 +36,29 @@ async componentDidMount() {
       const posts = json.data.children.map(child => child.data);
       this.setState({posts});
     });
-    console.log("componentDidMount...1")
-    this._enableTVEventHandler();
-    console.log("componentDidMount...2")
     //crashlytics().log('crashlytics log.');
-   
+    console.log("=================================")
+    console.log("StyleConfig.isTV", StyleConfig.isTV)
+    console.log("StyleConfig.isIos", StyleConfig.isIos)
+    console.log("StyleConfig.isAndroid", StyleConfig.isAndroid)
+    console.log("StyleConfig.isAppleTV", StyleConfig.isAppleTV)
+    console.log("=================================")
     
 }
 
 render() {
-  const {cursorState} = this.state
-  console.log({cursorState, MY_LIST: cursorState == MY_LIST, MINUS: cursorState == MINUS, PLUS:cursorState == MY_LIST, RESET:cursorState == RESET})
-  return (<>
-    
-    <View style={{flexDirection:'row', margin:20}}>
-
-      <Pressable
-        tvParallaxProperties={{ magnification: 1.1 }}
-        style={({pressed, focused}) => 
-          ({
-            backgroundColor: focused? 'orange': pressed ? 'red' : 'transparent',
-          })
-        }
-
-        onPress={()=> this.props.navigation.navigate("MyListScreen")}>
-        <Text style={{fontSize:24}}>My List </Text>    
-      </Pressable>
-
-      <Pressable
-        tvParallaxProperties={{ magnification: 1.1 }}
-        style={({pressed, focused}) => 
-          ({
-            backgroundColor: focused? 'orange': pressed ? 'red' : 'transparent',
-            overflow:'hidden'
-          })
-        }
-
-        onPress={()=> this.props.reduxDecreaseCounter()}>
-        <Text style={{fontSize:24}}> - </Text>    
-      </Pressable>
-    
-      <Text style={{fontSize:24}}>{this.props.counter}</Text>
-
-      <Pressable
-        tvParallaxProperties={{ magnification: 1.1 }}
-        style={({pressed, focused}) => 
-          ({
-            backgroundColor: focused? 'orange': pressed ? 'red' : 'transparent',
-          })
-        }
-
-        onPress={()=> this.props.reduxIncreaseCounter()}>
-        <Text style={{fontSize:24}}> + </Text>    
-      </Pressable>
-    
-      <Pressable
-        tvParallaxProperties={{ magnification: 1.1 }}
-        style={({pressed, focused}) => 
-          ({
-            backgroundColor: focused? 'orange': pressed ? 'red' : 'transparent',
-          })
-        }
-
-        onPress={()=> this.props.reduxSetCounter(0)}>
-        <Text style={{fontSize:24}}> reset </Text>    
-      </Pressable>
-    
-
-
-
-    </View>
-  <ScrollView contentContainerStyle={styles.container}>
-{this.state.posts.map(post => (
-  <View style={styles.tile} key={post.id}>
-    <Pressable
-        tvParallaxProperties={{ magnification: 1.001 }}
-        style={({pressed, focused}) => focused ? styles.highlightFocused : styles.highlight}
-        onPress={() => this.setState({ modalVisible: true, selectedImage: post.url })}
-    >
-      <ImageBackground
-        style={{ width: '100%', height: '100%' }}
-        source={{ uri: post.thumbnail }}
+  return (
+  StyleConfig.isTV ? 
+    <RenderTV
+    posts={this.state.posts}
+    modalVisible ={this.state.modalVisible}
+    selectedImage={this.state.selectedImage}
+    {...this.props}
       />
-    </Pressable>
-    <Text style={styles.title}>{post.title}</Text>
-  </View>
-))}
-<Modal
-  animationType={'fade'}
-  transparent={true}
-  visible={this.state.modalVisible}
-  onRequestClose={() => this.setState({ modalVisible: false })}
->
-  <TouchableHighlight activeOpacity={1} onPress={() => this.setState({ modalVisible: false })}>
-    <Image
-      source={{ uri: this.state.selectedImage }}
-      style={{ width: '100%', height: '100%' }}
+    :
+    <RenderMobile 
+    {...this.props}
     />
-  </TouchableHighlight>
-</Modal>
-</ScrollView>
-</>
-
   );
 }
 }
