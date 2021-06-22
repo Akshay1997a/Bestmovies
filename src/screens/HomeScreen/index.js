@@ -8,87 +8,57 @@ import {
   TouchableHighlight,
   Modal,
   Image,
-  Dimensions
+  Dimensions,
+  Pressable
   } from 'react-native';
   import { connect } from 'react-redux';
   import {INCREASE_COUNTER, DECREASE_COUNTER} from 'src/redux/const'
 import { SET_COUNTER } from '../../redux/const';
-import colors from 'src/helper/colors'
+import RenderTV from './renderTV'
+import RenderMobile from './renderMobile'
+import colors from 'src/helper/colors';
+import StyleConfig from 'src/helper/StyleConfig';
+//import firebase from '../../helper/firebase';
+// import crashlytics from '@react-native-firebase/crashlytics';
 const {width} = Dimensions.get('window')
 class HomeScreen extends React.Component {
 state = {
   posts: [],
-  modalVisible:false,
+  modalVisible:false
 };
 
-componentDidMount() {
+
+  
+async componentDidMount() {
   fetch('https://www.reddit.com/r/pic/top.json?t=year')
     .then(response => response.json())
     .then(json => {
       const posts = json.data.children.map(child => child.data);
       this.setState({posts});
     });
+    //crashlytics().log('crashlytics log.');
+    console.log("=================================")
+    console.log("StyleConfig.isTV", StyleConfig.isTV)
+    console.log("StyleConfig.isIos", StyleConfig.isIos)
+    console.log("StyleConfig.isAndroid", StyleConfig.isAndroid)
+    console.log("StyleConfig.isAppleTV", StyleConfig.isAppleTV)
+    console.log("=================================")
+    
 }
 
 render() {
-  return (<>
-  <View style={{flexDirection:'row'}}>
-  <TouchableHighlight onPress={()=> this.props.navigation.navigate("MyListScreen")}>
-    <Text>HomeScreen </Text>
-  </TouchableHighlight>
-
-  <TouchableHighlight onPress={()=> this.props.reduxDecreaseCounter()} >
-      <Text> - </Text>
-  </TouchableHighlight>
-
-    <Text>{this.props.counter}</Text>
-
-  <TouchableHighlight onPress={()=> this.props.reduxIncreaseCounter()} >
-      <Text> + </Text>
-  </TouchableHighlight>
-
-  <TouchableHighlight onPress={()=> {
-    this.props.reduxSetCounter(0)
-    }} >
-      <Text> Reset </Text>
-  </TouchableHighlight>
-
-
-  </View>
-  <ScrollView contentContainerStyle={styles.container}>
-{this.state.posts.map(post => (
-  <View style={styles.tile} key={post.id}>
-    <TouchableHighlight
-      style={styles.highlight}
-      underlayColor='#a8dadc'
-      // We use onPress to open Modal and to set selected image url to state
-      onPress={() => this.setState({ modalVisible: true, selectedImage: post.url })}
-    >
-      <ImageBackground
-        style={{ width: '100%', height: '100%' }}
-        source={{ uri: post.thumbnail }}
-        imageStyle={styles.background}
+  return (
+  StyleConfig.isTV ? 
+    <RenderTV
+    posts={this.state.posts}
+    modalVisible ={this.state.modalVisible}
+    selectedImage={this.state.selectedImage}
+    {...this.props}
       />
-    </TouchableHighlight>
-    <Text style={styles.title}>{post.title}</Text>
-  </View>
-))}
-<Modal
-  animationType={'fade'}
-  transparent={true}
-  visible={this.state.modalVisible}
-  onRequestClose={() => this.setState({ modalVisible: false })}
->
-  <TouchableHighlight activeOpacity={1} onPress={() => this.setState({ modalVisible: false })}>
-    <Image
-      source={{ uri: this.state.selectedImage }}
-      style={{ width: '100%', height: '100%' }}
+    :
+    <RenderMobile 
+    {...this.props}
     />
-  </TouchableHighlight>
-</Modal>
-</ScrollView>
-</>
-
   );
 }
 }
@@ -141,12 +111,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
   },
-  background: {
+  highlight:{
     borderColor: '#1d3557',
+    borderRadius: 20,
+    borderColor: 'green',
+  },
+  highlightFocused:{
+    borderWidth:5,
+    borderColor: 'orange',
     borderRadius: 20,
   },
   title: {
     fontSize: 20,
     textAlign: 'center',
   },
+  
   });
