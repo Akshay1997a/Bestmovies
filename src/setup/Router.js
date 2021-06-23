@@ -2,13 +2,10 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
-
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
 
 import HomeScreen from 'src/screens/HomeScreen'
 import MyListScreen from 'src/screens/MyListScreen'
@@ -80,7 +77,14 @@ const Router=()=> {
                 options={{title: 'Share',drawerIcon: ({focused}) => (<Icon name="share" size={25} color={focused ? '#7cc' : '#ccc'}  /> ), }}
               />
               <Drawer.Screen name="Filter" component={Filter} /> 
-           </Drawer.Navigator>
+              <Drawer.Screen name="About" component={Languages} />
+              <Drawer.Screen name="Advertise" component={Languages} />
+              <Drawer.Screen name="Collaborate" component={Languages} />
+              <Drawer.Screen name="Jobs" component={Languages} />
+              <Drawer.Screen name="Investors" component={Languages} />
+              <Drawer.Screen name="Contact Us " component={Languages} />
+              <Drawer.Screen name="Terms of use" component={Languages} />
+          </Drawer.Navigator>
     </NavigationContainer>
   );
 }
