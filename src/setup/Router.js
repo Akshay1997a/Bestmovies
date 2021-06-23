@@ -10,9 +10,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 
-
-
-
 import HomeScreen from 'src/screens/HomeScreen'
 import MyListScreen from 'src/screens/MyListScreen'
 import Filter from 'src/screens/Filter'
@@ -25,6 +22,7 @@ import Price from 'src/screens/Filter/Price';
 import Linkby from 'src/screens/Filter/LinkBy';
 import Languages from 'src/screens/Filter/Original Languages';
 import Menu from 'src/screens/Menu';
+import Slider from 'src/screens/Drawer'
 
 const Drawer =createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -47,12 +45,11 @@ const StackNav=()=>{
 </Stack.Navigator>
   );
 }
-
 const Router=()=> {
   return (
       <NavigationContainer>
-          <Drawer.Navigator>
-              <Drawer.Screen name="Menu" component={Menu} 
+          <Drawer.Navigator  overlayColor={1} drawerStyle={{width:190,marginTop:50}} drawerPosition="right"  drawerContent={props => <Slider{...props}/>}>
+             <Drawer.Screen name="Menu" component={Menu}  
                options={{
                 title: 'Home',
                 drawerIcon: ({focused}) => (
@@ -62,9 +59,10 @@ const Router=()=> {
                       color={focused ? '#7cc' : '#ccc'}
                    />
                 ),
-             }}/>
+             }}/> 
+
               <Drawer.Screen name="My Kids" component={StackNav}/>
-              <Drawer.Screen name="Notification" component={Languages}
+               <Drawer.Screen name="Notification" component={Languages} 
                  options={{title: 'Home',drawerIcon: ({focused}) => (<Icon name="user" size={25} color={focused ? '#7cc' : '#ccc'}  /> ), }}
               />
               <Drawer.Screen name="Friend" component={Languages} 
@@ -81,21 +79,19 @@ const Router=()=> {
               <Drawer.Screen name="Share to friend" component={Languages} 
                 options={{title: 'Share',drawerIcon: ({focused}) => (<Icon name="share" size={25} color={focused ? '#7cc' : '#ccc'}  /> ), }}
               />
-              <Drawer.Screen name="About" component={Languages} />
-              <Drawer.Screen name="Advertise" component={Languages} />
-              <Drawer.Screen name="Collaborate" component={Languages} />
-              <Drawer.Screen name="Jobs" component={Languages} />
-              <Drawer.Screen name="Investors" component={Languages} />
-              <Drawer.Screen name="Contact Us " component={Languages} />
-              <Drawer.Screen name="Terms of use" component={Languages} />
-
-
-
-
-
-              {/* <Drawer.Screen name="Filter" component={Filter} /> */}
-          </Drawer.Navigator>
+              <Drawer.Screen name="Filter" component={Filter} /> 
+           </Drawer.Navigator>
     </NavigationContainer>
   );
 }
 export default Router
+// const CustomDrower = ()=>{
+//   return(
+//     <Drawer.Navigator>
+//       <Drawer.Screen name="Get TV app" component={Languages} 
+//                 options={{title: 'Get TV app',drawerIcon: ({focused}) => (<Icons name="download" size={25} color={focused ? '#7cc' : '#ccc'}  /> ), }}/>
+//       <Drawer.Screen name="My Kids" component={StackNav}/>
+//     </Drawer.Navigator>
+
+//   );
+// }
