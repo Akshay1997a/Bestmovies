@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "996890094763",
+    "project_id": "best-movies-app",
+    "storage_bucket": "best-movies-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996890094763:android:8895b66db4c7812a4a1bee",
+        "android_client_info": {
+          "package_name": "com.bestmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996890094763-pq8u07f91ok2p7ase57ndckaagncne5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3o23LnBYbXDA89sMYLlI-ZHmajK3tjlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996890094763-pq8u07f91ok2p7ase57ndckaagncne5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

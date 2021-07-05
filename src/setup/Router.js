@@ -11,7 +11,6 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-
 import HomeScreen from 'src/screens/HomeScreen'
 import MyListScreen from 'src/screens/MyListScreen'
 import Filter from 'src/screens/Filter'
@@ -109,8 +108,15 @@ const Router=()=> {
               <Drawer.Screen name="Share to friend" component={Languages} 
                 options={{title: 'Share to friend',drawerIcon: ({focused}) => (<Icon name="share" size={25} color={focused ? '#7cc' : '#ccc'}  /> ), }}
               />
-              {/* <Drawer.Screen name="Filter" component={Filter} />  */}
-           </Drawer.Navigator>
+              <Drawer.Screen name="Filter" component={Filter} /> 
+              <Drawer.Screen name="About" component={Languages} />
+              <Drawer.Screen name="Advertise" component={Languages} />
+              <Drawer.Screen name="Collaborate" component={Languages} />
+              <Drawer.Screen name="Jobs" component={Languages} />
+              <Drawer.Screen name="Investors" component={Languages} />
+              <Drawer.Screen name="Contact Us " component={Languages} />
+              <Drawer.Screen name="Terms of use" component={Languages} />
+          </Drawer.Navigator>
     </NavigationContainer>
   );
 }
