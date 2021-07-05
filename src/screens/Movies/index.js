@@ -7,7 +7,7 @@ import Menu from '../Menu';
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 
-export class TVShow extends Component {
+export class Movies extends Component {
 
     constructor(props){
         super(props);
@@ -44,7 +44,7 @@ export class TVShow extends Component {
     moviewPoster = (data) =>(
             <View style={{padding:12,justifyContent:'center'}} >
                 <View style={{justifyContent:'center'}}>
-                <TouchableOpacity onPress={()=>alert("Hello")} style={{zIndex:100,elevation:2}}><Icon  name='bookmark' size={40}  color="#232323"style={{position:'absolute', top:-10,left:270}}/></TouchableOpacity> 
+                <TouchableOpacity  style={{zIndex:100,elevation:2}}><Icon  name='bookmark' size={40}  color="#232323"style={{position:'absolute', top:-10,left:270}}/></TouchableOpacity> 
                 <Image style={{height:400,width:window*0.9,borderRadius:12}}source={{uri:data.image}}/>
                 <Text allowFontScaling={true} style={{fontSize:50,color:'white',fontWeight:'700',position:'absolute',top:300,marginLeft:100,}}>{data.name}</Text>
                 </View>
@@ -216,7 +216,7 @@ export class TVShow extends Component {
     }
 }
 
-export default TVShow
+export default Movies
 const styles = StyleSheet.create({
     textFont: {
         fontSize:16,
