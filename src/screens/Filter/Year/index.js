@@ -18,9 +18,7 @@ export class Year extends Component {
         return (
             <View style={{margin:5}}>
                 <View style={{margin:10,padding:10}}>
-                    <TouchableOpacity
-                     onPress={() => alert('Pressed!')}
-                    >
+                    <TouchableOpacity>
                             <Text style={styles.fontText}> New  </Text>
                     </TouchableOpacity>
                     <TouchableOpacity>
@@ -54,7 +52,7 @@ export class Year extends Component {
                 
                 <View style={{flexDirection:'row',padding:10}}>
                     <View style={{flex:2,marginRight:10}}>
-                    <TouchableOpacity style={{backgroundColor:'#D3D3D3',padding:10,borderRadius:25,alignItems:'center' }} onPress={() => alert('Pressed!')} >
+                    <TouchableOpacity style={{backgroundColor:'#D3D3D3',padding:10,borderRadius:25,alignItems:'center' }}  >
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <View style={{flex:5,alignItems:'center'}}> 
                                     <Text style={{fontSize:17,fontWeight:'700'}}>From</Text> 
@@ -66,7 +64,7 @@ export class Year extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{flex:2,marginRight:10}}>
-                        <TouchableOpacity style={{backgroundColor:'#D3D3D3',padding:10,borderRadius:25,alignItems:'center' }} onPress={() => alert('Pressed!')} >
+                        <TouchableOpacity style={{backgroundColor:'#D3D3D3',padding:10,borderRadius:25,alignItems:'center' }}  >
                             <View style={{flexDirection:'row',alignItems:'center'}}>
                                 <View style={{flex:5,alignItems:'center'}}> 
                                     <Text style={{fontSize:17,fontWeight:'700'}}>To</Text> 
