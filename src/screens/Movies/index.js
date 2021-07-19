@@ -216,7 +216,7 @@ export class Movies extends Component {
   );
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1, backgroundColor: "#fff"}}>
         <View style={{flex: 1}}>
           <Modal visible={this.state.modalVisible} transparent={true}>
             <View

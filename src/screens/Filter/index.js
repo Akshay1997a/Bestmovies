@@ -11,6 +11,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -30,6 +31,23 @@ export default class Filter extends React.Component {
 
   componentDidMount() {
     this.details();
+    console.log(this.props);
+    const {navigation} = this.props;
+    navigation.setOptions({
+      headerRight: () => (
+        <View style={styles.headerRightContainer}>
+          <View style={styles.headerRightItems}>
+            <Text>View</Text>
+          </View>
+          <View>
+            <View style={styles.box} />
+          </View>
+          <View>
+            <Ionicons name="md-grid-sharp" color="yellow" size={25} />
+          </View>
+        </View>
+      ),
+    });
   }
 
   details() {
@@ -74,14 +92,14 @@ export default class Filter extends React.Component {
           <View style={{flex: 1, justifyContent: 'center', marginRight: 5}}>
             <Switch
               trackColor={{
-                true: '#e3c727',
+                true: 'yellow',
                 false: Platform.OS == 'android' ? '#d3d3d3' : '#fbfbfb',
               }}
               thumbColor={[
                 Platform.OS == 'ios'
                   ? '#FFFFFF'
                   : this.state.switchValueIncludeW.status
-                  ? '#7ab8e1'
+                  ? 'yellow'
                   : '#ffffff',
               ]}
               ios_backgroundColor="#fbfbfb"
@@ -307,5 +325,17 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginBottom: 1,
     backgroundColor: '#EFEFEF',
+  },
+  headerRightContainer: {
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: 100,
+  },
+  box: {
+    width: 23,
+    height: 23,
+    backgroundColor: 'yellow',
   },
 });

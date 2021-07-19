@@ -29,6 +29,7 @@ import Shorts from 'src/screens/Shorts';
 import Actors from 'src/screens/Actors';
 import Directors from 'src/screens/Directors';
 import Search from 'src/screens/Search';
+import About from 'src/screens/About';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -72,6 +73,7 @@ const StackNav = () => {
         }}
         component={Search}
       />
+      <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );
 };
@@ -81,7 +83,7 @@ const Router = () => {
     <NavigationContainer>
       <Drawer.Navigator
         overlayColor={1}
-        drawerStyle={{width: 190, marginTop: 60}}
+        drawerStyle={{width: '70%', marginTop: 60}}
         drawerPosition="right"
         drawerContent={(props) => <Slider {...props} />}>
         <Drawer.Screen
@@ -95,45 +97,6 @@ const Router = () => {
           }}
         />
 
-        {/* <Drawer.Screen name="My Kids" component={StackNav}/> */}
-        <Drawer.Screen
-          name="Notification"
-          component={Languages}
-          options={{
-            title: 'Notification',
-            drawerIcon: ({focused}) => (
-              <Icon name="user" size={25} color={focused ? 'black' : '#ccc'} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Friend"
-          component={Languages}
-          options={{
-            title: 'Friend',
-            drawerIcon: ({focused}) => (
-              <FontAwesome5
-                name="user-friends"
-                size={25}
-                color={focused ? '#7cc' : '#ccc'}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Profile"
-          component={Languages}
-          options={{
-            title: 'Profile',
-            drawerIcon: ({focused}) => (
-              <Ionicons
-                name="ios-settings"
-                size={25}
-                color={focused ? '#7cc' : '#ccc'}
-              />
-            ),
-          }}
-        />
         <Drawer.Screen
           name="Language"
           component={Languages}
@@ -163,12 +126,30 @@ const Router = () => {
           }}
         />
         <Drawer.Screen
+          name="ConnectTV"
+          component={Languages}
+          options={{
+            title: 'ConnectTV',
+            drawerIcon: ({focused}) => (
+              <Ionicons
+                name="bluetooth"
+                size={25}
+                color={focused ? '#7cc' : '#ccc'}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
           name="Share to friend"
           component={Languages}
           options={{
             title: 'Share to friend',
             drawerIcon: ({focused}) => (
-              <Icon name="share" size={25} color={focused ? '#7cc' : '#ccc'} />
+              <Ionicons
+                name="send-sharp"
+                size={25}
+                color={focused ? '#7cc' : '#ccc'}
+              />
             ),
           }}
         />

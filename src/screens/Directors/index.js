@@ -133,7 +133,7 @@ export class Directors extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{padding: 10}}>
+      <SafeAreaView style={{padding: 10, backgroundColor: "#fff"}}>
         <View
           style={{
             flexDirection: 'row',
