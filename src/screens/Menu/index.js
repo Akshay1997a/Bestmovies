@@ -91,7 +91,7 @@ export class Menu extends Component {
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Filter')}>
             <Image
-              source={require('../../../asset/Icons/filter_ic.png')}
+              source={require('../../../assets/Icons/filter_ic.png')}
               style={{width: 25, height: 25}}
             />
           </TouchableOpacity>
@@ -103,7 +103,7 @@ export class Menu extends Component {
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Menu')}>
             <Image
-              source={require('../../../asset/Icons/BMicon.png')}
+              source={require('../../../assets/Icons/BMicon.png')}
               style={{width: 150, height: 60, resizeMode: 'center'}}
             />
           </TouchableOpacity>

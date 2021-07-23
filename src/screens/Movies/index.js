@@ -18,6 +18,10 @@ import Icons from 'react-native-vector-icons/Feather';
 import Iconm from 'react-native-vector-icons/FontAwesome5';
 import Menu from '../Menu';
 import CardView from './CardView';
+import IntroTipRight from '../../../assets/Icons/intro_tip_right.svg';
+import IntroTipLeft from '../../../assets/Icons/intro_tip_left.svg';
+import {BlurView} from '@react-native-community/blur';
+import DashedLine from '../../components/DashedLine';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -26,32 +30,32 @@ const DATA = [
   {
     id: '1',
     name: 'First Item',
-    image: require('../../../asset/poster3.jpg'),
+    image: require('../../../assets/poster3.jpg'),
   },
   {
     id: '2',
     name: 'Second Item',
-    image: require('../../../asset/poster1.jpg'),
+    image: require('../../../assets/poster1.jpg'),
   },
   {
     id: '3',
     name: 'Third Item',
-    image: require('../../../asset/poster2.jpg'),
+    image: require('../../../assets/poster2.jpg'),
   },
   {
     id: '4',
     name: 'Third Item',
-    image: require('../../../asset/poster3.jpg'),
+    image: require('../../../assets/poster3.jpg'),
   },
   {
     id: '5',
     name: 'Third Item',
-    image: require('../../../asset/poster4.jpg'),
+    image: require('../../../assets/poster4.jpg'),
   },
   {
     id: '6',
     name: 'Third Item',
-    image: require('../../../asset/poster5.jpg'),
+    image: require('../../../assets/poster5.jpg'),
   },
 ];
 
@@ -62,8 +66,16 @@ export class Movies extends Component {
       modalVisible: false,
       likeModal: false,
       shearModal: false,
+      isIntroTipVisible: true,
     };
   }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({isIntroTipVisible: false});
+    }, 1000);
+  }
+
   rendeDirector = (data) => (
     <TouchableOpacity style={styles.directorContainer}>
       <Image style={styles.directorImage} source={data.image} />
@@ -215,8 +227,53 @@ export class Movies extends Component {
     </View>
   );
   render() {
+    const {isIntroTipVisible} = this.state;
     return (
-      <View style={{flex: 1, backgroundColor: "#fff"}}>
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <Modal visible={isIntroTipVisible} transparent animationType="fade">
+          <View
+            style={{
+              flex: 1,
+              // flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: 100,
+            }}>
+            <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
+            <BlurView
+              style={styles.blurView}
+              blurType="light"
+              blurAmount={32}
+              blurRadius={2}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View style={styles.icContainer}>
+                <IntroTipLeft width={40} height={40} fill="black" />
+              </View>
+              <Icon
+                name="arrow-left"
+                color="#fff"
+                size={25}
+                style={{margin: 5}}
+              />
+              <DashedLine width={150} height={5} />
+              <Icon
+                name="arrow-right"
+                color="#fff"
+                size={25}
+                style={{margin: 5}}
+              />
+              <View style={styles.icContainer}>
+                <IntroTipRight width={40} height={40} fill="black" />
+              </View>
+            </View>
+          </View>
+        </Modal>
         <View style={{flex: 1}}>
           <Modal visible={this.state.modalVisible} transparent={true}>
             <View
@@ -357,9 +414,7 @@ export class Movies extends Component {
                   flexDirection: 'row',
                 }}>
                 <View style={{flex: 3}}>
-                  <Text style={styles.resultText}>
-                    Top 1 of 91287 Movies
-                  </Text>
+                  <Text style={styles.resultText}>Top 1 of 91287 Movies</Text>
                 </View>
                 <TouchableOpacity
                   style={{alignItems: 'flex-end', flexDirection: 'row'}}
@@ -481,7 +536,7 @@ export class Movies extends Component {
                 <Text />
                 <View style={{alignItems: 'center'}}>
                   <Image
-                    source={require('../../../asset/poster1.jpg')}
+                    source={require('../../../assets/poster1.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
@@ -490,7 +545,7 @@ export class Movies extends Component {
                     }}
                   />
                   <Image
-                    source={require('../../../asset/poster1.jpg')}
+                    source={require('../../../assets/poster1.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
@@ -499,7 +554,7 @@ export class Movies extends Component {
                     }}
                   />
                   <Image
-                    source={require('../../../asset/poster1.jpg')}
+                    source={require('../../../assets/poster1.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
@@ -508,7 +563,7 @@ export class Movies extends Component {
                     }}
                   />
                   <Image
-                    source={require('../../../asset/poster1.jpg')}
+                    source={require('../../../assets/poster1.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
@@ -597,13 +652,34 @@ const styles = StyleSheet.create({
     fontFamily: "'Helvetica Neue',Arial",
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: "700",
+    fontWeight: '700',
   },
   resultText: {
-    color: "#333333",
+    color: '#333333',
     fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 15,
-    fontStyle: "normal",
-    fontWeight: "500"
-  }
+    fontStyle: 'normal',
+    fontWeight: '500',
+  },
+  blurView: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 0,
+  },
+  icContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 100,
+    padding: 2,
+  },
+  swipTitle: {
+    color: '#FFFFFF',
+    fontFamily: "'Helvetica Neue',Arial",
+    fontSize: 18.67,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    zIndex: 100,
+  },
 });

@@ -36,6 +36,14 @@
 		1FEE8E8272274993B7EA3B08 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B22B974568A4C0295D0599A /* Octicons.ttf */; };
 		F3E6FE9EC69646F3AC829BDE /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEA44AA4168142938B6324F2 /* SimpleLineIcons.ttf */; };
 		0DA8569D81FB46F2BBDA03C4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7BF3C05534C0391DEF148 /* Zocial.ttf */; };
+		7AB69D569A2A43589D92CDEA /* Lemon Milk Pro Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39B406A4EE4E4BBBA5BB5DFD /* Lemon Milk Pro Bold Italic.otf */; };
+		FC849403989941468373AE13 /* Lemon Milk Pro Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2CBA6B70DE4C4F8A03A27B /* Lemon Milk Pro Bold.otf */; };
+		7781EBCF385D47A58994423D /* Lemon Milk Pro Medium Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A9712F11479C4391823C831D /* Lemon Milk Pro Medium Italic.otf */; };
+		A0A55FB83C164BC1AB2E510C /* Lemon Milk Pro Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 856E8D98818D47FE8AB8EC6E /* Lemon Milk Pro Medium.otf */; };
+		CA262580395C458292CF91F0 /* Lemon Milk Pro Regular Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8A3D5984F1941D0A5679180 /* Lemon Milk Pro Regular Italic.otf */; };
+		0D5CA4F32E414D6583380024 /* Lemon Milk Pro Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C082E70A341F49B7A579A2C6 /* Lemon Milk Pro Regular.otf */; };
+		80341B2547FC4F25B75D4481 /* Lemon Milk Pro Ultra Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABFA3A1E233043B0924380D9 /* Lemon Milk Pro Ultra Light Italic.otf */; };
+		5121F706478145CBBA3535AF /* Lemon Milk Pro Ultra Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D298BE9329964EE287FEB9DA /* Lemon Milk Pro Ultra Light.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +107,14 @@
 		0B22B974568A4C0295D0599A /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		BEA44AA4168142938B6324F2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0AF7BF3C05534C0391DEF148 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		39B406A4EE4E4BBBA5BB5DFD /* Lemon Milk Pro Bold Italic.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Bold Italic.otf"; path = "../assets/fonts/Lemon Milk Pro Bold Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5C2CBA6B70DE4C4F8A03A27B /* Lemon Milk Pro Bold.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Bold.otf"; path = "../assets/fonts/Lemon Milk Pro Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A9712F11479C4391823C831D /* Lemon Milk Pro Medium Italic.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Medium Italic.otf"; path = "../assets/fonts/Lemon Milk Pro Medium Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		856E8D98818D47FE8AB8EC6E /* Lemon Milk Pro Medium.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Medium.otf"; path = "../assets/fonts/Lemon Milk Pro Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A8A3D5984F1941D0A5679180 /* Lemon Milk Pro Regular Italic.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Regular Italic.otf"; path = "../assets/fonts/Lemon Milk Pro Regular Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C082E70A341F49B7A579A2C6 /* Lemon Milk Pro Regular.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Regular.otf"; path = "../assets/fonts/Lemon Milk Pro Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ABFA3A1E233043B0924380D9 /* Lemon Milk Pro Ultra Light Italic.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Ultra Light Italic.otf"; path = "../assets/fonts/Lemon Milk Pro Ultra Light Italic.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D298BE9329964EE287FEB9DA /* Lemon Milk Pro Ultra Light.otf */ = {isa = PBXFileReference; name = "Lemon Milk Pro Ultra Light.otf"; path = "../assets/fonts/Lemon Milk Pro Ultra Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +265,14 @@
 				0B22B974568A4C0295D0599A /* Octicons.ttf */,
 				BEA44AA4168142938B6324F2 /* SimpleLineIcons.ttf */,
 				0AF7BF3C05534C0391DEF148 /* Zocial.ttf */,
+				39B406A4EE4E4BBBA5BB5DFD /* Lemon Milk Pro Bold Italic.otf */,
+				5C2CBA6B70DE4C4F8A03A27B /* Lemon Milk Pro Bold.otf */,
+				A9712F11479C4391823C831D /* Lemon Milk Pro Medium Italic.otf */,
+				856E8D98818D47FE8AB8EC6E /* Lemon Milk Pro Medium.otf */,
+				A8A3D5984F1941D0A5679180 /* Lemon Milk Pro Regular Italic.otf */,
+				C082E70A341F49B7A579A2C6 /* Lemon Milk Pro Regular.otf */,
+				ABFA3A1E233043B0924380D9 /* Lemon Milk Pro Ultra Light Italic.otf */,
+				D298BE9329964EE287FEB9DA /* Lemon Milk Pro Ultra Light.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -416,6 +440,14 @@
 				1FEE8E8272274993B7EA3B08 /* Octicons.ttf in Resources */,
 				F3E6FE9EC69646F3AC829BDE /* SimpleLineIcons.ttf in Resources */,
 				0DA8569D81FB46F2BBDA03C4 /* Zocial.ttf in Resources */,
+				7AB69D569A2A43589D92CDEA /* Lemon Milk Pro Bold Italic.otf in Resources */,
+				FC849403989941468373AE13 /* Lemon Milk Pro Bold.otf in Resources */,
+				7781EBCF385D47A58994423D /* Lemon Milk Pro Medium Italic.otf in Resources */,
+				A0A55FB83C164BC1AB2E510C /* Lemon Milk Pro Medium.otf in Resources */,
+				CA262580395C458292CF91F0 /* Lemon Milk Pro Regular Italic.otf in Resources */,
+				0D5CA4F32E414D6583380024 /* Lemon Milk Pro Regular.otf in Resources */,
+				80341B2547FC4F25B75D4481 /* Lemon Milk Pro Ultra Light Italic.otf in Resources */,
+				5121F706478145CBBA3535AF /* Lemon Milk Pro Ultra Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

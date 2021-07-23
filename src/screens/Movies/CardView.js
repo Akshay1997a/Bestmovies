@@ -16,32 +16,32 @@ const DATA = [
   {
     id: '1',
     name: 'First Item',
-    image: require('../../../asset/poster1.jpg'),
+    image: require('../../../assets/poster1.jpg'),
   },
   {
     id: '2',
     name: 'Second Item',
-    image: require('../../../asset/poster1.jpg'),
+    image: require('../../../assets/poster1.jpg'),
   },
   {
     id: '3',
     name: 'Third Item',
-    image: require('../../../asset/poster2.jpg'),
+    image: require('../../../assets/poster2.jpg'),
   },
   {
     id: '4',
     name: 'Third Item',
-    image: require('../../../asset/poster3.jpg'),
+    image: require('../../../assets/poster3.jpg'),
   },
   {
     id: '5',
     name: 'Third Item',
-    image: require('../../../asset/poster4.jpg'),
+    image: require('../../../assets/poster4.jpg'),
   },
   {
     id: '6',
     name: 'Third Item',
-    image: require('../../../asset/poster5.jpg'),
+    image: require('../../../assets/poster5.jpg'),
   },
 ];
 

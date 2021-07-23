@@ -15,42 +15,42 @@ const DATA = [
   {
     id: '1',
     name: 'First Item',
-    image: require('../../../asset/Actors/Actor1.jpg'),
+    image: require('../../../assets/Actors/Actor1.jpg'),
   },
   {
     id: '2',
     name: 'Second Item',
-    image: require('../../../asset/Actors/Actor2.jpg'),
+    image: require('../../../assets/Actors/Actor2.jpg'),
   },
   {
     id: '3',
     name: 'Third Item',
-    image: require('../../../asset/Actors/Actor4.jpg'),
+    image: require('../../../assets/Actors/Actor4.jpg'),
   },
   {
     id: '4',
     name: 'Third Item',
-    image: require('../../../asset/Actors/Actor5.jpg'),
+    image: require('../../../assets/Actors/Actor5.jpg'),
   },
   {
     id: '5',
     name: 'Third Item',
-    image: require('../../../asset/Actors/Actor6.jpg'),
+    image: require('../../../assets/Actors/Actor6.jpg'),
   },
   {
     id: '6',
     name: 'Third Item',
-    image: require('../../../asset/Actors/Actor7.jpg'),
+    image: require('../../../assets/Actors/Actor7.jpg'),
   },
   {
     id: '7',
     name: 'Third Item',
-    image: require('../../../asset/Actors/Actor8.jpg'),
+    image: require('../../../assets/Actors/Actor8.jpg'),
   },
   {
     id: '8',
     name: 'Third Item',
-    image: require('../../../asset/Actors/Actor9.jpg'),
+    image: require('../../../assets/Actors/Actor9.jpg'),
   },
 ];
 

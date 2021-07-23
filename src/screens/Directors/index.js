@@ -15,42 +15,42 @@ const DATA = [
   {
     id: '1',
     name: 'First Item',
-    image: require('../../../asset/Directors/D1.jpg'),
+    image: require('../../../assets/Directors/D1.jpg'),
   },
   {
     id: '2',
     name: 'Second Item',
-    image: require('../../../asset/Directors/D2.jpg'),
+    image: require('../../../assets/Directors/D2.jpg'),
   },
   {
     id: '3',
     name: 'Third Item',
-    image: require('../../../asset/Directors/D4.jpg'),
+    image: require('../../../assets/Directors/D4.jpg'),
   },
   {
     id: '4',
     name: 'Third Item',
-    image: require('../../../asset/Directors/D5.jpg'),
+    image: require('../../../assets/Directors/D5.jpg'),
   },
   {
     id: '5',
     name: 'Third Item',
-    image: require('../../../asset/Directors/D6.jpg'),
+    image: require('../../../assets/Directors/D6.jpg'),
   },
   {
     id: '6',
     name: 'Third Item',
-    image: require('../../../asset/Directors/D7.jpg'),
+    image: require('../../../assets/Directors/D7.jpg'),
   },
   {
     id: '7',
     name: 'Third Item',
-    image: require('../../../asset/Directors/D8.jpg'),
+    image: require('../../../assets/Directors/D8.jpg'),
   },
   {
     id: '8',
     name: 'Third Item',
-    image: require('../../../asset/Directors/D9.jpg'),
+    image: require('../../../assets/Directors/D9.jpg'),
   },
 ];
 

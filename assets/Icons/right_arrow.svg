@@ -1,0 +1,16 @@
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" id="svg-s-Line_3" class="svgContainer"
+  style="width:100%;height:100%;">
+  <g>
+    <g>
+      <path id="s-Line_3" class="pie line shape eMarker firer ie-background commentable non-processed" customid="Line"
+        d="M 0.0 6.0 L 88.0 6.0" marker-end="url(#end-marker-s-Line_38191)"> </path>
+    </g>
+  </g>
+  <defs>
+    <marker id="end-marker-s-Line_38191" class="block endmarker" orient="0" stroke-width="0px" viewBox="0 0 100 100"
+      refY="50" preserveAspectRatio="none" markerUnits="userSpaceOnUse" markerWidth="12px" markerHeight="12px"
+      refX="66">
+      <path d="M 0 0 L 100 50 L 0 100 Z"></path>
+    </marker>
+  </defs>
+</svg>

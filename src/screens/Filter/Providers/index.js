@@ -6,144 +6,144 @@ const DATA = [
     {
       id: '1',
       name: 'Second Item',
-      image:require('../../../../asset/poster3.jpg'),
+      image:require('../../../../assets/poster3.jpg'),
 
     },
     {
       id: '2',
       name: 'Second Item',
-      image:require('../../../../asset/poster1.jpg'),
+      image:require('../../../../assets/poster1.jpg'),
 
     },
     {
       id: '3',
       name: 'Third Item',
-      image:require('../../../../asset/poster2.jpg'),
+      image:require('../../../../assets/poster2.jpg'),
     },
     {
         id: '4',
         name: 'Third Item',
-        image:require('../../../../asset/poster3.jpg'),
+        image:require('../../../../assets/poster3.jpg'),
       },
       {
         id: '5',
         name: 'Third Item',
-        image:require('../../../../asset/poster4.jpg'),
+        image:require('../../../../assets/poster4.jpg'),
       },
       {
         id: '6',
         name: 'Third Item',
-        image:require('../../../../asset/poster5.jpg'),
+        image:require('../../../../assets/poster5.jpg'),
       },
       {
         id: '7',
         name: 'Third Item',
-        image:require('../../../../asset/photo1.jpg'),
+        image:require('../../../../assets/photo1.jpg'),
       },
       {
         id: '8',
         name: 'Third Item',
-        image:require('../../../../asset/photo2.jpg'),
+        image:require('../../../../assets/photo2.jpg'),
       },{
         id: '9',
         name: 'Third Item',
-        image:require('../../../../asset/photo3.jpg'),
+        image:require('../../../../assets/photo3.jpg'),
       },{
         id: '10',
         name: 'Third Item',
-        image:require('../../../../asset/photo4.jpg'),
+        image:require('../../../../assets/photo4.jpg'),
       },{
         id: '11',
         name: 'Third Item',
-        image:require('../../../../asset/photo5.jpg'),
+        image:require('../../../../assets/photo5.jpg'),
       },{
         id: '12',
         name: 'Third Item',
-        image:require('../../../../asset/photo6.jpg'),
+        image:require('../../../../assets/photo6.jpg'),
       },{
         id: '13',
         name: 'Third Item',
-        image:require('../../../../asset/photo7.jpg'),
+        image:require('../../../../assets/photo7.jpg'),
       },{
         id: '14',
         name: 'Third Item',
-        image:require('../../../../asset/photo8.jpg'),
+        image:require('../../../../assets/photo8.jpg'),
       },{
         id: '15',
         name: 'Third Item',
-        image:require('../../../../asset/photo10.jpg'),
+        image:require('../../../../assets/photo10.jpg'),
       },{
         id: '16',
         name: 'Third Item',
-        image:require('../../../../asset/photo11.jpg'),
+        image:require('../../../../assets/photo11.jpg'),
       },{
         id: '17',
         name: 'Third Item',
-        image:require('../../../../asset/photo12.jpg'),
+        image:require('../../../../assets/photo12.jpg'),
       },{
         id: '18',
         name: 'Third Item',
-        image:require('../../../../asset/photo13.jpg'),
+        image:require('../../../../assets/photo13.jpg'),
       },{
         id: '19',
         name: 'Third Item',
-        image:require('../../../../asset/photo14.jpg'),
+        image:require('../../../../assets/photo14.jpg'),
       },{
         id: '20',
         name: 'Third Item',
-        image:require('../../../../asset/photo15.jpg'),
+        image:require('../../../../assets/photo15.jpg'),
       },{
         id: '21',
         name: 'Third Item',
-        image:require('../../../../asset/photo16.jpg'),
+        image:require('../../../../assets/photo16.jpg'),
       },{
         id: '22',
         name: 'Third Item',
-        image:require('../../../../asset/photo17.jpg'),
+        image:require('../../../../assets/photo17.jpg'),
       },{
         id: '23',
         name: 'Third Item',
-        image:require('../../../../asset/photo18.jpg'),
+        image:require('../../../../assets/photo18.jpg'),
       },{
         id: '24',
         name: 'Third Item',
-        image:require('../../../../asset/photo19.jpg'),
+        image:require('../../../../assets/photo19.jpg'),
       },{
         id: '25',
         name: 'Third Item',
-        image:require('../../../../asset/photo20.jpg'),
+        image:require('../../../../assets/photo20.jpg'),
       },{
         id: '26',
         name: 'Third Item',
-        image:require('../../../../asset/photo21.jpg'),
+        image:require('../../../../assets/photo21.jpg'),
       },,{
         id: '27',
         name: 'Third Item',
-        image:require('../../../../asset/photo22.jpg'),
+        image:require('../../../../assets/photo22.jpg'),
       },{
         id: '28',
         name: 'Third Item',
-        image:require('../../../../asset/photo23.jpg'),
+        image:require('../../../../assets/photo23.jpg'),
       },{
         id: '29',
         name: 'Third Item',
-        image:require('../../../../asset/photo24.jpg'),
+        image:require('../../../../assets/photo24.jpg'),
       },{
         id: '30',
         name: 'Third Item',
-        image:require('../../../../asset/photo25.jpg'),
+        image:require('../../../../assets/photo25.jpg'),
       },{
         id: '31',
         name: 'Third Item',
-        image:require('../../../../asset/photo26.jpg'),
+        image:require('../../../../assets/photo26.jpg'),
       },{
         id: '32',
         name: 'Third Item',
-        image:require('../../../../asset/photo27.jpg'),
+        image:require('../../../../assets/photo27.jpg'),
       },{
         id: '33',
         name: 'Third Item',
-        image:require('../../../../asset/photo28.jpg'),
+        image:require('../../../../assets/photo28.jpg'),
       },
   ];
 

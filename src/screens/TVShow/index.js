@@ -23,37 +23,37 @@ const DATA = [
   {
     id: '1',
     name: 'First Item',
-    image: require('../../../asset/photo22.jpg'),
+    image: require('../../../assets/photo22.jpg'),
   },
   {
     id: '2',
     name: 'Second Item',
-    image: require('../../../asset/photo23.jpg'),
+    image: require('../../../assets/photo23.jpg'),
   },
   {
     id: '3',
     name: 'Third Item',
-    image: require('../../../asset/photo10.jpg'),
+    image: require('../../../assets/photo10.jpg'),
   },
   {
     id: '4',
     name: 'Third Item',
-    image: require('../../../asset/photo2.jpg'),
+    image: require('../../../assets/photo2.jpg'),
   },
   {
     id: '5',
     name: 'Third Item',
-    image: require('../../../asset/photo3.jpg'),
+    image: require('../../../assets/photo3.jpg'),
   },
   {
     id: '6',
     name: 'Third Item',
-    image: require('../../../asset/photo25.jpg'),
+    image: require('../../../assets/photo25.jpg'),
   },
   {
     id: '7',
     name: 'Third Item',
-    image: require('../../../asset/photo26.jpg'),
+    image: require('../../../assets/photo26.jpg'),
   },
 ];
 
@@ -376,7 +376,7 @@ export class TvShow extends Component {
                 <Text style={styles.textFont}>Images</Text>
                 <View style={{justifyContent: 'center', alignItems: 'center'}}>
                   <Image
-                    source={require('../../../asset/photo23.jpg')}
+                    source={require('../../../assets/photo23.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
@@ -385,7 +385,7 @@ export class TvShow extends Component {
                     }}
                   />
                   <Image
-                    source={require('../../../asset/photo23.jpg')}
+                    source={require('../../../assets/photo23.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
@@ -394,7 +394,7 @@ export class TvShow extends Component {
                     }}
                   />
                   <Image
-                    source={require('../../../asset/photo23.jpg')}
+                    source={require('../../../assets/photo23.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
@@ -403,7 +403,7 @@ export class TvShow extends Component {
                     }}
                   />
                   <Image
-                    source={require('../../../asset/photo23.jpg')}
+                    source={require('../../../assets/photo23.jpg')}
                     style={{
                       width: window - 20,
                       height: 300,
