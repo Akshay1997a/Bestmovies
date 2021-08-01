@@ -30,6 +30,10 @@ import Actors from 'src/screens/Actors';
 import Directors from 'src/screens/Directors';
 import Search from 'src/screens/Search';
 import About from 'src/screens/About';
+import Header from '../components/Header';
+import ArtistPage from '../screens/ArtistPage';
+import Profile from '../screens/Profile';
+import YoutubePlayer from '../components/YoutubePlayer';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -73,7 +77,26 @@ const StackNav = () => {
         }}
         component={Search}
       />
-      <Stack.Screen name="About" component={About} />
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Artist"
+        component={ArtistPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="YoutubePlayer"
+        component={YoutubePlayer}
+        options={{headerShown: false, animationTypeForReplace: 'push'}}
+      />
     </Stack.Navigator>
   );
 };

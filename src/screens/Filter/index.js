@@ -12,11 +12,14 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {connect} from 'react-redux';
+import {changeView} from '../../redux/FilterModule/FilterActions';
+import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 
-export default class Filter extends React.Component {
+class Filter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,25 +32,56 @@ export default class Filter extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.details();
-    console.log(this.props);
-    const {navigation} = this.props;
+  updateHeader() {
+    const {navigation, filterConfig} = this.props;
+    const {viewStyle} = filterConfig;
     navigation.setOptions({
       headerRight: () => (
         <View style={styles.headerRightContainer}>
           <View style={styles.headerRightItems}>
             <Text>View</Text>
           </View>
-          <View>
-            <View style={styles.box} />
-          </View>
-          <View>
-            <Ionicons name="md-grid-sharp" color="yellow" size={25} />
-          </View>
+          <TouchableOpacity
+            onPress={() => this.props.changeView(VIEW_STYLE.FULL_VIEW)}>
+            <View>
+              <View
+                style={[
+                  styles.box,
+                  {
+                    backgroundColor:
+                      viewStyle === VIEW_STYLE.FULL_VIEW ? 'yellow' : '#EFEFEF',
+                  },
+                ]}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.changeView(VIEW_STYLE.GRID_VIEW);
+            }}>
+            <View>
+              <Ionicons
+                name="md-grid-sharp"
+                color={
+                  viewStyle === VIEW_STYLE.GRID_VIEW ? 'yellow' : '#EFEFEF'
+                }
+                size={25}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
       ),
     });
+  }
+
+  componentDidMount() {
+    this.details();
+    this.updateHeader();
+  }
+
+  componentDidUpdate() {
+    this.updateHeader();
+    console.log('updated');
   }
 
   details() {
@@ -292,6 +326,20 @@ export default class Filter extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    filterConfig: state.filterConfig,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeView: (view) => dispatch(changeView(view)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 
 const styles = StyleSheet.create({
   textTitle: {

@@ -1,9 +1,15 @@
 import React from 'react';
 import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import Header from '../../components/Header';
 
 export default function About() {
+  const screens = [
+    {name: "About", component: About}
+  ]
+
   return (
     <ScrollView style={styles.container}>
+      {/* <Header screens={screens} /> */}
       <Image
         source={require('../../../assets/about_tile.png')}
         style={styles.img}

@@ -8,19 +8,21 @@ import {
   TouchableHighlight,
   Modal,
   Image,
-  Dimensions
-  } from 'react-native';
-import Router from './setup/Router'
-import { Provider } from 'react-redux';
+  Dimensions,
+} from 'react-native';
+import Router from './setup/Router';
+import {Provider} from 'react-redux';
 // Imports: Redux Store
-import store  from 'src/redux/store';
+import {store, persistor} from './redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 // React Native App
 export default function App() {
   return (
     <Provider store={store}>
-      <Router />
+      <PersistGate persistor={persistor}>
+        <Router />
+      </PersistGate>
     </Provider>
   );
 }
-

@@ -89,6 +89,13 @@ export class Menu extends Component {
             padding: 10,
           }}>
           <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Menu')}>
+            <Image
+              source={require('../../../assets/Icons/BMicon.png')}
+              style={{width: 150, height: 60, resizeMode: 'center'}}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Filter')}>
             <Image
               source={require('../../../assets/Icons/filter_ic.png')}
@@ -99,16 +106,11 @@ export class Menu extends Component {
             onPress={() => this.props.navigation.navigate('Search')}>
             <Icon name="ios-search" size={25} color="#232323" />
           </TouchableOpacity>
-          <View />
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Menu')}>
-            <Image
-              source={require('../../../assets/Icons/BMicon.png')}
-              style={{width: 150, height: 60, resizeMode: 'center'}}
-            />
-          </TouchableOpacity>
-          <View />
-          <TouchableOpacity>
+            onPress={() => {
+              const {navigate} = this.props.navigation;
+              navigate('Profile');
+            }}>
             <User name="user" size={25} color="#232323" />
           </TouchableOpacity>
           <TouchableOpacity

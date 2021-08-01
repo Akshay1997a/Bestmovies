@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  TouchableNativeFeedback,
   StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -68,72 +69,80 @@ export class Directors extends Component {
     };
   }
   renderItemComponent = (data) => (
-    <View
-      style={{
-        borderRadius: 12,
-        backgroundColor: '#fff',
-        width: window / 2 - 20,
-        elevation: 5,
+    <TouchableNativeFeedback
+      onPress={() => {
+        const {navigate} = this.props.navigation;
+        navigate('Artist');
       }}>
-      <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
-        <Icon
-          name="bookmark"
-          size={40}
-          color="green"
-          style={{position: 'absolute', top: -10, right: 10}}
-        />
-      </TouchableOpacity>
-      <Image
-        source={data.image}
+      <View
         style={{
-          width: '100%',
-          resizeMode: 'cover',
-          borderTopRightRadius: 12,
-          borderTopLeftRadius: 12,
-          marginBottom: 10,
-        }}
-      />
-      <View style={{padding: 10}}>
-        <Text style={styles.textFont}>Martin Scorcecs</Text>
-        <View style={{flexDirection: 'row', alignItems: "center"}}>
-          <View>
-            <Text style={styles.textSecondary}>Director</Text>
-            <Text numberOfLines={1} style={styles.textSecondary}>
-              United States
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={(styles.textSecondary, {color: '#000'})}>
-              Born 1927
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'space-evenly',
-              alignItems: 'center',
-            }}>
-            <Text style={styles.ratingTitleStyle}>Top</Text>
+          borderRadius: 12,
+          backgroundColor: '#fff',
+          width: window / 2 - 20,
+          elevation: 5,
+        }}>
+        <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
+          <Icon
+            name="bookmark"
+            size={40}
+            color="green"
+            style={{position: 'absolute', top: -10, right: 10}}
+          />
+        </TouchableOpacity>
+        <Image
+          source={data.image}
+          style={{
+            width: '100%',
+            resizeMode: 'cover',
+            borderTopRightRadius: 12,
+            borderTopLeftRadius: 12,
+            marginBottom: 10,
+          }}
+        />
+        <View style={{padding: 10}}>
+          <Text style={styles.textFont}>Martin Scorcecs</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View>
+              <Text style={styles.textSecondary}>Director</Text>
+              <Text numberOfLines={1} style={styles.textSecondary}>
+                United States
+              </Text>
+              <Text
+                numberOfLines={1}
+                style={(styles.textSecondary, {color: '#000'})}>
+                Born 1927
+              </Text>
+            </View>
             <View
               style={{
-                backgroundColor: 'black',
-                height: 30,
-                width: 50,
-                borderRadius: 1000,
-                justifyContent: 'center',
+                flex: 1,
+                justifyContent: 'space-evenly',
                 alignItems: 'center',
               }}>
-              <Text style={(styles.ratingTitleStyle, {color: '#fff'})}>27</Text>
+              <Text style={styles.ratingTitleStyle}>Top</Text>
+              <View
+                style={{
+                  backgroundColor: 'black',
+                  height: 30,
+                  width: 50,
+                  borderRadius: 1000,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={(styles.ratingTitleStyle, {color: '#fff'})}>
+                  27
+                </Text>
+              </View>
             </View>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableNativeFeedback>
   );
 
   render() {
     return (
-      <SafeAreaView style={{padding: 10, backgroundColor: "#fff"}}>
+      <SafeAreaView style={{padding: 10, backgroundColor: '#fff'}}>
         <View
           style={{
             flexDirection: 'row',

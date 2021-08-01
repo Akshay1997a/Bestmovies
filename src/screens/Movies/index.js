@@ -10,18 +10,15 @@ import {
   FlatList,
   Modal,
   TouchableOpacity,
-  TouchableWithoutFeedback,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/Feather';
 import Iconm from 'react-native-vector-icons/FontAwesome5';
-import Menu from '../Menu';
+import {connect} from 'react-redux';
 import CardView from './CardView';
-import IntroTipRight from '../../../assets/Icons/intro_tip_right.svg';
-import IntroTipLeft from '../../../assets/Icons/intro_tip_left.svg';
-import {BlurView} from '@react-native-community/blur';
-import DashedLine from '../../components/DashedLine';
+import Orientation from 'react-native-orientation';
+import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -66,14 +63,20 @@ export class Movies extends Component {
       modalVisible: false,
       likeModal: false,
       shearModal: false,
-      isIntroTipVisible: true,
+      isIntroTipVisible: false,
+      hasTipShowned: false,
     };
+    Orientation.lockToPortrait();
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({isIntroTipVisible: false});
-    }, 1000);
+  showTip() {
+    const {hasTipShowned} = this.state;
+    if (!hasTipShowned) {
+      this.setState({isIntroTipVisible: true});
+      setTimeout(() => {
+        this.setState({isIntroTipVisible: false, hasTipShowned: true});
+      }, 2000);
+    }
   }
 
   rendeDirector = (data) => (
@@ -120,116 +123,159 @@ export class Movies extends Component {
     </View>;
   };
 
-  moviewPoster = (data) => (
-    <View style={{flex: 1, paddingRight: 15, justifyContent: 'center'}}>
-      <View style={{justifyContent: 'center', marginVertical: 5}}>
-        <TouchableOpacity
-          onPressIn={() => alert('heekk')}
-          style={{elevation: 1}}>
-          <Icon
-            name="bookmark"
-            size={40}
-            color="#11a611"
-            style={{position: 'absolute', top: -10, right: 10}}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={{elevation: 1}}>
-          <Icons
-            name="play-circle"
-            size={40}
-            color="white"
-            style={{position: 'absolute', top: 200, left: window / 2 - 30}}
-          />
-        </TouchableOpacity>
-        <Image
-          style={{height: 450, width: window - 20, borderRadius: 15}}
-          source={data.image}
-        />
-        <View
-          style={{
-            position: 'absolute',
-            top: screen / 2.5,
-            flexWrap: 'wrap',
-            left: window / 6,
-          }}>
-          <Text
-            allowFontScaling={true}
-            numberOfLines={2}
-            style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
-            {data.name}
-          </Text>
-        </View>
-      </View>
-      <View style={{flexDirection: 'row', padding: 5}}>
-        <View style={{flex: 5}}>
-          <Text style={styles.textFont}>Parasite</Text>
-          <Text style={[styles.textSecondary, styles.italic]}>
-            Parasite(Original title)
-          </Text>
-          <Text style={styles.textSecondary}>Dram ,Romantic</Text>
-          <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                height: '100%',
-                borderWidth: 1,
-                padding: 2,
-                marginRight: 2,
-              }}>
-              <Text>16+</Text>
-            </View>
-            <Text style={styles.textSecondary}>France - </Text>
-            <Text style={styles.textSecondary}>2018 - </Text>
-            <Text style={styles.textSecondary}>2h 34m</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.textSecondary}>2.90$ - 88% match -29</Text>
-            <TouchableOpacity>
-              <Icon name="heart-outlined" size={20} color="#232323" />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'space-evenly',
-            alignItems: 'flex-end',
-          }}>
+  moviewPoster = (data) => {
+    const {viewStyle} = this.props;
+    const playVideo = () => {
+      const {navigate} = this.props.navigation;
+      navigate('YoutubePlayer', {url: 'asdasd'});
+    };
+    return (
+      <View
+        style={{
+          flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
+          justifyContent: 'center',
+          borderRadius: 15,
+          ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
+            borderWidth: 1,
+            borderColor: '#fff',
+            backgroundColor: '#fff',
+            elevation: 5,
+          }),
+        }}>
+        <View style={{justifyContent: 'center'}}>
           <TouchableOpacity
-            onPress={() => {
-              this.setState({shearModal: true});
-            }}>
+            onPress={() => alert('heekk')}
+            style={{elevation: 1}}>
             <Icon
-              name="reply"
-              size={24}
-              color="#232323"
-              style={{transform: [{rotateY: '180deg'}]}}
+              name="bookmark"
+              size={40}
+              color="#11a611"
+              style={{position: 'absolute', top: -10, right: 10}}
             />
           </TouchableOpacity>
-
+          {!this.state.isIntroTipVisible && viewStyle === VIEW_STYLE.FULL_VIEW && (
+            <TouchableOpacity
+              style={{
+                elevation: 1,
+                position: 'absolute',
+                top: 200,
+                left: window / 2 - 30,
+                zIndex: 1000,
+              }}
+              onPress={playVideo}>
+              <Icons name="play-circle" size={50} color="white" />
+            </TouchableOpacity>
+          )}
+          <Image
+            style={
+              viewStyle === VIEW_STYLE.FULL_VIEW
+                ? {height: 450, width: window - 20, borderRadius: 15}
+                : {
+                    height: 250,
+                    width: window / 2 - 15,
+                    borderRadius: 15,
+                  }
+            }
+            source={data.image}
+            onLoadEnd={() => {
+              this.showTip();
+            }}
+          />
           <View
             style={{
-              backgroundColor: 'black',
-              height: 30,
-              width: 50,
-              borderRadius: 1000,
-              justifyContent: 'center',
-              alignItems: 'center',
+              position: 'absolute',
+              top: screen / 2.5,
+              flexWrap: 'wrap',
+              left: window / 6,
             }}>
-            <Text style={{fontSize: 18, fontWeight: '700', color: 'white'}}>
-              9.1
+            <Text
+              allowFontScaling={true}
+              numberOfLines={2}
+              style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
+              {data.name}
             </Text>
           </View>
-          <Text style={{fontWeight: '700', fontSize: 20, marginLeft: 17}}>
-            Best
-          </Text>
+        </View>
+        <View style={{flexDirection: 'row', padding: 5}}>
+          <View style={{flex: 5}}>
+            <Text style={styles.textFont}>Parasite</Text>
+            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+              <Text style={[styles.textSecondary, styles.italic]}>
+                Parasite(Original title)
+              </Text>
+            )}
+            <Text style={styles.textSecondary}>Dram ,Romantic</Text>
+            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+              <View style={{flexDirection: 'row'}}>
+                <View
+                  style={{
+                    height: '100%',
+                    borderWidth: 1,
+                    padding: 2,
+                    marginRight: 2,
+                  }}>
+                  <Text>16+</Text>
+                </View>
+                <Text style={styles.textSecondary}>France - </Text>
+                <Text style={styles.textSecondary}>2018 - </Text>
+                <Text style={styles.textSecondary}>2h 34m</Text>
+              </View>
+            )}
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
+              <TouchableOpacity>
+                <Icon name="heart-outlined" size={20} color="#232323" />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'space-evenly',
+              alignItems: 'flex-end',
+            }}>
+            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({shearModal: true});
+                }}>
+                <Icon
+                  name="reply"
+                  size={24}
+                  color="#232323"
+                  style={{transform: [{rotateY: '180deg'}]}}
+                />
+              </TouchableOpacity>
+            )}
+
+            <View
+              style={{
+                backgroundColor: 'black',
+                height: viewStyle === VIEW_STYLE.FULL_VIEW ? 30 : 20,
+                width: viewStyle === VIEW_STYLE.FULL_VIEW ? 50 : 40,
+                borderRadius: 1000,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: 18, fontWeight: '700', color: 'white'}}>
+                9.1
+              </Text>
+            </View>
+            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+              <Text style={{fontWeight: '700', fontSize: 20, marginLeft: 17}}>
+                Best
+              </Text>
+            )}
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  };
   render() {
     const {isIntroTipVisible} = this.state;
+    const {viewStyle} = this.props;
     return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{flex: 1, backgroundColor: '#eee'}}>
         <Modal visible={isIntroTipVisible} transparent animationType="fade">
           <View
             style={{
@@ -239,39 +285,12 @@ export class Movies extends Component {
               alignItems: 'center',
               zIndex: 100,
             }}>
-            <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
-            <BlurView
-              style={styles.blurView}
-              blurType="light"
-              blurAmount={32}
-              blurRadius={2}
+            <View style={styles.shadowView} />
+            <Image
+              source={require('../../../assets/Icons/hand_ic.png')}
+              style={{width: 102, height: 102}}
             />
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View style={styles.icContainer}>
-                <IntroTipLeft width={40} height={40} fill="black" />
-              </View>
-              <Icon
-                name="arrow-left"
-                color="#fff"
-                size={25}
-                style={{margin: 5}}
-              />
-              <DashedLine width={150} height={5} />
-              <Icon
-                name="arrow-right"
-                color="#fff"
-                size={25}
-                style={{margin: 5}}
-              />
-              <View style={styles.icContainer}>
-                <IntroTipRight width={40} height={40} fill="black" />
-              </View>
-            </View>
+            <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
         </Modal>
         <View style={{flex: 1}}>
@@ -427,11 +446,19 @@ export class Movies extends Component {
               </View>
               <View style={{flex: 1}}>
                 <FlatList
+                  key={viewStyle}
                   showsHorizontalScrollIndicator={false}
-                  horizontal={true}
+                  horizontal={viewStyle === VIEW_STYLE.FULL_VIEW}
                   data={DATA}
                   renderItem={({item}) => this.moviewPoster(item)}
-                  keyExtractor={(item) => item.id}
+                  keyExtractor={(item) => item.id + viewStyle}
+                  {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
+                  {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
+                    columnWrapperStyle: {
+                      marginTop: 10,
+                      justifyContent: 'space-between',
+                    },
+                  })}
                 />
               </View>
               <View style={{height: window / 2, marginTop: 25}}>
@@ -587,7 +614,14 @@ export class Movies extends Component {
   }
 }
 
-export default Movies;
+const mapStateToProps = (state) => {
+  return {
+    viewStyle: state.filterConfig.viewStyle,
+  };
+};
+
+export default connect(mapStateToProps, null)(Movies);
+
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
@@ -677,9 +711,16 @@ const styles = StyleSheet.create({
   swipTitle: {
     color: '#FFFFFF',
     fontFamily: "'Helvetica Neue',Arial",
-    fontSize: 18.67,
+    fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',
     zIndex: 100,
+  },
+  shadowView: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    opacity: 0.2,
+    backgroundColor: '#000',
   },
 });
