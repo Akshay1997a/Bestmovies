@@ -34,6 +34,7 @@ import Header from '../components/Header';
 import ArtistPage from '../screens/ArtistPage';
 import Profile from '../screens/Profile';
 import YoutubePlayer from '../components/YoutubePlayer';
+import MovieDetails from '../screens/MovieDetails';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -96,6 +97,11 @@ const StackNav = () => {
         name="YoutubePlayer"
         component={YoutubePlayer}
         options={{headerShown: false, animationTypeForReplace: 'push'}}
+      />
+      <Stack.Screen
+        name="MovieDetails"
+        component={MovieDetails}
+        options={{headerShown: true, animationTypeForReplace: 'push'}}
       />
     </Stack.Navigator>
   );

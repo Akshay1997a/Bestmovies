@@ -125,10 +125,15 @@ export class Movies extends Component {
 
   moviewPoster = (data) => {
     const {viewStyle} = this.props;
+    const {navigate} = this.props.navigation;
     const playVideo = () => {
-      const {navigate} = this.props.navigation;
       navigate('YoutubePlayer', {url: 'asdasd'});
     };
+
+    const goToMovieDetails = () => {
+      navigate('MovieDetails');
+    };
+
     return (
       <View
         style={{
@@ -142,132 +147,278 @@ export class Movies extends Component {
             elevation: 5,
           }),
         }}>
-        <View style={{justifyContent: 'center'}}>
-          <TouchableOpacity
-            onPress={() => alert('heekk')}
-            style={{elevation: 1}}>
-            <Icon
-              name="bookmark"
-              size={40}
-              color="#11a611"
-              style={{position: 'absolute', top: -10, right: 10}}
-            />
-          </TouchableOpacity>
-          {!this.state.isIntroTipVisible && viewStyle === VIEW_STYLE.FULL_VIEW && (
-            <TouchableOpacity
-              style={{
-                elevation: 1,
-                position: 'absolute',
-                top: 200,
-                left: window / 2 - 30,
-                zIndex: 1000,
-              }}
-              onPress={playVideo}>
-              <Icons name="play-circle" size={50} color="white" />
-            </TouchableOpacity>
-          )}
-          <Image
-            style={
-              viewStyle === VIEW_STYLE.FULL_VIEW
-                ? {height: 450, width: window - 20, borderRadius: 15}
-                : {
-                    height: 250,
-                    width: window / 2 - 15,
-                    borderRadius: 15,
-                  }
-            }
-            source={data.image}
-            onLoadEnd={() => {
-              this.showTip();
-            }}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              top: screen / 2.5,
-              flexWrap: 'wrap',
-              left: window / 6,
-            }}>
-            <Text
-              allowFontScaling={true}
-              numberOfLines={2}
-              style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
-              {data.name}
-            </Text>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row', padding: 5}}>
-          <View style={{flex: 5}}>
-            <Text style={styles.textFont}>Parasite</Text>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <Text style={[styles.textSecondary, styles.italic]}>
-                Parasite(Original title)
-              </Text>
-            )}
-            <Text style={styles.textSecondary}>Dram ,Romantic</Text>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <View style={{flexDirection: 'row'}}>
-                <View
-                  style={{
-                    height: '100%',
-                    borderWidth: 1,
-                    padding: 2,
-                    marginRight: 2,
-                  }}>
-                  <Text>16+</Text>
-                </View>
-                <Text style={styles.textSecondary}>France - </Text>
-                <Text style={styles.textSecondary}>2018 - </Text>
-                <Text style={styles.textSecondary}>2h 34m</Text>
-              </View>
-            )}
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
-              <TouchableOpacity>
-                <Icon name="heart-outlined" size={20} color="#232323" />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'space-evenly',
-              alignItems: 'flex-end',
-            }}>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+        <TouchableOpacity
+          disabled={viewStyle === VIEW_STYLE.FULL_VIEW}
+          onPress={goToMovieDetails}>
+          <View>
+            <View style={{justifyContent: 'center'}}>
               <TouchableOpacity
-                onPress={() => {
-                  this.setState({shearModal: true});
-                }}>
+                onPress={() => alert('heekk')}
+                style={{elevation: 1}}>
                 <Icon
-                  name="reply"
-                  size={24}
-                  color="#232323"
-                  style={{transform: [{rotateY: '180deg'}]}}
+                  name="bookmark"
+                  size={40}
+                  color="#11a611"
+                  style={{position: 'absolute', top: -10, right: 10}}
                 />
               </TouchableOpacity>
-            )}
+              {!this.state.isIntroTipVisible &&
+                viewStyle === VIEW_STYLE.FULL_VIEW && (
+                  <TouchableOpacity
+                    style={{
+                      elevation: 1,
+                      position: 'absolute',
+                      top: 200,
+                      left: window / 2 - 30,
+                      zIndex: 1000,
+                    }}
+                    onPress={playVideo}>
+                    <Icons name="play-circle" size={50} color="white" />
+                  </TouchableOpacity>
+                )}
+              <Image
+                style={
+                  viewStyle === VIEW_STYLE.FULL_VIEW
+                    ? {height: 450, width: window - 20, borderRadius: 15}
+                    : {
+                        height: 250,
+                        width: window / 2 - 15,
+                        borderRadius: 15,
+                      }
+                }
+                source={data.image}
+                onLoadEnd={() => {
+                  this.showTip();
+                }}
+              />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: screen / 2.5,
+                  flexWrap: 'wrap',
+                  left: window / 6,
+                }}>
+                <Text
+                  allowFontScaling={true}
+                  numberOfLines={2}
+                  style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
+                  {data.name}
+                </Text>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row', padding: 5}}>
+              <View style={{flex: 5}}>
+                <Text style={styles.textFont}>Parasite</Text>
+                {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                  <Text style={[styles.textSecondary, styles.italic]}>
+                    Parasite(Original title)
+                  </Text>
+                )}
+                <Text style={styles.textSecondary}>Dram ,Romantic</Text>
+                {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                  <View style={{flexDirection: 'row'}}>
+                    <View
+                      style={{
+                        height: '100%',
+                        borderWidth: 1,
+                        padding: 2,
+                        marginRight: 2,
+                      }}>
+                      <Text>16+</Text>
+                    </View>
+                    <Text style={styles.textSecondary}>France - </Text>
+                    <Text style={styles.textSecondary}>2018 - </Text>
+                    <Text style={styles.textSecondary}>2h 34m</Text>
+                  </View>
+                )}
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
+                  <TouchableOpacity>
+                    <Icon name="heart-outlined" size={20} color="#232323" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'space-evenly',
+                  alignItems: 'flex-end',
+                }}>
+                {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.setState({shearModal: true});
+                    }}>
+                    <Icon
+                      name="reply"
+                      size={24}
+                      color="#232323"
+                      style={{transform: [{rotateY: '180deg'}]}}
+                    />
+                  </TouchableOpacity>
+                )}
 
-            <View
-              style={{
-                backgroundColor: 'black',
-                height: viewStyle === VIEW_STYLE.FULL_VIEW ? 30 : 20,
-                width: viewStyle === VIEW_STYLE.FULL_VIEW ? 50 : 40,
-                borderRadius: 1000,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: 18, fontWeight: '700', color: 'white'}}>
-                9.1
+                <View
+                  style={{
+                    backgroundColor: 'black',
+                    height: viewStyle === VIEW_STYLE.FULL_VIEW ? 30 : 20,
+                    width: viewStyle === VIEW_STYLE.FULL_VIEW ? 50 : 40,
+                    borderRadius: 1000,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{fontSize: 18, fontWeight: '700', color: 'white'}}>
+                    9.1
+                  </Text>
+                </View>
+                {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                  <Text
+                    style={{fontWeight: '700', fontSize: 20, marginLeft: 17}}>
+                    Best
+                  </Text>
+                )}
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+        {viewStyle === VIEW_STYLE.FULL_VIEW && (
+          <View style={{flex: 1, width: window - 20}}>
+            <View style={{height: window / 2, marginTop: 25}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.textFont}>Director </Text>
+                <Text style={styles.textFont}>Cast</Text>
+              </View>
+              <ScrollView
+                horizontal={true}
+                nestedScrollEnabled={true}
+                contentContainerStyle={{flex: 1}}>
+                {DATA.map((item) => this.rendeDirector(item))}
+              </ScrollView>
+            </View>
+            <View>
+              <Text style={styles.textFont}>Lorem Ipsum</Text>
+              <Text>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book
               </Text>
             </View>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <Text style={{fontWeight: '700', fontSize: 20, marginLeft: 17}}>
-                Best
+            {/* For the Rating */}
+            <View style={{marginTop: 25}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <Text style={styles.textFont}>Rating</Text>
+                <Text style={styles.textSecondary}>Overall: 9.1</Text>
+              </View>
+              <View style={{borderWidth: 1, flexDirection: 'row'}}>
+                <View style={{flex: 1, padding: 6, borderRightWidth: 1}}>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Awards</Text>
+                      <Text style={styles.textSecondary}>9.3</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Critics</Text>
+                      <Text style={styles.textSecondary}>9.5</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={{flex: 1, padding: 6}}>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Audience</Text>
+                      <Text style={styles.textSecondary}>9.0</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Box-Office</Text>
+                      <Text style={styles.textSecondary}>8.1</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <Text style={styles.textSecondary}>
+                Won 2 oscars including best director
               </Text>
-            )}
+              <Text style={styles.textSecondary}>
+                Won 2 oscars including best director
+              </Text>
+            </View>
+            {/* For the watch now flatlist */}
+            <View style={{height: window / 2, marginTop: 25}}>
+              <Text style={styles.textFont}>Watch now</Text>
+              <ScrollView horizontal={true} nestedScrollEnabled={true}>
+                {DATA.map((item) => this.rendeDirector(item))}
+              </ScrollView>
+            </View>
+            <View style={{marginTop: 25}}>
+              <Text style={styles.textFont}>Images</Text>
+              <Text />
+              <View style={{alignItems: 'center'}}>
+                <Image
+                  source={require('../../../assets/poster1.jpg')}
+                  style={{
+                    width: window - 20,
+                    height: 300,
+                    resizeMode: 'cover',
+                    marginBottom: 10,
+                  }}
+                />
+                <Image
+                  source={require('../../../assets/poster1.jpg')}
+                  style={{
+                    width: window - 20,
+                    height: 300,
+                    resizeMode: 'cover',
+                    marginBottom: 10,
+                  }}
+                />
+                <Image
+                  source={require('../../../assets/poster1.jpg')}
+                  style={{
+                    width: window - 20,
+                    height: 300,
+                    resizeMode: 'cover',
+                    marginBottom: 10,
+                  }}
+                />
+                <Image
+                  source={require('../../../assets/poster1.jpg')}
+                  style={{
+                    width: window - 20,
+                    height: 300,
+                    resizeMode: 'cover',
+                    marginBottom: 10,
+                  }}
+                />
+              </View>
+            </View>
           </View>
-        </View>
+        )}
       </View>
     );
   };
@@ -276,11 +427,13 @@ export class Movies extends Component {
     const {viewStyle} = this.props;
     return (
       <View style={{flex: 1, backgroundColor: '#eee'}}>
-        <Modal visible={isIntroTipVisible} transparent animationType="fade">
+        <Modal
+          visible={viewStyle === VIEW_STYLE.FULL_VIEW && isIntroTipVisible}
+          transparent
+          animationType="fade">
           <View
             style={{
               flex: 1,
-              // flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
               zIndex: 100,
@@ -452,6 +605,8 @@ export class Movies extends Component {
                   data={DATA}
                   renderItem={({item}) => this.moviewPoster(item)}
                   keyExtractor={(item) => item.id + viewStyle}
+                  ItemSeparatorComponent={() => <View style={{width: 10}} />}
+                  nestedScrollEnabled={true}
                   {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
                   {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
                     columnWrapperStyle: {
@@ -460,145 +615,6 @@ export class Movies extends Component {
                     },
                   })}
                 />
-              </View>
-              <View style={{height: window / 2, marginTop: 25}}>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.textFont}>Director </Text>
-                  <Text style={styles.textFont}>Cast</Text>
-                </View>
-                <FlatList
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}
-                  data={DATA}
-                  renderItem={({item}) => this.rendeDirector(item)}
-                  keyExtractor={(item) => item.id}
-                />
-              </View>
-              <View>
-                <Text style={styles.textFont}>Lorem Ipsum</Text>
-                <Text>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book
-                </Text>
-              </View>
-              {/* For the Rating */}
-              <View style={{marginTop: 25}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={styles.textFont}>Rating</Text>
-                  <Text style={styles.textSecondary}>Overall: 9.1</Text>
-                </View>
-                <View style={{borderWidth: 1, flexDirection: 'row'}}>
-                  <View style={{flex: 1, padding: 6, borderRightWidth: 1}}>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text style={styles.textSecondary}>Awards</Text>
-                        <Text style={styles.textSecondary}>9.3</Text>
-                      </View>
-                    </View>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text style={styles.textSecondary}>Critics</Text>
-                        <Text style={styles.textSecondary}>9.5</Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={{flex: 1, padding: 6}}>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text style={styles.textSecondary}>Audience</Text>
-                        <Text style={styles.textSecondary}>9.0</Text>
-                      </View>
-                    </View>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text style={styles.textSecondary}>Box-Office</Text>
-                        <Text style={styles.textSecondary}>8.1</Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-                <Text style={styles.textSecondary}>
-                  Won 2 oscars including best director
-                </Text>
-                <Text style={styles.textSecondary}>
-                  Won 2 oscars including best director
-                </Text>
-              </View>
-              {/* For the watch now flatlist */}
-              <View style={{height: window / 2, marginTop: 25}}>
-                <Text style={styles.textFont}>Watch now</Text>
-                <FlatList
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}
-                  data={DATA}
-                  renderItem={({item}) => this.rendeDirector(item)}
-                  keyExtractor={(item) => item.id}
-                />
-              </View>
-              <View style={{marginTop: 25}}>
-                <Text style={styles.textFont}>Images</Text>
-                <Text />
-                <View style={{alignItems: 'center'}}>
-                  <Image
-                    source={require('../../../assets/poster1.jpg')}
-                    style={{
-                      width: window - 20,
-                      height: 300,
-                      resizeMode: 'cover',
-                      marginBottom: 10,
-                    }}
-                  />
-                  <Image
-                    source={require('../../../assets/poster1.jpg')}
-                    style={{
-                      width: window - 20,
-                      height: 300,
-                      resizeMode: 'cover',
-                      marginBottom: 10,
-                    }}
-                  />
-                  <Image
-                    source={require('../../../assets/poster1.jpg')}
-                    style={{
-                      width: window - 20,
-                      height: 300,
-                      resizeMode: 'cover',
-                      marginBottom: 10,
-                    }}
-                  />
-                  <Image
-                    source={require('../../../assets/poster1.jpg')}
-                    style={{
-                      width: window - 20,
-                      height: 300,
-                      resizeMode: 'cover',
-                      marginBottom: 10,
-                    }}
-                  />
-                </View>
               </View>
             </View>
           </SafeAreaView>

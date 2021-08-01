@@ -49,16 +49,19 @@ export class Menu extends Component {
         <Tab.Screen
           name="Movies"
           component={Movies}
+          initialParams={{type: 'MOVIES'}}
           options={{title: 'Movies', tabBarLabel: 'Movies'}}
         />
         <Tab.Screen
           name="TVShow"
-          component={TVShow}
+          component={Movies}
+          initialParams={{type: 'TVSHOW'}}
           options={{title: 'TV Show', tabBarLabel: 'TV Show'}}
         />
         <Tab.Screen
           name="Shorts"
-          component={Shorts}
+          component={Movies}
+          initialParams={{type: 'SHORTS'}}
           options={{title: 'Shorts', tabBarLabel: 'Shorts'}}
         />
         <Tab.Screen
