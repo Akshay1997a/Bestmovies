@@ -10,6 +10,7 @@ import {
   FlatList,
   Modal,
   TouchableOpacity,
+  Share,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -130,6 +131,19 @@ export class MovieDetails extends Component {
       const {navigate} = this.props.navigation;
       navigate('YoutubePlayer', {url: 'asdasd'});
     };
+
+    const onShare = () => {
+      Share.share({
+        title: 'Parasite',
+        url: 'https://www.youtube.com/watch?v=NPIS6i4dhnc',
+        message: 'Parasite',
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .then((err) => console.log(err));
+    };
+
     return (
       <View
         style={{
@@ -236,10 +250,7 @@ export class MovieDetails extends Component {
               alignItems: 'flex-end',
             }}>
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <TouchableOpacity
-                onPress={() => {
-                  this.setState({shearModal: true});
-                }}>
+              <TouchableOpacity onPress={onShare}>
                 <Icon
                   name="reply"
                   size={24}

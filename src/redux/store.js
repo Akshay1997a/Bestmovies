@@ -1,16 +1,16 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import persistReducer from 'redux-persist/es/persistReducer';
-import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import persistStore from 'redux-persist/es/persistStore';
 import FilterReducer from './FilterModule/FilterReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const middleware = [thunk];
 
 const config = {
   key: 'best_movie',
-  storage: storage,
+  storage: AsyncStorage,
 };
 
 const rootReducer = combineReducers({
