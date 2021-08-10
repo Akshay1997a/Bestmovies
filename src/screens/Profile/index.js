@@ -14,7 +14,7 @@ export default function Profile(props) {
   const [mode, setMode] = useState('LOGIN');
   return (
     <View style={styles.container}>
-      <Header {...props} />
+      {/* <Header {...props} /> */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={[styles.col, styles.alignCenter]}>
           <Text style={styles.HeadTitle}>Free & quick sign up</Text>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
+  Modal,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -17,6 +18,8 @@ import Directors from '../Directors';
 import Actors from '../Actors';
 import Shorts from '../Shorts';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import Filter from '../Filter';
+import MenusList from '../MenusList';
 
 export class Menu extends Component {
   constructor(props) {
@@ -33,8 +36,8 @@ export class Menu extends Component {
         initialRouteName="Movies"
         swipeEnabled={false}
         tabBarOptions={{
-          renderIndicator: () => <View />,
           activeTintColor: 'red',
+          indicatorStyle: {backgroundColor: 'red'},
           inactiveTintColor: 'black',
           labelStyle: {fontWeight: '700', fontSize: 12},
           tabStyle: {padding: 0},
@@ -79,6 +82,8 @@ export class Menu extends Component {
   }
 
   render() {
+    const {showFilterModal} = this.state;
+    const {showMenusModal} = this.state;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         {/* <StatusBar hidden={true}/> */}
@@ -117,10 +122,7 @@ export class Menu extends Component {
             <User name="user" size={25} color="#232323" />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={(e) => {
-              const {toggleDrawer} = this.props.navigation;
-              toggleDrawer();
-            }}>
+            onPress={() => this.props.navigation.navigate('MenusList')}>
             <Icons name="dots-three-vertical" size={25} color="#232323" />
           </TouchableOpacity>
         </View>
@@ -147,5 +149,10 @@ const styles = StyleSheet.create({
     paddingRight: 10,
 
     // backgroundColor:'#FC5404',
+  },
+  modlesStyles: {
+    flex: 1,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
   },
 });

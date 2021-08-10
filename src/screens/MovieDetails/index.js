@@ -11,6 +11,8 @@ import {
   Modal,
   TouchableOpacity,
   Share,
+  TouchableWithoutFeedback,
+  InteractionManager,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -20,6 +22,11 @@ import {connect} from 'react-redux';
 import CardView from '../Movies/CardView';
 import Orientation from 'react-native-orientation';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
+import {FILTER_TYPES} from '../Movies';
+import Header from '../../components/Header';
+import Movies from '../Movies';
+import Loader from '../../components/Loader';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -66,6 +73,8 @@ export class MovieDetails extends Component {
       shearModal: false,
       isIntroTipVisible: false,
       hasTipShowned: false,
+      selectedFilter: FILTER_TYPES.FILTER_BY_RATING,
+      isLoaded: false,
     };
     Orientation.lockToPortrait();
   }
@@ -78,6 +87,10 @@ export class MovieDetails extends Component {
         this.setState({isIntroTipVisible: false, hasTipShowned: true});
       }, 2000);
     }
+  }
+
+  onFilterSelect(type) {
+    this.setState({selectedFilter: type});
   }
 
   rendeDirector = (data) => (
@@ -123,6 +136,12 @@ export class MovieDetails extends Component {
       </View>
     </View>;
   };
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({isLoaded: true});
+    });
+  }
 
   moviewPoster = (data) => {
     let {viewStyle} = this.props;
@@ -421,10 +440,16 @@ export class MovieDetails extends Component {
     );
   };
   render() {
-    const {isIntroTipVisible} = this.state;
+    const {isIntroTipVisible, selectedFilter, isLoaded} = this.state;
     const {viewStyle} = this.props;
+
+    if (!isLoaded) {
+      return <Loader />;
+    }
+
     return (
-      <View style={{flex: 1, backgroundColor: '#eee'}}>
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+        {/* <Header {...this.props} /> */}
         <Modal visible={isIntroTipVisible} transparent animationType="fade">
           <View
             style={{
@@ -444,35 +469,72 @@ export class MovieDetails extends Component {
         </Modal>
         <View style={{flex: 1}}>
           <Modal visible={this.state.modalVisible} transparent={true}>
+            <TouchableWithoutFeedback
+              onPress={() => this.setState({modalVisible: false})}>
+              <View style={[styles.shadowView]} />
+            </TouchableWithoutFeedback>
             <View
               style={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                transform: [{translateX: -200 / 2}, {translateY: -250 / 2}],
                 backgroundColor: '#f7f7f5',
-                height: 250,
+                // height: 250,
                 width: 200,
-                top: 150,
-                left: window / 4,
                 borderRadius: 10,
-                padding: 10,
                 alignItems: 'center',
+                paddingVertical: 10,
               }}>
               <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
                 Sort By
               </Text>
-              <TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
+                }>
                 <Text style={styles.modalText}>Rating</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <View style={styles.vDivider} />
+              <TouchableOpacity
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)
+                }>
                 <Text style={styles.modalText}>Match</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <View style={styles.vDivider} />
+              <TouchableOpacity
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
+                }>
                 <Text style={styles.modalText}>Friends'Like</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.modalText}>Popular</Text>
-              </TouchableOpacity>
+              <View style={styles.vDivider} />
               <TouchableOpacity
-                onPress={() => this.setState({modalVisible: false})}>
-                <Text>Close Model</Text>
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
+                }>
+                <Text style={styles.modalText}>Popular</Text>
               </TouchableOpacity>
             </View>
           </Modal>
@@ -580,20 +642,45 @@ export class MovieDetails extends Component {
               <View
                 style={{
                   flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 10,
                 }}>
-                <View style={{flex: 3}}>
-                  <Text style={styles.resultText}>Top 1 of 91287 Movies</Text>
+                <View style={{flex: 3, flexDirection: 'row'}}>
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation.goBack()}>
+                    <FontAwesome5Icon
+                      name="angle-left"
+                      size={23}
+                      style={{marginRight: 10}}
+                    />
+                  </TouchableOpacity>
+                  <Text style={styles.resultText}>Rating of best movies</Text>
                 </View>
                 <TouchableOpacity
-                  style={{alignItems: 'flex-end', flexDirection: 'row'}}
+                  style={{
+                    alignItems: 'flex-end',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
                   onPress={() => {
                     this.setState({modalVisible: true});
                   }}>
-                  <Icon name="triangle-down" size={20} color="#232323" />
-                  <Text style={styles.resultText}>Rating</Text>
+                  <Text style={styles.sortbyButText}>Rating</Text>
+                  <Icon name="chevron-down" size={20} color="#232323" />
                 </TouchableOpacity>
               </View>
-              <View style={{flex: 1}}>{this.moviewPoster(DATA[0])}</View>
+              <View style={{flex: 1}}>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
+                  data={DATA}
+                  renderItem={({item}) => this.moviewPoster(item)}
+                  keyExtractor={(item) => item.id}
+                  // ItemSeparatorComponent={() => <View style={{width: 10}} />}
+                  nestedScrollEnabled={true}
+                  pagingEnabled={true}
+                />
+              </View>
             </View>
           </SafeAreaView>
           <View style={{marginBottom: 60, marginTop: 25}}>
@@ -685,9 +772,16 @@ const styles = StyleSheet.create({
   resultText: {
     color: '#333333',
     fontFamily: "'LEMON MILK Pro FTR',Arial",
-    fontSize: 15,
+    fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '500',
+    fontWeight: '700',
+  },
+  sortbyButText: {
+    color: '#333333',
+    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '400',
   },
   blurView: {
     position: 'absolute',
@@ -716,5 +810,21 @@ const styles = StyleSheet.create({
     height: '100%',
     opacity: 0.2,
     backgroundColor: '#000',
+  },
+  vDivider: {
+    width: '100%',
+    height: 1,
+    backgroundColor: 'gray',
+    opacity: 0.2,
+  },
+  filterBut: {
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  filterSelected: {
+    color: '#fff',
+    backgroundColor: '#ff3300',
   },
 });

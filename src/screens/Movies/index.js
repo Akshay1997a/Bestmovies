@@ -10,7 +10,8 @@ import {
   FlatList,
   Modal,
   TouchableOpacity,
-  Share
+  Share,
+  TouchableWithoutFeedback,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -23,6 +24,13 @@ import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
+
+export const FILTER_TYPES = {
+  FILTER_BY_RATING: 'FILTER_BY_RATING',
+  FILTER_BY_MATCH: 'FILTER_BY_MATCH',
+  FILTER_BY_FRIENDS_LIKE: 'FILTER_BY_FRIENDS_LIKE',
+  FILTER_BY_POPULAR: 'FILTER_BY_POPULAR',
+};
 
 const DATA = [
   {
@@ -66,6 +74,7 @@ export class Movies extends Component {
       shearModal: false,
       isIntroTipVisible: false,
       hasTipShowned: false,
+      selectedFilter: FILTER_TYPES.FILTER_BY_RATING,
     };
     Orientation.lockToPortrait();
   }
@@ -78,6 +87,10 @@ export class Movies extends Component {
         this.setState({isIntroTipVisible: false, hasTipShowned: true});
       }, 2000);
     }
+  }
+
+  onFilterSelect(type) {
+    this.setState({selectedFilter: type});
   }
 
   rendeDirector = (data) => (
@@ -433,10 +446,11 @@ export class Movies extends Component {
     );
   };
   render() {
-    const {isIntroTipVisible} = this.state;
+    const {isIntroTipVisible, selectedFilter} = this.state;
     const {viewStyle} = this.props;
+
     return (
-      <View style={{flex: 1, backgroundColor: '#eee'}}>
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
         <Modal
           visible={viewStyle === VIEW_STYLE.FULL_VIEW && isIntroTipVisible}
           transparent
@@ -457,36 +471,79 @@ export class Movies extends Component {
           </View>
         </Modal>
         <View style={{flex: 1}}>
-          <Modal visible={this.state.modalVisible} transparent={true}>
+          <Modal
+            visible={this.state.modalVisible}
+            transparent={true}
+            animationType="slide">
+            <TouchableWithoutFeedback
+              onPress={() => this.setState({modalVisible: false})}>
+              <View style={[styles.shadowView]} />
+            </TouchableWithoutFeedback>
             <View
               style={{
                 backgroundColor: '#f7f7f5',
+                marginTop: 'auto',
                 height: 250,
-                width: 200,
-                top: 150,
-                left: window / 4,
                 borderRadius: 10,
-                padding: 10,
                 alignItems: 'center',
+                paddingVertical: 10,
+                elevation: 10,
               }}>
-              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
+              <Text
+                style={{
+                  fontSize: 22,
+                  color: '#FF3300',
+                  fontWeight: '700',
+                  padding: 5,
+                }}>
                 Sort By
               </Text>
-              <TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
+                }>
                 <Text style={styles.modalText}>Rating</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <View style={styles.vDivider} />
+              <TouchableOpacity
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)
+                }>
                 <Text style={styles.modalText}>Match</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <View style={styles.vDivider} />
+              <TouchableOpacity
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
+                }>
                 <Text style={styles.modalText}>Friends'Like</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.modalText}>Popular</Text>
-              </TouchableOpacity>
+              <View style={styles.vDivider} />
               <TouchableOpacity
-                onPress={() => this.setState({modalVisible: false})}>
-                <Text>Close Model</Text>
+                style={[
+                  styles.filterBut,
+                  selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
+                    styles.filterSelected,
+                ]}
+                onPress={() =>
+                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
+                }>
+                <Text style={styles.modalText}>Popular</Text>
               </TouchableOpacity>
             </View>
           </Modal>
@@ -599,12 +656,16 @@ export class Movies extends Component {
                   <Text style={styles.resultText}>Top 1 of 91287 Movies</Text>
                 </View>
                 <TouchableOpacity
-                  style={{alignItems: 'flex-end', flexDirection: 'row'}}
+                  style={{
+                    alignItems: 'flex-end',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
                   onPress={() => {
                     this.setState({modalVisible: true});
                   }}>
-                  <Icon name="triangle-down" size={20} color="#232323" />
-                  <Text style={styles.resultText}>Rating</Text>
+                  <Text style={styles.sortbyButText}>Rating</Text>
+                  <Icon name="chevron-down" size={20} color="#232323" />
                 </TouchableOpacity>
               </View>
               <View style={{flex: 1}}>
@@ -615,8 +676,9 @@ export class Movies extends Component {
                   data={DATA}
                   renderItem={({item}) => this.moviewPoster(item)}
                   keyExtractor={(item) => item.id + viewStyle}
-                  ItemSeparatorComponent={() => <View style={{width: 10}} />}
+                  // ItemSeparatorComponent={() => <View style={{width: 10}} />}
                   nestedScrollEnabled={true}
+                  pagingEnabled={true}
                   {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
                   {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
                     columnWrapperStyle: {
@@ -717,9 +779,16 @@ const styles = StyleSheet.create({
   resultText: {
     color: '#333333',
     fontFamily: "'LEMON MILK Pro FTR',Arial",
-    fontSize: 15,
+    fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '500',
+    fontWeight: '700',
+  },
+  sortbyButText: {
+    color: '#333333',
+    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: '400',
   },
   blurView: {
     position: 'absolute',
@@ -748,5 +817,24 @@ const styles = StyleSheet.create({
     height: '100%',
     opacity: 0.2,
     backgroundColor: '#000',
+  },
+  vDivider: {
+    width: '100%',
+    height: 1,
+    backgroundColor: 'gray',
+    opacity: 0.2,
+  },
+  filterBut: {
+    width: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  filterSelected: {
+    color: '#fff',
+    backgroundColor: '#ff3300',
+  },
+  filterSelectedText: {
+    color: '#fff',
   },
 });

@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import {changeView} from '../../redux/FilterModule/FilterActions';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
+import HeaderModal from '../../components/HeaderModal';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -32,56 +33,8 @@ class Filter extends React.Component {
     };
   }
 
-  updateHeader() {
-    const {navigation, filterConfig} = this.props;
-    const {viewStyle} = filterConfig;
-    navigation.setOptions({
-      headerRight: () => (
-        <View style={styles.headerRightContainer}>
-          <View style={styles.headerRightItems}>
-            <Text>View</Text>
-          </View>
-          <TouchableOpacity
-            onPress={() => this.props.changeView(VIEW_STYLE.FULL_VIEW)}>
-            <View>
-              <View
-                style={[
-                  styles.box,
-                  {
-                    backgroundColor:
-                      viewStyle === VIEW_STYLE.FULL_VIEW ? 'yellow' : '#EFEFEF',
-                  },
-                ]}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              this.props.changeView(VIEW_STYLE.GRID_VIEW);
-            }}>
-            <View>
-              <Ionicons
-                name="md-grid-sharp"
-                color={
-                  viewStyle === VIEW_STYLE.GRID_VIEW ? 'yellow' : '#EFEFEF'
-                }
-                size={25}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }
-
   componentDidMount() {
     this.details();
-    this.updateHeader();
-  }
-
-  componentDidUpdate() {
-    this.updateHeader();
-    console.log('updated');
   }
 
   details() {
@@ -104,93 +57,75 @@ class Filter extends React.Component {
           <Text style={{fontSize: 15}}>{data.other}</Text>
         </View>
         <View style={{flex: 1}}>
-          <Icon name="chevron-right" size={30} color="#232323" />
+          <Icon {...iconStyle} />
         </View>
       </View>
     </TouchableOpacity>
   );
 
   render() {
+    const iconStyle = {
+      name: 'chevron-right',
+      size: 30,
+      color: '#232323',
+      style: {opacity: 0.5},
+    };
+
+    const {onClose} = this.props;
+
     return (
       <SafeAreaView style={{backgroundColor: '#fff'}}>
-        <View
-          style={{flexDirection: 'row', width: window * 1, borderRadius: 10}}>
-          <View style={{flex: 5, marginLeft: 10, padding: 10}}>
-            <Text style={{fontSize: 17, fontWeight: '700'}}>
-              Including Previously browsed
-            </Text>
-            <Text style={{fontSize: 17, fontWeight: '700'}}>
-              Include Watching
-            </Text>
-          </View>
-          <View style={{flex: 1, justifyContent: 'center', marginRight: 5}}>
-            <Switch
-              trackColor={{
-                true: 'yellow',
-                false: Platform.OS == 'android' ? '#d3d3d3' : '#fbfbfb',
-              }}
-              thumbColor={[
-                Platform.OS == 'ios'
-                  ? '#FFFFFF'
-                  : this.state.switchValueIncludeW.status
-                  ? 'yellow'
-                  : '#ffffff',
-              ]}
-              ios_backgroundColor="#fbfbfb"
-              style={[
-                this.state.switchValueIncludeW.status
-                  ? styles.switchEnableBorder
-                  : styles.switchDisableBorder,
-              ]}
-              value={this.state.switchValueIncludeW}
-              onValueChange={(values) =>
-                this.setState({switchValueIncludeW: values})
-              }
-            />
-            <Switch
-              trackColor={{
-                true: '#e3c727',
-                false: Platform.OS == 'android' ? '#d3d3d3' : '#fbfbfb',
-              }}
-              thumbColor={[
-                Platform.OS == 'ios'
-                  ? '#FFFFFF'
-                  : this.state.switchValueIncludePIH.status
-                  ? '#7ab8e1'
-                  : '#ffffff',
-              ]}
-              ios_backgroundColor="#fbfbfb"
-              style={[
-                this.state.switchValueIncludePIH.status
-                  ? styles.switchEnableBorder
-                  : styles.switchDisableBorder,
-              ]}
-              value={this.state.switchValueIncludePIH}
-              onValueChange={(values) =>
-                this.setState({switchValueIncludePIH: values})
-              }
-            />
-          </View>
-        </View>
-        {/* <FlatList 
-                    margin={10}
-                    ItemSeparatorComponent={
-                        Platform.OS !== 'android' &&
-                        (({ highlighted }) => (
-                        <View
-                            style={[
-                            style.separator,
-                            highlighted && { marginLeft: 0 }
-                            ]}
-                        />
-                        ))
-                    }
-                    data={this.state.data}
-                    renderItem={({item}) => this.renderItemComponent(item)}
-                    keyExtractor={item => item.id}
-                /> */}
-
-        <ScrollView>
+        <HeaderModal title="Filter" {...this.props} />
+        <ScrollView contentContainerStyle={{marginHorizontal: 10}}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Sortby')}
+            style={{
+              ...styles.butContainer,
+              borderTopStartRadius: 15,
+              borderTopEndRadius: 15,
+            }}>
+            <View style={{flex: 1}}>
+              <Text style={styles.textTitle}>Sort by</Text>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.textSecond}>Rating</Text>
+              </View>
+            </View>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <Icon {...iconStyle} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Year')}
+            style={{
+              ...styles.butContainer,
+              borderTopStartRadius: 15,
+              borderTopEndRadius: 15,
+            }}>
+            <View style={{flex: 1}}>
+              <Text style={styles.textTitle}>Liked by</Text>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.textSecond}>All</Text>
+              </View>
+            </View>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <Icon {...iconStyle} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Provider')}
+            style={styles.butContainer}>
+            <View style={{flex: 5.5}}>
+              <Text style={styles.textTitle}>Providers US </Text>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{fontSize: 15}}>
+                  Netflix,Amazon Prime ,HBO,Flimin(Theaters included)
+                </Text>
+              </View>
+            </View>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <Icon {...iconStyle} />
+            </View>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Year')}
             style={{
@@ -201,11 +136,11 @@ class Filter extends React.Component {
             <View style={{flex: 1}}>
               <Text style={styles.textTitle}>Year</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>New</Text>
+                <Text style={styles.textSecond}>Any</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
+              <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -220,7 +155,7 @@ class Filter extends React.Component {
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
+              <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -235,93 +170,121 @@ class Filter extends React.Component {
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Languages')}
-            style={styles.butContainer}>
-            <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Original Languages</Text>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>All</Text>
-              </View>
-            </View>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
+              <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Ages</Text>
+              <Text style={styles.textTitle}>Age rating</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>All</Text>
+                <Text style={{fontSize: 15}}>Any</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
+              <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Provider')}
-            style={styles.butContainer}>
-            <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Providers </Text>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>
-                  Netflix,Amazon Prime ,HBO,Flimin(Theaters included)
-                </Text>
-              </View>
-            </View>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Price')}
+            onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text style={styles.textTitle}>Price</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>10 $ (Add included)</Text>
+                <Text style={{fontSize: 15}}>{'< 10 €'}</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
+              <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Linkby')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Linked by</Text>
+              <Text style={styles.textTitle}>Original Language</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>All</Text>
+                <Text style={{fontSize: 15}}>Any</Text>
               </View>
             </View>
             <View style={{flex: 0.5, alignItems: 'center'}}>
-              <Icon name="chevron-right" size={30} color="#232323" />
+              <Icon
+                name="chevron-right"
+                size={30}
+                color="#232323"
+                style={{opacity: 0.5}}
+              />
             </View>
           </TouchableOpacity>
+          <Text style={styles.textTitle}>Include</Text>
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+            <View style={{flex: 5}}>
+              <Text style={{fontSize: 17, fontWeight: '700'}}>Watching</Text>
+              <Text style={{fontSize: 17, fontWeight: '700'}}>
+                Previously browsed
+              </Text>
+            </View>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <Switch
+                trackColor={{
+                  true: '#ff3300',
+                  false: Platform.OS == 'android' ? '#d3d3d3' : '#fbfbfb',
+                }}
+                thumbColor={[
+                  Platform.OS == 'ios'
+                    ? '#FFFFFF'
+                    : this.state.switchValueIncludeW.status
+                    ? 'yellow'
+                    : '#ffffff',
+                ]}
+                ios_backgroundColor="#fbfbfb"
+                style={[
+                  this.state.switchValueIncludeW.status
+                    ? styles.switchEnableBorder
+                    : styles.switchDisableBorder,
+                ]}
+                value={this.state.switchValueIncludeW}
+                onValueChange={(values) =>
+                  this.setState({switchValueIncludeW: values})
+                }
+              />
+              <Switch
+                trackColor={{
+                  true: '#ff3300',
+                  false: Platform.OS == 'android' ? '#d3d3d3' : '#fbfbfb',
+                }}
+                thumbColor={[
+                  Platform.OS === 'ios'
+                    ? '#FFFFFF'
+                    : this.state.switchValueIncludePIH.status
+                    ? '#fff'
+                    : '#ffffff',
+                ]}
+                ios_backgroundColor="#fbfbfb"
+                style={[
+                  this.state.switchValueIncludePIH.status
+                    ? styles.switchEnableBorder
+                    : styles.switchDisableBorder,
+                ]}
+                value={this.state.switchValueIncludePIH}
+                onValueChange={(values) =>
+                  this.setState({switchValueIncludePIH: values})
+                }
+              />
+            </View>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={{padding: 5}}
+              onPress={() => this.setState.switchValueIncludeW}>
+              <Text
+                style={{textAlign: 'center', fontSize: 15, fontWeight: '700'}}>
+                Clear Filters
+              </Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
-        <View
-          style={{
-            flex: 1,
-            position: 'absolute',
-            marginTop: (screen / 1.3) * 1.1,
-            width: window * 1,
-          }}>
-          <TouchableOpacity
-            style={{padding: 5}}
-            onPress={() => this.setState.switchValueIncludeW}>
-            <Text
-              style={{textAlign: 'center', fontSize: 15, fontWeight: '700'}}>
-              Clear Filters
-            </Text>
-          </TouchableOpacity>
-        </View>
       </SafeAreaView>
     );
   }
@@ -343,9 +306,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 
 const styles = StyleSheet.create({
   textTitle: {
-    color: '#DB3700',
+    color: '#000',
     fontFamily: "'Helvetica Neue',Arial",
-    fontSize: 17,
+    fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '700',
   },
@@ -367,12 +330,10 @@ const styles = StyleSheet.create({
   },
   butContainer: {
     flexDirection: 'row',
-    marginLeft: 15,
-    marginRight: 15,
-    padding: 10,
     paddingVertical: 20,
     marginBottom: 1,
-    backgroundColor: '#EFEFEF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eeeeee',
   },
   headerRightContainer: {
     flexDirection: 'row',

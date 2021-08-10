@@ -1,25 +1,21 @@
 import React from 'react';
 import {
-  ImageBackground,
-  StyleSheet,
-  ScrollView,
-  Text,
-  View,
-  TouchableHighlight,
-  Modal,
-  Image,
-  Dimensions,
+  StatusBar,
 } from 'react-native';
 import Router from './src/setup/Router';
 import {Provider} from 'react-redux';
 // Imports: Redux Store
 import {store, persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens(true);
 
 // React Native App
 export default function App() {
   return (
     <Provider store={store}>
+      <StatusBar barStyle="light-content" />
       <PersistGate persistor={persistor}>
         <Router />
       </PersistGate>

@@ -1,11 +1,30 @@
-import React from 'react';
-import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  InteractionManager,
+} from 'react-native';
 import Header from '../../components/Header';
+import Loader from '../../components/Loader';
 
 export default function About() {
-  const screens = [
-    {name: "About", component: About}
-  ]
+  const [isLoaded, setLoaded] = useState(false);
+  const screens = [{name: 'About', component: About}];
+
+  useEffect(() => {
+    InteractionManager.runAfterInteractions(() => {
+      setLoaded(true);
+    });
+  }, []);
+
+  useMount
+
+  if (!isLoaded) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView style={styles.container}>
