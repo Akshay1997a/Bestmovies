@@ -13,6 +13,8 @@ import {
   Share,
   TouchableWithoutFeedback,
   InteractionManager,
+  Animated,
+  Easing,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -23,10 +25,11 @@ import CardView from '../Movies/CardView';
 import Orientation from 'react-native-orientation';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 import {FILTER_TYPES} from '../Movies';
-import Header from '../../components/Header';
+import Header, {HEADER_HEIGHT} from '../../components/Header';
 import Movies from '../Movies';
 import Loader from '../../components/Loader';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import {TopBarContext, withTabStyleHOC} from '../../setup/TopBarNavigator';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -65,8 +68,12 @@ const DATA = [
 ];
 
 export class MovieDetails extends Component {
+  static contextType = TopBarContext;
   constructor(props) {
     super(props);
+    console.log('MoviesDetails', props);
+    console.log(this.context);
+    this.offset = 0;
     this.state = {
       modalVisible: false,
       likeModal: false,
@@ -75,8 +82,15 @@ export class MovieDetails extends Component {
       hasTipShowned: false,
       selectedFilter: FILTER_TYPES.FILTER_BY_RATING,
       isLoaded: false,
+      headerVisible: true,
     };
     Orientation.lockToPortrait();
+    this.scrollY = new Animated.Value(0);
+    this.toggleHeader = this.toggleHeader.bind(this);
+  }
+
+  toggleHeader(flag) {
+    this.setState({headerVisible: flag});
   }
 
   showTip() {
@@ -140,6 +154,28 @@ export class MovieDetails extends Component {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({isLoaded: true});
+
+      const {navigation} = this.props;
+      const diffClamp = Animated.diffClamp(this.scrollY, 0, HEADER_HEIGHT);
+      const headerTranslate = diffClamp.interpolate({
+        inputRange: [0, HEADER_HEIGHT],
+        outputRange: [0, -HEADER_HEIGHT],
+      });
+      const header2Translate = diffClamp.interpolate({
+        inputRange: [0, HEADER_HEIGHT],
+        outputRange: [HEADER_HEIGHT, 0],
+      });
+      // this.context.setStyle({marginTop: 50});
+      navigation
+        .dangerouslyGetParent()
+        .dangerouslyGetParent()
+        .setOptions({
+          headerStyle: {
+            position: 'absolute',
+            width: '100%',
+            transform: [{translateY: headerTranslate}],
+          },
+        });
     });
   }
 
@@ -450,7 +486,7 @@ export class MovieDetails extends Component {
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
         {/* <Header {...this.props} /> */}
-        <Modal visible={isIntroTipVisible} transparent animationType="fade">
+        <Modal visible={false} transparent animationType="fade">
           <View
             style={{
               flex: 1,
@@ -468,25 +504,31 @@ export class MovieDetails extends Component {
           </View>
         </Modal>
         <View style={{flex: 1}}>
-          <Modal visible={this.state.modalVisible} transparent={true}>
+          <Modal
+            visible={this.state.modalVisible}
+            animationType="slide"
+            transparent={true}>
             <TouchableWithoutFeedback
               onPress={() => this.setState({modalVisible: false})}>
               <View style={[styles.shadowView]} />
             </TouchableWithoutFeedback>
             <View
               style={{
-                position: 'absolute',
-                left: '50%',
-                top: '50%',
-                transform: [{translateX: -200 / 2}, {translateY: -250 / 2}],
                 backgroundColor: '#f7f7f5',
-                // height: 250,
-                width: 200,
+                marginTop: 'auto',
+                height: 250,
                 borderRadius: 10,
                 alignItems: 'center',
                 paddingVertical: 10,
+                elevation: 10,
               }}>
-              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
+              <Text
+                style={{
+                  fontSize: 22,
+                  color: '#FF3300',
+                  fontWeight: '700',
+                  padding: 5,
+                }}>
                 Sort By
               </Text>
               <TouchableOpacity
@@ -633,9 +675,22 @@ export class MovieDetails extends Component {
             </View>
           </Modal>
         </View>
-        <ScrollView
+        <Animated.ScrollView
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    y: this.scrollY,
+                  },
+                },
+              },
+            ],
+            {useNativeDriver: true}, // Add this line
+          )}
+          scrollEventThrottle={16}
           automaticallyAdjustContentInsets={true}
-          bounces={true}
+          bounces={false}
           contentContainerStyle={{padding: 10}}>
           <SafeAreaView style={{flex: 1}}>
             <View style={{flex: 1, marginTop: 5}}>
@@ -689,7 +744,7 @@ export class MovieDetails extends Component {
               <CardView />
             </View>
           </View>
-        </ScrollView>
+        </Animated.ScrollView>
       </View>
     );
   }
@@ -818,7 +873,7 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   filterBut: {
-    width: '80%',
+    width: '90%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

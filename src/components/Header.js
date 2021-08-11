@@ -1,22 +1,24 @@
 import React from 'react';
-import {View, TouchableOpacity, Image} from 'react-native';
+import {View, TouchableOpacity, Image, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
 import User from 'react-native-vector-icons/FontAwesome5';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
 
-export default function Header(props) {
-  const {navigate} = props.navigation;
+export const HEADER_HEIGHT = 60
 
+export default function Header(props) {
+  console.log('Props', props);
+  const {navigate} = props.navigation;
+  // const {headerStyle} = props.scene.descriptor.options;
   return (
-    <View style={{backgroundColor: '#fff'}}>
+    <Animated.View style={[ {backgroundColor: '#fff', height:  props.height}]} {...props}>
       <View
         style={{
           flexDirection: 'row',
           position: 'relative',
           justifyContent: 'space-between',
           alignItems: 'center',
-          // height: 70,
           paddingHorizontal: 10,
         }}>
         <TouchableOpacity onPress={() => navigate('Menu')}>
@@ -41,6 +43,6 @@ export default function Header(props) {
           <Icons name="dots-three-vertical" size={25} color="#232323" />
         </TouchableOpacity>
       </View>
-    </View>
+    </Animated.View>
   );
 }

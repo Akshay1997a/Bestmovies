@@ -20,8 +20,6 @@ export default function About() {
     });
   }, []);
 
-  useMount
-
   if (!isLoaded) {
     return <Loader />;
   }

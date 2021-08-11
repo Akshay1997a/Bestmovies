@@ -103,7 +103,7 @@ const StackNav = () => {
             headerShown: false,
           };
         }}
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <Filter {...props} />
           </View>
@@ -117,7 +117,7 @@ const StackNav = () => {
             headerShown: false,
           };
         }}
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <MenusList {...props} />
           </View>
@@ -131,7 +131,7 @@ const StackNav = () => {
             headerShown: false,
           };
         }}
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <Year {...props} />
           </View>
@@ -145,7 +145,7 @@ const StackNav = () => {
             headerShown: false,
           };
         }}
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <Country {...props} />
           </View>
@@ -159,7 +159,7 @@ const StackNav = () => {
             headerShown: false,
           };
         }}
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <SortBy {...props} />
           </View>
@@ -173,7 +173,7 @@ const StackNav = () => {
             headerShown: false,
           };
         }}
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <Provider {...props} />
           </View>
@@ -181,7 +181,7 @@ const StackNav = () => {
       />
       <Stack.Screen
         name="Ages"
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <Ages {...props} />
           </View>
@@ -190,6 +190,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            
           };
         }}
       />
@@ -201,7 +202,7 @@ const StackNav = () => {
             headerShown: false,
           };
         }}
-        component={(props) => (
+        children={(props) => (
           <View style={styles.ModalContainer}>
             <Generes {...props} />
           </View>
@@ -231,14 +232,17 @@ const StackNav = () => {
       />
       <Stack.Screen
         name="Languages"
-        component={Languages}
-        options={{
-          ...commonOptions,
-          headerShown: true,
-          headerStyle: {
-            elevation: 0,
-          },
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+          };
         }}
+        children={(props) => (
+          <View style={styles.ModalContainer}>
+            <Languages {...props} />
+          </View>
+        )}
       />
       <Stack.Screen
         name="Menu"

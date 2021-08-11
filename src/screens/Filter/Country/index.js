@@ -39,7 +39,7 @@ export class Country extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{backgroundColor: '#fff', padding: 10}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#fff', padding: 10}}>
         <HeaderModal title="Countries of origin" {...this.props} />
         <SearchBar placeholder="Enter country" />
         <FlatList
@@ -54,7 +54,7 @@ export class Country extends Component {
           renderItem={({item, index}) => (
             <Button title={item.name} isActive={index === 0} />
           )}
-          keyExtractor={(item) => item.cioc}
+          keyExtractor={(item, index) => index.toString()}
         />
       </SafeAreaView>
     );

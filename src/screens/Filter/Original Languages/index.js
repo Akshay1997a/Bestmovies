@@ -6,7 +6,9 @@ import {
   SafeAreaView,
   FlatList,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
+import HeaderModal from '../../../components/HeaderModal';
 
 const DATA = [
   {
@@ -440,7 +442,8 @@ export class Languages extends Component {
 
   render() {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <HeaderModal title={"Your language"} {...this.props} />
         <FlatList
           margin={15}
           showsVerticalScrollIndicator={false}
@@ -460,3 +463,10 @@ export class Languages extends Component {
 }
 
 export default Languages;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff"
+  }
+})

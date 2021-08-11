@@ -13,7 +13,7 @@ import HeaderModal from '../../components/HeaderModal';
 import {APP_PLAYSTORE_URL} from '../../config/urls';
 
 export default function MenusList(props) {
-  const {replace} = props.navigation;
+  const {replace, navigate} = props.navigation;
 
   const inviteFriend = () => {
     Share.share(
@@ -32,12 +32,12 @@ export default function MenusList(props) {
         <PrimaryTile
           title="Country"
           subTitle="United States"
-          onPress={() => replace('Language')}
+          onPress={() => navigate('Country')}
         />
         <PrimaryTile
           title="Language"
           subTitle="English"
-          onPress={() => replace('Language')}
+          onPress={() => navigate('Languages')}
         />
         <View style={styles.divider} />
         <IconTile title="TV app" iconName="tv" iconSize={20} />
