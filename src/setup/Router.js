@@ -252,7 +252,7 @@ const StackNav = () => {
           headerStyle: {
             elevation: 0,
           },
-          headerShown: true,
+          headerShown: false,
         }}
       />
       <Stack.Screen

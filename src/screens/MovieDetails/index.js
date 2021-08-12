@@ -29,7 +29,8 @@ import Header, {HEADER_HEIGHT} from '../../components/Header';
 import Movies from '../Movies';
 import Loader from '../../components/Loader';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import {TopBarContext, withTabStyleHOC} from '../../setup/TopBarNavigator';
+import {TopBarContext} from '../../setup/TopBarNavigator';
+import {withCollapsebleHOC} from '../../components/Header';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -154,28 +155,6 @@ export class MovieDetails extends Component {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({isLoaded: true});
-
-      const {navigation} = this.props;
-      const diffClamp = Animated.diffClamp(this.scrollY, 0, HEADER_HEIGHT);
-      const headerTranslate = diffClamp.interpolate({
-        inputRange: [0, HEADER_HEIGHT],
-        outputRange: [0, -HEADER_HEIGHT],
-      });
-      const header2Translate = diffClamp.interpolate({
-        inputRange: [0, HEADER_HEIGHT],
-        outputRange: [HEADER_HEIGHT, 0],
-      });
-      // this.context.setStyle({marginTop: 50});
-      navigation
-        .dangerouslyGetParent()
-        .dangerouslyGetParent()
-        .setOptions({
-          headerStyle: {
-            position: 'absolute',
-            width: '100%',
-            transform: [{translateY: headerTranslate}],
-          },
-        });
     });
   }
 
@@ -477,7 +456,7 @@ export class MovieDetails extends Component {
   };
   render() {
     const {isIntroTipVisible, selectedFilter, isLoaded} = this.state;
-    const {viewStyle} = this.props;
+    const {onScroll} = this.props;
 
     if (!isLoaded) {
       return <Loader />;
@@ -676,18 +655,7 @@ export class MovieDetails extends Component {
           </Modal>
         </View>
         <Animated.ScrollView
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: {
-                    y: this.scrollY,
-                  },
-                },
-              },
-            ],
-            {useNativeDriver: true}, // Add this line
-          )}
+          onScroll={onScroll}
           scrollEventThrottle={16}
           automaticallyAdjustContentInsets={true}
           bounces={false}
@@ -756,7 +724,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(MovieDetails);
+export default connect(mapStateToProps, null)(withCollapsebleHOC(MovieDetails));
 
 const styles = StyleSheet.create({
   textFont: {

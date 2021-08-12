@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, TouchableOpacity, Image, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
 import User from 'react-native-vector-icons/FontAwesome5';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
 
-export const HEADER_HEIGHT = 60
+export const HEADER_HEIGHT = 60;
 
 export default function Header(props) {
-  console.log('Props', props);
-  const {navigate} = props.navigation;
-  // const {headerStyle} = props.scene.descriptor.options;
+  const navigate = () => {};
+
   return (
-    <Animated.View style={[ {backgroundColor: '#fff', height:  props.height}]} {...props}>
+    <Animated.View
+      style={[
+        {backgroundColor: '#fff', height: HEADER_HEIGHT, overflow: 'hidden'},
+      ]}>
       <View
         style={{
           flexDirection: 'row',
@@ -45,4 +47,43 @@ export default function Header(props) {
       </View>
     </Animated.View>
   );
+}
+
+export function useCollapsableHeader() {
+  const [height, setHeight] = useState(HEADER_HEIGHT);
+  const scrollY = React.useRef(new Animated.Value(0)).current;
+  const diffClimp = Animated.diffClamp(scrollY, 0, HEADER_HEIGHT);
+  const translateY = diffClimp.interpolate({
+    inputRange: [0, HEADER_HEIGHT],
+    outputRange: [0, -HEADER_HEIGHT],
+  });
+
+  const onScroll = Animated.event(
+    [
+      {
+        nativeEvent: {
+          contentOffset: {
+            y: scrollY,
+          },
+        },
+      },
+    ],
+    {useNativeDriver: true}, // Add this line
+  );
+
+  useEffect(() => {
+    scrollY.addListener((val) => setHeight(val.value));
+    return () => {
+      scrollY.removeAllListeners();
+    };
+  }, []);
+
+  return {translateY, height, onScroll};
+}
+
+export function withCollapsebleHOC(Component) {
+  return (props) => {
+    const obj = useCollapsableHeader();
+    return <Component {...props} {...obj} />;
+  };
 }

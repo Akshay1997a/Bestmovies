@@ -21,6 +21,8 @@ import {connect} from 'react-redux';
 import CardView from './CardView';
 import Orientation from 'react-native-orientation';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
+import {useCollapsibleHeader} from 'react-navigation-collapsible';
+import {Tabs} from 'react-native-collapsible-tab-view';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -450,7 +452,7 @@ export class Movies extends Component {
     const {viewStyle} = this.props;
 
     return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <Tabs.ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
         <Modal
           visible={viewStyle === VIEW_STYLE.FULL_VIEW && isIntroTipVisible}
           transparent
@@ -697,7 +699,7 @@ export class Movies extends Component {
             </View>
           </View>
         </ScrollView>
-      </View>
+      </Tabs.ScrollView>
     );
   }
 }
