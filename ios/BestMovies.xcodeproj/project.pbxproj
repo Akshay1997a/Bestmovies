@@ -53,6 +53,7 @@
 		F31C51E4482E699F9F210E79 /* libPods-BestMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D09A7AA579A384476D49E9 /* libPods-BestMovies.a */; };
 		F3E6FE9EC69646F3AC829BDE /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEA44AA4168142938B6324F2 /* SimpleLineIcons.ttf */; };
 		FC849403989941468373AE13 /* Lemon Milk Pro Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2CBA6B70DE4C4F8A03A27B /* Lemon Milk Pro Bold.otf */; };
+		CA2D0066F52648A4AF3E7314 /* ARIAL.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18B12A7C120D45549F0DF168 /* ARIAL.TTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FEF2419BEFAB488E4CD0A899 /* libPods-BestMovies-tvOS-BestMovies-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BestMovies-tvOS-BestMovies-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		18B12A7C120D45549F0DF168 /* ARIAL.TTF */ = {isa = PBXFileReference; name = "ARIAL.TTF"; path = "../assets/fonts/ARIAL.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +287,7 @@
 				C082E70A341F49B7A579A2C6 /* Lemon Milk Pro Regular.otf */,
 				ABFA3A1E233043B0924380D9 /* Lemon Milk Pro Ultra Light Italic.otf */,
 				D298BE9329964EE287FEB9DA /* Lemon Milk Pro Ultra Light.otf */,
+				18B12A7C120D45549F0DF168 /* ARIAL.TTF */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				0D5CA4F32E414D6583380024 /* Lemon Milk Pro Regular.otf in Resources */,
 				80341B2547FC4F25B75D4481 /* Lemon Milk Pro Ultra Light Italic.otf in Resources */,
 				5121F706478145CBBA3535AF /* Lemon Milk Pro Ultra Light.otf in Resources */,
+				CA2D0066F52648A4AF3E7314 /* ARIAL.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
