@@ -340,7 +340,7 @@ export class Price extends Component {
                     (({ highlighted }) => (
                       <View
                         style={[
-                          style.separator,
+                          
                           highlighted && { marginLeft: 0 }
                         ]}
                       />

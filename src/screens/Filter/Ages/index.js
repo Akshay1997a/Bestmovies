@@ -120,7 +120,7 @@ export class Ages extends Component {
             Platform.OS !== 'android' &&
             (({highlighted}) => (
               <View
-                style={[style.separator, highlighted && {marginLeft: 10}]}
+                style={[ highlighted && {marginLeft: 10}]}
               />
             ))
           }

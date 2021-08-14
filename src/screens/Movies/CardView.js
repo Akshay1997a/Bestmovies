@@ -127,7 +127,7 @@ export class CardView extends Component {
           ItemSeparatorComponent={
             Platform.OS !== 'android' &&
             (({highlighted}) => (
-              <View style={[style.separator, highlighted && {marginLeft: 0}]} />
+              <View style={[ highlighted && {marginLeft: 0}]} />
             ))
           }
           data={DATA}

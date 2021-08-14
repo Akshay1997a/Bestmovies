@@ -255,7 +255,7 @@ class Directors extends Component {
               ? () => <View style={{width: 20, height: 20}} />
               : ({highlighted}) => (
                   <View
-                    style={[style.separator, highlighted && {marginLeft: 0}]}
+                    style={[ highlighted && {marginLeft: 0}]}
                   />
                 )
           }

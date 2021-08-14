@@ -145,7 +145,7 @@ export class Provider extends Component {
                 Platform.OS !== 'android' &&
                 (({highlighted}) => (
                   <View
-                    style={[style.separator, highlighted && {marginLeft: 0}]}
+                    style={[ highlighted && {marginLeft: 0}]}
                   />
                 ))
               }
