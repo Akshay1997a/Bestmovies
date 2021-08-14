@@ -307,14 +307,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   textSecond: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',

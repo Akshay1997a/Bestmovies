@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -218,14 +218,14 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#333333',
-    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    // fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '500',
   },
   ratingTitleStyle: {
     color: '#000000',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '700',

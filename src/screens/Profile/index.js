@@ -127,14 +127,14 @@ const styles = StyleSheet.create({
   },
   header: {
     color: '#000000',
-    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    // fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 24,
     fontStyle: 'normal',
     fontWeight: '500',
   },
   headerTitleSecondary: {
     color: '#666666',
-    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    // fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   HeadTitle: {
     color: '#000000',
-    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    // fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 24,
     fontStyle: 'normal',
     fontWeight: '500',
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   },
   artistName: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   },
   Title: {
     color: '#000000',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   },
   RankTitle: {
     color: '#000000',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
   },
   TitleSecondary: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   },
   butText: {
     color: '#000',
-    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    // fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   TextInput: {
     backgroundColor: '#fff',
     color: '#999999',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '400',

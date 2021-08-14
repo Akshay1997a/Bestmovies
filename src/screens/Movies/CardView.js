@@ -153,14 +153,14 @@ const styles = StyleSheet.create({
   },
   textFont: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 13,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   textSecondary: {
     color: '#000000',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 13,
     fontStyle: 'normal',
     fontWeight: '400',

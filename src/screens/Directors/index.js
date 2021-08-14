@@ -306,7 +306,7 @@ export default EnhanchedComponent;
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 19,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 16,
     fontStyle: 'italic',
     fontWeight: '400',
@@ -364,21 +364,21 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#333333',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   resultText: {
     color: '#333333',
-    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    // fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   sortbyButText: {
     color: '#333333',
-    fontFamily: "'LEMON MILK Pro FTR',Arial",
+    // fontFamily: "'LEMON MILK Pro FTR',Arial",
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
   },
   swipTitle: {
     color: '#FFFFFF',
-    fontFamily: "'Helvetica Neue',Arial",
+    // fontFamily: "'Helvetica Neue',Arial",
     fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',
