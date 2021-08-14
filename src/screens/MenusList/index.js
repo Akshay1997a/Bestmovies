@@ -137,14 +137,14 @@ const styles = StyleSheet.create({
   },
   PrimaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: "'VAG Rounded Next',Arial",
+    fontFamily: "'VAG Rounded Regular'",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   PrimaryTileSubTitleStyle: {
     color: '#333333',
-    fontFamily: "'VAG Rounded Next',Arial",
+    fontFamily: "'VAG Rounded Regular'",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   IconTileTitleStyle: {
     color: '#000000',
-    fontFamily: "'VAG Rounded Next',Arial",
+    fontFamily: "'VAG Rounded Regular'",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   },
   SecondaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: "'VAG Rounded Next',Arial",
+    fontFamily: "'VAG Rounded Regular'",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '400',

@@ -114,20 +114,20 @@ const styles = StyleSheet.create({
   heading: {
     color: '#333333',
     fontSize: 18.67,
-    fontFamily: "LEMON MILK Pro FTR,Arial",
+    fontFamily: "LEMON MILK Pro FTR",
     fontStyle: 'normal',
     fontWeight: '500',
   },
   heading2: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR,Arial",
+    fontFamily: "LEMON MILK Pro FTR",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '500',
   },
   text: {
     color: '#333333',
-    fontFamily: "Helvetica Neue,Arial",
+    fontFamily: "Helvetica Neue",
     fontSize: 14.67,
     fontStyle: 'normal',
     fontWeight: '400',

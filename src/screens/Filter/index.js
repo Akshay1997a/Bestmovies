@@ -1,7 +1,6 @@
 import {values} from 'lodash';
 import React from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   TouchableOpacity,
@@ -16,6 +15,7 @@ import {connect} from 'react-redux';
 import {changeView} from '../../redux/FilterModule/FilterActions';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 import HeaderModal from '../../components/HeaderModal';
+import {SafeAreaView} from 'react-native-safe-area-context'
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -307,14 +307,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
-    fontFamily: "Helvetica Neue,Arial",
+    fontFamily: "Helvetica Neue",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   textSecond: {
     color: '#333333',
-    fontFamily: "Helvetica Neue,Arial",
+    fontFamily: "Helvetica Neue",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',

@@ -34,6 +34,7 @@ import {
 } from './TopBarNavigator';
 import HeaderModal from '../components/HeaderModal';
 import SortBy from '../screens/Filter/SortBy';
+import {SafeAreaProvider} from 'react-native-safe-area-context'
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -299,9 +300,11 @@ const StackNav = () => {
 
 const Router = () => {
   return (
-    <NavigationContainer>
-      <StackNav />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <StackNav />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 export default Router;

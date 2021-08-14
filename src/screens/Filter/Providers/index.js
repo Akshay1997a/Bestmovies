@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   },
   butText: {
     color: '#333333',
-    fontFamily: "'VAG Rounded Next',Arial",
+    fontFamily: "'VAG Rounded Regular'",
     fontSize: 16,
     fontWeight: '400',
   },
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   },
   filterText: {
     color: '#333333',
-    fontFamily: "'VAG Rounded Next',Arial",
+    fontFamily: "'VAG Rounded Regular'",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',
