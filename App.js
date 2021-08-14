@@ -1,13 +1,12 @@
 import React from 'react';
-import {
-  StatusBar,
-} from 'react-native';
+import {StatusBar} from 'react-native';
 import Router from './src/setup/Router';
 import {Provider} from 'react-redux';
 // Imports: Redux Store
 import {store, persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
-import { enableScreens } from 'react-native-screens';
+import {enableScreens} from 'react-native-screens';
+import {AnimationProvider} from './src/Providers/CollapsibleHeaderProvider';
 
 enableScreens(true);
 
@@ -17,7 +16,9 @@ export default function App() {
     <Provider store={store}>
       <StatusBar barStyle="light-content" />
       <PersistGate persistor={persistor}>
-        <Router />
+        <AnimationProvider>
+          <Router />
+        </AnimationProvider>
       </PersistGate>
     </Provider>
   );

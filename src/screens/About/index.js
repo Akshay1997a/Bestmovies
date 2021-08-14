@@ -7,7 +7,7 @@ import {
   Image,
   InteractionManager,
 } from 'react-native';
-import Header from '../../components/Header';
+import Header, {TOTAL_HEADER_HEIGHT} from '../../components/Header';
 import Loader from '../../components/Loader';
 
 export default function About() {
@@ -25,7 +25,9 @@ export default function About() {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{paddingTop: TOTAL_HEADER_HEIGHT}}>
       {/* <Header screens={screens} /> */}
       <Image
         source={require('../../../assets/about_tile.png')}

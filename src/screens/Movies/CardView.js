@@ -131,6 +131,7 @@ export class CardView extends Component {
             ))
           }
           data={DATA}
+          bounces={false}
           renderItem={({item}) => this.renderItemComponent(item)}
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}

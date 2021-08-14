@@ -25,7 +25,11 @@ import CardView from '../Movies/CardView';
 import Orientation from 'react-native-orientation';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 import {FILTER_TYPES} from '../Movies';
-import Header, {HEADER_HEIGHT} from '../../components/Header';
+import Header, {
+  HEADER_HEIGHT,
+  TOTAL_HEADER_HEIGHT,
+  useCollapsibleHeaderHOC,
+} from '../../components/Header';
 import Movies from '../Movies';
 import Loader from '../../components/Loader';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -68,12 +72,10 @@ const DATA = [
   },
 ];
 
-export class MovieDetails extends Component {
-  static contextType = TopBarContext;
+class MovieDetails extends Component {
   constructor(props) {
     super(props);
     console.log('MoviesDetails', props);
-    console.log(this.context);
     this.offset = 0;
     this.state = {
       modalVisible: false,
@@ -108,8 +110,8 @@ export class MovieDetails extends Component {
     this.setState({selectedFilter: type});
   }
 
-  rendeDirector = (data) => (
-    <TouchableOpacity style={styles.directorContainer}>
+  rendeDirector = (data, index) => (
+    <TouchableOpacity key={index.toString()} style={styles.directorContainer}>
       <Image style={styles.directorImage} source={data.image} />
       <View style={{flexWrap: 'wrap'}}>
         <Text numberOfLines={2} style={styles.directorName}>
@@ -322,7 +324,7 @@ export class MovieDetails extends Component {
                 <Text style={styles.textFont}>Cast</Text>
               </View>
               <ScrollView horizontal={true} nestedScrollEnabled={true}>
-                {DATA.map((item) => this.rendeDirector(item))}
+                {DATA.map((item, index) => this.rendeDirector(item, index))}
               </ScrollView>
             </View>
             <View>
@@ -404,7 +406,7 @@ export class MovieDetails extends Component {
                 horizontal={true}
                 nestedScrollEnabled={true}
                 contentContainerStyle={{flex: 1}}>
-                {DATA.map((item) => this.rendeDirector(item))}
+                {DATA.map((item, index) => this.rendeDirector(item, index))}
               </ScrollView>
             </View>
             <View style={{marginTop: 25}}>
@@ -482,185 +484,191 @@ export class MovieDetails extends Component {
             <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
         </Modal>
-        <View style={{flex: 1}}>
-          <Modal
-            visible={this.state.modalVisible}
-            animationType="slide"
-            transparent={true}>
-            <TouchableWithoutFeedback
-              onPress={() => this.setState({modalVisible: false})}>
-              <View style={[styles.shadowView]} />
-            </TouchableWithoutFeedback>
-            <View
+        <Modal
+          visible={this.state.modalVisible}
+          animationType="slide"
+          transparent={true}>
+          <TouchableWithoutFeedback
+            onPress={() => this.setState({modalVisible: false})}>
+            <View style={[styles.shadowView]} />
+          </TouchableWithoutFeedback>
+          <View
+            style={{
+              backgroundColor: '#f7f7f5',
+              marginTop: 'auto',
+              height: 250,
+              borderRadius: 10,
+              alignItems: 'center',
+              paddingVertical: 10,
+              elevation: 10,
+            }}>
+            <Text
               style={{
-                backgroundColor: '#f7f7f5',
-                marginTop: 'auto',
-                height: 250,
-                borderRadius: 10,
-                alignItems: 'center',
-                paddingVertical: 10,
-                elevation: 10,
+                fontSize: 22,
+                color: '#FF3300',
+                fontWeight: '700',
+                padding: 5,
               }}>
-              <Text
-                style={{
-                  fontSize: 22,
-                  color: '#FF3300',
-                  fontWeight: '700',
-                  padding: 5,
-                }}>
-                Sort By
-              </Text>
-              <TouchableOpacity
-                style={[
-                  styles.filterBut,
-                  selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
-                    styles.filterSelected,
-                ]}
-                onPress={() =>
-                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
-                }>
-                <Text style={styles.modalText}>Rating</Text>
-              </TouchableOpacity>
-              <View style={styles.vDivider} />
-              <TouchableOpacity
-                style={[
-                  styles.filterBut,
-                  selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
-                    styles.filterSelected,
-                ]}
-                onPress={() =>
-                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)
-                }>
-                <Text style={styles.modalText}>Match</Text>
-              </TouchableOpacity>
-              <View style={styles.vDivider} />
-              <TouchableOpacity
-                style={[
-                  styles.filterBut,
-                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
-                    styles.filterSelected,
-                ]}
-                onPress={() =>
-                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
-                }>
-                <Text style={styles.modalText}>Friends'Like</Text>
-              </TouchableOpacity>
-              <View style={styles.vDivider} />
-              <TouchableOpacity
-                style={[
-                  styles.filterBut,
-                  selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
-                    styles.filterSelected,
-                ]}
-                onPress={() =>
-                  this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
-                }>
-                <Text style={styles.modalText}>Popular</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
-        </View>
-        <View style={{width: window}}>
-          <Modal
-            visible={this.state.likeModal}
-            transparent={true}
-            animationType="slide">
+              Sort By
+            </Text>
+            <TouchableOpacity
+              style={[
+                styles.filterBut,
+                selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
+                  styles.filterSelected,
+              ]}
+              onPress={() =>
+                this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
+              }>
+              <Text style={styles.modalText}>Rating</Text>
+            </TouchableOpacity>
+            <View style={styles.vDivider} />
+            <TouchableOpacity
+              style={[
+                styles.filterBut,
+                selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
+                  styles.filterSelected,
+              ]}
+              onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
+              <Text style={styles.modalText}>Match</Text>
+            </TouchableOpacity>
+            <View style={styles.vDivider} />
+            <TouchableOpacity
+              style={[
+                styles.filterBut,
+                selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
+                  styles.filterSelected,
+              ]}
+              onPress={() =>
+                this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
+              }>
+              <Text style={styles.modalText}>Friends'Like</Text>
+            </TouchableOpacity>
+            <View style={styles.vDivider} />
+            <TouchableOpacity
+              style={[
+                styles.filterBut,
+                selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
+                  styles.filterSelected,
+              ]}
+              onPress={() =>
+                this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
+              }>
+              <Text style={styles.modalText}>Popular</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal
+          visible={this.state.likeModal}
+          transparent={true}
+          animationType="slide">
+          <View
+            style={{
+              backgroundColor: '#f7f7f5',
+              alignItems: 'center',
+              height: 500,
+              top: screen - 300,
+            }}>
+            <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
+              Sort By
+            </Text>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="plus" size={25} />
+              <Text style={styles.modalText}>Watch Later</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="thumbs-up" size={25} />
+              <Text style={styles.modalText}>Liked</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="eye" size={25} />
+              <Text style={styles.modalText}>Watched</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="thumbs-down" size={25} />
+              <Text style={styles.modalText}>Dislike</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.setState({likeModal: false})}>
+              <Text>Close Model</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal
+          visible={this.state.shearModal}
+          transparent={true}
+          animationType="slide">
+          <View
+            style={{
+              backgroundColor: '#f7f7f5',
+              alignItems: 'center',
+              height: 500,
+              top: screen - 500,
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+            }}>
             <View
               style={{
-                backgroundColor: '#f7f7f5',
+                flexDirection: 'row',
+                padding: 10,
                 alignItems: 'center',
-                height: 500,
-                top: screen - 300,
               }}>
               <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
-                Sort By
+                Recommend title
               </Text>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="plus" size={25} />
-                <Text style={styles.modalText}>Watch Later</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="thumbs-up" size={25} />
-                <Text style={styles.modalText}>Liked</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="eye" size={25} />
-                <Text style={styles.modalText}>Watched</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="thumbs-down" size={25} />
-                <Text style={styles.modalText}>Dislike</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.setState({likeModal: false})}>
-                <Text>Close Model</Text>
-              </TouchableOpacity>
+              <Icon name="share" size={25} style={{marginLeft: 20}} />
             </View>
-          </Modal>
-        </View>
-        <View style={{width: window}}>
-          <Modal
-            visible={this.state.shearModal}
-            transparent={true}
-            animationType="slide">
-            <View
-              style={{
-                backgroundColor: '#f7f7f5',
-                alignItems: 'center',
-                height: 500,
-                top: screen - 500,
-                borderTopLeftRadius: 10,
-                borderTopRightRadius: 10,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  padding: 10,
-                  alignItems: 'center',
-                }}>
-                <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
-                  Recommend title
-                </Text>
-                <Icon name="share" size={25} style={{marginLeft: 20}} />
-              </View>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="plus" size={25} />
-                <Text style={styles.modalText}>Watch Later</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="thumbs-up" size={25} />
-                <Text style={styles.modalText}>Liked</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="eye" size={25} />
-                <Text style={styles.modalText}>Watched</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Iconm name="thumbs-down" size={25} />
-                <Text style={styles.modalText}>Dislike</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => this.setState({shearModal: false})}>
-                <Text>Close Model</Text>
-              </TouchableOpacity>
-            </View>
-          </Modal>
-        </View>
-        <Animated.ScrollView
-          onScroll={onScroll}
-          scrollEventThrottle={16}
-          automaticallyAdjustContentInsets={true}
-          bounces={false}
-          contentContainerStyle={{padding: 10}}>
-          <SafeAreaView style={{flex: 1}}>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="plus" size={25} />
+              <Text style={styles.modalText}>Watch Later</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="thumbs-up" size={25} />
+              <Text style={styles.modalText}>Liked</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="eye" size={25} />
+              <Text style={styles.modalText}>Watched</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Iconm name="thumbs-down" size={25} />
+              <Text style={styles.modalText}>Dislike</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.setState({shearModal: false})}>
+              <Text>Close Model</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <SafeAreaView style={{flex: 1}}>
+          <Animated.ScrollView
+            onScroll={Animated.event(
+              [
+                {
+                  nativeEvent: {
+                    contentOffset: {
+                      y: this.props.scrollContext,
+                    },
+                  },
+                },
+              ],
+              {useNativeDriver: true}, // Add this line
+            )}
+            horizontal={false}
+            scrollEventThrottle={16}
+            automaticallyAdjustContentInsets={true}
+            bounces={false}
+            contentContainerStyle={{
+              padding: 10,
+              paddingTop: TOTAL_HEADER_HEIGHT,
+            }}>
             <View style={{flex: 1, marginTop: 5}}>
               <View
                 style={{
@@ -705,18 +713,20 @@ export class MovieDetails extends Component {
                 />
               </View>
             </View>
-          </SafeAreaView>
-          <View style={{marginBottom: 60, marginTop: 25}}>
-            <Text style={styles.textFont}>Similer title</Text>
-            <View style={{flex: 1, alignItems: 'center'}}>
-              <CardView />
+            <View style={{marginBottom: 60, marginTop: 25}}>
+              <Text style={styles.textFont}>Similer title</Text>
+              <View style={{flex: 1, alignItems: 'center'}}>
+                <CardView />
+              </View>
             </View>
-          </View>
-        </Animated.ScrollView>
+          </Animated.ScrollView>
+        </SafeAreaView>
       </View>
     );
   }
 }
+
+// MovieDetails.contextType = TopBarContext;
 
 const mapStateToProps = (state) => {
   return {
@@ -724,7 +734,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(withCollapsebleHOC(MovieDetails));
+const EnhanchedComponent = useCollapsibleHeaderHOC(MovieDetails);
+
+export default connect(mapStateToProps, null)(EnhanchedComponent);
 
 const styles = StyleSheet.create({
   textFont: {

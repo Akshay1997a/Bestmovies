@@ -27,7 +27,11 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import MenusList from '../screens/MenusList';
 import Header from '../components/Header';
 import Movies from '../screens/Movies';
-import {TopBarMainNavigator, TopBarSecondaryNavigator} from './TopBarNavigator';
+import {
+  TopBarMainNavigator,
+  TopBarSearchNavigator,
+  TopBarSecondaryNavigator,
+} from './TopBarNavigator';
 import HeaderModal from '../components/HeaderModal';
 import SortBy from '../screens/Filter/SortBy';
 
@@ -190,7 +194,6 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            
           };
         }}
       />
@@ -259,19 +262,19 @@ const StackNav = () => {
         name="Search"
         options={{
           ...commonOptions,
-          headerShown: true,
+          headerShown: false,
           headerStyle: {
             elevation: 0,
           },
         }}
-        component={Search}
+        component={TopBarSearchNavigator}
       />
       <Stack.Screen
         name="About"
         options={{
           ...commonOptions,
-          headerShown: true,
-          header: (props) => <Header {...props} />,
+          headerShown: false,
+          // header: (props) => <Header {...props} />,
         }}
         component={TopBarSecondaryNavigator}
       />
