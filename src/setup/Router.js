@@ -53,7 +53,6 @@ const StackNav = () => {
     headerBackImage: (props) => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
     headerTitleAlign: 'center',
-    ...TransitionPresets.FadeFromBottomAndroid,
   };
 
   const modalScreenOptions = (screenProps) => {
@@ -64,7 +63,7 @@ const StackNav = () => {
       cardStyle: {
         backgroundColor: 'rgba(0,0,0,0.2)',
         overflow: 'hidden',
-        marginBottom: insets.bottom
+        marginBottom: insets.bottom,
       },
       cardOverlayEnabled: true,
       animationTypeForReplace: 'push',
@@ -77,6 +76,9 @@ const StackNav = () => {
             inputRange: [0, 0.5, 0.9, 1],
             outputRange: [0, 0.25, 0.7, 1],
           }),
+        },
+        containerStyle: {
+          backgroundColor: 'transparent'
         },
         overlayStyle: {
           opacity: progress.interpolate({

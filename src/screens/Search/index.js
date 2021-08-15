@@ -11,10 +11,11 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import CardView from '../Movies/CardView';
 import Loader from '../../components/Loader';
 import { HEADER_HEIGHT, TOTAL_HEADER_HEIGHT } from '../../components/Header';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function Search() {
   const [isLoaded, setLoaded] = useState(false);
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
@@ -33,7 +34,7 @@ export function Search() {
           flex: 1,
           backgroundColor: '#fff',
           paddingHorizontal: 10,
-          paddingTop: TOTAL_HEADER_HEIGHT + 10,
+          paddingTop: TOTAL_HEADER_HEIGHT + insets.top,
         }}>
         <View style={{ marginBottom: 10, flex: 5.7, backgroundColor: '#fff' }}>
           <View style={{ flexDirection: 'row', padding: 3, alignItems: 'center' }}>
