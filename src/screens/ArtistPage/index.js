@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import CardView from '../Movies/CardView';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ArtistPage(props) {
   const goBack = () => {
@@ -17,7 +18,7 @@ export default function ArtistPage(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backBut} onPress={goBack}>
           <FontAwesome5Icon name="arrow-left" size={25} />
@@ -112,7 +113,7 @@ export default function ArtistPage(props) {
           <CardView />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
   },
   artistDesc: {
     color: '#333333',
-    fontFamily: "'Arial'",
+    fontFamily: "Arial",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: '#000000',
-    fontFamily: "'Arial'",
+    fontFamily: "Arial",
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '400',

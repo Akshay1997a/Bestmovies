@@ -8,6 +8,7 @@ import {
   Dimensions,
   ScrollView,
   StyleSheet,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -15,7 +16,7 @@ import {connect} from 'react-redux';
 import {changeView} from '../../redux/FilterModule/FilterActions';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 import HeaderModal from '../../components/HeaderModal';
-import {SafeAreaView} from 'react-native-safe-area-context'
+// import {SafeAreaView} from 'react-native-safe-area-context'
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -74,7 +75,7 @@ class Filter extends React.Component {
     const {onClose} = this.props;
 
     return (
-      <SafeAreaView style={{backgroundColor: '#fff'}}>
+      <View style={{backgroundColor: '#fff', paddingBottom: 30}}>
         <HeaderModal title="Filter" {...this.props} />
         <ScrollView contentContainerStyle={{marginHorizontal: 10}}>
           <TouchableOpacity
@@ -285,7 +286,7 @@ class Filter extends React.Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 }

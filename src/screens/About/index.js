@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Header, {TOTAL_HEADER_HEIGHT} from '../../components/Header';
 import Loader from '../../components/Loader';
+import {SafeAreaView} from 'react-native-safe-area-context'
 
 export default function About() {
   const [isLoaded, setLoaded] = useState(false);
@@ -25,9 +26,10 @@ export default function About() {
   }
 
   return (
+    <SafeAreaView style={{flex: 1}}>
     <ScrollView
       style={styles.container}
-      contentContainerStyle={{paddingTop: TOTAL_HEADER_HEIGHT}}>
+      contentContainerStyle={{paddingTop: TOTAL_HEADER_HEIGHT }}>
       {/* <Header screens={screens} /> */}
       <Image
         source={require('../../../assets/about_tile.png')}
@@ -96,6 +98,7 @@ export default function About() {
         </Text>
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 }
 

@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     color: '#999999',
-    fontFamily: "'VAG Rounded Regular'",
+    fontFamily: "VAG Rounded",
     fontSize: 20,
     fontWeight: '400',
   },

@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: "'VAG Rounded Regular'",
+    fontFamily: "VAG Rounded",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '400',

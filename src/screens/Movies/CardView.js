@@ -4,13 +4,14 @@ import {
   Text,
   View,
   Dimensions,
-  SafeAreaView,
   FlatList,
   TouchableOpacity,
   Image,
   StyleSheet,
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+// import {SafeAreaView} from 'react-native-safe-area-context'
 
 const DATA = [
   {

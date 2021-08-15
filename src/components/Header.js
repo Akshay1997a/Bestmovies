@@ -10,6 +10,7 @@ import {
   TouchableNativeFeedback,
   StyleSheet,
   SafeAreaView,
+  Platform,
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -236,11 +237,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     overflow: 'hidden',
     zIndex: 1000,
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.4,
-    shadowRadius: 3,
-    elevation: 5,
+    ...Platform.OS === "android" && {
+      shadowColor: '#000',
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity: 0.4,
+      shadowRadius: 3,
+      elevation: 5,
+    }
   },
   TopBarScrollContainer: {
     height: TAB_BAR_HEIGHT,

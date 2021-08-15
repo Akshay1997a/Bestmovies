@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HeaderModal(props) {
-  console.log(props);
+  const inset = useSafeAreaInsets()
   const {title} = props;
   const {goBack} = props.navigation;
   return (
-    <View style={styles.headerContainer}>
+    <View style={[styles.headerContainer]}>
       <View style={styles.closeBut}>
         <TouchableOpacity onPress={goBack}>
           <FontAwesomeIcon name="close" size={25} />
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#FF3300',
-    fontFamily: "'VAG Rounded Regular'",
+    fontFamily: "VAG Rounded",
     fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',

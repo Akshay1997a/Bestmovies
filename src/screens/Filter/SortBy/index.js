@@ -1,6 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Dimensions} from 'react-native';
 import HeaderModal from '../../../components/HeaderModal';
+
+const {height} = Dimensions.get("screen")
 
 export default function SoryBy(props) {
   return (
@@ -25,8 +27,10 @@ const Button = ({title, isActive, onPress}) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: height,
     backgroundColor: '#fff',
     padding: 10,
+    marginTop:'auto'
   },
   butContainer: {
     padding: 10,
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: "'VAG Rounded Regular'",
+    fontFamily: "VAG Rounded",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '400',

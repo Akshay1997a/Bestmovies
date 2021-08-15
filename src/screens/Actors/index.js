@@ -185,7 +185,7 @@ export default Actors;
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: "'Arial'",
+    fontFamily: "Arial",
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '700',

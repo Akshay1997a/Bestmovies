@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   artistDesc: {
     color: '#333333',
-    fontFamily: "'Arial'",
+    fontFamily: "Arial",
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   Text: {
     color: '#000000',
-    fontFamily: "'Arial'",
+    fontFamily: "Arial",
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '400',

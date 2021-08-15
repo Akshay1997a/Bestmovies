@@ -23,7 +23,7 @@ import ArtistPage from '../screens/ArtistPage';
 import Profile from '../screens/Profile';
 import YoutubePlayer from '../components/YoutubePlayer';
 import MovieDetails from '../screens/MovieDetails';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, Platform} from 'react-native';
 import MenusList from '../screens/MenusList';
 import Header from '../components/Header';
 import Movies from '../screens/Movies';
@@ -34,7 +34,7 @@ import {
 } from './TopBarNavigator';
 import HeaderModal from '../components/HeaderModal';
 import SortBy from '../screens/Filter/SortBy';
-import {SafeAreaProvider} from 'react-native-safe-area-context'
+import {SafeAreaProvider, useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context'
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -48,6 +48,7 @@ const MoviesScreensStack = [
 ];
 
 const StackNav = () => {
+  const insets = useSafeAreaInsets()
   const commonOptions = {
     headerBackImage: (props) => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
@@ -63,6 +64,7 @@ const StackNav = () => {
       cardStyle: {
         backgroundColor: 'rgba(0,0,0,0.2)',
         overflow: 'hidden',
+        marginBottom: insets.bottom
       },
       cardOverlayEnabled: true,
       animationTypeForReplace: 'push',
@@ -109,7 +111,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <Filter {...props} />
           </View>
         )}
@@ -123,7 +125,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <MenusList {...props} />
           </View>
         )}
@@ -137,7 +139,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <Year {...props} />
           </View>
         )}
@@ -151,7 +153,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <Country {...props} />
           </View>
         )}
@@ -165,7 +167,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <SortBy {...props} />
           </View>
         )}
@@ -179,7 +181,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <Provider {...props} />
           </View>
         )}
@@ -187,7 +189,7 @@ const StackNav = () => {
       <Stack.Screen
         name="Ages"
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <Ages {...props} />
           </View>
         )}
@@ -207,7 +209,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <Generes {...props} />
           </View>
         )}
@@ -243,7 +245,7 @@ const StackNav = () => {
           };
         }}
         children={(props) => (
-          <View style={styles.ModalContainer}>
+          <View style={[styles.ModalContainer]}>
             <Languages {...props} />
           </View>
         )}
@@ -327,7 +329,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: '98%',
+    height: Platform.OS === "android" ? '98%' : '90%' ,
     marginTop: 'auto',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
