@@ -29,6 +29,7 @@ export default function MenusList(props) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <HeaderModal title="Menu" {...props} />
       <ScrollView contentContainerStyle={styles.scrollviewStyle}>
         <PrimaryTile
           title="Country"
