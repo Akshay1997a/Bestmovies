@@ -11,6 +11,7 @@
 		0D5CA4F32E414D6583380024 /* Lemon Milk Pro Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C082E70A341F49B7A579A2C6 /* Lemon Milk Pro Regular.otf */; };
 		0DA8569D81FB46F2BBDA03C4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AF7BF3C05534C0391DEF148 /* Zocial.ttf */; };
 		0DF07C476A104234BB6C26CC /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C1FC461C24F4C44B1D305B4 /* Feather.ttf */; };
+		139AF12FB8BC42A684318C39 /* VAG Rounded Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11D150CAA489470290F6E981 /* VAG Rounded Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -24,6 +25,7 @@
 		2E19ECADB988406CB69EC075 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B02DD6E8D024BDDB5F90C09 /* MaterialCommunityIcons.ttf */; };
 		4AD6DE52D2664BC1A45D24EE /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFF87DCE33974939939B593D /* Entypo.ttf */; };
 		5121F706478145CBBA3535AF /* Lemon Milk Pro Ultra Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D298BE9329964EE287FEB9DA /* Lemon Milk Pro Ultra Light.otf */; };
+		609F91A1C1CD4C94B6C52CF2 /* VAGRoundedNext-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7D9A3577C2BA460E824EB8AB /* VAGRoundedNext-Bold.otf */; };
 		6F0E0C308B887CBAAD00A312 /* libPods-BestMovies-tvOS-BestMovies-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF2419BEFAB488E4CD0A899 /* libPods-BestMovies-tvOS-BestMovies-tvOSTests.a */; };
 		6F1F6206A021469C83DD5584 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 712889E2D25840BEA0A35052 /* AntDesign.ttf */; };
 		7781EBCF385D47A58994423D /* Lemon Milk Pro Medium Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A9712F11479C4391823C831D /* Lemon Milk Pro Medium Italic.otf */; };
@@ -32,6 +34,7 @@
 		80341B2547FC4F25B75D4481 /* Lemon Milk Pro Ultra Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = ABFA3A1E233043B0924380D9 /* Lemon Milk Pro Ultra Light Italic.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8A91F48FE4534AF4BA9D20DF /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1115D31B6E2A49D493530857 /* MaterialIcons.ttf */; };
+		8C3B1ADD95104635B5E772B6 /* VAGRoundedNext-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DD76359032AA41B1AAC70405 /* VAGRoundedNext-Regular.otf */; };
 		8EE0D562FE544F5AB326EF08 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3700F7E77F6B4815A395F95C /* EvilIcons.ttf */; };
 		92C99ABE9005403E8FC1AAFC /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 372ECEE936B640F387EA9726 /* Fontisto.ttf */; };
 		A0A55FB83C164BC1AB2E510C /* Lemon Milk Pro Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 856E8D98818D47FE8AB8EC6E /* Lemon Milk Pro Medium.otf */; };
@@ -40,13 +43,12 @@
 		C65160FE74F9781C508C434F /* libPods-BestMovies-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5139BA450D3B6FFFDBDC1F69 /* libPods-BestMovies-tvOS.a */; };
 		C8FEC0069A4D4FE5AB5517DB /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 355BFE7E19AE46C78510663B /* Ionicons.ttf */; };
 		CA262580395C458292CF91F0 /* Lemon Milk Pro Regular Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = A8A3D5984F1941D0A5679180 /* Lemon Milk Pro Regular Italic.otf */; };
+		CA2D0066F52648A4AF3E7314 /* ARIAL.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18B12A7C120D45549F0DF168 /* ARIAL.TTF */; };
 		DBE1404D29174604958F5D12 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0071EC943D2B427FA5BE7122 /* FontAwesome.ttf */; };
 		ED36CE6E3C6C48A591F62F1D /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6CE922B7D2D4073A41E1D94 /* FontAwesome5_Brands.ttf */; };
 		F31C51E4482E699F9F210E79 /* libPods-BestMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D09A7AA579A384476D49E9 /* libPods-BestMovies.a */; };
 		F3E6FE9EC69646F3AC829BDE /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEA44AA4168142938B6324F2 /* SimpleLineIcons.ttf */; };
 		FC849403989941468373AE13 /* Lemon Milk Pro Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2CBA6B70DE4C4F8A03A27B /* Lemon Milk Pro Bold.otf */; };
-		139AF12FB8BC42A684318C39 /* VAG Rounded Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11D150CAA489470290F6E981 /* VAG Rounded Regular.ttf */; };
-		CA2D0066F52648A4AF3E7314 /* ARIAL.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 18B12A7C120D45549F0DF168 /* ARIAL.TTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,7 @@
 		0AF7BF3C05534C0391DEF148 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		0B22B974568A4C0295D0599A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		1115D31B6E2A49D493530857 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		11D150CAA489470290F6E981 /* VAG Rounded Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "VAG Rounded Regular.ttf"; path = "../assets/fonts/VAG Rounded Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* BestMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BestMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BestMovies/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BestMovies/AppDelegate.m; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BestMovies/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BestMovies/main.m; sourceTree = "<group>"; };
 		14FD1224283CA079ED3A7C9B /* Pods-BestMovies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BestMovies.debug.xcconfig"; path = "Target Support Files/Pods-BestMovies/Pods-BestMovies.debug.xcconfig"; sourceTree = "<group>"; };
+		18B12A7C120D45549F0DF168 /* ARIAL.TTF */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = ARIAL.TTF; path = ../assets/fonts/ARIAL.TTF; sourceTree = "<group>"; };
 		18E899C226C80B4D00CD5326 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C2DB6957B1A4A373DC22B47 /* Pods-BestMovies-BestMoviesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BestMovies-BestMoviesTests.release.xcconfig"; path = "Target Support Files/Pods-BestMovies-BestMoviesTests/Pods-BestMovies-BestMoviesTests.release.xcconfig"; sourceTree = "<group>"; };
 		1D0B016D86917AC1EDA06994 /* Pods-BestMovies-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BestMovies-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-BestMovies-tvOS/Pods-BestMovies-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		63EAADC064FD86D590C5B29C /* Pods-BestMovies-BestMoviesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BestMovies-BestMoviesTests.debug.xcconfig"; path = "Target Support Files/Pods-BestMovies-BestMoviesTests/Pods-BestMovies-BestMoviesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		712889E2D25840BEA0A35052 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		7C1FC461C24F4C44B1D305B4 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		7D9A3577C2BA460E824EB8AB /* VAGRoundedNext-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "VAGRoundedNext-Bold.otf"; path = "../assets/fonts/VAGRoundedNext-Bold.otf"; sourceTree = "<group>"; };
 		80351B138338AA821FAC97D2 /* Pods-BestMovies-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BestMovies-tvOS.release.xcconfig"; path = "Target Support Files/Pods-BestMovies-tvOS/Pods-BestMovies-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BestMovies/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		856E8D98818D47FE8AB8EC6E /* Lemon Milk Pro Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lemon Milk Pro Medium.otf"; path = "../assets/fonts/Lemon Milk Pro Medium.otf"; sourceTree = "<group>"; };
@@ -114,13 +119,12 @@
 		C082E70A341F49B7A579A2C6 /* Lemon Milk Pro Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lemon Milk Pro Regular.otf"; path = "../assets/fonts/Lemon Milk Pro Regular.otf"; sourceTree = "<group>"; };
 		CFF87DCE33974939939B593D /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		D298BE9329964EE287FEB9DA /* Lemon Milk Pro Ultra Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lemon Milk Pro Ultra Light.otf"; path = "../assets/fonts/Lemon Milk Pro Ultra Light.otf"; sourceTree = "<group>"; };
+		DD76359032AA41B1AAC70405 /* VAGRoundedNext-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "VAGRoundedNext-Regular.otf"; path = "../assets/fonts/VAGRoundedNext-Regular.otf"; sourceTree = "<group>"; };
 		E5E9F8E2F39444368827B9EA /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		ED1CC537E7164AF4ADEA5956 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FEF2419BEFAB488E4CD0A899 /* libPods-BestMovies-tvOS-BestMovies-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BestMovies-tvOS-BestMovies-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		11D150CAA489470290F6E981 /* VAG Rounded Regular.ttf */ = {isa = PBXFileReference; name = "VAG Rounded Regular.ttf"; path = "../assets/fonts/VAG Rounded Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		18B12A7C120D45549F0DF168 /* ARIAL.TTF */ = {isa = PBXFileReference; name = "ARIAL.TTF"; path = "../assets/fonts/ARIAL.TTF"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +271,8 @@
 				D298BE9329964EE287FEB9DA /* Lemon Milk Pro Ultra Light.otf */,
 				11D150CAA489470290F6E981 /* VAG Rounded Regular.ttf */,
 				18B12A7C120D45549F0DF168 /* ARIAL.TTF */,
+				7D9A3577C2BA460E824EB8AB /* VAGRoundedNext-Bold.otf */,
+				DD76359032AA41B1AAC70405 /* VAGRoundedNext-Regular.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -386,7 +392,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 9Q95HD4MT5;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -461,6 +469,8 @@
 				5121F706478145CBBA3535AF /* Lemon Milk Pro Ultra Light.otf in Resources */,
 				139AF12FB8BC42A684318C39 /* VAG Rounded Regular.ttf in Resources */,
 				CA2D0066F52648A4AF3E7314 /* ARIAL.TTF in Resources */,
+				609F91A1C1CD4C94B6C52CF2 /* VAGRoundedNext-Bold.otf in Resources */,
+				8C3B1ADD95104635B5E772B6 /* VAGRoundedNext-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -967,7 +977,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Q95HD4MT5;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=*]" = arm64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1043,8 +1056,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = bestmovies.org;
 				PRODUCT_NAME = BestMovies;
+				PROVISIONING_PROFILE_SPECIFIER = BestmoviesDist;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1057,17 +1071,83 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9Q95HD4MT5;
 				INFOPLIST_FILE = BestMovies/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}",
+					"${PODS_CONFIGURATION_BUILD_DIR}/CocoaAsyncSocket-iOS",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FBReactNativeSpec-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCrashlytics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-DoubleConversion-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Folly-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-Glog-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-PeerTalk-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-RSocket-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Flipper-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Folly-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RCTTypeSafety-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCAsyncStorage-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNCMaskedView-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNFBApp\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNFBCrashlytics\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNGestureHandler-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNReanimated-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNSVG-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNScreens-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/RNVectorIcons-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-Core-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-CoreModules-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTAnimation-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTBlob-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTImage-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTLinking-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTNetwork-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTSettings-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTText-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-RCTVibration-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-cxxreact-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsi-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsiexecutor-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/React-jsinspector-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Yoga-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/YogaKit-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/glog-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-blur-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-orientation\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-safe-area-context-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-slider\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/react-native-webview\"",
+					"\"${PODS_ROOT}/CocoaLibEvent/lib\"",
+					"\"${PODS_ROOT}/OpenSSL-Universal/ios/lib\"",
+					/usr/lib/swift,
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}\"/**",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = bestmovies.org;
 				PRODUCT_NAME = BestMovies;
+				PROVISIONING_PROFILE_SPECIFIER = BestmoviesDist;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
