@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback,
   Share,
+  SafeAreaView
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import HeaderModal from '../../components/HeaderModal';
 import {APP_PLAYSTORE_URL} from '../../config/urls';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function MenusList(props) {
   const {replace, navigate} = props.navigation;
@@ -139,14 +140,14 @@ const styles = StyleSheet.create({
   },
   PrimaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: "VAG Rounded",
+    fontFamily: "VAG Rounded Next",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   PrimaryTileSubTitleStyle: {
     color: '#333333',
-    fontFamily: "VAG Rounded",
+    fontFamily: "VAG Rounded Next",
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
   },
   IconTileTitleStyle: {
     color: '#000000',
-    fontFamily: "VAG Rounded",
+    fontFamily: "VAG Rounded Next",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
   },
   SecondaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: "VAG Rounded",
+    fontFamily: "VAG Rounded Next",
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '400',

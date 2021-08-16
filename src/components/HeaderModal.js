@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#FF3300',
-    fontFamily: "VAG Rounded",
+    fontFamily: "VAG Rounded Next",
     fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',
