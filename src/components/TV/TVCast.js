@@ -63,7 +63,7 @@ const TVCast = ({item, ...props})=>{
         {/* //Image View */}
           <View>
           <View hasTVPreferredFocus={false}>
-            <View style={isFocus ? styles.highlightFocused : styles.notHighlightFocused}>
+            <View style={styles.notHighlightFocused}>
                     <ImageBackground 
                     source={{ uri:  props?.type == "movie" ?  item.thumbnail : props.image  }}
                     style={{ width: '100%', height: '100%' , borderRadius:15}}>
@@ -72,18 +72,18 @@ const TVCast = ({item, ...props})=>{
           </View>
           {/* //Bottom View */}
           <View style={{flexDirection:'column'}}>
-                <Text style={[{ marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'white' }]} >{DATA.name}</Text>
+                <Text style={[{ marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'black' }]} >{DATA.name}</Text>
                 <View style={{flexDirection:'row'}}>
 
                 <View>
-                            <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'500'}]}>{DATA.designation}</Text>
+                            <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{DATA.designation}</Text>
                             <View style={{flexDirection:'row'}}>
                             <View>
-                                    <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'500'}]}>{DATA.dob}</Text>
+                                    <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{DATA.dob}</Text>
                             </View>
                             </View>
                             <View style={{flexDirection:'row'}}>
-                                <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'500'}]}>{`${DATA.match} match`}</Text>
+                                <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{`${DATA.match} match`}</Text>
                             </View>
                </View>
                <View style={{
@@ -94,9 +94,9 @@ const TVCast = ({item, ...props})=>{
                   backgroundColor: "gray",
                   borderRadius: 140/2,
                 }}>
-                        <Text style={{textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'white'}}>Top</Text>
+                        <Text style={{textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'black'}}>Top</Text>
 
-                        <Text style={{textAlign:'center',fontWeight:'900', fontSize:18,color:props?.selected == 1 ? 'white' : 'white'}}>{item.DATA.rating}</Text>
+                        <Text style={{textAlign:'center',fontWeight:'900', fontSize:18,color:props?.selected == 1 ? 'white' : 'black'}}>{item.DATA.rating}</Text>
                     </View>
                     </View>
                

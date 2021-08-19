@@ -8,6 +8,8 @@ import {
     ScrollView
 } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
+import TVToggle from '../TV/TVToggle';
+
 import colors from '../../helper/colors';
 import strings from '../../helper/strings';
 import StyleConfig from '../../helper/StyleConfig';
@@ -189,7 +191,7 @@ const BACK_DATA = [
     {
         "key": AGES,
         "title": strings.ages,
-        "details": "15+"
+        "details": "15+,Romantic"
     },
 
    
@@ -202,12 +204,12 @@ const BACK_DATA = [
     {
         "key": INCLUDES,
         "title": strings.include,
-        "details": " Watched browsed"
+        "details": " Include browsed"
     },
     {
         "key": PROVIDERS,
-        "title": 'Clear filters',
-        "details": ""
+        "title": ' Clear filters',
+        "details": "  "
     },
     // {
     //     "key": THEATERS,
@@ -221,6 +223,24 @@ const BACK_DATA = [
     // },
 ]
 const TVSideBar = forwardRef(({ onChangeSelected, ...props }, ref) => {
+
+const BackArrow = forwardRef(({ item }, ref) => {
+    console.log('keu',item);
+    return (
+            <View>
+                {
+            item.key == INCLUDES
+            ?
+           null
+            :
+            <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
+            <Icon name={"chevron-left"} size={40} color={"gray"} style={[{ }]} />
+                                     </View> 
+                }
+            </View>
+       
+    );
+});
 
     const [focus, setFocus] = useState(NONE);
     const [isScroll, setIsScroll] = useState(false);
@@ -317,35 +337,47 @@ const TVSideBar = forwardRef(({ onChangeSelected, ...props }, ref) => {
                                     // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
                                      >
                                          {
-                                            item.key === 'BackArrow' 
+                                            item.key === 'BackArrow'
                                             ?
-                                            <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                        <Icon name={"chevron-left"} size={40} color={"gray"} style={[{ }]} />
-
-                                                            {/* <Image style={{ width: StyleConfig.resWidth(30),
-                                                borderColor:'red',
-                                                   height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} /> */}
-                                                 </View>
-                                           
-                                            
+                                            <BackArrow item={item}/>
                                             :
                                             <View style={{marginLeft:20,flexDirection:'row'}} >
                                             <View style={{marginRight:90}}>
                                                  <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
+                                                                {
+                                                                    item.key === INCLUDES 
+                                                                    ?
+                                                                    <View style={{flexDirection:'row'}}>
+                                                                    <TVToggle />
                                                              <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
+                                                             </View>
+                                                                    :
+                                                             <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
+                                                                }
                                                  </View>
-                                                            <Text 
-                                                            numberOfLines={1}
-                                                            style={styles.text}>{item.details}</Text>
+                                                 {
+                                                                    item.key === INCLUDES 
+                                                                    ?
+                                                                    <View style={{flexDirection:'row'}}>
+                                                                    <TVToggle />
+                                                             <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.details}</Text>
+                                                             </View>
+                                                                    :
+                                                                    <Text 
+                                                                    numberOfLines={1}
+                                                                    style={styles.text}>{item.details}</Text>
+                                                                }
+                                                           
                                             </View> 
                                             {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
               <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
             </View> */}
                                             <View>
                                                 {
-                                                    item.title === 'Clear filters' 
+                                                    item.title === ' Clear filters' 
                                                     ?
-                                                    null
+                                                    <View style={{marginRight:80}} >
+                                                        </View>
                                                     // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
                                                     //     borderColor:'red',
                                                     //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
@@ -463,13 +495,17 @@ const styles = StyleSheet.create({
         alignItems:'center',
         flexDirection:'row',
         borderColor:'red',
-        borderRadius:20
+        borderRadius:20,
+
     },
     itemWrapperSelected:{
         backgroundColor: colors.tomatoRed,
-        borderRadius:20,
+        borderRadius:10,
+        padding:5,
+        // marginRight:-80,
     },
     itemWrapper:{
+        // marginRight:-80,
     },
     text:{
         fontSize:24,
@@ -478,20 +514,26 @@ const styles = StyleSheet.create({
     },
     focusText:{
         fontFamily:primary_regular_font.primary_regular_font,
-        fontWeight:'700',
+        fontWeight:'900',
         fontSize:24,
         color: colors.white,
+        // width:   250
+
     },
     textTitle:{
         fontSize:24,
         fontFamily:primary_regular_font.primary_regular_font,
-        fontWeight:'700'
+        fontWeight:'700',
+        // width:   250
+
     },
     focusTextTitle:{
         fontSize:24,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'700',
-        color: colors.white
+        color: colors.white,
+        // width:   250
+
     },
    
 })

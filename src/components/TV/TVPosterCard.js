@@ -75,27 +75,55 @@ const TVPosterCard = ({item, ...props})=>{
                         <View style={[{ alignItems:'center', marginTop:-25}]}>
                         <Icon name={"bookmark"} size={100} color={"blue"} style={[{ }]} />
                         <Icon name={"plus"} size={35} color={"white"} style={[{position:'absolute', top:28}]} />
-                        <View style={[{backgroundColor:"white", marginTop:10, borderRadius:15, height:70, width:120, alignItems:'center', justifyContent:'center'}]} >
+                        {/* <View style={[{backgroundColor:"white", marginTop:10, borderRadius:15, height:70, width:120, alignItems:'center', justifyContent:'center'}]} >
                         <Text style={[{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center', fontSize:26, fontWeight:'700', color:'black'}]} >
                           {"Watch\nlater"}
                         </Text>
-                        </View>
+                        </View> */}
                         </View>
                         </View>
             </ImageBackground>
             </View>
             <View style={styles.detailViewContainer}>
                 <Text numberOfLines={2} style={styles.titleText}>{item?.title}</Text>
-                            
-                <View style={{flexDirection:'row', marginTop: StyleConfig.resHeight(20)}}>
-                    <View style={{alignItems:'center', justifyContent:'center'}}>
+                 <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize:26, fontWeight:'400', color:'white'}]} >
+                          Name of original title if foreign
+                </Text>
+                <View style={{flexDirection:'row',}}>
+                        <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize:26, fontWeight:'400', color:'white'}]} >
+                                 Crime, Drama ,Thriller - 2019 - 154 min -18+
+                        </Text>
+                        <View style={{marginStart:400,}} >
+                        <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize:26, fontWeight:'400', color:'white'}]} >
+                        78% match - 12    
+                        </Text>
+                        </View>
+                </View>
+
+                        
+                        <View style={{flexDirection:'row',}}>
+
+                            <View>
+
+                          <View style={{flexDirection:'row'}}>
+                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'700', color:colors.white }}>Director:</Text>
+                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'400', color:colors.white }}> Todd Phillips</Text>
+                            </View>
+
+                            <View style={{flexDirection:'row'}}>
+                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'700', color:colors.white }}>Cast:</Text>
+                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 26, fontWeight:'400', color:colors.white }}> Todd Phillips, Todd Phillips, Todd Phillips,Todd Phillips</Text>
+                            </View>
+                            </View>
+                            <View style={{flexDirection:'row', marginTop: StyleConfig.resHeight(20)}}>
+                    {/* <View style={{alignItems:'center', justifyContent:'center'}}>
                         <View style={styles.ratingWrap}>
                             <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center', color:colors.white,fontWeight:'700', fontSize:14, lineHeight:16}}>7.9</Text>
                         </View>
                         <Text  style={[styles.greatText]} >Great</Text>
-                    </View>
+                    </View> */}
 
-                    <View style={{borderWidth:1, borderRadius:4, marginLeft: StyleConfig.resWidth(32), borderColor:colors.white}}>
+                    <View style={{marginStart:100,borderWidth:1, borderRadius:4, marginLeft: StyleConfig.resWidth(32), borderColor:colors.white}}>
                         <View style={{flexDirection:'row'}}>
                             <Text style={styles.typeText}>Awards:</Text>
                             <Text style={styles.valueText}>9.0</Text>
@@ -111,11 +139,14 @@ const TVPosterCard = ({item, ...props})=>{
                             <Text style={styles.valueText}>9.0</Text>
                         </View>
                     </View>
-                    <View style={{marginLeft:StyleConfig.resWidth(20)}}>
+                    {/* <View style={{marginLeft:StyleConfig.resWidth(20)}}>
                         <Text style={styles.commentText}>Won 2 oscars including best director</Text>
                         <Text style={styles.commentText}>Won 1 G. Globe including best movie</Text>
-                    </View>
+                    </View> */}
                 </View>
+                        </View>
+                            
+                
                 <View style={styles.spaceVertical} />
                 <Text style={styles.movieTypeText}>Crime, Drama -<Text style={styles.movieValueText}> US - 2019 - 154 min - Ages 18+</Text></Text>
                 <Text style={styles.movieTypeText}>2.99 € - 23     - 78% match - Recommend  <Icon name={"share"} type={"fontawesome"} style={{fontSize:20,}} /> </Text>
@@ -174,7 +205,7 @@ const styles = StyleSheet.create({
         paddingLeft:StyleConfig.resWidth(40)
     },
     titleText:{
-        fontSize:StyleConfig.resHeight(56),
+        fontSize:StyleConfig.resHeight(60),
         fontWeight:'700',
         fontFamily:primary_regular_font.primary_regular_font,
         // textShadowColor: 'rgba(255, 255, 255, 0.75)',

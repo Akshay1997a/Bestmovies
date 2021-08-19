@@ -50,7 +50,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
     <View
       style={[
         styles.container,
-        {height: headerHeight == 0 ? StyleConfig.headerHeight + 10 : headerHeight},
+        // {height: headerHeight == 0 ? StyleConfig.headerHeight + 10 : headerHeight},
       ]}>
       <Image
         source={AppImages.BestMoviesBanner}
@@ -243,10 +243,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flexDirection: 'row',
+    marginVertical:5
   },
   bannerIcon: {
-    width: 132,
-    height: 60,
+    width: 210,
+    height: 210/2,
   },
   itemWrapperSelected: {
     justifyContent: 'center',
@@ -269,34 +270,34 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 32,
     fontFamily:primary_regular_font.primary_regular_font,
+    fontWeight: '400',
+
   },
   focusText: {
     fontSize: 32,
     fontWeight: '700',
     color: colors.white,
-    fontFamily:primary_regular_font.primary_regular_font,
-
   },
   selectedText: {
     fontSize: 32,
     fontWeight: '700',
     color: colors.tomatoRed,
-    fontFamily:primary_regular_font.primary_regular_font,
+    fontFamily:primary_regular_font.primary_regular_font
 
   },
   headerIcon: {
-    width: StyleConfig.resWidth(20),
-    height: StyleConfig.resHeight(20),
+    width: StyleConfig.resWidth(40),
+    height: StyleConfig.resHeight(40),
     tintColor: colors.black,
   },
   headerIconSelected: {
-    width: StyleConfig.resWidth(20),
-    height: StyleConfig.resHeight(20),
+    width: StyleConfig.resWidth(40),
+    height: StyleConfig.resHeight(40),
     tintColor: colors.tomatoRed,
   },
   headerIconFocus: {
-    width: StyleConfig.resWidth(20),
-    height: StyleConfig.resHeight(20),
+    width: StyleConfig.resWidth(40),
+    height: StyleConfig.resHeight(40),
     tintColor: colors.white,
   },
 });

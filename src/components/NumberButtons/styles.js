@@ -40,7 +40,27 @@ export default {
     borderWidth: 3,
     borderColor: 'white',
     backgroundColor: '#e5e5e5',
-    padding:22
+    padding:42  
+  },
+  deleteButton: {
+
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 3,
+    borderColor: 'white',
+    backgroundColor: '#e5e5e5',
+    padding:27  
+  },
+  deleteAllButton: {
+
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 3,
+    borderColor: 'white',
+    backgroundColor: '#e5e5e5',
+    padding:32 
   },
   spaceButton: {
     // height:30,

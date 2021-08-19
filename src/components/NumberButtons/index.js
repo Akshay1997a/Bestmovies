@@ -1,5 +1,6 @@
 // React Modules
-import React, { Component } from 'react';
+import React, {useState, useCallback} from 'react';
+
 import {
     View,
     Image,
@@ -8,23 +9,28 @@ import {
 } from 'react-native';
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets';
+import TVCarousel from '../TV/TVCarousel';
 
 // Styles
 import styles from './styles';
 
-export default class TVKeyboard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            click: '',
-        };
-      }
+const TVKeyboard = ({...props})=>{
+console.log('ite',props);
+  const [focus, setFocus] = useState(false);
+    const onFocus = useCallback(() => {
+      setFocus(true);
+    }, []);
+    
+    const onBlur = useCallback(() => {
+      setFocus(false);
+    }, []);
+    
     
     // This is for optimization
     // Component should render only once
-    shouldComponentUpdate(nextProps, nextState){
-        return false;
-    }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     return false;
+    // }
 
     // This will call the bound function from its parent component 
     // to handle button press action/event 
@@ -32,51 +38,35 @@ export default class TVKeyboard extends React.Component {
         // console.log('value',value);
         // console.log('index',index);
         requestAnimationFrame(() => {
-            this.props.onBtnPress(value);
+            props.onBtnPress(value);
         });
-
-
 
     }
 
-    render() {
-        console.log('value',this.state);
+    
 
         return (
-          <View  hasTVPreferredFocus={true} style={styles.container} >
+          <View style={styles.container}>
+
+{/* <TVCarousel></TVCarousel> */}
+     <Pressable
+    style={styles.container}
+     onFocus={onFocus}
+     onBlur={onBlur}
+     >
+
+
             {
-                    this.props.buttons.map((row, index) => (
-                      <View  hasTVPreferredFocus={true} key={index} style={styles.contRow}>
+
+                    props.buttons.map((row, index) => (
+                      <View style={styles.contRow}>
                         { 
                                 row.map((col,index) => (
-
-
-
-                                  <Pressable
-                                  hasTVPreferredFocus={true}
-                                  style={({pressed}) => [
-                                    
-                                    styles.contButton,
-                                  ]}
-                                    key={index}
-                                    onPress={() => 
-                                        
-                                        this._handleOnPress(col,index)
-
-                                    }
-                                        >
-                                    {/* <View style={styles.contButton}> */}
-                                    
-                                      <Text style={styles.txtDefault}>{col}</Text>
-                                    {/* </View> */}
-                                    
-                                  </Pressable>
-
-
-
+                                  <View style={styles.contButton}>
+                                  <Text style={styles.txtDefault}>{col}</Text>
+                                  </View>
                                 ))
                             }
-                            
                       </View>
                       
                     ))
@@ -85,14 +75,13 @@ export default class TVKeyboard extends React.Component {
                   styles.contRow
                 }>
 
-<View style={styles.symbolButton}>
-                <Image style={{ width: StyleConfig.resWidth(50),
-                            height: StyleConfig.resHeight(40),}} source={AppImages.delete} />
-                            </View>
-
                             <View style={styles.symbolButton}>
-                            <Image style={{ width: StyleConfig.resWidth(50),
-                            height: StyleConfig.resHeight(40),}} source={AppImages.delete} />
+                                 <Image style={{ width: StyleConfig.resWidth(10),
+                                    height: StyleConfig.resHeight(20),}} source={AppImages.next_bk} />
+                            </View>
+                            <View style={styles.symbolButton}>
+                            <Image style={{ width: StyleConfig.resWidth(10),
+                            height: StyleConfig.resHeight(20),}} source={AppImages.next_bk} />
                             </View>
                            
                             <View style={styles.spaceButton}>
@@ -100,18 +89,29 @@ export default class TVKeyboard extends React.Component {
                             height: StyleConfig.resHeight(20),}} source={AppImages.space} />
                             </View>
                            
-                            <View style={styles.symbolButton}>
-                            <Image style={{ width: StyleConfig.resWidth(50),
-                              height: StyleConfig.resHeight(40),}} source={AppImages.delete} />
+                            <View style={styles.deleteButton}>
+                            <Image style={{ width: StyleConfig.resWidth(40),
+                              height: StyleConfig.resHeight(30),}} source={AppImages.delete} />
                             </View>
-                            <View style={styles.symbolButton}>
-                            <Image style={{ width: StyleConfig.resWidth(50),
-                              height: StyleConfig.resHeight(60),}} source={AppImages.delete_all} />
+                            <View style={styles.deleteAllButton}>
+                            <Image style={{ width: StyleConfig.resWidth(30),
+                              height: StyleConfig.resHeight(40),}} source={AppImages.delete_all} />
                             </View>
                            
                             </View>
                             
-          </View>
+
+
+       </Pressable> 
+</View>
+           
+
         );
-    }
-}
+    
+                      
+
+
+                            }
+
+  
+export default TVKeyboard;                          

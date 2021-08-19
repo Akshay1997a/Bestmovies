@@ -72,10 +72,10 @@ const TVCardDetail = ({item, ...props})=>{
           {/* //Bottom View */}
           <View style={{flexDirection:'row',marginLeft:10}}>
             <View>
-                <Text style={[{fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'white' }]} >{item.title}</Text>
-                <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{DATA.type}</Text>
+                <Text style={[{fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'black' }]} >{item.title}</Text>
+                <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{DATA.type}</Text>
                 <View style={{flexDirection:'row'}}>
-                          <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
+                          <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
 
           {
            props?.selected !=1 ?
@@ -97,13 +97,13 @@ const TVCardDetail = ({item, ...props})=>{
                   borderRadius: 100,
                   transform: [{ scaleX: 2 }],
                 }}>
-                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'white'}}>{item.DATA.rating}</Text>
+                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'black'}}>{item.DATA.rating}</Text>
                     </View>
 
                 </View>
                 <View style={{flexDirection:'row'}}>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:69 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'white', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
+                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
+                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:69 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'black', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
                 </View>
             </View>
             

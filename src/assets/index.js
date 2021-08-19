@@ -26,7 +26,12 @@ export default {
     cast5:require('../../asset/Actors/cast5.png'),
     heart:require('./appImages/heart.png'),
     about:require('./appImages/about.png'),
+    micro:require('./appImages/micro.png'),
     arrow_right:require('./appImages/arrow_right.png'),
+    next_bk:require('./appImages/next_bk.png'),
+    arrow_left:require('./appImages/arrow_left.png'),
+
+
 
 
 

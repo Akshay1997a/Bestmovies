@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         borderColor: colors.tomatoRed,
         borderRadius: 10,
         overflow:'hidden',
-        borderWidth:5},
+        borderWidth:8},
       highlight:{
         flexBasis: itemWidth+35,
         borderColor: '#1d3557',

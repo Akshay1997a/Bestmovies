@@ -9,6 +9,7 @@ import {
     Pressable,
     Image
  } from 'react-native'
+ 
  import TVHeader from '../../components/TV/TVHeader'
  import TVTopBar from '../../components/TV/TVTopBar'
  import TVSideBar from '../../components/TV/TVSideBar'
@@ -135,7 +136,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
     return (
       <View style={{backgroundColor:colors.white}}>
       
-      <TVHeader {...props} ref={header} selected={selected} onChangeSelected={(val)=> {
+      <TVHeader  style={{height:500}} {...props} ref={header} selected={selected} onChangeSelected={(val)=> {
         setSelected(val)
         if(val == MENU){
           setShowSelected(ABOUT_US)
@@ -144,29 +145,40 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
         } } />
      {/* <ScrollView> */}
       <View hasTVPreferredFocus={true} style={{flexDirection:'column',marginHorizontal:20,backgroundColor:colors.white}}>
-      <TVTopBar ref={sidebar} headerSelected={selected} hasTVPreferredFocus={true} {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
+      <TVTopBar  ref={sidebar} headerSelected={selected} hasTVPreferredFocus={true} {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
 
           {/* { selected != SEARCH && 
           <TVTopBar ref={sidebar} headerSelected={selected} hasTVPreferredFocus={true} {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
           } */}
           {selected == SEARCH && 
-          <View style={{flexDirection: 'row',backgroundColor: colors.white}}>
+          <View style={{flexDirection: 'row'}}>
             <View style={{ width: StyleConfig.resWidth(600), margin:40,height:'56%'}}>
-              <View style={{flexDirection:'row',backgroundColor: colors.white, borderRadius:8, borderWidth:1, minHeight:80,minWidth:60,marginBottom:20}}>
+              <View style={{flexDirection:'row',backgroundColor: colors.lightGrey, borderRadius:8,  minHeight:80,minWidth:60,marginBottom:20}}>
               <View style={{flex:1,flexDirection:'row'}}>
-                  <Image style={{marginStart:10,flex:0.1,height:40,width:30,alignSelf:'center'}} source={AppImages.amazon} />
+                <View style={{flex:0.1,alignSelf:'center'}} >
+                     <Image style={{marginStart:10,height:30,width:30,}} source={AppImages.icSearch} />
+                  </View>
                     <TextInput 
                       placeholder={strings.search}
-                      placeholderTextColor="#999" 
+                      placeholderTextColor={colors.black}
                       keyboardType={strings.email_address}
-                      style={{flex:0.8,alignSelf:'center',fontSize:34,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'700'}}
+                      style={{backgroundColor:colors.lightGrey, flex:0.8,alignSelf:'center',fontSize:34,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'700'}}
                       onChangeText={text => setText(text)}
                     />
-                  <Image style={{marginEnd:10,flex:0.1,height:40,width:40,alignSelf:'center',justifyContent:'flex-end'}} source={AppImages.amazon} />
+                    <View style={{marginStart:10,flex:0.1,alignSelf:'center'}} >
+                    <Image style={{marginEnd:10,height:40,width:40,justifyContent:'flex-end'}} source={AppImages.micro} />
+
+                  </View>
               </View>
               </View>
 
-            <TVKeyboard hasTVPreferredFocus={true}  onBtnPress={_handleEvent} buttons={buttons} />
+            <TVKeyboard 
+            //  onFocusedItem={(item)=> setSelectedItem(item)}
+              hasTVPreferredFocus={true} 
+             onBtnPress={_handleEvent} 
+             buttons={buttons}
+             {...props}
+              />
 
             </View>
 
