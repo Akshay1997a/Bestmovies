@@ -21,6 +21,8 @@ import {TopBarContext} from '../setup/TopBarNavigator';
 import {useAnimationProvider} from '../Providers/CollapsibleHeaderProvider';
 import SearchBar, {SearchTitle} from './SearchBar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
+import {FilterInitialState} from '../redux/FilterModule/FilterReducer';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const HEADER_HEIGHT = 60;
@@ -57,39 +59,59 @@ export default function Header(props) {
   );
 }
 
-const DefaultHeader = ({navigate}) => (
-  <View
-    style={{
-      flexDirection: 'row',
-      position: 'relative',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      height: HEADER_HEIGHT,
-      paddingHorizontal: 10,
-    }}>
-    <TouchableOpacity onPress={() => navigate('Menu')}>
-      <Image
-        source={require('../../assets/Icons/BMicon.png')}
-        style={{width: 150, height: 60, resizeMode: 'center'}}
-      />
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigate('Filter')}>
-      <Image
-        source={require('../../assets/Icons/filter_ic.png')}
-        style={{width: 25, height: 25}}
-      />
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigate('Search')}>
-      <Icon name="ios-search" size={25} color="#232323" />
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigate('Profile')}>
-      <FA5 name="user" size={25} color="#232323" />
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => navigate('MenusList')}>
-      <Icons name="dots-three-vertical" size={25} color="#232323" />
-    </TouchableOpacity>
-  </View>
-);
+const DefaultHeader = ({navigate}) => {
+  const filterConfig = useSelector((state) => state.filterConfig);
+  const [isFilterApplied, setFilterApplied] = useState(false);
+
+  const checkFilter = () => {
+    if (JSON.stringify(FilterInitialState) !== JSON.stringify(filterConfig)) {
+      setFilterApplied(true);
+    } else {
+      setFilterApplied(false);
+    }
+  };
+
+  useEffect(() => {
+    checkFilter();
+  }, [filterConfig]);
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        position: 'relative',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: HEADER_HEIGHT,
+        paddingHorizontal: 10,
+      }}>
+      <TouchableOpacity onPress={() => navigate('Menu')}>
+        <Image
+          source={require('../../assets/Icons/BMicon.png')}
+          style={{width: 150, height: 60, resizeMode: 'center'}}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate('Filter')}>
+        <View style={{position: 'relative'}}>
+          <Image
+            source={require('../../assets/Icons/filter_ic.png')}
+            style={{width: 25, height: 25}}
+          />
+          {isFilterApplied && <View style={styles.circleDot} />}
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate('Search')}>
+        <Icon name="ios-search" size={25} color="#232323" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate('Profile')}>
+        <FA5 name="user" size={25} color="#232323" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigate('MenusList')}>
+        <Icons name="dots-three-vertical" size={25} color="#232323" />
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 const SearchHeader = ({onPress}) => (
   <View
@@ -261,5 +283,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     height: 2,
+  },
+  circleDot: {
+    position: 'absolute',
+    top: 0,
+    left: 20,
+    width: 10,
+    height: 10,
+    backgroundColor: '#ff3300',
+    borderRadius: 100,
+    overflow: 'hidden',
   },
 });

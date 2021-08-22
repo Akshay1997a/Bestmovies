@@ -7,6 +7,9 @@ export default function SearchBar(props) {
     <View style={styles.container}>
       <Icon name="search" size={23} style={{marginRight: 5}} />
       <TextInput style={styles.inputStyle} {...props} />
+      <TouchableOpacity onPress={props.onClear}>
+        <Icon name="close" size={23} style={{marginRight: 5}} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -53,8 +56,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   inputStyle: {
+    flex: 1,
     color: '#999999',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontWeight: '400',
   },

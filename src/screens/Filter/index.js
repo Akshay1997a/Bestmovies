@@ -4,18 +4,23 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Switch,
   Dimensions,
   ScrollView,
   StyleSheet,
-  SafeAreaView
+  SafeAreaView,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
-import {changeView} from '../../redux/FilterModule/FilterActions';
+import {
+  changeView,
+  clearFiltersAction,
+} from '../../redux/FilterModule/FilterActions';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 import HeaderModal from '../../components/HeaderModal';
+import Switch from '../../components/Switch';
+import {SORT_BY_FILTER} from '../../redux/FilterModule/FilterTypes';
 // import {SafeAreaView} from 'react-native-safe-area-context'
 
 const window = Dimensions.get('window').width;
@@ -73,11 +78,20 @@ class Filter extends React.Component {
     };
 
     const {onClose} = this.props;
+    const {countries: selectedCountries, sortBy} = this.props.filterConfig;
+    const titleTextStyle = [styles.textTitle];
+    if (selectedCountries.length > 0) {
+      titleTextStyle.push(styles.isActiveText);
+    }
 
     return (
       <View style={{backgroundColor: '#fff', paddingBottom: 30}}>
         <HeaderModal title="Filter" {...this.props} />
-        <ScrollView contentContainerStyle={{marginHorizontal: 10}}>
+        <ScrollView
+          contentContainerStyle={{
+            marginHorizontal: 10,
+            ...(Platform.OS === 'android' && {paddingBottom: 40}),
+          }}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Sortby')}
             style={{
@@ -86,9 +100,15 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={styles.textTitle}>Sort by</Text>
+              <Text
+                style={{
+                  ...styles.textTitle,
+                  ...(sortBy !== SORT_BY_FILTER.ALL && styles.isActiveText),
+                }}>
+                Sort by
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>Rating</Text>
+                <Text style={styles.textSecond}>{sortBy}</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -105,7 +125,7 @@ class Filter extends React.Component {
             <View style={{flex: 1}}>
               <Text style={styles.textTitle}>Liked by</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>All</Text>
+                <Text style={styles.textSecond}>_ _</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -116,7 +136,9 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('Provider')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Providers US </Text>
+              <Text style={[styles.textTitle, styles.isActiveText]}>
+                Streaming services (US)
+              </Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
                   Netflix,Amazon Prime ,HBO,Flimin(Theaters included)
@@ -148,7 +170,9 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('Generes')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Generes</Text>
+              <Text style={[styles.textTitle, styles.isActiveText]}>
+                Generes
+              </Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>
                   Comedy,Drama,Thriller,Action,Documentary,Horror
@@ -160,10 +184,10 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Country')}
+            onPress={() => this.props.navigation.navigate('CountryFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Countries</Text>
+              <Text style={titleTextStyle}>Countries</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
                   USA,UK,France,Spain,Argentina,Italy,Canada,Germany
@@ -201,7 +225,7 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Linkby')}
+            onPress={() => this.props.navigation.navigate('LanguageFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text style={styles.textTitle}>Original Language</Text>
@@ -219,72 +243,47 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <Text style={styles.textTitle}>Include</Text>
-          <View style={{flexDirection: 'row', marginTop: 10}}>
-            <View style={{flex: 5}}>
-              <Text style={{fontSize: 17, fontWeight: '700'}}>Watching</Text>
-              <Text style={{fontSize: 17, fontWeight: '700'}}>
-                Previously browsed
-              </Text>
-            </View>
-            <View style={{flex: 1, justifyContent: 'center'}}>
+          <View style={{marginTop: 10}}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+              }}>
               <Switch
-                trackColor={{
-                  true: '#ff3300',
-                  false: Platform.OS == 'android' ? '#d3d3d3' : '#fbfbfb',
-                }}
-                thumbColor={[
-                  Platform.OS == 'ios'
-                    ? '#FFFFFF'
-                    : this.state.switchValueIncludeW.status
-                    ? 'yellow'
-                    : '#ffffff',
-                ]}
-                ios_backgroundColor="#fbfbfb"
-                style={[
-                  this.state.switchValueIncludeW.status
-                    ? styles.switchEnableBorder
-                    : styles.switchDisableBorder,
-                ]}
                 value={this.state.switchValueIncludeW}
                 onValueChange={(values) =>
                   this.setState({switchValueIncludeW: values})
                 }
               />
+              <Text style={styles.textSecond}>Watching</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+              }}>
               <Switch
-                trackColor={{
-                  true: '#ff3300',
-                  false: Platform.OS == 'android' ? '#d3d3d3' : '#fbfbfb',
-                }}
-                thumbColor={[
-                  Platform.OS === 'ios'
-                    ? '#FFFFFF'
-                    : this.state.switchValueIncludePIH.status
-                    ? '#fff'
-                    : '#ffffff',
-                ]}
-                ios_backgroundColor="#fbfbfb"
-                style={[
-                  this.state.switchValueIncludePIH.status
-                    ? styles.switchEnableBorder
-                    : styles.switchDisableBorder,
-                ]}
                 value={this.state.switchValueIncludePIH}
                 onValueChange={(values) =>
                   this.setState({switchValueIncludePIH: values})
                 }
               />
+              <Text style={styles.textSecond}>Previously browsed</Text>
             </View>
           </View>
-          <View>
-            <TouchableOpacity
-              style={{padding: 5}}
-              onPress={() => this.setState.switchValueIncludeW}>
-              <Text
-                style={{textAlign: 'center', fontSize: 15, fontWeight: '700'}}>
-                Clear Filters
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            style={{padding: 5}}
+            onPress={() => this.props.clearFilter()}>
+            <Text
+              style={{
+                color: '#ff3300',
+                textAlign: 'center',
+                fontSize: 15,
+                fontWeight: '700',
+              }}>
+              Clear Filters
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     );
@@ -300,6 +299,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeView: (view) => dispatch(changeView(view)),
+    clearFilter: () => dispatch(clearFiltersAction()),
   };
 };
 
@@ -308,14 +308,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   textSecond: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -324,7 +324,9 @@ const styles = StyleSheet.create({
     borderColor: '#6fa6d3',
     borderWidth: 1,
   },
-
+  isActiveText: {
+    color: '#ff3300',
+  },
   switchDisableBorder: {
     borderColor: '#f2f2f2',
     borderWidth: 1,

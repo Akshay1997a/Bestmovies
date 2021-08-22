@@ -18,14 +18,17 @@ import {
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/Feather';
 import Iconm from 'react-native-vector-icons/FontAwesome5';
+import Inocons from 'react-native-vector-icons/Ionicons';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import Orientation from 'react-native-orientation';
-import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
+import {VIEW_STYLE} from '../../redux/FilterModule/FilterTypes';
 import {
   HEADER_HEIGHT,
   TOTAL_HEADER_HEIGHT,
   useCollapsibleHeaderHOC,
 } from '../../components/Header';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import CardView from './CardView';
 
 const window = Dimensions.get('window').width;
@@ -172,6 +175,7 @@ export class Movies extends Component {
           flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
           justifyContent: 'center',
           borderRadius: 15,
+          overflow: 'hidden',
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
             borderColor: '#fff',
@@ -187,12 +191,17 @@ export class Movies extends Component {
               <TouchableOpacity
                 onPress={() => alert('heekk')}
                 style={{elevation: 1}}>
-                <Icon
-                  name="bookmark"
-                  size={40}
-                  color="#11a611"
-                  style={{position: 'absolute', top: -10, right: 10}}
-                />
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: -10,
+                    right: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
+                  <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
+                </View>
               </TouchableOpacity>
               {!this.state.isIntroTipVisible &&
                 viewStyle === VIEW_STYLE.FULL_VIEW && (
@@ -215,7 +224,8 @@ export class Movies extends Component {
                     : {
                         height: 250,
                         width: window / 2 - 15,
-                        borderRadius: 15,
+                        borderTopRightRadius: 15,
+                        borderTopLeftRadius: 15,
                       }
                 }
                 source={data.image}
@@ -238,15 +248,26 @@ export class Movies extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{flexDirection: 'row', padding: 5}}>
+            <View style={{padding: 5}}>
+              <Text style={styles.textFont}>Parasite</Text>
+              {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <Text style={[styles.textSecondary, styles.italic]}>
+                  Parasite(Original title)
+                </Text>
+              )}
+              <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingHorizontal: 5,
+                paddingBottom: 5,
+              }}>
               <View style={{flex: 5}}>
-                <Text style={styles.textFont}>Parasite</Text>
-                {viewStyle === VIEW_STYLE.FULL_VIEW && (
-                  <Text style={[styles.textSecondary, styles.italic]}>
-                    Parasite(Original title)
-                  </Text>
-                )}
-                <Text style={styles.textSecondary}>Dram ,Romantic</Text>
+                <Text style={styles.textSecondary}>
+                  2016 - US - 17{' '}
+                  <AntDesign name="like1" color="#35B736" size={18} />
+                </Text>
                 {viewStyle === VIEW_STYLE.FULL_VIEW && (
                   <View style={{flexDirection: 'row'}}>
                     <View
@@ -265,9 +286,6 @@ export class Movies extends Component {
                 )}
                 <View style={{flexDirection: 'row'}}>
                   <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
-                  <TouchableOpacity>
-                    <Icon name="heart-outlined" size={20} color="#232323" />
-                  </TouchableOpacity>
                 </View>
               </View>
               <View
@@ -719,7 +737,7 @@ export default connect(mapStateToProps, null)(EnhanchedComponent);
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 19,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -742,7 +760,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 16,
     fontStyle: 'italic',
     fontWeight: '400',
@@ -777,21 +795,21 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   resultText: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   sortbyButText: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -811,7 +829,7 @@ const styles = StyleSheet.create({
   },
   swipTitle: {
     color: '#FFFFFF',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',

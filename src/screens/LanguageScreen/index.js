@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import HeaderModal from '../../../components/HeaderModal';
+import HeaderModal from '../../components/HeaderModal';
+import {Button} from '../Country';
 
 const DATA = [
   {
@@ -416,7 +417,7 @@ const DATA = [
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 
-export class Languages extends Component {
+export class Language extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -426,35 +427,29 @@ export class Languages extends Component {
       screen,
     };
   }
-  renderItemComponent = (data) => (
-    <TouchableOpacity
-      style={{borderRadius: 25, padding: 10}}
-      keyExtractor={data.id}>
-      <View style={{flexDirection: 'row'}}>
-        <View style={{flex: 5}}>
-          <Text style={{fontSize: 15, fontWeight: '700'}}>
-            {data.languages}
-          </Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <HeaderModal title={"Your language"} {...this.props} />
+        <HeaderModal title={'Your language'} {...this.props} />
         <FlatList
           margin={15}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
             Platform.OS !== 'android' &&
             (({highlighted}) => (
-              <View style={[ highlighted && {marginLeft: 0}]} />
+              <View style={[highlighted && {marginLeft: 0}]} />
             ))
           }
           data={DATA}
-          renderItem={({item}) => this.renderItemComponent(item)}
+          renderItem={({item, index}) => (
+            <Button
+              key={item.id}
+              title={item.languages}
+              isActive={index === 0}
+              onPress={() => {}}
+            />
+          )}
           keyExtractor={(item) => item.id.toString()}
         />
       </SafeAreaView>
@@ -462,11 +457,11 @@ export class Languages extends Component {
   }
 }
 
-export default Languages;
+export default Language;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  }
-})
+    backgroundColor: '#fff',
+  },
+});

@@ -11,13 +11,13 @@ import HomeScreen from 'src/screens/HomeScreen';
 import MyListScreen from 'src/screens/MyListScreen';
 import Filter from 'src/screens/Filter';
 import Year from 'src/screens/Filter/Year';
-import Country from 'src/screens/Filter/Country';
+import CountryFilter from 'src/screens/Filter/CountryFilter';
 import Provider from 'src/screens/Filter/Providers';
 import Ages from 'src/screens/Filter/Ages';
 import Generes from 'src/screens/Filter/Generes';
 import Price from 'src/screens/Filter/Price';
 import Linkby from 'src/screens/Filter/LinkBy';
-import Languages from 'src/screens/Filter/Original Languages';
+import LanguageFilter from 'src/screens/Filter/LanguageFilter';
 import Search from 'src/screens/Search';
 import ArtistPage from '../screens/ArtistPage';
 import Profile from '../screens/Profile';
@@ -34,7 +34,13 @@ import {
 } from './TopBarNavigator';
 import HeaderModal from '../components/HeaderModal';
 import SortBy from '../screens/Filter/SortBy';
-import {SafeAreaProvider, useSafeAreaInsets, SafeAreaView} from 'react-native-safe-area-context'
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+  SafeAreaView,
+} from 'react-native-safe-area-context';
+import Country from '../screens/Country';
+import Language from '../screens/LanguageScreen';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -48,7 +54,7 @@ const MoviesScreensStack = [
 ];
 
 const StackNav = () => {
-  const insets = useSafeAreaInsets()
+  const insets = useSafeAreaInsets();
   const commonOptions = {
     headerBackImage: (props) => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
@@ -61,7 +67,7 @@ const StackNav = () => {
       headerShown: true,
       headerTitleAlign: 'center',
       cardStyle: {
-        backgroundColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: 'transparent',
         overflow: 'hidden',
         marginBottom: insets.bottom,
       },
@@ -78,7 +84,7 @@ const StackNav = () => {
           }),
         },
         containerStyle: {
-          backgroundColor: 'transparent'
+          backgroundColor: 'transparent',
         },
         overlayStyle: {
           opacity: progress.interpolate({
@@ -138,6 +144,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            animationEnabled: false
           };
         }}
         children={(props) => (
@@ -147,11 +154,27 @@ const StackNav = () => {
         )}
       />
       <Stack.Screen
+        name="CountryFilter"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <CountryFilter {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
         name="Country"
         options={(props) => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            animationEnabled: false
           };
         }}
         children={(props) => (
@@ -166,6 +189,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            animationEnabled: false
           };
         }}
         children={(props) => (
@@ -180,6 +204,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            animationEnabled: false
           };
         }}
         children={(props) => (
@@ -199,6 +224,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            animationEnabled: false
           };
         }}
       />
@@ -208,6 +234,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            animationEnabled: false
           };
         }}
         children={(props) => (
@@ -239,16 +266,32 @@ const StackNav = () => {
         }}
       />
       <Stack.Screen
+        name="LanguageFilter"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <LanguageFilter {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
         name="Languages"
         options={(props) => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
+            animationEnabled: false
           };
         }}
         children={(props) => (
           <View style={[styles.ModalContainer]}>
-            <Languages {...props} />
+            <Language {...props} />
           </View>
         )}
       />
@@ -331,7 +374,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: Platform.OS === "android" ? '98%' : '90%' ,
+    height: Platform.OS === 'android' ? '98%' : '90%',
     marginTop: 'auto',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,

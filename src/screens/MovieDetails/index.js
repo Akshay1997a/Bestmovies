@@ -23,7 +23,8 @@ import Iconm from 'react-native-vector-icons/FontAwesome5';
 import {connect} from 'react-redux';
 import CardView from '../Movies/CardView';
 import Orientation from 'react-native-orientation';
-import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
+import Inocons from 'react-native-vector-icons/Ionicons';
+import {VIEW_STYLE} from '../../redux/FilterModule/FilterTypes';
 import {FILTER_TYPES} from '../Movies';
 import Header, {
   HEADER_HEIGHT,
@@ -35,6 +36,10 @@ import Loader from '../../components/Loader';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {TopBarContext} from '../../setup/TopBarNavigator';
 import {withCollapsebleHOC} from '../../components/Header';
+import SVGTriangleBottom from '../../svgs/TriangleBottom';
+import SVGTriangleTop from '../../svgs/TriangleTop';
+
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -197,12 +202,17 @@ class MovieDetails extends Component {
           <TouchableOpacity
             onPress={() => alert('heekk')}
             style={{elevation: 1}}>
-            <Icon
-              name="bookmark"
-              size={40}
-              color="#11a611"
-              style={{position: 'absolute', top: -10, right: 10}}
-            />
+            <View
+              style={{
+                position: 'absolute',
+                top: -10,
+                right: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
+              <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
+            </View>
           </TouchableOpacity>
           {!this.state.isIntroTipVisible && viewStyle === VIEW_STYLE.FULL_VIEW && (
             <TouchableOpacity
@@ -220,11 +230,9 @@ class MovieDetails extends Component {
           <Image
             style={
               viewStyle === VIEW_STYLE.FULL_VIEW
-                ? {height: 450, width: window - 20, borderRadius: 15}
+                ? {height: 450, width: window}
                 : {
                     height: 250,
-                    width: window / 2 - 15,
-                    borderRadius: 15,
                   }
             }
             source={data.image}
@@ -247,7 +255,7 @@ class MovieDetails extends Component {
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', padding: 5}}>
+        <View style={{flexDirection: 'row', padding: 15}}>
           <View style={{flex: 5}}>
             <Text style={styles.textFont}>Parasite</Text>
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
@@ -255,21 +263,14 @@ class MovieDetails extends Component {
                 Parasite(Original title)
               </Text>
             )}
-            <Text style={styles.textSecondary}>Dram ,Romantic</Text>
+            <View style={{height: 10}} />
+            <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
               <View style={{flexDirection: 'row'}}>
-                <View
-                  style={{
-                    height: '100%',
-                    borderWidth: 1,
-                    padding: 2,
-                    marginRight: 2,
-                  }}>
-                  <Text>16+</Text>
-                </View>
-                <Text style={styles.textSecondary}>France - </Text>
-                <Text style={styles.textSecondary}>2018 - </Text>
-                <Text style={styles.textSecondary}>2h 34m</Text>
+                <Text style={styles.textSecondary}>
+                  2016 - US - 17{' '}
+                  <AntDesign name="like1" color="#35B736" size={18} />
+                </Text>
               </View>
             )}
             <View style={{flexDirection: 'row'}}>
@@ -317,16 +318,7 @@ class MovieDetails extends Component {
           </View>
         </View>
         {viewStyle === VIEW_STYLE.FULL_VIEW && (
-          <View style={{flex: 1, width: window - 20}}>
-            <View style={{height: window / 2, marginTop: 25}}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textFont}>Director </Text>
-                <Text style={styles.textFont}>Cast</Text>
-              </View>
-              <ScrollView horizontal={true} nestedScrollEnabled={true}>
-                {DATA.map((item, index) => this.rendeDirector(item, index))}
-              </ScrollView>
-            </View>
+          <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
             <View>
               <Text style={styles.textFont}>Lorem Ipsum</Text>
               <Text>
@@ -335,6 +327,15 @@ class MovieDetails extends Component {
                 text ever since the 1500s, when an unknown printer took a galley
                 of type and scrambled it to make a type specimen book
               </Text>
+            </View>
+            <View style={{height: window / 2, marginTop: 25}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.textFont}>Director </Text>
+                <Text style={styles.textFont}>Cast</Text>
+              </View>
+              <ScrollView horizontal={true} nestedScrollEnabled={true}>
+                {DATA.map((item, index) => this.rendeDirector(item, index))}
+              </ScrollView>
             </View>
             {/* For the Rating */}
             <View style={{marginTop: 25}}>
@@ -346,8 +347,22 @@ class MovieDetails extends Component {
                 <Text style={styles.textFont}>Rating</Text>
                 <Text style={styles.textSecondary}>Overall: 9.1</Text>
               </View>
-              <View style={{borderWidth: 1, flexDirection: 'row'}}>
-                <View style={{flex: 1, padding: 6, borderRightWidth: 1}}>
+              <View
+                style={{
+                  borderWidth: 2,
+                  borderColor: '#4183E2',
+                  borderRadius: 10,
+                  flexDirection: 'row',
+                  backgroundColor: '#EAF2FF',
+                  overflow: 'hidden',
+                }}>
+                <View
+                  style={{
+                    flex: 1,
+                    padding: 6,
+                    borderRightWidth: 2,
+                    borderColor: '#4183E2',
+                  }}>
                   <View>
                     <View
                       style={{
@@ -391,6 +406,19 @@ class MovieDetails extends Component {
                     </View>
                   </View>
                 </View>
+                <View style={{justifyContent: 'space-between'}}>
+                  <SVGTriangleTop />
+                  <SVGTriangleBottom />
+                </View>
+                <View
+                  style={{
+                    flex: 0.4,
+                    backgroundColor: '#4183E2',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={styles.ratingText}>9.2</Text>
+                </View>
               </View>
               <Text style={styles.textSecondary}>
                 Won 2 oscars including best director
@@ -415,39 +443,19 @@ class MovieDetails extends Component {
               <View style={{alignItems: 'center'}}>
                 <Image
                   source={require('../../../assets/poster1.jpg')}
-                  style={{
-                    width: window - 20,
-                    height: 300,
-                    resizeMode: 'cover',
-                    marginBottom: 10,
-                  }}
+                  style={styles.images}
                 />
                 <Image
                   source={require('../../../assets/poster1.jpg')}
-                  style={{
-                    width: window - 20,
-                    height: 300,
-                    resizeMode: 'cover',
-                    marginBottom: 10,
-                  }}
+                  style={styles.images}
                 />
                 <Image
                   source={require('../../../assets/poster1.jpg')}
-                  style={{
-                    width: window - 20,
-                    height: 300,
-                    resizeMode: 'cover',
-                    marginBottom: 10,
-                  }}
+                  style={styles.images}
                 />
                 <Image
                   source={require('../../../assets/poster1.jpg')}
-                  style={{
-                    width: window - 20,
-                    height: 300,
-                    resizeMode: 'cover',
-                    marginBottom: 10,
-                  }}
+                  style={styles.images}
                 />
               </View>
             </View>
@@ -666,7 +674,7 @@ class MovieDetails extends Component {
             automaticallyAdjustContentInsets={true}
             bounces={false}
             contentContainerStyle={{
-              padding: 10,
+              // padding: 10,
               paddingTop: TOTAL_HEADER_HEIGHT,
             }}>
             <View style={{flex: 1, marginTop: 5}}>
@@ -675,6 +683,7 @@ class MovieDetails extends Component {
                   flexDirection: 'row',
                   alignItems: 'center',
                   marginBottom: 10,
+                  paddingHorizontal: 10,
                 }}>
                 <View style={{flex: 3, flexDirection: 'row'}}>
                   <TouchableOpacity
@@ -713,7 +722,8 @@ class MovieDetails extends Component {
                 />
               </View>
             </View>
-            <View style={{marginBottom: 60, marginTop: 25}}>
+            <View
+              style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
               <Text style={styles.textFont}>Similer title</Text>
               <View style={{flex: 1, alignItems: 'center'}}>
                 <CardView />
@@ -741,8 +751,8 @@ export default connect(mapStateToProps, null)(EnhanchedComponent);
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
-    fontSize: 19,
+    fontFamily: 'VAG Rounded Next',
+    fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '700',
   },
@@ -764,7 +774,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 16,
     fontStyle: 'italic',
     fontWeight: '400',
@@ -799,21 +809,21 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   resultText: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   sortbyButText: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -833,7 +843,7 @@ const styles = StyleSheet.create({
   },
   swipTitle: {
     color: '#FFFFFF',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -861,5 +871,18 @@ const styles = StyleSheet.create({
   filterSelected: {
     color: '#fff',
     backgroundColor: '#ff3300',
+  },
+  ratingText: {
+    color: '#FFFFFF',
+    fontFamily: 'VAG Rounded Next',
+    fontSize: 22,
+    fontWeight: '700',
+  },
+  images: {
+    width: window - 20,
+    height: 300,
+    resizeMode: 'cover',
+    marginBottom: 10,
+    borderRadius: 10,
   },
 });

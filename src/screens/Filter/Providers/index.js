@@ -11,12 +11,12 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  Switch,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {COUNTRIES_LIST} from '../../../config/CountriesList';
 import Svg, {SvgFromUri as SVGImage, Rect} from 'react-native-svg';
 import HeaderModal from '../../../components/HeaderModal';
+import Switch from '../../../components/Switch';
 
 const DATA = [
   {
@@ -67,6 +67,11 @@ export class Provider extends Component {
     this.setState({selectedCountry: country});
   }
 
+  navigateToCountries() {
+    const {navigation} = this.props;
+    navigation.navigate('CountryFilter');
+  }
+
   renderItemComponent = (data) => (
     <View
       style={{
@@ -96,24 +101,22 @@ export class Provider extends Component {
         <HeaderModal title="Streaming services" {...this.props} />
         {selectedCountry && (
           <View style={{alignItems: 'flex-end', marginBottom: 20}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={styles.filterText}>Country :</Text>
-              <View style={{width: 10}} />
-              <SVGImage
-                width={30}
-                height={20}
-                uri={selectedCountry.flag}
-              />
-              <View style={{width: 10}} />
-              <Text style={styles.filterText}>US</Text>
-              <View style={{width: 10}} />
-              <Icon name="chevron-right" />
-            </View>
+            <TouchableOpacity onPress={this.navigateToCountries.bind(this)}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={styles.filterText}>Country :</Text>
+                <View style={{width: 10}} />
+                <SVGImage width={30} height={20} uri={selectedCountry.flag} />
+                <View style={{width: 10}} />
+                <Text style={styles.filterText}>US</Text>
+                <View style={{width: 10}} />
+                <Icon name="chevron-right" />
+              </View>
+            </TouchableOpacity>
           </View>
         )}
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -144,9 +147,7 @@ export class Provider extends Component {
               ItemSeparatorComponent={
                 Platform.OS !== 'android' &&
                 (({highlighted}) => (
-                  <View
-                    style={[ highlighted && {marginLeft: 0}]}
-                  />
+                  <View style={[highlighted && {marginLeft: 0}]} />
                 ))
               }
               data={DATA.flatMap((i) => [i, i, i, i, i, i, i, i, i])}
@@ -158,19 +159,30 @@ export class Provider extends Component {
         </ScrollView>
         <View style={styles.filterContainer}>
           <View style={styles.finterItem}>
-            <Switch value={true} />
+            <Switch
+              value={true}
+              thumbColor={'#fff'}
+              trackColor={{true: '#ff3300', false: '#EFEFEF'}}
+            />
             <View style={{width: 10}} />
             <Text style={styles.filterText}>
               Free streaming services with ads
             </Text>
           </View>
           <View style={styles.finterItem}>
-            <Switch />
+            <Switch
+              value={true}
+              thumbColor={'#fff'}
+              trackColor={{true: '#ff3300', false: '#EFEFEF'}}
+            />
             <View style={{width: 10}} />
             <Text style={styles.filterText}>Rent / buy streaming services</Text>
           </View>
           <View style={styles.finterItem}>
-            <Switch />
+            <Switch
+              thumbColor={'#fff'}
+              trackColor={{true: '#ff3300', false: '#EFEFEF'}}
+            />
             <View style={{width: 10}} />
             <Text style={styles.filterText}>Local movie theaters</Text>
           </View>
@@ -187,7 +199,7 @@ const styles = StyleSheet.create({
   },
   butText: {
     color: '#333333',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 16,
     fontWeight: '400',
   },
@@ -196,7 +208,7 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 25,
+    borderRadius: 15,
     width: window / 3 - 10,
     backgroundColor: '#EFEFEF',
   },
@@ -215,7 +227,7 @@ const styles = StyleSheet.create({
   },
   filterText: {
     color: '#333333',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',
