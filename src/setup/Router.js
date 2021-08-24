@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: Platform.OS === 'android' ? '98%' : '90%',
+    height: Platform.OS === 'android' ? '100%' : '90%',
     marginTop: 'auto',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,

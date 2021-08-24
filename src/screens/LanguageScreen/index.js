@@ -433,7 +433,7 @@ export class Language extends Component {
       <SafeAreaView style={styles.container}>
         <HeaderModal title={'Your language'} {...this.props} />
         <FlatList
-          margin={15}
+          margin={10}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
             Platform.OS !== 'android' &&

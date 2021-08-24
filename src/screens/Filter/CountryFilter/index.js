@@ -58,48 +58,52 @@ export class CountryFilter extends Component {
     const {filtereddCountries, searchString} = this.state;
     const {selectedCountries, updateCountries} = this.props;
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#fff', padding: 10}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <HeaderModal title="Countries of origin" {...this.props} />
-        <SearchBar
-          placeholder="Enter country"
-          value={searchString}
-          onChangeText={(text) => this.onSearchHandler(text)}
-          onClear={this.onClearSearch}
-        />
-        <View>
-          <Button
-            title="Any"
-            isActive={selectedCountries.length === 0}
-            onPress={() => updateCountries([])}
+        <View style={{padding: 10}}>
+          <SearchBar
+            placeholder="Enter country"
+            value={searchString}
+            onChangeText={(text) => this.onSearchHandler(text)}
+            onClear={this.onClearSearch}
           />
-          <Button
-            title="Your country (US)"
-            isActive={false}
-            onPress={(val) =>
-              this.selectUnselectCountry('United States of America')
+          <View>
+            <Button
+              title="Any"
+              isActive={selectedCountries.length === 0}
+              onPress={() => updateCountries([])}
+            />
+            <Button
+              title="Your country (US)"
+              isActive={false}
+              onPress={(val) =>
+                this.selectUnselectCountry('United States of America')
+              }
+            />
+          </View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={
+              Platform.OS !== 'android' &&
+              (({highlighted}) => (
+                <View style={[highlighted && {marginLeft: 0}]} />
+              ))
             }
+            data={
+              filtereddCountries.length > 0
+                ? filtereddCountries
+                : COUNTRIES_LIST
+            }
+            renderItem={({item, index}) => (
+              <Button
+                title={item.name}
+                isActive={selectedCountries.includes(item.name)}
+                onPress={(name) => this.selectUnselectCountry(name)}
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={
-            Platform.OS !== 'android' &&
-            (({highlighted}) => (
-              <View style={[highlighted && {marginLeft: 0}]} />
-            ))
-          }
-          data={
-            filtereddCountries.length > 0 ? filtereddCountries : COUNTRIES_LIST
-          }
-          renderItem={({item, index}) => (
-            <Button
-              title={item.name}
-              isActive={selectedCountries.includes(item.name)}
-              onPress={(name) => this.selectUnselectCountry(name)}
-            />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
       </SafeAreaView>
     );
   }

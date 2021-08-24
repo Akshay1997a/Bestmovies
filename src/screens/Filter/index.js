@@ -100,13 +100,7 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text
-                style={{
-                  ...styles.textTitle,
-                  ...(sortBy !== SORT_BY_FILTER.ALL && styles.isActiveText),
-                }}>
-                Sort by
-              </Text>
+              <Text style={styles.textTitle}>Sort by</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>{sortBy}</Text>
               </View>
@@ -136,9 +130,7 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('Provider')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={[styles.textTitle, styles.isActiveText]}>
-                Streaming services (US)
-              </Text>
+              <Text style={[styles.textTitle]}>Streaming services (US)</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
                   Netflix,Amazon Prime ,HBO,Flimin(Theaters included)
@@ -166,13 +158,9 @@ class Filter extends React.Component {
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Generes')}
-            style={styles.butContainer}>
+          <TouchableOpacity style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={[styles.textTitle, styles.isActiveText]}>
-                Generes
-              </Text>
+              <Text style={[styles.textTitle]}>Generes</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>
                   Comedy,Drama,Thriller,Action,Documentary,Horror
@@ -199,7 +187,7 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Ages')}
+            // onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text style={styles.textTitle}>Age rating</Text>
@@ -212,7 +200,7 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Ages')}
+            // onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text style={styles.textTitle}>Price</Text>
@@ -333,7 +321,7 @@ const styles = StyleSheet.create({
   },
   butContainer: {
     flexDirection: 'row',
-    paddingVertical: 20,
+    paddingVertical: 10,
     marginBottom: 1,
     borderBottomWidth: 1,
     borderBottomColor: '#eeeeee',

@@ -11,13 +11,13 @@ import {
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HeaderModal from '../../../components/HeaderModal';
 
-const WIDTH = Dimensions.get("window").width
+const WIDTH = Dimensions.get('window').width;
 
 export default function Year(props) {
   return (
     <View style={styles.container}>
       <HeaderModal title="Year of release" {...props} />
-      <ScrollView>
+      <ScrollView contentContainerStyle={{padding: 10}}>
         <Button title="Any" isActive={true} />
         <Button title="Last week" isActive={false} />
         <Button title="Last nonth" isActive={false} />
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 10,
   },
   butContainer: {
     padding: 10,
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '400',

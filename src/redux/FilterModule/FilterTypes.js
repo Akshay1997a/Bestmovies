@@ -11,10 +11,7 @@ export const VIEW_STYLE = {
 };
 
 export const SORT_BY_FILTER = {
-  ALL: 'All',
   RATING: 'Rating',
-  MATCH: 'Match',
-  FRIENDS_LIKES: "Friend's likes",
   POPULARITY: 'popularity',
 };
 

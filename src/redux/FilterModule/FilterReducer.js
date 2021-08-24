@@ -10,7 +10,7 @@ import {
 
 export const FilterInitialState = {
   viewStyle: VIEW_STYLE.GRID_VIEW,
-  sortBy: SORT_BY_FILTER.ALL,
+  sortBy: SORT_BY_FILTER.RATING,
   providers: [],
   year: [],
   countries: [],
