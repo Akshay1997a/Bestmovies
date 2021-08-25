@@ -5,6 +5,7 @@ import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets'
 import strings from '../../helper/strings';
+import primary_regular_font from '../../helper/fonts';
 
 const DATA = [
     { "id":0, "name":"Quality" },
@@ -51,13 +52,13 @@ const CommonFilterTvModal=(props)=>{
     //   }, [])
     return(
         <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
-            <View style={{minWidth: 350, minHeight: 300, backgroundColor: 'white', borderRadius:30, paddingHorizontal:15, paddingTop:30, paddingBottom:25, maxHeight:StyleConfig.resHeight(700)}}>
+            <View style={{minWidth: 600, minHeight: 700, backgroundColor: 'white', borderRadius:30, paddingHorizontal:15, paddingTop:30, paddingBottom:25, maxHeight:StyleConfig.resHeight(700)}}>
                 <View style={{flexDirection:'row', justifyContent:'space-between', alignItems: 'center', marginBottom:12, marginLeft:10}}>
                     <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
                         <Image style={{ width: StyleConfig.resWidth(20),
                             height: StyleConfig.resHeight(20),}} source={AppImages.icBackArrow} />
                     </Pressable>
-                    <Text style={{fontSize:26, fontWeight:'700', textAlign:'center'}}>{props?.title}</Text>
+                    <Text style={{fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700', textAlign:'center'}}>{props?.title}</Text>
                     <View style={{width: StyleConfig.resWidth(36), margin:4}} />
                 </View>
                 {props?.children}

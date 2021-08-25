@@ -6,6 +6,7 @@ import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets'
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
+import primary_regular_font from '../../helper/fonts';
 
 const styles = StyleSheet.create({
     backWrap:{
@@ -47,7 +48,7 @@ const TVCountryModal=(props)=>{
                 <ScrollView>
                     {data.map((item, index)=>{
                         return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.light_orange}:{ marginHorizontal:10,}} >
-                            <Text style={{fontSize:16, padding:8, paddingHorizontal:15, color: item.id == focus ? colors.black : colors.black}}>{item.name}</Text>
+                                                       <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
                         </Pressable>)
                     })}
                 </ScrollView>

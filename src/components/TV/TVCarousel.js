@@ -98,12 +98,30 @@ const MyCarousel = ({item,posts, ...props})=>{
           source={{uri: item.illustration}}
           containerStyle={styles.imageContainer}
           style={styles.image}
-          parallaxFactor={0.4}
-          {...parallaxProps}
+         
 
         >
          
           </ImageBackground>
+        {/* <Text style={styles.title} numberOfLines={2}>
+          {item.title}
+        </Text> */}
+        {/* <TVPosterCard item={item} {...props} /> */}
+      </View>
+    );
+  };
+  const bottomRenderItem = ({item, index}, parallaxProps) => {
+    return (
+      <View style={styles.secondItem}>
+        <Image
+          source={{uri: item.illustration}}
+          // containerStyle={styles.imageContainer}
+          style={styles.bottomImage}
+         
+
+        >
+         
+          </Image>
         {/* <Text style={styles.title} numberOfLines={2}>
           {item.title}
         </Text> */}
@@ -130,7 +148,7 @@ const MyCarousel = ({item,posts, ...props})=>{
         itemWidth={screenWidth}
         data={entries}
         renderItem={renderItem}
-        hasParallaxImages={true}
+        // hasParallaxImages={true}
       />
       <View style={[styles.item, {position: 'absolute',zIndex:1}]}>
 
@@ -156,9 +174,20 @@ const MyCarousel = ({item,posts, ...props})=>{
 {/* <Text style={{fontSize:30}}>himmm</Text>
 <Text style={{fontSize:30}}>himmm</Text>  */}
  <TVPosterCard item={item} {...props} />
- 
 
         </View>
+        <Carousel
+      loop={true}
+      autoplayDelay={4000}
+      autoplay={true}
+        ref={carouselRef}
+        sliderWidth={screenWidth}
+        sliderHeight={400}
+        itemWidth={400}
+        data={entries}
+        renderItem={bottomRenderItem}
+        hasParallaxImages={true}
+      />
         <View style={{flexDirection: 'row', }}>
                 <View style={{ marginTop:16 }}>
                   <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, marginLeft:12, fontWeight:'700', color:colors.black }}>Director:</Text>
@@ -196,6 +225,23 @@ const MyCarousel = ({item,posts, ...props})=>{
                 </View>
               </View>
 
+              <Pressable 
+                  onFocus={onFocus}
+                  onBlur={onBlur}
+                  hasTVPreferredFocus={true}
+                  autoFocus={true} 
+                  style = {({pressed, focused}) => 
+                  ({
+                    backgroundColor: focused? 'rgba(255,255,255,0.5)': pressed ? 'red' : 'transparent',
+                    overflow:'hidden'
+                  })
+                }
+                  onPress={()=>props.navigation.goBack()}>
+                    <Image style={{ width: StyleConfig.resWidth(60),
+                            height: StyleConfig.resHeight(60),}} source={AppImages.arrow_left} />
+                    {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
+                </Pressable>
+
        </ScrollView>
 
     </View>
@@ -216,6 +262,10 @@ fontSize:40
     width: screenWidth,
     height: screenWidth-600,
   },
+  secondItem: {
+    width: 400,
+    height: 400,
+  },
   imageContainer: {
     flex: 1,
     // marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
@@ -225,6 +275,12 @@ fontSize:40
   image: {
     ...StyleSheet.absoluteFillObject,
     // resizeMode: 'cover',
+  },
+  bottomImage: {
+    resizeMode: 'cover',
+    width: 400,
+    height: 400,
+    
   },
 });
 

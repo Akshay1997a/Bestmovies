@@ -17,6 +17,8 @@ import {
  import TVMovieListItem from '../../components/TV/TVMovieListItem'
  import TVSearchListItem from '../../components/TV/TVSearchListItem'
  import TVSortByModal from '../../components/TV/TVSortByModal'
+ import TVLikedByModal from '../../components/TV/TVLikedByModal'
+ import TVStreamingModal from '../../components/TV/TVStreamingModal'
  import TVAgesModal from '../../components/TV/TVAgesModal'
  import TVReleaseModal from '../../components/TV/TVReleaseModal'
  import TVCountryModal from '../../components/TV/TVCountryModal'
@@ -38,10 +40,12 @@ import Const from '../../helper/constants'
 import TVCardDetail from '../../components/TV/TVCardDetail';
 let [NONE,SEARCH, MY_LIST, MOVIES, TV_SHOW, SHORTS, DIRECTOR, ACTOR , PROFILE, MENU] =
 [-1, 0,1,2,3,4,5,6,7,8]
-let [ABOUT_US, ADVERTISE, COLLABORATE, JOBS, TERMS_OF_USE, PRIVACY_POLICY ] = [11, 12, 13, 14, 15, 16]
+// let [ABOUT_US, ADVERTISE, COLLABORATE, JOBS, TERMS_OF_USE, PRIVACY_POLICY ] = [11, 12, 13, 14, 15, 16]
+let [COUNTRY_LANGUAGE,MOBILE_APP,INVITE_FRIEND, ABOUT_US, ADVERTISE, COLLABORATE, JOBS, TERMS_OF_USE, PRIVACY_POLICY] = [9,10,11, 12, 13, 14, 15, 16, 17]
+
 let [NOTIFICATION, FRIENDS, PREFERANCE, MY_PROVIDER, ACCOUNT, LANGUAGE] = [21, 22, 23, 24, 25, 26]
-let [SORT_BY, RELEASE, GENRE, COUNTRY, AGES, PRICE , INCLUDES, PROVIDERS] =
-[ 0,1,2,3,4,5,6,7]
+let [NON, SORT_BY, LIKEDBY,STRREAMING ,RELEASE, GENRE, COUNTRY, AGES, PRICE,INCLUDES,PROVIDERS] = 
+   [-1, 0, 1, 2, 3, 4, 5, 6, 7,8,9];
 
 const ADVERTISE_DATA = Const.ABOUT_US.map((item)=> item.id == 2 ? ({...item, data: strings.advertise}) : item)
 const COLLABORATE_DATA = Const.ABOUT_US.map((item)=> item.id == 2 ? ({...item, data: strings.collaborate}) : item)
@@ -271,15 +275,31 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
             </View> }
 
             {selected == MENU && showSelected == ABOUT_US && 
-            <View hasTVPreferredFocus={true}>
-              <FlatList 
+            <View hasTVPreferredFocus={true}  >
+              <TVSideBar onChangeSelected={(val)=> setShowSelected(val) }/>
+              {/* <FlatList 
                 data={Const.ABOUT_US}
                 keyExtractor={(item, index) => `item${index}`}
                 renderItem={({item})=>{
                   return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} /> : 
                   <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
                 }}
-              />
+              /> */}
+            </View> }
+
+            {selected == MENU && showSelected == COUNTRY_LANGUAGE && 
+            <View hasTVPreferredFocus={true}>
+              <Text>dadsdsd</Text>
+              {/* <TVSideBar onChangeSelected={(val)=> setShowSelected(val) }/> */}
+              {/* <FlatList 
+                data={Const.ABOUT_US}
+                keyExtractor={(item, index) => `item${index}`}
+                renderItem={({item})=>{
+                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} /> 
+                  : 
+                  <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
+                }}
+              /> */}
             </View> }
 
             {selected == MENU && showSelected == ADVERTISE && 
@@ -352,6 +372,8 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
             </View> }
         </View>
         <TVSortByModal visible={showSelected== SORT_BY} oncloseModal={()=> oncloseModal(SORT_BY)} onclose={()=> oncloseModal(SORT_BY)}  />
+        <TVLikedByModal visible={showSelected== LIKEDBY} oncloseModal={()=> oncloseModal(LIKEDBY)} onclose={()=> oncloseModal(LIKEDBY)}  />
+        <TVStreamingModal visible={showSelected== STRREAMING} oncloseModal={()=> oncloseModal(STRREAMING)} onclose={()=> oncloseModal(STRREAMING)}  />
         <TVAgesModal visible={showSelected== AGES} oncloseModal={()=> oncloseModal(AGES)} onclose={()=> oncloseModal(AGES)}  />
         <TVReleaseModal visible={showSelected== RELEASE} oncloseModal={()=> oncloseModal(RELEASE)} onclose={()=> oncloseModal(RELEASE)}  />
         <TVCountryModal visible={showSelected== COUNTRY} oncloseModal={()=> oncloseModal(COUNTRY)} onclose={()=> oncloseModal(COUNTRY)}  />

@@ -1,0 +1,114 @@
+import React, {useState, useEffect} from 'react';
+import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import BaseModal from './BaseModal'
+import colors from '../../helper/colors';
+import StyleConfig from 'src/helper/StyleConfig'
+import AppImages from 'src/assets'
+import strings from '../../helper/strings';
+import CommonFilterTvModal from './CommonFilterTvModal';
+import primary_regular_font from '../../helper/fonts';
+
+
+const COUNTRY =[
+    { "id":0, "name":"United States" },
+    { "id":1, "name":"English" },
+]
+const DATA = [
+    { "id":0, "name":"United States" },
+    { "id":1, "name":"Albaniya" },
+    { "id":2, "name":"Algeria" },
+    { "id":3, "name":"American Samoa" },
+    { "id":4, "name":"Andorra" },
+    { "id":5, "name":"Angola" },
+    { "id":6, "name":"Aruba" },
+    { "id":7, "name":"Australia" },
+    { "id":9, "name":"Azerbaizan" },
+    { "id":10, "name":"Algeria" },
+    { "id":11, "name":"Andorra" },
+    { "id":12, "name":"Aruba" },
+    { "id":13, "name":"Australia" },
+    { "id":14, "name":"Andorra" },
+    { "id":15, "name":"Albaniya" },
+    { "id":16, "name":"Aruba" },
+    { "id":17, "name":"Australia" },
+    { "id":18, "name":"Andorra" },
+    { "id":19, "name":"Albaniya" }
+
+]
+const styles = StyleSheet.create({
+    backWrap:{
+        paddingHorizontal: StyleConfig.resWidth(8),
+        paddingVertical: StyleConfig.resHeight(4),
+        margin: 4
+    },
+    focusBackWrap:{
+        backgroundColor: colors.tomatoRedLight,
+        paddingHorizontal: StyleConfig.resWidth(8),
+        paddingVertical: StyleConfig.resHeight(4),
+        margin: 4,
+        borderRadius:10
+
+    }
+})
+
+const TVCountryLanguage = (props) =>{
+    const [selected, setSelected] = useState(-1)
+    const [ focus, setFocus] = useState(-1)
+    const [ data, setData] = useState(COUNTRY)
+    const [ country, setCountry] = useState(DATA)
+    const [ isCountryClick, setCountryClick] = useState(false);
+
+    const onPressHandle = (() => {
+        setCountryClick(true);
+        // console.log('key',val);
+        // setFocus(val);
+    });
+
+    return(
+        // <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
+        //     <View style={{width: 350, minHeight: 300, backgroundColor: 'white'}}>
+        //         <View style={{flexDirection:'row', justifyContent:'space-between', alignItems: 'center'}}>
+        //             <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
+        //                 <Image style={{ width: StyleConfig.resWidth(20),
+        //                     height: StyleConfig.resHeight(20),}} source={AppImages.icBackArrow} />
+        //             </Pressable>
+        //             <Text style={{fontSize:26, fontWeight:'700', textAlign:'center'}}>{strings.release}</Text>
+        //             <View style={{width: StyleConfig.resWidth(36), margin:4}} />
+        //         </View>
+                <ScrollView>
+                    
+                    <View style={{flexDirection:'row',minHeight:1000}}>
+
+                    <View style={{marginLeft:160,borderLeftWidth:1,borderLeftColor:colors.borderColor}}>
+                    {data.map((item, index)=>{
+                        return(<Pressable
+                         onPress={onPressHandle} 
+                          onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }:{ marginHorizontal:10,}} >
+                                                                                                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+
+                        </Pressable>)
+                    })}
+                    </View>
+                    {
+                        isCountryClick ?
+                    <View style={{marginLeft:160,borderLeftWidth:1,borderLeftColor:colors.borderColor}}>
+                    {country.map((item, index)=>{
+                        return(<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }:{ marginHorizontal:10,}} >
+                                                                                                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+
+                        </Pressable>)
+                    })}
+                    </View> 
+                    :
+                    null
+                    }
+
+                    </View>
+
+                </ScrollView>
+        //     </View>
+        // </BaseModal>
+    )
+}
+
+export default TVCountryLanguage

@@ -29,7 +29,7 @@ export default {
         {
             id:2,
             type: "title",
-            data: "About s"
+            data: "About Us"
         },
         {
             id:3,
@@ -56,7 +56,7 @@ Nullam nec tortor lacus. Morbi augue tortor, volutpat eu facilisis ut, feugiat a
         },
         {
             id:6,
-            type: "subTitle",
+            type: "subtitle",
             data:"Subtitle 2"
         },
         {
@@ -72,6 +72,106 @@ Nunc iaculis, metus quis viverra pharetra, elit tellus ornare mauris, ut porttit
             
 Nullam nec tortor lacus. Morbi augue tortor, volutpat eu facilisis ut, feugiat a risus. Nunc blandit porta volutpat. Sed at arcu at eros vehicula pharetra. Aenean blandit sagittis lacus a pulvinar. Nam laoreet posuere orci. Etiam imperdiet facilisis massa a porttitor. Duis eu posuere tortor. Nulla facilisi. Aliquam ac lectus tellus. Nullam ultricies dui eu nibh pretium rhoncus non sit amet mauris.`
         },
+        
+    ],
+    MOBILE_APP:[
+        {
+            id:1,
+            type: "image",
+            data: "https://drive.google.com/uc?id=1FilqcBgqvdWhdHXBEpxgozLU8cP27uBW&export=download"
+        },
+        {
+            id:2,
+            type: "title",
+            data: "Mobile app"
+        },
+        {
+            id:3,
+            type: "subtitle",
+            data: "Pick movies & shows fast. Control TV remotely. Free"
+        },
+        {
+            id:4,
+            type: "detail",
+            data: `Download & use the mobile app from your mobile's Google Play or Apple Stores:
+
+            - Optimized user experience
+            - Swipe titles
+            - Get notifications
+            - Share lists & ratings with friends
+            - Browse anytime, anywhere
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            `
+        },
+       
+        
+    ],
+    INVITE:[
+        {
+            id:1,
+            type: "image",
+            data: "https://drive.google.com/uc?id=1FilqcBgqvdWhdHXBEpxgozLU8cP27uBW&export=download"
+        },
+        {
+            id:2,
+            type: "title",
+            data: "Invite friend"
+        },
+        {
+            id:3,
+            type: "subtitle",
+            data: "Add friends to share ratings & lists"
+        },
+        {
+            id:4,
+            type: "detail",
+            data: `Use your facebook's friend list or add friends directly to:
+
+            - See their liked movies, ratings & viewings
+            - Share your ratings
+            - Send them recommendations
+            - Get notifications when they like a new title
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            `
+        },
+       
         
     ],
 

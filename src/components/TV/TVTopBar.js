@@ -18,7 +18,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import primary_regular_font from '../../helper/fonts';
 
 const ICON_SIZE = 24
-let [NONE, SORT_BY, RELEASE, GENRE, COUNTRY, AGES, PRICE,LIKEDBY,STRREAMING,INCLUDES,PROVIDERS] = [-1, 0, 1, 2, 3, 4, 5, 6, 7,8,9]
+let [NONE, SORT_BY, LIKEDBY,STRREAMING ,RELEASE, GENRE, COUNTRY, AGES, PRICE,INCLUDES,PROVIDERS] = 
+[-1, 0, 1, 2, 3, 4, 5, 6, 7,8,9];
 let [SEARCH, MY_LIST, MOVIES, TV_SHOW, SHORTS, DIRECTOR, ACTOR, PROFILE, MENU] =
     [0, 1, 2, 3, 4, 5, 6, 7, 8]
 let [ABOUT_US, ADVERTISE, COLLABORATE, JOBS, TERMS_OF_USE, PRIVACY_POLICY] = [11, 12, 13, 14, 15, 16]
@@ -250,12 +251,11 @@ const BackArrow = forwardRef(({ item }, ref) => {
     });
 
     const onPressClick = ((val) => {
-                            onChangeSelected(val);
-
+        onChangeSelected(val);
         if(val === 'BackArrow'){
-            setIsScroll(false);
+            // setIsScroll(false);
         }else{
-            setIsScroll(true);
+            // setIsScroll(true);
         }
         console.log('onPressClick called***',val);
     });

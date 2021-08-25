@@ -5,14 +5,14 @@ import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets'
 import strings from '../../helper/strings';
-import CommonFilterTvModal from './CommonFilterTvModal';
+import StreamModal from './StreamModal';
 import primary_regular_font from '../../helper/fonts';
 
 const DATA = [
     { "id":0, "name":"Rating" },
     { "id":1, "name":"Match" },
     { "id":2, "name":"Friend's Like" },
-    { "id":3, "name":"Popularity" },
+    { "id":3, "name":"Popularitydad" },
 ]
 
 const styles = StyleSheet.create({
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const TVSortByModal=(props)=>{
+const TVStreamingModal=(props)=>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState(DATA)
@@ -52,7 +52,7 @@ const TVSortByModal=(props)=>{
     //     fetchData();
     //   }, [])
     return(
-              <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={"Sort"} >
+              <StreamModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={"Sort"} >
                 <ScrollView>
                     {data.map((item, index)=>{
                         return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
@@ -60,8 +60,8 @@ const TVSortByModal=(props)=>{
                         </Pressable>)
                     })}
                 </ScrollView>
-                </CommonFilterTvModal>
+                </StreamModal>
     )
 }
 
-export default TVSortByModal
+export default TVStreamingModal

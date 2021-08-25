@@ -9,10 +9,13 @@ import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 
 const DATA = [
-    { "id":0, "name":"Rating" },
-    { "id":1, "name":"Match" },
-    { "id":2, "name":"Friend's Like" },
-    { "id":3, "name":"Popularity" },
+    { "id":0, "name":"---" },
+    { "id":1, "name":"+ Add friend" },
+    { "id":2, "name":"Rating" },
+    { "id":3, "name":"Rating" },
+    { "id":4, "name":"Match" },
+    { "id":5, "name":"Friend's Like" },
+    { "id":6, "name":"Popularity" },
 ]
 
 const styles = StyleSheet.create({
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const TVSortByModal=(props)=>{
+const TVLikedByModal=(props)=>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState(DATA)
@@ -64,4 +67,4 @@ const TVSortByModal=(props)=>{
     )
 }
 
-export default TVSortByModal
+export default TVLikedByModal
