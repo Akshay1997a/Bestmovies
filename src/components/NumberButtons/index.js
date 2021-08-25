@@ -46,11 +46,12 @@ console.log('ite',props);
     
 
         return (
-          <View style={styles.container}>
+          <View hasTVPreferredFocus={true}  style={styles.container}>
 
 {/* <TVCarousel></TVCarousel> */}
      <Pressable
-    style={styles.container}
+     style={({ pressed, hovered, focused }) => focused ? [styles.container,{backgroundColor:'red'}] : styles.container}
+    style={ styles.container}
      onFocus={onFocus}
      onBlur={onBlur}
      >
@@ -62,9 +63,10 @@ console.log('ite',props);
                       <View style={styles.contRow}>
                         { 
                                 row.map((col,index) => (
-                                  <View style={styles.contButton}>
+                                  <Pressable 
+                                  style={({ pressed, hovered, focused }) => focused ? [styles.contButton,{backgroundColor:'red'}] : styles.contButton}>
                                   <Text style={styles.txtDefault}>{col}</Text>
-                                  </View>
+                                  </Pressable>
                                 ))
                             }
                       </View>

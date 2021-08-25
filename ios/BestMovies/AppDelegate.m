@@ -25,7 +25,6 @@ static void InitializeFlipper(UIApplication *application) {
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef FB_SONARKIT_ENABLED
@@ -55,6 +54,5 @@ static void InitializeFlipper(UIApplication *application) {
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 }
-
 
 @end
