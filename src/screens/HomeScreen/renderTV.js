@@ -61,6 +61,8 @@ const buttons = [
   ['y', 'z', '1', '2', '3','4'],
 
   ['5', '6', '7','8','9','0'],
+  
+  [AppImages.next_bk, AppImages.next_bk, AppImages.space, AppImages.delete, AppImages.delete_all]
 ];
 const posts_json = MoviesJSON.data.children.map(child => child.data);
 

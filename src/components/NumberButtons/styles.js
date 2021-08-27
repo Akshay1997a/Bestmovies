@@ -1,5 +1,5 @@
 const React = require('react-native');
-const { StyleSheet } = React;
+import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
 import primary_regular_font from '../../helper/fonts';
 
@@ -21,6 +21,18 @@ export default {
     flex: 1,
     flexDirection: 'row',
   },
+  pressableFocused:{ flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 3,
+    borderColor: 'white',
+    backgroundColor: colors.tomatoRed},
+    pressable:{ flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 3,
+      borderColor: 'white',
+      backgroundColor: '#e5e5e5'},
 
   contButton: {
     flexDirection: 'row',
@@ -33,14 +45,9 @@ export default {
     
   },
   symbolButton: {
-
-    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'white',
-    backgroundColor: '#e5e5e5',
-    padding:42  
+    padding:30  
   },
   deleteButton: {
 
