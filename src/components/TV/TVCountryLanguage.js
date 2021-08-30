@@ -1,4 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {
+    useState,
+    useCallback,
+    forwardRef,
+    useImperativeHandle,
+  } from 'react';
 import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
 import BaseModal from './BaseModal'
 import colors from '../../helper/colors';
@@ -14,8 +19,8 @@ const COUNTRY =[
     { "id":1, "name":"English" },
 ]
 const DATA = [
-    { "id":0, "name":"United States" },
-    { "id":1, "name":"Albaniya" },
+    { "id":10, "name":"United States" },
+    { "id":11, "name":"Albaniya" },
     { "id":2, "name":"Algeria" },
     { "id":3, "name":"American Samoa" },
     { "id":4, "name":"Andorra" },
@@ -23,8 +28,8 @@ const DATA = [
     { "id":6, "name":"Aruba" },
     { "id":7, "name":"Australia" },
     { "id":9, "name":"Azerbaizan" },
-    { "id":10, "name":"Algeria" },
-    { "id":11, "name":"Andorra" },
+    { "id":110, "name":"Algeria" },
+    { "id":111, "name":"Andorra" },
     { "id":12, "name":"Aruba" },
     { "id":13, "name":"Australia" },
     { "id":14, "name":"Andorra" },
@@ -64,6 +69,12 @@ const TVCountryLanguage = (props) =>{
         // setFocus(val);
     });
 
+    const onBlur = useCallback(() => {
+        console.log('onBlur')
+
+      setFocus(false);
+    }, []);
+
     return(
         // <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
         //     <View style={{width: 350, minHeight: 300, backgroundColor: 'white'}}>
@@ -83,8 +94,13 @@ const TVCountryLanguage = (props) =>{
                     {data.map((item, index)=>{
                         return(<Pressable
                          onPress={onPressHandle} 
-                          onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }:{ marginHorizontal:10,}} >
-                                                                                                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                        //  onBlur={onBlur()}
+                          onFocus={()=> setFocus(item.id)} style={item.id == focus  
+                            ? 
+                          { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
+                          :{ marginHorizontal:10,}} >
+                                                                                                            
+                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
 
                         </Pressable>)
                     })}

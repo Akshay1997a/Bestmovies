@@ -177,6 +177,7 @@ const MyCarousel = ({item,posts, ...props})=>{
 
         </View>
         <Carousel
+       
       loop={true}
       autoplayDelay={4000}
       autoplay={true}

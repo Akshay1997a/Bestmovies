@@ -21,7 +21,7 @@ console.log('ite',props);
     const onBlur = useCallback(() => {
       setFocus(false);
     }, []);
-    _handleOnPress = (value,index) => {
+   const  _handleOnPress = (value,index) => {
         // console.log('value',value);
         // console.log('index',index);
         requestAnimationFrame(() => {
@@ -35,7 +35,12 @@ console.log('ite',props);
           return(
             <View key={`key${index}`} style={{flexDirection: 'row'}}>
             {item.map((subItem, subIndex)=>{
-              return <Pressable key={`subInd${subIndex}`} style={({focused})=> focused ? styles.pressableFocused : styles.pressable} >
+              return <Pressable
+               key={`subInd${subIndex}`} 
+              style={({focused})=> 
+              focused ? styles.pressableFocused : styles.pressable}
+              onPress={_handleOnPress(item)}
+               >
                 { typeof subItem == 'string' && <Text style={styles.txtDefault}>{subItem}</Text>}
                 { typeof subItem == 'number' && subItem == AppImages.next_bk && <View style={styles.symbolButton}>
                                                     <Image style={{ width: StyleConfig.resWidth(10),

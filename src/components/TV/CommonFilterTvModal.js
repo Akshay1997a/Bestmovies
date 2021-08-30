@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         marginLeft:10,
     },
     focusBackWrap:{
-        backgroundColor: colors.light_orange,
+        backgroundColor: colors.tomatoRed,
         paddingHorizontal: StyleConfig.resWidth(8),
         paddingVertical: StyleConfig.resHeight(4),
         margin: 4,
@@ -55,8 +55,7 @@ const CommonFilterTvModal=(props)=>{
             <View style={{minWidth: 600, minHeight: 700, backgroundColor: 'white', borderRadius:30, paddingHorizontal:15, paddingTop:30, paddingBottom:25, maxHeight:StyleConfig.resHeight(700)}}>
                 <View style={{flexDirection:'row', justifyContent:'space-between', alignItems: 'center', marginBottom:12, marginLeft:10}}>
                     <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
-                        <Image style={{ width: StyleConfig.resWidth(20),
-                            height: StyleConfig.resHeight(20),}} source={AppImages.icBackArrow} />
+                        <Image source={AppImages.back_bk} />
                     </Pressable>
                     <Text style={{fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700', textAlign:'center'}}>{props?.title}</Text>
                     <View style={{width: StyleConfig.resWidth(36), margin:4}} />

@@ -1,15 +1,22 @@
-import React, {useState, useEffect} from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import React, {
+    useState,
+    useCallback,
+    forwardRef,
+    useImperativeHandle,
+  } from 'react';
+import { View, Text, Pressable, Image, StyleSheet, ScrollView, FlatList} from 'react-native'
 import BaseModal from './BaseModal'
 import TVButton from './TVButton'
 import ToggleSwitch from "toggle-switch-react-native";
 import TVSubscription from '../TV/TVSubscription'
-
+import TVCountryModal from '../../components/TV/TVCountryModal'
+import TVToggleButton from '../../components/TV/TVToggleButton';
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets'
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
+// import ToggleSwitch from "toggle-switch-react-native";
 
 const DATA = [
     { "id":0, "name":"Quality" },
@@ -17,29 +24,303 @@ const DATA = [
     { "id":2, "name":"Friend's Like" },
     { "id":3, "name":"Popularity" },
 ]
+let [
+    NONE,
+    SEARCH,
+    MY_LIST,
+    MOVIES,
+    TV_SHOW,
+    SHORTS,
+    DIRECTOR,
+    ACTOR,
+    PROFILE,
+    MENU,
+  ] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 
+  const items = [
+    {
+        id:1,
+        name : "Netflix",
+        image: AppImages.netflix
+    },
+    { id:2,
+        name : "Amzon prime video",
+        image: AppImages.amazon
+    },
+    { id:3,
+        name : "HBO",
+        image: AppImages.hbo
+    },
+    { id:4,
+        name : "Hulu",
+        image: AppImages.hulu
+    },
+    { id:5,
+        name : "Disney+",
+        image: AppImages.disnep
+    },
+    { id:6,
+        name : "Apple TV+",
+        image: AppImages.appleTv
+    },
+    {
+        id:7,
+        name : "Netflix",
+        image: AppImages.netflix
+    },
+    { id:8,
+        name : "Amzon prime video",
+        image: AppImages.amazon
+    },
+    { id:9,
+        name : "HBO",
+        image: AppImages.hbo
+    },
+    { id:10,
+        name : "Hulu",
+        image: AppImages.hulu
+    },
+    { id:11,
+        name : "Disney+",
+        image: AppImages.disnep
+    },
+    { id:12,
+        name : "Apple TV+",
+        image: AppImages.appleTv
+    },
+    {
+        id:13,
+        name : "Netflix",
+        image: AppImages.netflix
+    },
+    { id:14,
+        name : "Amzon prime video",
+        image: AppImages.amazon
+    },
+    { id:15,
+        name : "HBO",
+        image: AppImages.hbo
+    },
+    { id:16,
+        name : "Hulu",
+        image: AppImages.hulu
+    },
+    { id:17,
+        name : "Disney+",
+        image: AppImages.disnep
+    },
+    { id:18,
+        name : "Apple TV+",
+        image: AppImages.appleTv
+    },
+    {
+        id:18,
+        name : "Netflix",
+        image: AppImages.netflix
+    },
+    { id:19,
+        name : "Amzon prime video",
+        image: AppImages.amazon
+    },
+    { id:20,
+        name : "HBO",
+        image: AppImages.hbo
+    },
+    { id:21,
+        name : "Hulu",
+        image: AppImages.hulu
+    },
+    { id:22,
+        name : "Disney+",
+        image: AppImages.disnep
+    },
+    { id:23,
+        name : "Apple TV+",
+        image: AppImages.appleTv
+    },{ id:24,
+        name : "Apple TV+",
+        image: AppImages.appleTv
+    },{ id:25,
+        name : "Apple TV+",
+        image: AppImages.appleTv
+    }
+    ]
+    const items2 = [
+        {
+            id:6,
+            name : "Netflix",
+            image: AppImages.netflix
+        },
+        { id:8,
+            name : "Amzon prime video",
+            image: AppImages.amazon
+        },
+        { id:9,
+            name : "HBO",
+            image: AppImages.hbo
+        },
+        { id:10,
+            name : "Hulu",
+            image: AppImages.hulu
+        },
+        { id:11,
+            name : "Disney+",
+            image: AppImages.disnep
+        },
+        { id:12,
+            name : "Apple TV+",
+            image: AppImages.appleTv
+        }
+        ]
+        const items3 = [
+            {
+                id:13,
+                name : "Netflix",
+                image: AppImages.netflix
+            },
+            { id:14,
+                name : "Amzon prime video",
+                image: AppImages.amazon
+            },
+            { id:15,
+                name : "HBO",
+                image: AppImages.hbo
+            },
+            { id:15,
+                name : "Hulu",
+                image: AppImages.hulu
+            },
+            { id:16,
+                name : "Disney+",
+                image: AppImages.disnep
+            },
+            { id:17,
+                name : "Apple TV+",
+                image: AppImages.appleTv
+            }
+            ]
+            const items4 = [
+                {
+                    id:18,
+                    name : "Netflix",
+                    image: AppImages.netflix
+                },
+                { id:19,
+                    name : "Amzon prime video",
+                    image: AppImages.amazon
+                },
+                { id:21,
+                    name : "HBO",
+                    image: AppImages.hbo
+                },
+                { id:22,
+                    name : "Hulu",
+                    image: AppImages.hulu
+                },
+                { id:25,
+                    name : "Disney+",
+                    image: AppImages.disnep
+                },
+                { id:26,
+                    name : "Apple TV+",
+                    image: AppImages.appleTv
+                }
+                ]
 const styles = StyleSheet.create({
     backWrap:{
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
+        
+        // paddingHorizontal: StyleConfig.resWidth(8),
+        // paddingVertical: StyleConfig.resHeight(4),
         margin: 4,
         marginLeft:10,
     },
     focusBackWrap:{
-        backgroundColor: colors.light_orange,
+        backgroundColor: colors.tomatoRed,
         paddingHorizontal: StyleConfig.resWidth(8),
         paddingVertical: StyleConfig.resHeight(4),
         margin: 4,
         borderRadius:10,
         marginLeft:10,
+    },
+    focustoggle:{
+        backgroundColor: colors.tomatoRed,
+        padding:10,
+        // margin: 4,
+        borderRadius:20,
+    },
+    text: {
+        fontSize: 32,
+        fontFamily:primary_regular_font.primary_regular_font,
+        fontWeight: '700',
+        color: colors.black,
 
-    }
+    
+      },
+      focusText: {
+        fontSize: 32,
+        fontWeight: '700',
+        color: colors.white,
+      },
+      selectedText: {
+        fontSize: 32,
+        fontWeight: '700',
+        color: colors.tomatoRed,
+        fontFamily:primary_regular_font.primary_regular_font
+    
+      },
+      itemWrapperSelected: {
+        justifyContent: 'center',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        marginHorizontal: 18,
+        backgroundColor: colors.tomatoRed,
+        borderRadius: 30,
+        minWidth: 60,
+        alignItems: 'center',
+      },
+      itemWrapper: {
+        justifyContent: 'center',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        marginHorizontal:18,
+        minWidth: 60,
+        alignItems: 'center',
+      },
+
 })
 
-const StreamModal=(props)=>{
-    const [selected, setSelected] = useState(-1)
-    const [ focus, setFocus] = useState(-1)
+const StreamModal = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
+    // const [selected, setSelected] = useState(-1)
+    const [country, setCountry] = useState('US');
     const [ data, setData] = useState(DATA)
+    const [focus, setFocus] = useState(false);
+    const [showSelected, setShowSelected] = useState(false)
+    const onFocus = useCallback(() => {
+        console.log('onFocus')
+      setFocus(true);
+    //   onFocusedItem(item)
+
+    });
+
+    const onPressClick = ((val) => {
+        console.log('onPressClick StreamModal***',val);
+        setCountry(val.code)
+    });
+    
+    const onBlur = useCallback(() => {
+        console.log('onBlur')
+
+      setFocus(false);
+    }, []);
+    const onTileViewFocus=()=>{
+        setShowSelected(true)
+
+        // sidebar.current.setResetFocus()
+    }
+    const oncloseModal=(val)=> {
+        console.log('val',val);
+        setShowSelected(false)
+      }
 
 
     // useEffect(() => {
@@ -57,38 +338,69 @@ const StreamModal=(props)=>{
     return(
         <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
             
-            <View style={{ backgroundColor: 'white', borderRadius:30, paddingHorizontal:30, paddingTop:30, paddingBottom:25,marginTop:30,}}>
-            <View style={{flexDirection:'row', alignItems: 'center', marginBottom:12,paddingVertical:20}}>
-                    <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
-                        <Image style={{ width: StyleConfig.resWidth(20),
-                            height: StyleConfig.resHeight(20),}} source={AppImages.icBackArrow} />
-                    </Pressable>
-                    <Text style={{ marginLeft:34, fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700', textAlign:'center'}}>{strings.streaming_service}</Text>
-                    <View style={{flexDirection:'column-reverse'}}>
-                    <Text style={{ marginLeft:34, fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700', justifyContent:'flex-end'}}>{strings.streaming_service}</Text>
+            <View style={{ backgroundColor: 'white', borderRadius:30, paddingTop:30, paddingBottom:25,marginTop:30,marginRight:150}}>
+                {/* <View style={{flex:1,flexDirection:'row'}}> */}
+
+            <View style={{ marginBottom:12,marginStart:50,flexDirection:'row'}}>
+                    <View>
+                                <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
+                                    <Image source={AppImages.back_bk} />
+                                </Pressable>
                     </View>
 
-                    <View style={{width: StyleConfig.resWidth(36), margin:4}} />
-                </View>
-                <View style={{flexDirection:'row',justifyContent:'space-around'}} >
-                         <TVButton text={"Any"}/>
-                         <TVButton text={"My providers"}/>
-                         <TVButton text={"Save as\n my providers "}/>
-                         
+                    <View style={{flex:0.8 ,marginStart:30}}>
+                            <Text style={{ fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700',}}>{strings.streaming_service}</Text>
+
+                        </View>
+                    <View style={{flex:0.3}}>
+                        <Pressable
+                        onFocus={onFocus}
+                        onBlur={onBlur}
+                          onPress={() => onTileViewFocus()}
+                        // key={item.id}
+                         tvParallaxProperties={{magnification: 1.1}}
+                         style={ focus ? styles.itemWrapperSelected : styles.itemWrapper}
+                         hasTVPreferredFocus={true}
+                        //   onPress={() => onLocalChangeSelected()}
+                                //  onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }
+                                 >
+                                    <View style={{flexDirection:'row'}}>
+                                    <Text style={ focus ? styles.focusText : styles.text}>Country: </Text>
+                                    <Image source={AppImages.flag} style={{height:40,width:60}} />
+                                    <Text style={ focus ? styles.focusText : styles.text}> {country} </Text>
+                                    </View>
+
+                         </Pressable>
+                    </View>
 
 
-                </View>
-                <Text style={{fontSize:30,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'400',paddingVertical:20}} >Subscriptions: 3</Text>
+                    {/* <View style={{width: StyleConfig.resWidth(36), margin:4}} /> */}
+
+                {/* </View> */}
+
+            </View>
+            <View style={{flexDirection:'row',marginStart:50}} >
+                         <TVButton text={"Any"} bgColor={colors.tomatoRed}/>
+                         <TVButton text={"My providers"} bgColor={colors.lightGrey}/>
+                         <TVButton text={"Save as\n my providers "} bgColor={colors.lightGrey}/>
+            </View>
+                <Text style={{marginStart:60,fontSize:30,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'400',paddingVertical:20}} >Subscriptions: 3</Text>
                 <View style={{height:600}} >
 
                 <ScrollView
+                style={{marginStart:60}}
                 showsVerticalScrollIndicator={true}
                 // indicatorStyle='black'
                 // persistentScrollbar={true}
                 // scrollEnabled={true}
                 >
                     
-                <TVSubscription />
+                    <TVSubscription    type = "movie" selected={MY_LIST} />
+                  {/* )} */}
+                {/* <TVSubscription item= {items} /> */}
+                {/* <TVSubscription item= {items2}/>
+                <TVSubscription item= {items3} />
+                <TVSubscription item= {items4}/>
                 <TVSubscription/>
                 <TVSubscription/>
                 <TVSubscription/>
@@ -103,28 +415,37 @@ const StreamModal=(props)=>{
                 <TVSubscription/>
                 <TVSubscription/>
                 <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
+                <TVSubscription/> */}
                 
                 </ScrollView>
                 </View>
 
                     <View style={{paddingTop:20,paddingHorizontal:20,flexDirection:'row',}}>
-                            <ToggleSwitch size="small" disabled isOn={true}  />
+                         <Pressable  style={({ pressed, hovered, focused }) => focused ? styles.focustoggle : styles.backWrap }>
+                            {/* <ToggleSwitch size="small"  isOn={false}  /> */}
+                             
+                                        {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
+                    <TVToggleButton size="small"   offColor="red" onColor={colors.tomatoRed}  isOn={false} onToggle={onTileViewFocus}/>
+
+                                </Pressable>
                             <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>
                                 Free Streaming services with ads
                             </Text>
                     </View>
                     <View style={{paddingHorizontal:20,flexDirection:'row',}}>
-                            <ToggleSwitch size="small" disabled isOn={true}  />
+                    <Pressable  style={({ pressed, hovered, focused }) => focused ? styles.focustoggle : styles.backWrap }>
+                    <TVToggleButton size="small"   onColor={colors.tomatoRed}  isOn={false}/>
+
+                                </Pressable>
                             <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>
                                 Rent / buy streaming services
                             </Text>
                     </View>
                     <View style={{paddingHorizontal:20,flexDirection:'row',}}>
-                            <ToggleSwitch size="small" disabled isOn={true}  />
+                    <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focustoggle : styles.backWrap }>
+                              <TVToggleButton size="small" disabled isOn={false} onColor={colors.white} offColor='#efefef'/>
+                                </Pressable>
+                            {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
                             <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>
                                 Local movie theaters
                             </Text>
@@ -141,8 +462,12 @@ const StreamModal=(props)=>{
                 </View>
                 {props?.children} */}
             </View>
+        <TVCountryModal
+        action={onPressClick}
+         visible={showSelected== true} oncloseModal={()=> oncloseModal(false)} onclose={()=> oncloseModal()}  />
+
         </BaseModal>
     )
-}
+});
 
 export default StreamModal

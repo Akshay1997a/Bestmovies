@@ -65,8 +65,6 @@ const buttons = [
   ['y', 'z', '1', '2', '3','4'],
 
   ['5', '6', '7','8','9','0'],
-  
-  [AppImages.next_bk, AppImages.next_bk, AppImages.space, AppImages.delete, AppImages.delete_all]
 ];
 const posts_json = MoviesJSON.data.children.map(child => child.data);
 
@@ -134,6 +132,8 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
     onSideBarFocus(val)
   }
 
+  const onPressClick = ((val) => {
+});
   function _handleEvent(value){
     console.debug('value',value);
 
@@ -151,7 +151,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
         } } />
      {/* <ScrollView> */}
       <View hasTVPreferredFocus={true} style={{flexDirection:'column',marginHorizontal:20,backgroundColor:colors.white}}>
-      <TVTopBar  ref={sidebar} headerSelected={selected} hasTVPreferredFocus={true} {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
+      <TVTopBar  ref={sidebar} headerSelected={selected}  {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
 
           {/* { selected != SEARCH && 
           <TVTopBar ref={sidebar} headerSelected={selected} hasTVPreferredFocus={true} {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
@@ -159,11 +159,25 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
           {selected == SEARCH && 
           <View style={{flexDirection: 'row'}}>
             <View style={{ width: StyleConfig.resWidth(600), margin:40,height:'56%'}}>
+              <View style={{flexDirection:'row',marginBottom:10}} >
+                  <View style={{flex:0.34,height:90,backgroundColor:colors.lightGrey,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'center',alignItems:'center'}}>
+                        <Text style={{fontSize:28,fontWeight:'700',color:colors.tomatoRed}}>Title</Text>
+                  </View>
+                  <View style={{flex:0.34,marginTop:30,backgroundColor:'#999999',marginHorizontal:10,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'center',alignItems:'center'}}>
+                  <Text style={{fontSize:28,fontWeight:'400',color:colors.black}}>Artist</Text>
+
+                  </View>
+                  <View style={{flex:0.34,marginTop:30,backgroundColor:'#999999',marginHorizontal:10,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'center',alignItems:'center'}}>
+                  <Text style={{fontSize:28,fontWeight:'400',color:colors.black}}>User</Text>
+                  </View>
+              </View>
+
               <View style={{flexDirection:'row',backgroundColor: colors.lightGrey, borderRadius:8,  minHeight:80,minWidth:60,marginBottom:20}}>
               <View style={{flex:1,flexDirection:'row'}}>
                 <View style={{flex:0.1,alignSelf:'center'}} >
                      <Image style={{marginStart:10,height:30,width:30,}} source={AppImages.icSearch} />
                   </View>
+                  
                     <TextInput 
                       placeholder={strings.search}
                       placeholderTextColor={colors.black}
@@ -378,11 +392,13 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
         <TVStreamingModal visible={showSelected== STRREAMING} oncloseModal={()=> oncloseModal(STRREAMING)} onclose={()=> oncloseModal(STRREAMING)}  />
         <TVAgesModal visible={showSelected== AGES} oncloseModal={()=> oncloseModal(AGES)} onclose={()=> oncloseModal(AGES)}  />
         <TVReleaseModal visible={showSelected== RELEASE} oncloseModal={()=> oncloseModal(RELEASE)} onclose={()=> oncloseModal(RELEASE)}  />
-        <TVCountryModal visible={showSelected== COUNTRY} oncloseModal={()=> oncloseModal(COUNTRY)} onclose={()=> oncloseModal(COUNTRY)}  />
+        <TVCountryModal
+         action={onPressClick}
+         visible={showSelected== COUNTRY} oncloseModal={()=> oncloseModal(COUNTRY)} onclose={()=> oncloseModal(COUNTRY)}  />
         <TVGenreModal visible={showSelected== GENRE} oncloseModal={()=> oncloseModal(GENRE)} onclose={()=> oncloseModal(GENRE)}  />
         <TVPriceModal visible={showSelected== PRICE} oncloseModal={()=> oncloseModal(PRICE)} onclose={()=> oncloseModal(PRICE)}  />
         <TVProvidersModal visible={showSelected== PROVIDERS} oncloseModal={()=> oncloseModal(PROVIDERS)} onclose={()=> oncloseModal(PROVIDERS)}  />
-        <TVIncludeModal visible={showSelected== INCLUDES} oncloseModal={()=> oncloseModal(INCLUDES)} onclose={()=> oncloseModal(INCLUDES)}  />
+        {/* <TVIncludeModal visible={showSelected== INCLUDES} oncloseModal={()=> oncloseModal(INCLUDES)} onclose={()=> oncloseModal(INCLUDES)}  /> */}
         {/* </ScrollView>  */}
       </View>
       

@@ -251,11 +251,12 @@ const BackArrow = forwardRef(({ item }, ref) => {
     });
 
     const onPressClick = ((val) => {
-        onChangeSelected(val);
-        if(val === 'BackArrow'){
-            // setIsScroll(false);
+        if(val === 'Arrow'){
+        setIsScroll(true);
         }else{
-            // setIsScroll(true);
+            setIsScroll(false);
+            onChangeSelected(val);
+
         }
         console.log('onPressClick called***',val);
     });
