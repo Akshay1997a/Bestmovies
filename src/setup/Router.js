@@ -18,15 +18,12 @@ import Generes from 'src/screens/Filter/Generes';
 import Price from 'src/screens/Filter/Price';
 import Linkby from 'src/screens/Filter/LinkBy';
 import LanguageFilter from 'src/screens/Filter/LanguageFilter';
-import Search from 'src/screens/Search';
 import ArtistPage from '../screens/ArtistPage';
 import Profile from '../screens/Profile';
 import YoutubePlayer from '../components/YoutubePlayer';
-import MovieDetails from '../screens/MovieDetails';
 import {StyleSheet, TouchableOpacity, View, Platform} from 'react-native';
 import MenusList from '../screens/MenusList';
 import Header from '../components/Header';
-import Movies from '../screens/Movies';
 import {
   TopBarMainNavigator,
   TopBarSearchNavigator,
@@ -37,7 +34,6 @@ import SortBy from '../screens/Filter/SortBy';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
-  SafeAreaView,
 } from 'react-native-safe-area-context';
 import Country from '../screens/Country';
 import Language from '../screens/LanguageScreen';
@@ -46,19 +42,13 @@ const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const MoviesScreensStack = [
-  {
-    name: 'Movies',
-    component: Movies,
-  },
-];
-
 const StackNav = () => {
   const insets = useSafeAreaInsets();
   const commonOptions = {
     headerBackImage: (props) => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
     headerTitleAlign: 'center',
+    ...TransitionPresets.FadeFromBottomAndroid,
   };
 
   const modalScreenOptions = (screenProps) => {
@@ -144,7 +134,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -159,7 +149,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -174,7 +164,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -189,7 +179,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -204,7 +194,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -224,7 +214,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
       />
@@ -234,7 +224,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -271,7 +261,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -286,7 +276,7 @@ const StackNav = () => {
           return {
             ...modalScreenOptions(props),
             headerShown: false,
-            animationEnabled: false
+            animationEnabled: false,
           };
         }}
         children={(props) => (
@@ -374,7 +364,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: Platform.OS === 'android' ? '100%' : '90%',
+    height: Platform.OS === 'android' ? '99%' : '90%',
     marginTop: 'auto',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,

@@ -6,11 +6,14 @@ import {
   StyleSheet,
   InteractionManager,
   StatusBar,
+  Platform,
+  TouchableOpacity,
 } from 'react-native';
 import YoutubePlayerLib from 'react-native-youtube-iframe';
 import Orientation from 'react-native-orientation';
 import Loader from './Loader';
 import HeaderModal from './HeaderModal';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const RATIO = 16 / 9;
 const WIDTH = Dimensions.get('window').width;
@@ -46,10 +49,20 @@ export default function YoutubePlayer(props) {
       });
     });
 
-    return () => {
-      Orientation.lockToPortrait();
+    const {navigation} = props;
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
       setLoaded(false);
       setPlaying(false);
+      Orientation.lockToPortrait();
+      setTimeout(() => {
+        navigation.dispatch(e.data.action);
+      }, 500);
+    });
+
+    return () => {
+      Dimensions.removeEventListener('change');
+      navigation.removeListener('beforeRemove');
     };
   }, []);
 
@@ -60,6 +73,11 @@ export default function YoutubePlayer(props) {
   return (
     <View style={styles.container}>
       <StatusBar hidden />
+      {/* {Platform.OS === 'ios' && (
+        <TouchableOpacity>
+          <FontAwesome5Icon name="close" />
+        </TouchableOpacity>
+      )} */}
       <YoutubePlayerLib
         width={height * RATIO}
         height={height}

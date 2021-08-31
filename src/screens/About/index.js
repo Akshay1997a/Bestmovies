@@ -7,17 +7,19 @@ import {
   Image,
   InteractionManager,
 } from 'react-native';
-import Header, {TOTAL_HEADER_HEIGHT} from '../../components/Header';
+import Header, {TOTAL_HEADER_HEIGHT, useCollapsibleHeader} from '../../components/Header';
 import Loader from '../../components/Loader';
 import {SafeAreaView} from 'react-native-safe-area-context'
 
 export default function About() {
   const [isLoaded, setLoaded] = useState(false);
+  const {reset} = useCollapsibleHeader()
   const screens = [{name: 'About', component: About}];
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
       setLoaded(true);
+      reset()
     });
   }, []);
 

@@ -14,7 +14,7 @@ enableScreens(true);
 export default function App() {
   return (
     <Provider store={store}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <PersistGate persistor={persistor}>
         <AnimationProvider>
           <Router />

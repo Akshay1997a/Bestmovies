@@ -75,7 +75,11 @@ export class CountryFilter extends Component {
             />
             <Button
               title="Your country (US)"
-              isActive={false}
+              isActive={
+                selectedCountries.findIndex(
+                  (i) => i === 'United States of America',
+                ) >= 0
+              }
               onPress={(val) =>
                 this.selectUnselectCountry('United States of America')
               }

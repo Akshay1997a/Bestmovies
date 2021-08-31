@@ -91,6 +91,7 @@ class MovieDetails extends Component {
       selectedFilter: FILTER_TYPES.FILTER_BY_RATING,
       isLoaded: false,
       headerVisible: true,
+      parentScroll: true,
     };
     Orientation.lockToPortrait();
     this.scrollY = new Animated.Value(0);
@@ -711,13 +712,14 @@ class MovieDetails extends Component {
               </View>
               <View style={{flex: 1}}>
                 <FlatList
+                  scrollEnabled={this.state.parentScroll}
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
                   data={DATA}
                   renderItem={({item}) => this.moviewPoster(item)}
                   keyExtractor={(item) => item.id}
                   // ItemSeparatorComponent={() => <View style={{width: 10}} />}
-                  nestedScrollEnabled={true}
+                  // nestedScrollEnabled={true}
                   pagingEnabled={true}
                 />
               </View>
