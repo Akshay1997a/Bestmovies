@@ -6,12 +6,22 @@ import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets'
 import CommonFilterTvModal from './CommonFilterTvModal';
 import strings from '../../helper/strings';
+import primary_regular_font from '../../helper/fonts';
 
 const DATA = [
-    { "id":0, "name":"Quality" },
-    { "id":1, "name":"Match" },
-    { "id":2, "name":"Friend's Like" },
-    { "id":3, "name":"Popularity" },
+    { "id":0, "name":"Any" },
+    { "id":1, "name":"Free" },
+    { "id":2, "name":"< $1" },
+    { "id":3, "name":"< $2" },
+    { "id":4, "name":"< $3" },
+    { "id":5, "name":"< $4" },
+    { "id":6, "name":"< $5" },
+    { "id":7, "name":"< $6" },
+    { "id":8, "name":"< $7" },
+    { "id":9, "name":"< $9" },
+    { "id":10, "name":"< $10" },
+    { "id":11, "name":"< $11" },
+
 ]
 const styles = StyleSheet.create({
     backWrap:{
@@ -51,8 +61,8 @@ const TVPriceModal=(props)=>{
         <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={strings.price} >
                    <ScrollView>
                     {data.map((item, index)=>{
-                        return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.light_orange}:{ marginHorizontal:10,}} >
-                            <Text style={{fontSize:16, padding:8, paddingHorizontal:15, color: item.id == focus ? colors.black : colors.black}}>{item.name}</Text>
+                        return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
+                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
                         </Pressable>)
                     })}
                 </ScrollView>

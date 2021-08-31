@@ -37,7 +37,7 @@ const TVIncludeModal = (props) =>{
         <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={strings.include} >
                 <ScrollView>
                     {data.map((item, index)=>{
-                        return(<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.light_orange}:{ marginHorizontal:10,}} >
+                        return(<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
                             <Text style={{fontSize:16, padding:8, paddingHorizontal:15, color: item.id == focus ? colors.black : colors.black}}>{item.name}</Text>
                         </Pressable>)
                     })}

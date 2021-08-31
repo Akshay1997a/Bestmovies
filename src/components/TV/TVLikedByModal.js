@@ -5,13 +5,17 @@ import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets'
 import strings from '../../helper/strings';
+import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 
 const DATA = [
-    { "id":0, "name":"Quality" },
-    { "id":1, "name":"Match" },
-    { "id":2, "name":"Friend's Like" },
-    { "id":3, "name":"Popularity" },
+    { "id":0, "name":"---" },
+    { "id":1, "name":"+ Add friend" },
+    { "id":2, "name":"Rating" },
+    { "id":3, "name":"Rating" },
+    { "id":4, "name":"Match" },
+    { "id":5, "name":"Friend's Like" },
+    { "id":6, "name":"Popularity" },
 ]
 
 const styles = StyleSheet.create({
@@ -22,17 +26,17 @@ const styles = StyleSheet.create({
         marginLeft:10,
     },
     focusBackWrap:{
-        backgroundColor: colors.tomatoRed,
+        backgroundColor: colors.tomatoRedLight,
         paddingHorizontal: StyleConfig.resWidth(8),
         paddingVertical: StyleConfig.resHeight(4),
         margin: 4,
         borderRadius:10,
-        marginLeft:10,
+        marginLeft:10
 
     }
 })
 
-const CommonFilterTvModal=(props)=>{
+const TVLikedByModal=(props)=>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState(DATA)
@@ -51,19 +55,16 @@ const CommonFilterTvModal=(props)=>{
     //     fetchData();
     //   }, [])
     return(
-        <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
-            <View style={{minWidth: 600, minHeight: 700, backgroundColor: 'white', borderRadius:30, paddingHorizontal:15, paddingTop:30, paddingBottom:25, maxHeight:StyleConfig.resHeight(700)}}>
-                <View style={{flexDirection:'row', justifyContent:'space-between', alignItems: 'center', marginBottom:12, marginLeft:10}}>
-                    <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
-                        <Image source={AppImages.back_bk} />
-                    </Pressable>
-                    <Text style={{fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700', textAlign:'center'}}>{props?.title}</Text>
-                    <View style={{width: StyleConfig.resWidth(36), margin:4}} />
-                </View>
-                {props?.children}
-            </View>
-        </BaseModal>
+              <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={"Sort"} >
+                <ScrollView>
+                    {data.map((item, index)=>{
+                        return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
+                                                                                 <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                        </Pressable>)
+                    })}
+                </ScrollView>
+                </CommonFilterTvModal>
     )
 }
 
-export default CommonFilterTvModal
+export default TVLikedByModal

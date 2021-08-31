@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
 import BaseModal from './BaseModal'
+import ToggleSwitch from "toggle-switch-react-native";
 import colors from '../..//helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets'
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
+import primary_regular_font from '../../helper/fonts';
 
 const styles = StyleSheet.create({
     backWrap:{
@@ -42,9 +44,13 @@ const TVGenreModal=(props)=>{
     return(
            <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={strings.genre} > 
                 <ScrollView>
+                    <View style={{paddingHorizontal:20,flexDirection:'row',}}>
+                            <ToggleSwitch size="small" disabled isOn={true}  />
+                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>Sub generes</Text>
+                    </View>
                     {data.map((item, index)=>{
-                        return(<Pressable onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.light_orange}:{ marginHorizontal:10,}} >
-                            <Text style={{fontSize:16, padding:8,paddingHorizontal:15, color: item.id == focus ? colors.black : colors.black}}>{item.generes}</Text>
+                        return(<Pressable onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
+                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8,paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text>
                         </Pressable>)
                     })}
                 </ScrollView>

@@ -23,7 +23,7 @@ export default  {
     country_list:"USA,UK,France,Spain,Argentina,Italy,Canada,Germany",
     original_language:"Original Languages",
     all:"All",
-    ages:"Age rating",
+    ages:"Age rating (max)",
     liked_by:"Liked By",
     streaming_service:"Streaming services",
 
@@ -68,7 +68,10 @@ export default  {
     preferences: "Preferences",
     my_providers:"My providers",
     account: "Account",
-    language: "Language"
+    language: "Language",
+    country_language : "Country & Language",
+    mobile_app : "Mobile app",
+    invite_friend : "Invite friend",
 
 
 

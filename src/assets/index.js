@@ -30,6 +30,12 @@ export default {
     arrow_right:require('./appImages/arrow_right.png'),
     next_bk:require('./appImages/next_bk.png'),
     arrow_left:require('./appImages/arrow_left.png'),
+    play:require('./appImages/play.png'),
+    flag:require('./appImages/Flag.png'),
+    check_red:require('./appImages/check_red.png'),
+    back_bk:require('./appImages/back_bk.png'),
+
+
 
 
 

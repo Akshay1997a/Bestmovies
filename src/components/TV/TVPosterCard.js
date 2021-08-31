@@ -18,7 +18,7 @@ import primary_regular_font from '../../helper/fonts';
 const items = [
     {
         name : "Trailer",
-        image: AppImages.amazon
+        image: AppImages.play
     },
     {
         name : "Free",
@@ -61,7 +61,8 @@ const TVPosterCard = ({item, ...props})=>{
     const [selected, setSelected] = useState(-1) 
     return(
         <View style={{flexDirection:'row', marginBottom:50}}>
-            <View style={styles.viewContainer}>
+           
+            {/* <View style={styles.viewContainer}>
                 <ImageBackground
                     style={styles.container}
                     resizeMode={"stretch"}
@@ -75,16 +76,37 @@ const TVPosterCard = ({item, ...props})=>{
                         <View style={[{ alignItems:'center', marginTop:-25}]}>
                         <Icon name={"bookmark"} size={100} color={"blue"} style={[{ }]} />
                         <Icon name={"plus"} size={35} color={"white"} style={[{position:'absolute', top:28}]} />
-                        {/* <View style={[{backgroundColor:"white", marginTop:10, borderRadius:15, height:70, width:120, alignItems:'center', justifyContent:'center'}]} >
-                        <Text style={[{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center', fontSize:26, fontWeight:'700', color:'black'}]} >
-                          {"Watch\nlater"}
-                        </Text>
-                        </View> */}
+                        </View>
+                        </View>
+            </ImageBackground>
+            </View> */}
+            <View style={styles.detailViewContainer}>
+                <View style={styles.viewContainer}>
+                <ImageBackground
+                    style={styles.container}
+                    resizeMode={"stretch"}
+                    source={
+                        { uri:item.thumbnail}
+                        } >
+                        <View style={[{flex:1,flexDirection:'row', paddingTop:10, backgroundColor:"rgba(0,0,0, 0.3)", paddingLeft:35, paddingRight:10, justifyContent:'space-between'}]} >
+                        <Icon name={"thumbs-down"}  size={50} color={"white"} />
+                        <Icon name={"eye"} size={50} color={"white"} />
+                        <Icon name={"thumbs-up"} size={50} color={"white"} />
+                        <View style={[{ alignItems:'center', marginTop:-25}]}>
+                        <Icon name={"bookmark"} size={100} color={"blue"} style={[{ }]} />
+                        <Icon name={"plus"} size={35} color={"white"} style={[{position:'absolute', top:28}]} />
                         </View>
                         </View>
             </ImageBackground>
             </View>
-            <View style={styles.detailViewContainer}>
+            {/* <View> */}
+                {/* <Text>HI</Text>
+                <Text>HI</Text>
+                 <Text>HI</Text> */}
+            {/* </View> */}
+
+                <View style={{marginLeft:40}} >
+
                 <Text numberOfLines={2} style={styles.titleText}>{item?.title}</Text>
                  <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize:26, fontWeight:'400', color:'white'}]} >
                           Name of original title if foreign
@@ -107,12 +129,12 @@ const TVPosterCard = ({item, ...props})=>{
 
                           <View style={{flexDirection:'row'}}>
                                 <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'700', color:colors.white }}>Director:</Text>
-                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'400', color:colors.white }}> Todd Phillips</Text>
+                                <Text style={{textAlign:'center',justifyContent:'center' ,alignSelf:'center',fontFamily:primary_regular_font.primary_regular_font,fontSize: 26, fontWeight:'400', color:colors.white }}> Todd Phillips</Text>
                             </View>
 
                             <View style={{flexDirection:'row'}}>
                                     <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'700', color:colors.white }}>Cast:</Text>
-                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 26, fontWeight:'400', color:colors.white }}> Todd Phillips, Todd Phillips, Todd Phillips,Todd Phillips</Text>
+                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 26, fontWeight:'400', color:colors.white }}> Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy</Text>
                             </View>
                             </View>
                             <View style={{flexDirection:'row', marginTop: StyleConfig.resHeight(20)}}>
@@ -123,6 +145,8 @@ const TVPosterCard = ({item, ...props})=>{
                         <Text  style={[styles.greatText]} >Great</Text>
                     </View> */}
 
+                    {/* <View>
+                        </View> */}
                     <View style={{marginStart:100,borderWidth:1, borderRadius:4, marginLeft: StyleConfig.resWidth(32), borderColor:colors.white}}>
                         <View style={{flexDirection:'row'}}>
                             <Text style={styles.typeText}>Awards:</Text>
@@ -139,23 +163,27 @@ const TVPosterCard = ({item, ...props})=>{
                             <Text style={styles.valueText}>9.0</Text>
                         </View>
                     </View>
-                    {/* <View style={{marginLeft:StyleConfig.resWidth(20)}}>
-                        <Text style={styles.commentText}>Won 2 oscars including best director</Text>
-                        <Text style={styles.commentText}>Won 1 G. Globe including best movie</Text>
-                    </View> */}
+                    
                 </View>
                         </View>
                             
                 
-                <View style={styles.spaceVertical} />
-                <Text style={styles.movieTypeText}>Crime, Drama -<Text style={styles.movieValueText}> US - 2019 - 154 min - Ages 18+</Text></Text>
-                <Text style={styles.movieTypeText}>2.99 € - 23     - 78% match - Recommend  <Icon name={"share"} type={"fontawesome"} style={{fontSize:20,}} /> </Text>
-                <View style={styles.spaceVertical} />
-                <Text style={styles.movieTypeText}>Director: <Text style={styles.movieValueText}>Todd Phillips</Text></Text>
-                <Text style={styles.movieTypeText}>Cast: <Text style={styles.movieValueText}>Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy</Text></Text>
-                <View style={styles.spaceVertical} />
-                <Text style={styles.detailsText}>In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him to confront all his...</Text>
-                <Text style={styles.movieTypeText}>Watch:</Text>
+                {/* <View style={styles.spaceVertical} /> */}
+                {/* <Text style={styles.movieTypeText}>Crime, Drama -<Text style={styles.movieValueText}> US - 2019 - 154 min - Ages 18+</Text></Text> */}
+                {/* <Text style={styles.movieTypeText}>2.99 € - 23     - 78% match - Recommend  <Icon name={"share"} type={"fontawesome"} style={{fontSize:20,}} /> </Text> */}
+                {/* <View style={styles.spaceVertical} /> */}
+                {/* <Text style={styles.movieTypeText}>Director: <Text style={styles.movieValueText}>Todd Phillips</Text></Text> */}
+                {/* <Text style={styles.movieTypeText}>Cast: <Text style={styles.movieValueText}>Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy</Text></Text> */}
+                {/* <View style={styles.spaceVertical} /> */}
+                <View style={{flexDirection:'row'}}>
+                <Text style={styles.detailsText}>In Gotham City, mentally troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him into a dangerous downward spiral of revolution and bloody crime</Text>
+                <View style={{marginLeft:StyleConfig.resWidth(20)}}>
+                        <Text style={styles.commentText}>Won 2 oscars including best director</Text>
+                        <Text style={styles.commentText}>Won 1 G. Globe including best movie</Text>
+                    </View>
+                </View>
+                
+                {/* <Text style={styles.movieTypeText}>Watch:</Text> */}
                 <ScrollView horizontal  contentContainerStyle={[{flexGrow:1}]} >
                 <View style={{flexDirection:'row',  flex:1, }}>
                 {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
@@ -173,6 +201,8 @@ const TVPosterCard = ({item, ...props})=>{
                 
             </View>
         </View>
+        </View>
+
     )
 }
 
@@ -183,7 +213,7 @@ const styles = StyleSheet.create({
         marginLeft:StyleConfig.resWidth(20),
         marginTop:StyleConfig.resHeight(20),
         borderRadius:StyleConfig.resHeight(20),
-        backgroundColor:'rgba(255,255,255,0.9)',
+        // backgroundColor:'rgba(255,255,255,0.9)',
         shadowColor: 'black',
         shadowOpacity: 0.9,
         overflow:'hidden',
@@ -191,18 +221,19 @@ const styles = StyleSheet.create({
     },
     container: {
         flex:1,
-        width: StyleConfig.width*0.22,
+        width: StyleConfig.width*0.20,
     },
     detailViewContainer:{
+        flexDirection:'row',
         backgroundColor: 'rgba(0,0,0,0.33)',
-        borderRadius:StyleConfig.resHeight(20),
+        // borderRadius:StyleConfig.resHeight(20),
         flex:1,
         // height: StyleConfig.height*0.4, 
-        marginLeft:StyleConfig.resWidth(40),
+        // marginLeft:StyleConfig.resWidth(20),
         marginTop:StyleConfig.resHeight(24),
         marginRight:StyleConfig.resWidth(12),
         padding: StyleConfig.resHeight(12),
-        paddingLeft:StyleConfig.resWidth(40)
+        // paddingLeft:StyleConfig.resWidth(40)
     },
     titleText:{
         fontSize:StyleConfig.resHeight(60),
@@ -214,7 +245,7 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     typeText:{
-        fontSize:StyleConfig.resHeight(20),
+        fontSize:StyleConfig.resHeight(24),
         minWidth: StyleConfig.resWidth(140),
         paddingLeft: StyleConfig.resWidth(6),
         paddingVertical:StyleConfig.resWidth(2),
@@ -224,7 +255,7 @@ const styles = StyleSheet.create({
 
     },
     valueText:{
-        fontSize:StyleConfig.resHeight(20),
+        fontSize:StyleConfig.resHeight(24),
         paddingRight: StyleConfig.resWidth(6),
         paddingVertical:StyleConfig.resWidth(2),
         color: colors.white
@@ -251,9 +282,11 @@ const styles = StyleSheet.create({
     },
     detailsText:{
         width:(StyleConfig.width-130)/2,
-        fontSize: StyleConfig.resHeight(20),
+        fontSize: StyleConfig.resHeight(26),
         marginTop:4,
-        color: colors.white
+        color: colors.white,
+        fontWeight:'400',
+        fontFamily:primary_regular_font.primary_regular_font
     },
     ratingWrap:{
         backgroundColor: colors.tomatoRed,
@@ -282,8 +315,8 @@ const styles = StyleSheet.create({
         height: StyleConfig.resHeight(20)
     },
     watchImage:{
-        width: StyleConfig.resWidth(80),
-        height: StyleConfig.resHeight(80),
+        width: StyleConfig.resWidth(100),
+        height: StyleConfig.resHeight(100/2),
         borderRadius:4
     },
     watchText:{
