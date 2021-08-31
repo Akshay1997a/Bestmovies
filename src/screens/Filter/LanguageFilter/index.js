@@ -459,45 +459,47 @@ export class LanguageFilter extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <HeaderModal title={'Original language'} {...this.props} />
-        <SearchBar
-          placeholder="Enter country"
-          value={searchString}
-          onChangeText={(text) => this.onSearchHandler(text)}
-          onClear={this.onClearSearch}
-        />
-        <View>
-          <Button
-            title="Any"
-            isActive={selectedLanguages.length === 0}
-            onPress={() => this.setState({selectedLanguages: []})}
+        <View style={{padding: 10}}>
+          <SearchBar
+            placeholder="Enter country"
+            value={searchString}
+            onChangeText={(text) => this.onSearchHandler(text)}
+            onClear={this.onClearSearch}
           />
-          <Button
-            title="Your country (US)"
-            isActive={false}
-            onPress={(val) =>
-              this.selectUnselectCountry('United States of America')
+          <View>
+            <Button
+              title="Any"
+              isActive={selectedLanguages.length === 0}
+              onPress={() => this.setState({selectedLanguages: []})}
+            />
+            <Button
+              title="Your country (US)"
+              isActive={false}
+              onPress={(val) =>
+                this.selectUnselectCountry('United States of America')
+              }
+            />
+          </View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={
+              Platform.OS !== 'android' &&
+              (({highlighted}) => (
+                <View style={[highlighted && {marginLeft: 0}]} />
+              ))
             }
+            data={DATA}
+            renderItem={({item, index}) => (
+              <Button
+                key={item.id}
+                title={item.languages}
+                isActive={selectedLanguages.includes(item.languages)}
+                onPress={() => this.selectUnselectCountry(item.languages)}
+              />
+            )}
+            keyExtractor={(item) => item.id.toString()}
           />
         </View>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={
-            Platform.OS !== 'android' &&
-            (({highlighted}) => (
-              <View style={[highlighted && {marginLeft: 0}]} />
-            ))
-          }
-          data={DATA}
-          renderItem={({item, index}) => (
-            <Button
-              key={item.id}
-              title={item.languages}
-              isActive={selectedLanguages.includes(item.languages)}
-              onPress={() => this.selectUnselectCountry(item.languages)}
-            />
-          )}
-          keyExtractor={(item) => item.id.toString()}
-        />
       </SafeAreaView>
     );
   }
@@ -509,6 +511,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 10,
   },
 });

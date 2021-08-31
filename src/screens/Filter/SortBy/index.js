@@ -19,14 +19,16 @@ export default function SoryBy(props) {
   return (
     <View style={styles.container}>
       <HeaderModal title="Sort By" {...props} />
-      {Object.entries(SORT_BY_FILTER).map((value, index) => (
-        <Button
-          key={index.toString()}
-          title={value[1]}
-          isActive={sortBy === SORT_BY_FILTER[value[0]]}
-          onPress={() => dispatch(updateSortByAction(value[1]))}
-        />
-      ))}
+      <View style={{padding: 10}}>
+        {Object.entries(SORT_BY_FILTER).map((value, index) => (
+          <Button
+            key={index.toString()}
+            title={value[1]}
+            isActive={sortBy === SORT_BY_FILTER[value[0]]}
+            onPress={() => dispatch(updateSortByAction(value[1]))}
+          />
+        ))}
+      </View>
     </View>
   );
 }
@@ -46,7 +48,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: height,
     backgroundColor: '#fff',
-    padding: 10,
     marginTop: 'auto',
   },
   butContainer: {

@@ -39,9 +39,15 @@ export const HEADER_TYPE = {
 export default function Header(props) {
   const inset = useSafeAreaInsets();
   const {navigate, goBack} = props.navigation;
-  const {translateY} = useCollapsibleHeader();
+  const {translateY, reset} = useCollapsibleHeader();
   const {isTabBarVisible, headerType} = props;
-  console.log(headerType);
+
+  useEffect(() => {
+    const {navigation} = props;
+    navigation.addListener('state', (e) => {
+      reset();
+    });
+  }, []);
 
   return (
     <Animated.View
@@ -223,6 +229,14 @@ export function useCollapsibleHeader() {
   });
   console.log('SwcrollY', scrollY);
 
+  const reset = () => {
+    Animated.timing(scrollY, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
   const onScrollY = (e) =>
     Animated.event(
       [
@@ -237,7 +251,7 @@ export function useCollapsibleHeader() {
       {useNativeDriver: true}, // Add this line
     );
 
-  return {translateY, onScrollY};
+  return {translateY, onScrollY, reset};
 }
 
 export function useCollapsibleHeaderHOC(WrappedComponent) {
