@@ -67,7 +67,7 @@ const StackNav = () => {
       headerShown: true,
       headerTitleAlign: 'center',
       cardStyle: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(0,0,0,0.2)',
         overflow: 'hidden',
         marginBottom: insets.bottom,
       },
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: Platform.OS === 'android' ? '98%' : '90%',
+    height: Platform.OS === 'android' ? '98%' : '93%',
     marginTop: 'auto',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,

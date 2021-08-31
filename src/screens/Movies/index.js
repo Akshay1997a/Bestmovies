@@ -181,6 +181,10 @@ export class Movies extends Component {
             borderColor: '#fff',
             backgroundColor: '#fff',
             elevation: 5,
+            shadowOffset: {width: 0, height: 2},
+            shadowOpacity: 0.25,
+            shadowColor: "#000",
+            shadowRadius: 3.84
           }),
         }}>
         <TouchableOpacity
@@ -198,6 +202,7 @@ export class Movies extends Component {
                     right: 10,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    zIndex: 5000
                   }}>
                   <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
                   <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>

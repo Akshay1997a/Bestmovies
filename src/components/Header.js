@@ -260,14 +260,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     backgroundColor: '#fff',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     zIndex: 1000,
-    ...(Platform.OS === 'android' && {
+    ...(Platform.OS === 'android' ? {
       shadowColor: '#000',
       shadowOffset: {width: 1, height: 1},
       shadowOpacity: 0.4,
       shadowRadius: 3,
       elevation: 5,
+    } : {
+      shadowOpacity: 0.2,
+      shadowOffset: {width: 1, height: 2},
+      shadowColor: "#000",
     }),
   },
   TopBarScrollContainer: {

@@ -9,8 +9,8 @@ function SVGTriangleTop(props) {
       style={{
         width: 13,
         height: 28,
+        transform: [{rotateY: '180deg'}, {rotateX: "180deg"}]
       }}
-      rotation={180}
       {...props}>
       <G clipPath="url(#clip-s-Triangle_309108)">
         <Path d="M0 0l13 28H0z" transform="rotate(0deg)" fill="#4183e2" />

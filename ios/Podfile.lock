@@ -11,28 +11,27 @@ PODS:
     - React-Core (= 0.63.4-0)
     - React-jsi (= 0.63.4-0)
     - ReactCommon/turbomodule/core (= 0.63.4-0)
-  - Firebase/CoreOnly (8.5.0):
-    - FirebaseCore (= 8.5.0)
-  - Firebase/Crashlytics (8.5.0):
+  - Firebase/CoreOnly (8.1.1):
+    - FirebaseCore (= 8.1.0)
+  - Firebase/Crashlytics (8.1.1):
     - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 8.5.0)
-  - FirebaseCore (8.5.0):
+    - FirebaseCrashlytics (~> 8.1.0)
+  - FirebaseCore (8.1.0):
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
-  - FirebaseCoreDiagnostics (8.5.0):
+  - FirebaseCoreDiagnostics (8.6.0):
     - GoogleDataTransport (~> 9.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
     - nanopb (~> 2.30908.0)
-  - FirebaseCrashlytics (8.5.0):
+  - FirebaseCrashlytics (8.1.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
     - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
     - nanopb (~> 2.30908.0)
-    - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseInstallations (8.5.0):
+    - PromisesObjC (~> 1.2)
+  - FirebaseInstallations (8.6.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/UserDefaults (~> 7.4)
@@ -97,11 +96,11 @@ PODS:
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Environment (7.5.0):
+  - GoogleUtilities/Environment (7.5.1):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.5.0):
+  - GoogleUtilities/Logger (7.5.1):
     - GoogleUtilities/Environment
-  - GoogleUtilities/UserDefaults (7.5.0):
+  - GoogleUtilities/UserDefaults (7.5.1):
     - GoogleUtilities/Logger
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -111,7 +110,7 @@ PODS:
   - OpenSSL-Universal (1.0.2.9):
     - OpenSSL-Universal/Static (= 1.0.2.9)
   - OpenSSL-Universal/Static (1.0.2.9)
-  - PromisesObjC (2.0.0)
+  - PromisesObjC (1.2.12)
   - RCTRequired (0.63.4-0)
   - RCTTypeSafety (0.63.4-0):
     - FBLazyVector (= 0.63.4-0)
@@ -280,11 +279,11 @@ PODS:
     - React
   - react-native-orientation (3.1.3):
     - React
-  - react-native-safe-area-context (3.3.0):
+  - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-slider (3.0.3):
     - React
-  - react-native-webview (11.13.0):
+  - react-native-webview (11.6.5):
     - React-Core
   - React-RCTActionSheet (0.63.4-0):
     - React-Core/RCTActionSheetHeaders (= 0.63.4-0)
@@ -350,11 +349,11 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNFBApp (12.5.0):
-    - Firebase/CoreOnly (= 8.5.0)
+  - RNFBApp (12.1.0):
+    - Firebase/CoreOnly (= 8.1.1)
     - React-Core
-  - RNFBCrashlytics (12.5.0):
-    - Firebase/Crashlytics (= 8.5.0)
+  - RNFBCrashlytics (12.1.0):
+    - Firebase/Crashlytics (= 8.1.1)
     - React-Core
     - RNFBApp
   - RNGestureHandler (1.10.3):
@@ -562,11 +561,11 @@ SPEC CHECKSUMS:
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: c036ad5a81ef36360c781b39c878267068e5ba32
   FBReactNativeSpec: 89777e9e170f9b5831f52361df305d65a91bbe8d
-  Firebase: ff8c73105b90e33e1dc6c8e5445d7adc2ccdc7c1
-  FirebaseCore: 1c1ca72483b59b17050f5b4cec4fb748425a3901
-  FirebaseCoreDiagnostics: 7bf55d386f9fc690d971b70a582142321a390eb8
-  FirebaseCrashlytics: 8e7cf678cb149d421198388c6fc3d3acfd266539
-  FirebaseInstallations: f2bc590b291d25fb40a9a05b8281c02a881b5117
+  Firebase: 4bb49ae87756034cef870fa3c4006235eb46f475
+  FirebaseCore: 389c4ce9a7cce4a7e25eb22326b4bee0050557b2
+  FirebaseCoreDiagnostics: 3721920bde3a9a6d5aa093c1d25e9d3e47f694af
+  FirebaseCrashlytics: 1b55b3a718f9e20d59d96db46a4652d95a8ba1d2
+  FirebaseInstallations: 0ede6ffcd215b8f93c19d9b06c1c54e2d4107e98
   Flipper: b96fca3f1d3cfcb78df7d8eaed51ea9a71b69e92
   Flipper-DoubleConversion: 1349df2e033b72bffcb6e54db199cab53b9dcebd
   Flipper-Folly: abac1a67bc5390a09770454b9314af6c1a29ced8
@@ -577,10 +576,10 @@ SPEC CHECKSUMS:
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
-  GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
+  GoogleUtilities: 3df19e3c24f7bbc291d8b5809aa6b0d41e642437
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 7cbe4bc3c032ace1c0ce897d6b5d58a3b9f6b8e2
-  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RCTRequired: 71d07d4c5531893d9847a40209ab13a6edcae395
   RCTTypeSafety: 72ea41b0b05e0d83a24afd4c54386912bfab6042
   React: 85cde11f8e154157205eb6fd2e93c1fe1e0a9398
@@ -592,10 +591,10 @@ SPEC CHECKSUMS:
   React-jsiexecutor: a2d57cd174d11835a2e1369820664db94dc68244
   React-jsinspector: b02749ab9b71584a1a93e93bdf2b483179f5f4af
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
-  react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
-  react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
-  react-native-slider: e99fc201cefe81270fc9d81714a7a0f5e566b168
-  react-native-webview: 133a6a5149f963259646e710b4545c67ef35d7c9
+  react-native-orientation: d4a97266b06ec8d45d74e626656a730ebbebbb6f
+  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
+  react-native-slider: b733e17fdd31186707146debf1f04b5d94aa1a93
+  react-native-webview: 9fef5edbbf9d03694c5fb513cc2e6d96694430af
   React-RCTActionSheet: 5f3e34227c4a6a722cb8011867280d6288f43160
   React-RCTAnimation: 325e04d9a829ebf8199cf97dd93fbde540473ebe
   React-RCTBlob: ed6d47f5e46f71135c6d7c647c9c114641ee4ae4
@@ -606,10 +605,10 @@ SPEC CHECKSUMS:
   React-RCTText: c14fecaa52f682ffc920d21dc06accee58ac0475
   React-RCTVibration: 7038524514e9b0815a8a29f5b82854f773440454
   ReactCommon: d8af14f3e586d78c8e8443e32fedb4c2eb745402
-  RNCAsyncStorage: 56a3355a10b5d660c48c6e37325ac85ebfd09885
-  RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNFBApp: 5f583e80cd7a32621d6057da3b786c4db96f1ef4
-  RNFBCrashlytics: ef57daf3f2cbcff6bbb13729b83f78a52d19dd38
+  RNCAsyncStorage: 8324611026e8dc3706f829953aa6e3899f581589
+  RNCMaskedView: f127cd9652acfa31b91dcff613e07ba18b774db6
+  RNFBApp: 406bc9586c70ccf20504b4d3b54ac4341c98993f
+  RNFBCrashlytics: 963a2757f6a52e37ae50adab5832162a7d81f98f
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: d9da990fc90123f4ffbfdda93d00fc15174863a8
   RNScreens: 01ab149b5dd5c27f5ff26741b1d2bdf2cee1af35
