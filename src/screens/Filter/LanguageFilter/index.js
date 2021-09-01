@@ -1,12 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
 import {
-  Text,
   View,
   Dimensions,
   SafeAreaView,
   FlatList,
-  TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import HeaderModal from '../../../components/HeaderModal';
 import SearchBar from '../../../components/SearchBar';
@@ -428,23 +429,24 @@ export class LanguageFilter extends Component {
       screen,
       searchString: '',
       selectedLanguages: [],
+      filteredLanguages: [],
     };
 
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
-    this.selectUnselectCountry = this.selectUnselectCountry.bind(this);
+    this.selectUnselectLanguage = this.selectUnselectLanguage.bind(this);
   }
 
   onSearchHandler(str) {
-    let arr = COUNTRIES_LIST.filter((i) => i.name.match(new RegExp(str, 'i')));
-    this.setState({filtereddCountries: arr, searchString: str});
+    let arr = DATA.filter((i) => i.languages.match(new RegExp(str, 'i')));
+    this.setState({filteredLanguages: arr, searchString: str});
   }
 
   onClearSearch() {
-    this.setState({filtereddCountries: [], searchString: ''});
+    this.setState({filteredLanguages: [], searchString: ''});
   }
 
-  selectUnselectCountry(name) {
+  selectUnselectLanguage(name) {
     const {selectedLanguages} = this.state;
     if (selectedLanguages.includes(name)) {
       let newLanguageList = selectedLanguages.filter((val) => val !== name);
@@ -455,13 +457,13 @@ export class LanguageFilter extends Component {
   }
 
   render() {
-    const {searchString, selectedLanguages} = this.state;
+    const {searchString, selectedLanguages, filteredLanguages} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <HeaderModal title={'Original language'} {...this.props} />
         <View style={{padding: 10}}>
           <SearchBar
-            placeholder="Enter country"
+            placeholder="Enter language"
             value={searchString}
             onChangeText={(text) => this.onSearchHandler(text)}
             onClear={this.onClearSearch}
@@ -473,11 +475,9 @@ export class LanguageFilter extends Component {
               onPress={() => this.setState({selectedLanguages: []})}
             />
             <Button
-              title="Your country (US)"
+              title="Your language (English)"
               isActive={false}
-              onPress={(val) =>
-                this.selectUnselectCountry('United States of America')
-              }
+              onPress={(val) => this.selectUnselectLanguage('English')}
             />
           </View>
           <FlatList
@@ -488,13 +488,13 @@ export class LanguageFilter extends Component {
                 <View style={[highlighted && {marginLeft: 0}]} />
               ))
             }
-            data={DATA}
+            data={filteredLanguages.length > 0 ? filteredLanguages : DATA}
             renderItem={({item, index}) => (
               <Button
                 key={item.id}
                 title={item.languages}
                 isActive={selectedLanguages.includes(item.languages)}
-                onPress={() => this.selectUnselectCountry(item.languages)}
+                onPress={() => this.selectUnselectLanguage(item.languages)}
               />
             )}
             keyExtractor={(item) => item.id.toString()}

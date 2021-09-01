@@ -1,9 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -21,7 +18,7 @@ import LanguageFilter from 'src/screens/Filter/LanguageFilter';
 import ArtistPage from '../screens/ArtistPage';
 import Profile from '../screens/Profile';
 import YoutubePlayer from '../components/YoutubePlayer';
-import {StyleSheet, TouchableOpacity, View, Platform} from 'react-native';
+import {StyleSheet, View, Platform} from 'react-native';
 import MenusList from '../screens/MenusList';
 import Header from '../components/Header';
 import {
@@ -37,16 +34,13 @@ import {
 } from 'react-native-safe-area-context';
 import Country from '../screens/Country';
 import Language from '../screens/LanguageScreen';
-import StatusBar from '../components/StatusBar';
 
-const Tab = createMaterialTopTabNavigator();
-const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const StackNav = () => {
   const insets = useSafeAreaInsets();
   const commonOptions = {
-    headerBackImage: (props) => <FontAwesome5 name="angle-left" size={30} />,
+    headerBackImage: () => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
     headerTitleAlign: 'center',
     //...Platform.OS === "ios" && TransitionPresets.FadeFromBottomAndroid,
@@ -348,29 +342,16 @@ const Router = () => {
 };
 export default Router;
 
-function HeaderBackButton(props) {
-  const goBack = () => {
-    console.log(props);
-  };
-  return (
-    <TouchableOpacity onPress={goBack}>
-      <View style={styles.butContainer}>
-        <FontAwesome5 name={'chevron-left'} size={25} />
-      </View>
-    </TouchableOpacity>
-  );
-}
-
 const styles = StyleSheet.create({
   butContainer: {
     padding: 10,
   },
   ModalContainer: {
-    height: Platform.OS === 'android' ? '99%' : '98%',
-    marginTop: 48,
+    height: '100%',
+    marginTop: Platform.OS === 'android' ? 10 : 48,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     overflow: 'hidden',
     elevation: 10,
   },
