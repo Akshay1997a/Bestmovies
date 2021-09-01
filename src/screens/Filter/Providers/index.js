@@ -97,10 +97,10 @@ export class Provider extends Component {
   render() {
     const {selectedCountry} = this.state;
     return (
-      <SafeAreaView style={{backgroundColor: '#fff', padding: 10, flex: 1}}>
+      <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
         <HeaderModal title="Streaming services" {...this.props} />
         {selectedCountry && (
-          <View style={{alignItems: 'flex-end', marginBottom: 20}}>
+          <View style={{alignItems: 'flex-end', marginBottom: 20, paddingHorizontal: 10}}>
             <TouchableOpacity onPress={this.navigateToCountries.bind(this)}>
               <View
                 style={{
@@ -119,7 +119,7 @@ export class Provider extends Component {
             </TouchableOpacity>
           </View>
         )}
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
           <TouchableOpacity style={[styles.butContainer, styles.butActive]}>
             <Text style={[styles.butText, styles.activeButText]}>All</Text>
           </TouchableOpacity>
@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   filterContainer: {
+    paddingHorizontal: 10,
     paddingVertical: 20,
   },
   finterItem: {

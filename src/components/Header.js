@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -16,19 +16,20 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
-import {Easing} from 'react-native-reanimated';
-import {TopBarContext} from '../setup/TopBarNavigator';
-import {useAnimationProvider} from '../Providers/CollapsibleHeaderProvider';
-import SearchBar, {SearchTitle} from './SearchBar';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
-import {FilterInitialState} from '../redux/FilterModule/FilterReducer';
+import { Easing } from 'react-native-reanimated';
+import { TopBarContext } from '../setup/TopBarNavigator';
+import { useAnimationProvider } from '../Providers/CollapsibleHeaderProvider';
+import SearchBar, { SearchTitle } from './SearchBar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
+import { FilterInitialState } from '../redux/FilterModule/FilterReducer';
+import StatusBar from './StatusBar';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const HEADER_HEIGHT = 60;
 export const TAB_BAR_HEIGHT = 40;
 export const TOTAL_HEADER_HEIGHT = HEADER_HEIGHT + TAB_BAR_HEIGHT;
-export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
+export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } =
   Dimensions.get('screen');
 
 export const HEADER_TYPE = {
@@ -38,34 +39,37 @@ export const HEADER_TYPE = {
 
 export default function Header(props) {
   const inset = useSafeAreaInsets();
-  const {navigate, goBack} = props.navigation;
-  const {translateY, reset} = useCollapsibleHeader();
-  const {isTabBarVisible, headerType} = props;
+  const { navigate, goBack } = props.navigation;
+  const { translateY, reset } = useCollapsibleHeader();
+  const { isTabBarVisible, headerType } = props;
 
   useEffect(() => {
-    const {navigation} = props;
+    const { navigation } = props;
     navigation.addListener('state', (e) => {
       reset();
     });
   }, []);
 
   return (
-    <Animated.View
-      style={[
-        styles.headerContainer,
-        {paddingTop: inset.top, transform: [{translateY: translateY}]},
-      ]}>
-      {headerType === undefined || headerType === HEADER_TYPE.DEFAULT ? (
-        <DefaultHeader navigate={(name) => navigate(name)} />
-      ) : (
-        <SearchHeader onPress={goBack} />
-      )}
-      {isTabBarVisible && <TopBar {...props} />}
-    </Animated.View>
+    <>
+      <StatusBar backgroundColor="#fff" />
+      <Animated.View
+        style={[
+          styles.headerContainer,
+          { paddingTop: inset.top, transform: [{ translateY: translateY }] },
+        ]}>
+        {headerType === undefined || headerType === HEADER_TYPE.DEFAULT ? (
+          <DefaultHeader navigate={(name) => navigate(name)} />
+        ) : (
+            <SearchHeader onPress={goBack} />
+          )}
+        {isTabBarVisible && <TopBar {...props} />}
+      </Animated.View>
+    </>
   );
 }
 
-const DefaultHeader = ({navigate}) => {
+const DefaultHeader = ({ navigate }) => {
   const filterConfig = useSelector((state) => state.filterConfig);
   const [isFilterApplied, setFilterApplied] = useState(false);
 
@@ -94,14 +98,14 @@ const DefaultHeader = ({navigate}) => {
       <TouchableOpacity onPress={() => navigate('Menu')}>
         <Image
           source={require('../../assets/Icons/BMicon.png')}
-          style={{width: 150, height: 60, resizeMode: 'center'}}
+          style={{ width: 150, height: 60, resizeMode: 'center' }}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigate('Filter')}>
-        <View style={{position: 'relative'}}>
+        <View style={{ position: 'relative' }}>
           <Image
             source={require('../../assets/Icons/filter_ic.png')}
-            style={{width: 25, height: 25}}
+            style={{ width: 25, height: 25 }}
           />
           {isFilterApplied && <View style={styles.circleDot} />}
         </View>
@@ -119,7 +123,7 @@ const DefaultHeader = ({navigate}) => {
   );
 };
 
-const SearchHeader = ({onPress}) => (
+const SearchHeader = ({ onPress }) => (
   <View
     style={{
       flex: 1,
@@ -129,7 +133,7 @@ const SearchHeader = ({onPress}) => (
       height: HEADER_HEIGHT,
       paddingHorizontal: 10,
     }}>
-    <TouchableOpacity style={{marginRight: 10}} onPress={onPress}>
+    <TouchableOpacity style={{ marginRight: 10 }} onPress={onPress}>
       <FA5 name="chevron-left" size={25} color="#232323" />
     </TouchableOpacity>
     <SearchTitle placeholder="Title" />
@@ -138,9 +142,9 @@ const SearchHeader = ({onPress}) => (
 
 function TopBar(props) {
   console.log('Top Bar', props);
-  const {navigate} = props.navigation;
-  const {routes, index} = props.state;
-  const {indicatorStyle} = props;
+  const { navigate } = props.navigation;
+  const { routes, index } = props.state;
+  const { indicatorStyle } = props;
   const indicatorAnim = React.useRef(new Animated.Value(0)).current;
   const indicatorSpan = props.scrollEnabled ? 4 : routes.length;
 
@@ -188,30 +192,30 @@ function TopBar(props) {
         style={[
           indicatorStyle,
           styles.indicatorStyle,
-          {width: SCREEN_WIDTH / indicatorSpan},
-          {transform: [{translateX: indicatorAnim}]},
+          { width: SCREEN_WIDTH / indicatorSpan },
+          { transform: [{ translateX: indicatorAnim }] },
         ]}
       />
     </ScrollView>
   );
 }
 
-function TabButton({title, index, onPress, ...rest}) {
-  const {state, activeTintColor, inactiveTintColor} = rest;
+function TabButton({ title, index, onPress, ...rest }) {
+  const { state, activeTintColor, inactiveTintColor } = rest;
   console.log(rest);
   return (
     <TouchableNativeFeedback key={state.routes[index].key} onPress={onPress}>
       <View
         style={[
           styles.TabButStyle,
-          rest.scrollEnabled && {width: SCREEN_WIDTH / 4},
+          rest.scrollEnabled && { width: SCREEN_WIDTH / 4 },
         ]}>
         <Text
           style={[
             rest.labelStyle,
             state.index === index
-              ? {color: activeTintColor}
-              : {color: inactiveTintColor},
+              ? { color: activeTintColor }
+              : { color: inactiveTintColor },
           ]}>
           {title}
         </Text>
@@ -224,8 +228,8 @@ export function useCollapsibleHeader() {
   const scrollY = useAnimationProvider();
   const diffClamp = Animated.diffClamp(scrollY, 0, TOTAL_HEADER_HEIGHT);
   const translateY = diffClamp.interpolate({
-    inputRange: [0, TOTAL_HEADER_HEIGHT],
-    outputRange: [0, -TOTAL_HEADER_HEIGHT],
+    inputRange: [0, TOTAL_HEADER_HEIGHT - 5],
+    outputRange: [0, -TOTAL_HEADER_HEIGHT - 5],
   });
   console.log('SwcrollY', scrollY);
 
@@ -248,15 +252,15 @@ export function useCollapsibleHeader() {
           },
         },
       ],
-      {useNativeDriver: true}, // Add this line
+      { useNativeDriver: true }, // Add this line
     );
 
-  return {translateY, onScrollY, reset};
+  return { translateY, onScrollY, reset };
 }
 
 export function useCollapsibleHeaderHOC(WrappedComponent) {
   return (props) => {
-    const {onScrollY} = useCollapsibleHeader();
+    const { onScrollY } = useCollapsibleHeader();
     const scrollContext = useAnimationProvider();
 
     return (
@@ -275,18 +279,18 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#fff',
     // overflow: 'hidden',
-    zIndex: 1000,
+    zIndex: 2,
     ...(Platform.OS === 'android' ? {
       shadowColor: '#000',
-      shadowOffset: {width: 1, height: 1},
+      shadowOffset: { width: 1, height: 1 },
       shadowOpacity: 0.4,
       shadowRadius: 3,
       elevation: 5,
     } : {
-      shadowOpacity: 0.2,
-      shadowOffset: {width: 1, height: 2},
-      shadowColor: "#000",
-    }),
+        shadowOpacity: 0.2,
+        shadowOffset: { width: 1, height: 2 },
+        shadowColor: "#000",
+      }),
   },
   TopBarScrollContainer: {
     height: TAB_BAR_HEIGHT,

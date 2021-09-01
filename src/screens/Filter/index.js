@@ -22,11 +22,13 @@ import HeaderModal from '../../components/HeaderModal';
 import Switch from '../../components/Switch';
 import {SORT_BY_FILTER} from '../../redux/FilterModule/FilterTypes';
 // import {SafeAreaView} from 'react-native-safe-area-context'
+import {StatusBarContext} from "../../../App"
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 
 class Filter extends React.Component {
+  static contextType = StatusBarContext
   constructor(props) {
     super(props);
     this.state = {
@@ -41,6 +43,7 @@ class Filter extends React.Component {
 
   componentDidMount() {
     this.details();
+    //this.context.setStatusBarColor("rgba(0,0,0,0.2)")
   }
 
   details() {

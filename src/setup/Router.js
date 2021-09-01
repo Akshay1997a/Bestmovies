@@ -37,6 +37,7 @@ import {
 } from 'react-native-safe-area-context';
 import Country from '../screens/Country';
 import Language from '../screens/LanguageScreen';
+import StatusBar from '../components/StatusBar';
 
 const Tab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -48,7 +49,7 @@ const StackNav = () => {
     headerBackImage: (props) => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
     headerTitleAlign: 'center',
-    ...TransitionPresets.FadeFromBottomAndroid,
+    //...Platform.OS === "ios" && TransitionPresets.FadeFromBottomAndroid,
   };
 
   const modalScreenOptions = (screenProps) => {
@@ -59,6 +60,7 @@ const StackNav = () => {
       cardStyle: {
         backgroundColor: 'rgba(0,0,0,0.2)',
         overflow: 'hidden',
+        // marginTop: insets.top,
         marginBottom: insets.bottom,
       },
       cardOverlayEnabled: true,
@@ -364,10 +366,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: Platform.OS === 'android' ? '99%' : '90%',
-    marginTop: 'auto',
+    height: Platform.OS === 'android' ? '99%' : '98%',
+    marginTop: 48,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    backgroundColor: "#fff",
     overflow: 'hidden',
     elevation: 10,
   },
