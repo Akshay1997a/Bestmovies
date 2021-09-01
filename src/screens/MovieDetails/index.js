@@ -407,10 +407,10 @@ class MovieDetails extends Component {
                     </View>
                   </View>
                 </View>
-                {/* <View style={{justifyContent: 'space-between'}}>
+                <View style={{justifyContent: 'space-between'}}>
                   <SVGTriangleTop />
                   <SVGTriangleBottom />
-                </View> */}
+                </View>
                 <View
                   style={{
                     flex: 0.4,
