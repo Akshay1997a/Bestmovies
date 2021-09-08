@@ -7,7 +7,8 @@ import {
     Dimensions,
     FlatList,
     Pressable,
-    Image
+    Image,
+    Platform
  } from 'react-native'
  
  import TVHeader from '../../components/TV/TVHeader'
@@ -160,11 +161,11 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
           <View style={{flexDirection: 'row'}}>
             <View style={{ width: StyleConfig.resWidth(600), margin:40,height:'56%'}}>
               <View style={{flexDirection:'row',marginBottom:10}} >
-                  <View style={{flex:0.34,height:90,backgroundColor:colors.lightGrey,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'center',alignItems:'center'}}>
-                        <Text style={{fontSize:28,fontWeight:'700',color:colors.tomatoRed}}>Title</Text>
+                  <View style={styles.title}>
+                        <Text style={styles.titleText}>Title</Text>
                   </View>
-                  <View style={{flex:0.34,marginTop:30,backgroundColor:'#999999',marginHorizontal:10,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'center',alignItems:'center'}}>
-                  <Text style={{fontSize:28,fontWeight:'400',color:colors.black}}>Artist</Text>
+                  <View style={styles.artist}>
+                  <Text style={styles.titleText}>Artist</Text>
 
                   </View>
                   <View style={{flex:0.34,marginTop:30,backgroundColor:'#999999',marginHorizontal:10,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'center',alignItems:'center'}}>
@@ -172,21 +173,21 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
                   </View>
               </View>
 
-              <View style={{flexDirection:'row',backgroundColor: colors.lightGrey, borderRadius:8,  minHeight:80,minWidth:60,marginBottom:20}}>
+              <View style={styles.tetxInputLayout}>
               <View style={{flex:1,flexDirection:'row'}}>
                 <View style={{flex:0.1,alignSelf:'center'}} >
-                     <Image style={{marginStart:10,height:30,width:30,}} source={AppImages.icSearch} />
+                     <Image style={styles.search} source={AppImages.icSearch} />
                   </View>
                   
                     <TextInput 
                       placeholder={strings.search}
                       placeholderTextColor={colors.black}
                       keyboardType={strings.email_address}
-                      style={{backgroundColor:colors.lightGrey, flex:0.8,alignSelf:'center',fontSize:34,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'700'}}
+                      style={styles.textInput}
                       onChangeText={text => setText(text)}
                     />
                     <View style={{marginStart:10,flex:0.1,alignSelf:'center'}} >
-                    <Image style={{marginEnd:10,height:40,width:40,justifyContent:'flex-end'}} source={AppImages.micro} />
+                    <Image style={styles.mic} source={AppImages.micro} />
 
                   </View>
               </View>
@@ -222,12 +223,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
               {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
               <View hasTVPreferredFocus={true} style={{backgroundColor:'white', height: StyleConfig.resHeight(900)}}>
                 <View style={{flexDirection:'row', marginVertical:10,}} >
-        <Text style={{fontSize:30,
-        
-        fontWeight:'800'}} >Ranking of best movies</Text>
+        <Text style={styles.ranking} >Ranking of best movies</Text>
 
-<Text style={{fontSize:30,
-        fontWeight:'200'}}>  12,348  results </Text>
+<Text style={styles.result}>  12,348  results </Text>
         </View>
                  <FlatList
                    hasTVPreferredFocus={true}
@@ -407,9 +405,59 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
 }
 
 export default RenderTV;
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
+  artistText:{fontSize: isAndroid() ? 20: 28,fontWeight:'400',color:colors.black},
+  titleText:{fontSize: isAndroid()? 22: 28,fontWeight:'700',color:colors.tomatoRed},
+  title:{
+    flex:0.34,
+    // height:90,
+    backgroundColor:colors.lightGrey,borderTopLeftRadius:20,
+    borderTopRightRadius:20,
+    justifyContent:'center',
+    alignItems:'center'},
+  artist:{
+    flex:0.34,
+    marginTop:30,
+    backgroundColor:'#999999',
+    marginHorizontal:10,
+    borderTopLeftRadius:20,
+    borderTopRightRadius:20,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  tetxInputLayout:{
+    flexDirection:'row',
+    backgroundColor: colors.lightGrey,
+     borderRadius:8, 
+      minHeight: isAndroid() ?  50 : 80,
+      minWidth:60,
+      marginBottom:20},
+  mic:{marginEnd:10,
+    height: isAndroid() ? 30 : 40,
+    width: isAndroid() ? 30:40,
+    justifyContent:'flex-end'},
+  search:{
+    marginStart:10,
+    height: isAndroid()? 20 : 30,
+    width: isAndroid() ?20: 30,},
+  textInput:{
+    backgroundColor:colors.lightGrey,
+     flex:0.8,alignSelf:'center',
+     fontSize: isAndroid()? 24: 34,
+     fontFamily:primary_regular_font.primary_regular_font,
+     fontWeight:'700'},
+  ranking:{
+    fontSize:12,
+    fontWeight:'800'
+  },
+  result:{
+    fontSize:12,
+    fontWeight:'200'
+  },
     container: {
       backgroundColor: colors.black,
       flexDirection: 'row',

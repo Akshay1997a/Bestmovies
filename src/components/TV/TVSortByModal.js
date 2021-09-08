@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'

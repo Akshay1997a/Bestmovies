@@ -4,7 +4,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import {View, Pressable, StyleSheet, Image, Text} from 'react-native';
+import {View, Pressable, StyleSheet, Image, Text, Platform} from 'react-native';
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig';
 import {useHeaderHeight} from '@react-navigation/stack';
@@ -239,6 +239,10 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
 
 export default TVHeader;
 
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
@@ -246,8 +250,8 @@ const styles = StyleSheet.create({
     marginVertical:5
   },
   bannerIcon: {
-    width: 210,
-    height: 210/2,
+    width: isAndroid() ? 110 :210,
+    height: isAndroid() ? 110/2 : 210/2,
   },
   itemWrapperSelected: {
     justifyContent: 'center',
@@ -263,23 +267,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 12,
     paddingVertical: 6,
-    marginHorizontal:18,
+    // marginHorizontal:18,
     minWidth: 60,
     alignItems: 'center',
   },
   text: {
-    fontSize: 32,
+    fontSize: isAndroid() ? 12 :32,
     fontFamily:primary_regular_font.primary_regular_font,
     fontWeight: '400',
+    color:colors.black
 
   },
   focusText: {
-    fontSize: 32,
+    fontSize: isAndroid() ? 12 :32,
     fontWeight: '700',
     color: colors.white,
   },
   selectedText: {
-    fontSize: 32,
+    fontSize: isAndroid() ? 12 :32,
     fontWeight: '700',
     color: colors.tomatoRed,
     fontFamily:primary_regular_font.primary_regular_font

@@ -5,7 +5,8 @@ import {
     View,
     Image,
     Text,
-    Pressable
+    Pressable,
+    Platform
 } from 'react-native';
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets';

@@ -6,7 +6,8 @@ import {
     ImageBackground,
     StyleSheet,
     Dimensions,
-    Image
+    Image,
+    Platform
  } from 'react-native'
  import colors from 'src/helper/colors';
  const {width, height} = Dimensions.get('window')
@@ -86,18 +87,8 @@ const TVCardDetail = ({item, ...props})=>{
           }
                          
 
-                <View style={{
-                  alignItems:'center',
-                  justifyContent:'center',  
-                  marginLeft:60,
-                  //  marginRight: 10,
-                  width: 40,
-                  height: 40,
-                  backgroundColor: item.DATA.color,
-                  borderRadius: 100,
-                  transform: [{ scaleX: 2 }],
-                }}>
-                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'black'}}>{item.DATA.rating}</Text>
+                <View style={styles.ovalShapeView}>
+                        <Text style={styles.rating}>{item.DATA.rating}</Text>
                     </View>
 
                 </View>
@@ -121,7 +112,9 @@ const TVCardDetail = ({item, ...props})=>{
 
 export default TVCardDetail;
 const itemWidth = (StyleConfig.width-130)*0.18
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
   container:{
@@ -134,13 +127,21 @@ const styles = StyleSheet.create({
   ovalShapeView: {  
     alignItems:'center',
     justifyContent:'center',  
-    // marginTop: 20,
-    width: 40,
-    height: 40,
-    backgroundColor: '#efcc00',
+    marginLeft: isAndroid() ? 40 : 50,
+    width: isAndroid() ? 20 : 40,
+    height: isAndroid() ? 20 :  40,
+    backgroundColor: colors.black,
     borderRadius: 100,
     transform: [{ scaleX: 2 }],
+    // marginRight:40
  },
+ rating:{
+  fontFamily:primary_regular_font.primary_regular_font,
+  textAlign:'center',
+  fontWeight:'700',
+   fontSize: isAndroid() ? 10 :18,
+   color:'white'
+},
   circleShape: {
     flexDirection:'row',
     width: 40,
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(20),
-      width:355,
+      width:isAndroid() ? 200 : 356,
       borderWidth: StyleConfig.resWidth(5),
       height: StyleConfig.width*0.30,
       borderColor: colors.tomatoRed,
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     },
     notHighlightFocused:{
       borderRadius:StyleConfig.resHeight(20),
-      width:355,
+      width:isAndroid() ? 200 : 356,
       height: StyleConfig.width*0.30,
       paddingTop:1,
       overflow:'hidden',

@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Text,
     Image,
-    ScrollView
+    ScrollView,
+    Platform
 } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
 import TVToggle from '../TV/TVToggle';
@@ -425,7 +426,7 @@ const BackArrow = forwardRef(({ item }, ref) => {
                                             
                                             :
                                             <View style={{marginLeft:20,flexDirection:'row'}} >
-                                            <View style={{marginRight:90}}>
+                                            <View style={{marginRight: isAndroid() ? 22: 90}}>
                                                  <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
                                                              <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
                                                  </View>
@@ -480,6 +481,9 @@ const BackArrow = forwardRef(({ item }, ref) => {
 })
 
 export default TVSideBar;
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
     verticleLine: {
@@ -491,7 +495,7 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: colors.lightGrey,
-        height:100,
+        height:50,
         alignContent:'center',
         alignItems:'center',
         flexDirection:'row',
@@ -509,32 +513,29 @@ const styles = StyleSheet.create({
         // marginRight:-80,
     },
     text:{
-        fontSize:24,
+        fontSize: isAndroid() ? 12 :24,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'400'
     },
     focusText:{
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'900',
-        fontSize:24,
+        fontSize: isAndroid() ? 12 :24,
         color: colors.white,
         // width:   250
 
     },
     textTitle:{
-        fontSize:24,
+        color:colors.black,
+        fontSize: isAndroid() ? 12 :24,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'700',
-        // width:   250
-
     },
     focusTextTitle:{
-        fontSize:24,
+        fontSize: isAndroid() ? 12 :24,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'700',
         color: colors.white,
-        // width:   250
-
     },
    
 })

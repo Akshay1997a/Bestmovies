@@ -10,7 +10,8 @@ import {
     StyleSheet,
     FlatList,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
  } from 'react-native'
 import TVPosterCard from '../../components/TV/TVPosterCard'
 import TVCardDetail from '../../components/TV/TVCardDetail'
@@ -151,6 +152,7 @@ const MyCarousel = ({item,posts, ...props})=>{
         // hasParallaxImages={true}
       />
       <View style={[styles.item, {position: 'absolute',zIndex:1}]}>
+     
 
       <Pressable 
                   onFocus={onFocus}
@@ -168,14 +170,12 @@ const MyCarousel = ({item,posts, ...props})=>{
                             height: StyleConfig.resHeight(60),}} source={AppImages.arrow_left} />
                     {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
                 </Pressable>
+                
       </View>
-
-       <View style={[styles.item, {position: 'absolute',top:600}]}>
-{/* <Text style={{fontSize:30}}>himmm</Text>
-<Text style={{fontSize:30}}>himmm</Text>  */}
- <TVPosterCard item={item} {...props} />
-
+      <View style={[styles.item, {position: 'absolute',top: isAndroid() ? 0: 600}]}>
+            <TVPosterCard item={item} {...props} />
         </View>
+      
         <Carousel
        
       loop={true}
@@ -183,21 +183,22 @@ const MyCarousel = ({item,posts, ...props})=>{
       autoplay={true}
         ref={carouselRef}
         sliderWidth={screenWidth}
-        sliderHeight={400}
+        // sliderHeight={100}
         itemWidth={400}
+        itemHeight={100}
         data={entries}
         renderItem={bottomRenderItem}
         hasParallaxImages={true}
       />
         <View style={{flexDirection: 'row', }}>
                 <View style={{ marginTop:16 }}>
-                  <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, marginLeft:12, fontWeight:'700', color:colors.black }}>Director:</Text>
+                  <Text style={styles.director}>Director:</Text>
                   <View style={{flexDirection: 'row'}}>
                     <TVCast item={item} {...props} image = {item.director_image} />
                   </View>
                 </View>
                 <View style={{ marginTop:16 ,marginLeft:30}}>
-                  <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, marginLeft:12, fontWeight:'700',color:colors.black}}>Cast:</Text>
+                  <Text style={styles.cast}>Cast:</Text>
                   <View style={{flexDirection: 'row'}}>
 
                   {item.actors_image.map((obj, ind)=>(
@@ -208,9 +209,9 @@ const MyCarousel = ({item,posts, ...props})=>{
                 </View>
               </View>
 
-              <View style={{flexDirection: 'row',marginTop:80}}>
-                <View style={{ marginTop:30 }}>
-                  <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37.33, marginLeft:12, fontWeight:'700', color:colors.black}}>{strings.similar_titles}</Text>
+              <View style={{flexDirection: 'row',marginTop: isAndroid() ? 10: 80}}>
+                <View style={{  marginTop: isAndroid() ? 0: 30 }}>
+                  <Text style={styles.similar_titles}>{strings.similar_titles}</Text>
                   <View style={{flexDirection: 'row'}}>
                   <FlatList
                    hasTVPreferredFocus={true}
@@ -251,9 +252,35 @@ const MyCarousel = ({item,posts, ...props})=>{
 
 export default MyCarousel;
 
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
+
 const styles = StyleSheet.create({
+  similar_titles:
+  {
+    fontFamily:primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 27 : 37.33,
+     marginLeft:12,
+      fontWeight:'700',
+       color:colors.black
+},
+  director:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 27 : 37,
+     marginLeft:12, 
+     fontWeight:'700',
+      color:colors.black, 
+    },
+  cast:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 27 : 37,
+    marginLeft:12,
+    fontWeight:'700',
+    color:colors.black,
+  },
   title:{
-fontSize:40
+    fontSize:40
   },
   container: {
     flex: 1,
@@ -261,11 +288,12 @@ fontSize:40
   },
   item: {
     width: screenWidth,
-    height: screenWidth-600,
+    height: isAndroid() ?   screenWidth-500 :600,
   },
   secondItem: {
-    width: 400,
-    height: 400,
+    marginTop:40,
+    width: isAndroid() ?  400 : 400,
+    height: isAndroid() ? 200 :400,
   },
   imageContainer: {
     flex: 1,
@@ -279,7 +307,7 @@ fontSize:40
   },
   bottomImage: {
     resizeMode: 'cover',
-    width: 400,
+    width: isAndroid() ?  400 : 400,
     height: 400,
     
   },

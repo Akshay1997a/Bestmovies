@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
@@ -13,7 +13,9 @@ const DATA = [
     { "id":2, "name":"Friend's Like" },
     { "id":3, "name":"Popularity" },
 ]
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 const styles = StyleSheet.create({
     backWrap:{
         paddingHorizontal: StyleConfig.resWidth(8),
@@ -52,7 +54,7 @@ const CommonFilterTvModal=(props)=>{
     //   }, [])
     return(
         <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
-            <View style={{minWidth: 600, minHeight: 700, backgroundColor: 'white', borderRadius:30, paddingHorizontal:15, paddingTop:30, paddingBottom:25, maxHeight:StyleConfig.resHeight(700)}}>
+            <View style={{minWidth: isAndroid() ? 300 : 600, minHeight: isAndroid() ? 300 : 700, backgroundColor: 'white', borderRadius:30, paddingHorizontal:15, paddingTop:30, paddingBottom:25, maxHeight:StyleConfig.resHeight(700)}}>
                 <View style={{flexDirection:'row', justifyContent:'space-between', alignItems: 'center', marginBottom:12, marginLeft:10}}>
                     <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
                         <Image source={AppImages.back_bk} />

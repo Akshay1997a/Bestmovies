@@ -6,7 +6,7 @@ import {
     Text,
     ImageBackground,
     TouchableOpacity,
-    Image
+    Image,Platform
 } from 'react-native'
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
@@ -60,7 +60,7 @@ const TVPosterCard = ({item, ...props})=>{
     const headerHeight = useHeaderHeight();
     const [selected, setSelected] = useState(-1) 
     return(
-        <View style={{flexDirection:'row', marginBottom:50}}>
+        <View style={{flexDirection:'row', marginBottom:150}}>
            
             {/* <View style={styles.viewContainer}>
                 <ImageBackground
@@ -89,12 +89,12 @@ const TVPosterCard = ({item, ...props})=>{
                         { uri:item.thumbnail}
                         } >
                         <View style={[{flex:1,flexDirection:'row', paddingTop:10, backgroundColor:"rgba(0,0,0, 0.3)", paddingLeft:35, paddingRight:10, justifyContent:'space-between'}]} >
-                        <Icon name={"thumbs-down"}  size={50} color={"white"} />
-                        <Icon name={"eye"} size={50} color={"white"} />
-                        <Icon name={"thumbs-up"} size={50} color={"white"} />
+                        <Icon name={"thumbs-down"}  size={ isAndroid()? 25 : 50} color={"white"} />
+                        <Icon name={"eye"} size={ isAndroid()? 25 : 50} color={"white"} />
+                        <Icon name={"thumbs-up"} size={ isAndroid()? 25 : 50} color={"white"} />
                         <View style={[{ alignItems:'center', marginTop:-25}]}>
-                        <Icon name={"bookmark"} size={100} color={"blue"} style={[{ }]} />
-                        <Icon name={"plus"} size={35} color={"white"} style={[{position:'absolute', top:28}]} />
+                        <Icon name={"bookmark"} size={ isAndroid()? 50 :    100} color={"blue"} style={[{ }]} />
+                        <Icon name={"plus"}size={ isAndroid()? 25 : 35} color={"white"} style={[{position:'absolute', top:28}]} />
                         </View>
                         </View>
             </ImageBackground>
@@ -208,6 +208,10 @@ const TVPosterCard = ({item, ...props})=>{
 
 export default TVPosterCard;
 
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
+
 const styles = StyleSheet.create({
     viewContainer:{
         marginLeft:StyleConfig.resWidth(20),
@@ -222,6 +226,8 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         width: StyleConfig.width*0.20,
+        height: StyleConfig.width*0.30,
+
     },
     detailViewContainer:{
         flexDirection:'row',
