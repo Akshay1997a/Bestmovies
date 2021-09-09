@@ -182,7 +182,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   const {t, i18n} = useTranslation();
   return (
     <View style={{backgroundColor: colors.white}}>
-      <Text style={[{fontSize: 55, textAlign: 'center'}]}>{t('hello')}</Text>
       <TVHeader
         style={{height: 500}}
         {...props}
