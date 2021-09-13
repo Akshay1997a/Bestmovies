@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback,useEffect} from 'react';
 import {
     View,
     Pressable,
@@ -9,6 +9,8 @@ import {
     Image,
     Platform
  } from 'react-native'
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
  import colors from 'src/helper/colors';
  const {width, height} = Dimensions.get('window')
 import StyleConfig from 'src/helper/StyleConfig';
@@ -28,24 +30,41 @@ let DATA = {
 }
 
 const TVCardDetail = ({item, ...props})=>{
-  console.log('type',props?.selected);
+  // console.log('type',props?.selected);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
 
-    const onFocus = useCallback(() => {
-      console.log('OnFocus called***');
+  const storeData = async (value) => {
+    try {
+      // await AsyncStorage.setItem('TVMovieListItem', value)
+
+    } catch (e) {
+      // saving error
+    }
+  }
+
+      const   onFocus =   useCallback(() => {
+      // console.log('OnFocus TVCardDetail***',props);
+  props.reduxSetCurrFocus(90)
       setFocus(0);
       setIsFocus(true);
     }, [0]);
     
     const onBlur = useCallback(() => {
-      console.log('onBlur called***');
+      // console.log('onBlur TVCardDetail***');
       setFocus(-1);
       setIsFocus(false);
 
     }, []);
+
+    useEffect(() => {
+      const unsubscribe = props.navigation.addListener('focus', () => {
+      // console.log('focus TVMovieList ');
+
+      });
+    }, [])
     return (
-      <View>
+      <View >
       <Pressable
      
       style={styles.container}
@@ -73,18 +92,19 @@ const TVCardDetail = ({item, ...props})=>{
                           item.title === 'Joker'
                         ?
                       <View style={styles.thumb} >
-                                <Icon name={"thumbs-down"}  size={isAndroid() ? 15 : 25 } color={"white"} />
+                                <Icon name={"thumbs-down"}  size={isAndroid() ? 15 : 35 } color={"white"} />
                           <View style={styles.circleShape}>
-                                <Text style={styles.ok}>OK</Text>
+                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontWeight:'800' ,textAlign:'center' ,fontSize: isAndroid() ? 10:18,color:props?.selected == 1 ? 'white' : 'white'}}>OK</Text>
+                                 
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"thumbs-up"} size={isAndroid() ? 15 : 25 } color={"white"} />
+                                  <Icon name={"thumbs-up"} size={isAndroid() ? 15 : 20 } color={"white"} />
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"plus"} size={isAndroid() ? 15 : 28 } color={"white"}  />
+                                  <Icon name={"plus"} size={isAndroid() ? 15 : 20 } color={"white"}  />
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"share"} size={isAndroid() ? 15 : 28 } color={"white"}  />
+                                  <Icon name={"share"} size={isAndroid() ? 15 : 20 } color={"white"}  />
                           </View>
                       </View>
                       :
@@ -104,20 +124,27 @@ const TVCardDetail = ({item, ...props})=>{
           {/* //Bottom View */}
           <View style={{flexDirection:'row',marginLeft:10}}>
             <View>
-                <Text style={[{fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'white' }]} >{item.title}</Text>
-                <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{DATA.type}</Text>
+                <Text style={[{fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize: isAndroid() ? StyleConfig.resHeight(20)  : StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'white' }]} >{item.title}</Text>
+                <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? StyleConfig.resHeight(20) :StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{DATA.type}</Text>
                 <View style={{flexDirection:'row'}}>
                   <View>
-                          <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
+                          <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? StyleConfig.resHeight(20) :StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
                   </View>
-                <View style={styles.ovalShapeView}>
+                  <View style={{flexDirection:'row'}}>
+                  <View style={styles.ovalShapeView}>
                         <Text style={styles.rating}>{item.DATA.rating}</Text>
                     </View>
+                  </View>
+               
 
                 </View>
-                <View style={{flexDirection:'row'}}>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:55 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'white', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
+                <View style={{flexDirection:'row' ,minWidth:160}}>
+                         <View  style={{flex:0.9}}>
+                            <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
+                        </View>
+                         <View style={{alignContent:'center',justifyContent:'center'}}>
+                             <Text style={styles.feedback}>{item.DATA.feedback}</Text>
+                          </View>
                 </View>
             </View>
             
@@ -140,6 +167,12 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  feedback:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    // marginLeft: isAndroid() ? 40 : 55 ,
+    fontSize:StyleConfig.resHeight(24),
+     color:colors.black,
+      fontWeight:'700'},
   ok:{
     fontFamily:primary_regular_font.primary_regular_font,
     fontWeight:'800' ,
@@ -180,13 +213,16 @@ const styles = StyleSheet.create({
     // marginRight:40
  },
   circleShape: {
-    flexDirection:'row',
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
+    marginTop:10,
     alignItems:'center',
-    justifyContent:'center',
-    backgroundColor: '#A9A9A9'
+    justifyContent:'center',  
+    marginLeft: isAndroid() ? 40 : 50,
+    width: isAndroid() ? 20 : 30,
+    height: isAndroid() ? 20 :  30,
+    backgroundColor: '#A9A9A9',
+    borderRadius: 100,
+    transform: [{ scaleY: 2 }],
+    
   },
     viewContainer:{
         borderRadius:StyleConfig.resHeight(20),
@@ -206,20 +242,20 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(30),
-      width:isAndroid() ? 200 : 356,
+      width:isAndroid() ? 180 : 356,
       borderWidth:  isAndroid()  ? StyleConfig.resWidth(10) :StyleConfig.resWidth(10),
-      height: isAndroid() ?  StyleConfig.width*0.25 : StyleConfig.width*0.32,
+      height: isAndroid() ?  StyleConfig.width*0.25 : StyleConfig.width*0.30,
       borderColor: colors.tomatoRed,
       overflow:'hidden',
-      // padding:10,
+      padding:1,
       // paddingBottom:1,
-      paddingVertical:2,
-      paddingHorizontal:2
+      // paddingVertical:2,
+      // paddingHorizontal:2
     },
     notHighlightFocused:{
       borderRadius:StyleConfig.resHeight(20),
-      width:isAndroid() ? 200 : 356,
-      height: isAndroid() ?  StyleConfig.width*0.25 : StyleConfig.width*0.32,
+      width:isAndroid() ? 180 : 356,
+      height: isAndroid() ?  StyleConfig.width*0.25 : StyleConfig.width*0.30,
       paddingTop:1,
       overflow:'hidden',
     },

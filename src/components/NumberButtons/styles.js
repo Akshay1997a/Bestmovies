@@ -25,8 +25,8 @@ export default {
   txtDefault: {
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 34,
-    fontWeight: 'bold',
+    fontSize:  isAndroid() ? 18  : 34,
+    // fontWeight: 'bold',
   },
 
   contRow: {

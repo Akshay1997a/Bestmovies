@@ -4,7 +4,7 @@ import React, {
     forwardRef,
     useImperativeHandle,
   } from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView, FlatList} from 'react-native'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView, FlatList,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import TVButton from './TVButton'
 import ToggleSwitch from "toggle-switch-react-native";
@@ -17,6 +17,9 @@ import AppImages from '../../assets'
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 // import ToggleSwitch from "toggle-switch-react-native";
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const DATA = [
     { "id":0, "name":"Quality" },
@@ -249,7 +252,7 @@ const styles = StyleSheet.create({
         borderRadius:20,
     },
     text: {
-        fontSize: 32,
+        fontSize: isAndroid() ? 16: 32,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight: '700',
         color: colors.black,
@@ -257,12 +260,12 @@ const styles = StyleSheet.create({
     
       },
       focusText: {
-        fontSize: 32,
+        fontSize: isAndroid() ? 16: 32,
         fontWeight: '700',
         color: colors.white,
       },
       selectedText: {
-        fontSize: 32,
+        fontSize: isAndroid() ? 16: 32,
         fontWeight: '700',
         color: colors.tomatoRed,
         fontFamily:primary_regular_font.primary_regular_font
@@ -338,18 +341,23 @@ const StreamModal = forwardRef(({selected, onChangeSelected, ...props}, ref) => 
     return(
         <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
             
-            <View style={{ backgroundColor: 'white', borderRadius:30, paddingTop:30, paddingBottom:25,marginTop:30,marginRight:150}}>
+            <View style={
+                isAndroid() ? {backgroundColor: 'white',height:570,width:850,marginTop:50} 
+                : { backgroundColor: 'white', borderRadius:30, paddingTop: 30, paddingBottom:25,marginTop:30,marginRight:150
+                 }
+                }
+                >
                 {/* <View style={{flex:1,flexDirection:'row'}}> */}
 
-            <View style={{ marginBottom:12,marginStart:50,flexDirection:'row'}}>
+            <View style={{ marginBottom: isAndroid()? 0:12,marginStart: isAndroid()? 10:50,flexDirection:'row'}}>
                     <View>
-                                <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
-                                    <Image source={AppImages.back_bk} />
-                                </Pressable>
+                    <Pressable onPress={props.onclose} style={{ marginTop:20, height:30,width:30}} >
+                        <Image source={AppImages.back_bk} style={{height:20,width:10, }}  />
+                    </Pressable>
                     </View>
 
-                    <View style={{flex:0.8 ,marginStart:30}}>
-                            <Text style={{ fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700',}}>{strings.streaming_service}</Text>
+                    <View style={{flex:0.8 ,marginStart: isAndroid()? 10:30,marginTop: isAndroid() ? 15 : 0}}>
+                            <Text style={{ fontFamily:primary_regular_font.primary_regular_font ,fontSize: isAndroid() ? 17: 34, fontWeight:'700',}}>{strings.streaming_service}</Text>
 
                         </View>
                     <View style={{flex:0.3}}>
@@ -379,74 +387,55 @@ const StreamModal = forwardRef(({selected, onChangeSelected, ...props}, ref) => 
                 {/* </View> */}
 
             </View>
-            <View style={{flexDirection:'row',marginStart:50}} >
+            <View style={{flexDirection:'row',marginStart: isAndroid()? 20:50}} >
                          <TVButton text={"Any"} bgColor={colors.tomatoRed}/>
                          <TVButton text={"My providers"} bgColor={colors.lightGrey}/>
                          <TVButton text={"Save as\n my providers "} bgColor={colors.lightGrey}/>
             </View>
-                <Text style={{marginStart:60,fontSize:30,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'400',paddingVertical:20}} >Subscriptions: 3</Text>
-                <View style={{height:600}} >
+                <Text style={{marginStart: isAndroid()? 20: 60,fontSize: isAndroid() ? 15: 30,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'400',paddingVertical: isAndroid()? 5: 20}} >Subscriptions: 3</Text>
+                <View style={{height: isAndroid()? null:600}} >
 
                 <ScrollView
-                style={{marginStart:60}}
+                style={{marginStart: isAndroid()? 20:60}}
                 showsVerticalScrollIndicator={true}
-                // indicatorStyle='black'
-                // persistentScrollbar={true}
-                // scrollEnabled={true}
                 >
                     
                     <TVSubscription    type = "movie" selected={MY_LIST} />
                   {/* )} */}
-                {/* <TVSubscription item= {items} /> */}
-                {/* <TVSubscription item= {items2}/>
-                <TVSubscription item= {items3} />
-                <TVSubscription item= {items4}/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/>
-                <TVSubscription/> */}
+                
                 
                 </ScrollView>
                 </View>
 
-                    <View style={{paddingTop:20,paddingHorizontal:20,flexDirection:'row',}}>
+                    <View style={{paddingTop: isAndroid() ?2: 20,paddingHorizontal:20,flexDirection:'row',}}>
                          <Pressable  style={({ pressed, hovered, focused }) => focused ? styles.focustoggle : styles.backWrap }>
-                            {/* <ToggleSwitch size="small"  isOn={false}  /> */}
-                             
-                                        {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
-                    <TVToggleButton size="small"   offColor="red" onColor={colors.tomatoRed}  isOn={false} onToggle={onTileViewFocus}/>
-
+                               {
+                                   isAndroid() ? <ToggleSwitch size="small" disabled isOn={true}  /> :<TVToggleButton size="small"   offColor="red" onColor={colors.tomatoRed}  isOn={false} onToggle={onTileViewFocus}/>
+                               }  
                                 </Pressable>
-                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>
+                            <Text style={{  marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid()? 15:30,fontWeight:'400', color:  colors.black}}>
                                 Free Streaming services with ads
                             </Text>
                     </View>
                     <View style={{paddingHorizontal:20,flexDirection:'row',}}>
                     <Pressable  style={({ pressed, hovered, focused }) => focused ? styles.focustoggle : styles.backWrap }>
-                    <TVToggleButton size="small"   onColor={colors.tomatoRed}  isOn={false}/>
+                    {
+                                   isAndroid() ? <ToggleSwitch size="small" disabled isOn={true}  /> :<TVToggleButton size="small"   offColor="red" onColor={colors.tomatoRed}  isOn={false} onToggle={onTileViewFocus}/>
+                               }
 
                                 </Pressable>
-                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>
+                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid()? 15:30,fontWeight:'400', color:  colors.black}}>
                                 Rent / buy streaming services
                             </Text>
                     </View>
                     <View style={{paddingHorizontal:20,flexDirection:'row',}}>
                     <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focustoggle : styles.backWrap }>
-                              <TVToggleButton size="small" disabled isOn={false} onColor={colors.white} offColor='#efefef'/>
+                    {
+                                   isAndroid() ? <ToggleSwitch size="small" disabled isOn={true}  /> :<TVToggleButton size="small"   offColor="red" onColor={colors.tomatoRed}  isOn={false} onToggle={onTileViewFocus}/>
+                               }
                                 </Pressable>
                             {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
-                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>
+                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid()? 15: 30,fontWeight:'400', color:  colors.black}}>
                                 Local movie theaters
                             </Text>
                     </View>

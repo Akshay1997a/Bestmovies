@@ -1,8 +1,11 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet, View} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, View,Platform} from 'react-native';
 import colors from '../../helper/colors';
 import primary_regular_font from '../../helper/fonts';
 
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 const TVButton = ({text,bgColor}) => {
   return (
     <TouchableOpacity style={{
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    fontSize: 30,
+    fontSize:  isAndroid() ? 16: 30,
     fontWeight:'700',
      fontFamily:  primary_regular_font.primary_regular_font,
     color: 'white',

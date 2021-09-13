@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
@@ -23,6 +23,9 @@ const DATA = [
     { "id":11, "name":"< $11" },
 
 ]
+const isAndroid = () => {
+	return Platform.OS == "android";
+}
 const styles = StyleSheet.create({
     backWrap:{
         paddingHorizontal: StyleConfig.resWidth(8),
@@ -62,7 +65,8 @@ const TVPriceModal=(props)=>{
                    <ScrollView>
                     {data.map((item, index)=>{
                         return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
-                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                                                       <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+
                         </Pressable>)
                     })}
                 </ScrollView>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import ToggleSwitch from "toggle-switch-react-native";
 import colors from '../..//helper/colors';
@@ -24,7 +24,9 @@ const styles = StyleSheet.create({
 
     }
 })
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+}
 const TVGenreModal=(props)=>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
@@ -44,13 +46,16 @@ const TVGenreModal=(props)=>{
     return(
            <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={strings.genre} > 
                 <ScrollView>
-                    <View style={{paddingHorizontal:20,flexDirection:'row',}}>
+                    <View style={{marginStart:10,flexDirection:'row',}}>
                             <ToggleSwitch size="small" disabled isOn={true}  />
-                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', color:  colors.black}}>Sub generes</Text>
+                            <Text style={{marginHorizontal:10, fontFamily:primary_regular_font.primary_regular_font,fontSize:  isAndroid() ? 15: 30,fontWeight:'400', color:  colors.black}}>Sub generes</Text>
+                            
                     </View>
                     {data.map((item, index)=>{
                         return(<Pressable onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
-                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8,paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text>
+                            {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8,paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text> */}
+                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text>
+
                         </Pressable>)
                     })}
                 </ScrollView>

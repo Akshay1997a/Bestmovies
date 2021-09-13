@@ -36,7 +36,7 @@ import {
  const {width, height} = Dimensions.get('window')
 import StyleConfig from '../../helper/StyleConfig';
 import strings from '../../helper/strings';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, State } from 'react-native-gesture-handler';
 import Const from '../../helper/constants'
 import TVCardDetail from '../../components/TV/TVCardDetail';
 let [NONE,SEARCH, MY_LIST, MOVIES, TV_SHOW, SHORTS, DIRECTOR, ACTOR , PROFILE, MENU] =
@@ -45,8 +45,8 @@ let [NONE,SEARCH, MY_LIST, MOVIES, TV_SHOW, SHORTS, DIRECTOR, ACTOR , PROFILE, M
 let [COUNTRY_LANGUAGE,MOBILE_APP,INVITE_FRIEND, ABOUT_US, ADVERTISE, COLLABORATE, JOBS, TERMS_OF_USE, PRIVACY_POLICY] = [9,10,11, 12, 13, 14, 15, 16, 17]
 
 let [NOTIFICATION, FRIENDS, PREFERANCE, MY_PROVIDER, ACCOUNT, LANGUAGE] = [21, 22, 23, 24, 25, 26]
-let [NON, SORT_BY, LIKEDBY,STRREAMING ,RELEASE, GENRE, COUNTRY, AGES, PRICE,INCLUDES,PROVIDERS] = 
-   [-1, 0, 1, 2, 3, 4, 5, 6, 7,8,9];
+let [SORT_BY, LIKEDBY,STRREAMING ,RELEASE, GENRE, COUNTRY, AGES, PRICE,INCLUDES,PROVIDERS] = 
+   [0, 1, 2, 3, 4, 5, 6, 7,8,9];
 
 const ADVERTISE_DATA = Const.ABOUT_US.map((item)=> item.id == 2 ? ({...item, data: strings.advertise}) : item)
 const COLLABORATE_DATA = Const.ABOUT_US.map((item)=> item.id == 2 ? ({...item, data: strings.collaborate}) : item)
@@ -129,6 +129,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
       
   }
   const oncloseModal=(val)=> {
+    console.log("home-",props);
+    // console.log("state-",state);
+    
     setShowSelected(NONE)
     onSideBarFocus(val)
   }
@@ -151,7 +154,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
         }
         } } />
      {/* <ScrollView> */}
-      <View hasTVPreferredFocus={true} style={{flexDirection:'column',marginHorizontal:20,backgroundColor:colors.white}}>
+      <View hasTVPreferredFocus={true} style={{flexDirection:'column',backgroundColor:colors.white}}>
       <TVTopBar  ref={sidebar} headerSelected={selected}  {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
 
           {/* { selected != SEARCH && 
@@ -159,17 +162,18 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
           } */}
           {selected == SEARCH && 
           <View style={{flexDirection: 'row'}}>
-            <View style={{ width: StyleConfig.resWidth(600), margin:40,height:'56%'}}>
+            <View style={{ width: StyleConfig.resWidth(600),marginTop:30}}>
               <View style={{flexDirection:'row',marginBottom:10}} >
                   <View style={styles.title}>
+                    
                         <Text style={styles.titleText}>Title</Text>
                   </View>
                   <View style={styles.artist}>
-                  <Text style={styles.titleText}>Artist</Text>
+                  <Text style={{fontSize: isAndroid() ? 14: 28,fontWeight:'400',color:colors.black}}>Artist</Text>
 
                   </View>
-                  <View style={{flex:0.34,marginTop:30,backgroundColor:'#999999',marginHorizontal:10,borderTopLeftRadius:20,borderTopRightRadius:20,justifyContent:'center',alignItems:'center'}}>
-                  <Text style={{fontSize:28,fontWeight:'400',color:colors.black}}>User</Text>
+                  <View style={styles.artist}>
+                  <Text style={{fontSize: isAndroid() ? 14: 28,fontWeight:'400',color:colors.black}}>User</Text>
                   </View>
               </View>
 
@@ -218,15 +222,14 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
                 /> 
           </View>}
           {selected == MY_LIST && 
-            <View  style={{flex:1,backgroundColor: colors.white }} hasTVPreferredFocus={true}>
+            <View  style={{backgroundColor: colors.white }} hasTVPreferredFocus={true}>
 
               {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
-              <View hasTVPreferredFocus={true} style={{backgroundColor:'white', height: StyleConfig.resHeight(900)}}>
-                <View style={{flexDirection:'row', marginVertical:10,}} >
-        <Text style={styles.ranking} >Ranking of best movies</Text>
-
-<Text style={styles.result}>  12,348  results </Text>
-        </View>
+              <View hasTVPreferredFocus={true} style={{height: StyleConfig.resHeight(900)}}>
+                 <View style={{flexDirection:'row', marginVertical: isAndroid() ? 5: 10,backgroundColor:colors.white,marginHorizontal:10}} >
+                    <Text style={styles.ranking} >Ranking of best movies</Text>
+                    <Text style={styles.result}>  12,348  results </Text>
+                 </View>
                  <FlatList
                    hasTVPreferredFocus={true}
                    contentContainerStyle={{paddingBottom:50}}
@@ -291,14 +294,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
             {selected == MENU && showSelected == ABOUT_US && 
             <View hasTVPreferredFocus={true}  >
               <TVSideBar onChangeSelected={(val)=> setShowSelected(val) }/>
-              {/* <FlatList 
-                data={Const.ABOUT_US}
-                keyExtractor={(item, index) => `item${index}`}
-                renderItem={({item})=>{
-                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} /> : 
-                  <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
-                }}
-              /> */}
             </View> }
 
             {selected == MENU && showSelected == COUNTRY_LANGUAGE && 
@@ -410,22 +405,24 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
-  artistText:{fontSize: isAndroid() ? 20: 28,fontWeight:'400',color:colors.black},
-  titleText:{fontSize: isAndroid()? 22: 28,fontWeight:'700',color:colors.tomatoRed},
+  artistText:{fontSize: isAndroid() ? 18: 28,fontWeight:'400',color:colors.black},
+  titleText:{fontSize: isAndroid()? 18: 28,fontWeight:'700',color:colors.tomatoRed},
   title:{
     flex:0.34,
-    // height:90,
-    backgroundColor:colors.lightGrey,borderTopLeftRadius:20,
-    borderTopRightRadius:20,
+    backgroundColor:colors.lightGrey,
+    borderTopLeftRadius: isAndroid() ?5 :20,
+    borderTopRightRadius: isAndroid() ?5 :20,
     justifyContent:'center',
-    alignItems:'center'},
+    alignItems:'center'
+  },
   artist:{
     flex:0.34,
-    marginTop:30,
+    // height:40,
+    // marginTop:30,
     backgroundColor:'#999999',
-    marginHorizontal:10,
-    borderTopLeftRadius:20,
-    borderTopRightRadius:20,
+    marginHorizontal: isAndroid() ?5 : 10,
+    borderTopLeftRadius: isAndroid() ?5 :20,
+    borderTopRightRadius: isAndroid() ?5 : 20,
     justifyContent:'center',
     alignItems:'center'
   },
@@ -433,29 +430,33 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     backgroundColor: colors.lightGrey,
      borderRadius:8, 
-      minHeight: isAndroid() ?  50 : 80,
+      minHeight: isAndroid() ?  40 : 80,
       minWidth:60,
-      marginBottom:20},
-  mic:{marginEnd:10,
-    height: isAndroid() ? 30 : 40,
-    width: isAndroid() ? 30:40,
+      marginBottom:isAndroid() ?  10 : 20},
+  mic:{
+    marginEnd:10,
+    height: isAndroid() ? 20 : 40,
+    width: isAndroid() ? 20:40,
     justifyContent:'flex-end'},
   search:{
     marginStart:10,
-    height: isAndroid()? 20 : 30,
-    width: isAndroid() ?20: 30,},
+    height: isAndroid()? 10 : 30,
+    width: isAndroid() ? 10: 30,},
   textInput:{
     backgroundColor:colors.lightGrey,
      flex:0.8,alignSelf:'center',
-     fontSize: isAndroid()? 24: 34,
+     fontSize: isAndroid()? 10: 34,
      fontFamily:primary_regular_font.primary_regular_font,
-     fontWeight:'700'},
+     fontWeight: isAndroid() ? '400' : '700'},
   ranking:{
-    fontSize:12,
+    color:colors.black,
+    fontSize: isAndroid() ?  12 :30,
     fontWeight:'800'
   },
   result:{
-    fontSize:12,
+    fontFamily:'VAGRoundedNext-light',
+    color:colors.black,
+    fontSize: isAndroid() ? 12 : 30,
     fontWeight:'200'
   },
     container: {

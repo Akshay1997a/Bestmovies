@@ -65,7 +65,7 @@ const ENTRIES1 = [
     illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
   },
 ];
-const {width: screenWidth} = Dimensions.get('window');
+const {width: screenWidth,height} = Dimensions.get('window');
 
 const MyCarousel = ({item,posts, ...props})=>{
   // console.log('props',props);
@@ -170,11 +170,11 @@ const MyCarousel = ({item,posts, ...props})=>{
                             height: StyleConfig.resHeight(60),}} source={AppImages.arrow_left} />
                     {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
                 </Pressable>
-                
-      </View>
-      <View style={[styles.item, {position: 'absolute',top: isAndroid() ? 0: 600}]}>
+                <View style={[styles.item, {position: 'absolute',top: isAndroid() ? 160: 450}]}>
             <TVPosterCard item={item} {...props} />
         </View>
+      </View>
+     
       
         <Carousel
        
@@ -184,20 +184,20 @@ const MyCarousel = ({item,posts, ...props})=>{
         ref={carouselRef}
         sliderWidth={screenWidth}
         // sliderHeight={100}
-        itemWidth={400}
+        itemWidth={ isAndroid() ? 200 :400}
         itemHeight={100}
         data={entries}
         renderItem={bottomRenderItem}
         hasParallaxImages={true}
       />
         <View style={{flexDirection: 'row', }}>
-                <View style={{ marginTop:16 }}>
+                <View style={{ marginTop: isAndroid() ? 6 :16 }}>
                   <Text style={styles.director}>Director:</Text>
                   <View style={{flexDirection: 'row'}}>
                     <TVCast item={item} {...props} image = {item.director_image} />
                   </View>
                 </View>
-                <View style={{ marginTop:16 ,marginLeft:30}}>
+                <View style={{ marginTop: isAndroid() ? 6 : 16 ,marginLeft:isAndroid() ? 10 :30}}>
                   <Text style={styles.cast}>Cast:</Text>
                   <View style={{flexDirection: 'row'}}>
 
@@ -260,21 +260,21 @@ const styles = StyleSheet.create({
   similar_titles:
   {
     fontFamily:primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 27 : 37.33,
+    fontSize: isAndroid() ? 17 : 37.33,
      marginLeft:12,
       fontWeight:'700',
        color:colors.black
 },
   director:{
     fontFamily:primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 27 : 37,
+    fontSize: isAndroid() ? 17 : 37,
      marginLeft:12, 
      fontWeight:'700',
       color:colors.black, 
     },
   cast:{
     fontFamily:primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 27 : 37,
+    fontSize: isAndroid() ? 17 : 37,
     marginLeft:12,
     fontWeight:'700',
     color:colors.black,
@@ -288,11 +288,11 @@ const styles = StyleSheet.create({
   },
   item: {
     width: screenWidth,
-    height: isAndroid() ?   screenWidth-500 :600,
+    height: isAndroid() ?   screenWidth-500 :1000,
   },
   secondItem: {
-    marginTop:40,
-    width: isAndroid() ?  400 : 400,
+    // marginTop:40,
+    width: isAndroid() ?  300 : 400,
     height: isAndroid() ? 200 :400,
   },
   imageContainer: {
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   },
   bottomImage: {
     resizeMode: 'cover',
-    width: isAndroid() ?  400 : 400,
+    width: isAndroid() ?  200 : 400,
     height: 400,
     
   },

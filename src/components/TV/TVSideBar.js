@@ -365,7 +365,9 @@ const TVSideBar = forwardRef(({ onChangeSelected, ...props }, ref) => {
 })
 
 export default TVSideBar;
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.white,
@@ -376,63 +378,65 @@ const styles = StyleSheet.create({
         
     },
     itemWrapperSelected:{
-        paddingHorizontal:12,
-        paddingVertical:6,
-        marginHorizontal:6,
+        paddingHorizontal: isAndroid() ? 0: 12,
+        paddingVertical:  isAndroid() ? 0:6,
+        marginHorizontal:  isAndroid() ? 0:6,
         backgroundColor: colors.tomatoRed,
         borderRadius:30,
         // minWidth:60,
-        marginVertical:20,
+        marginVertical:  isAndroid() ? 0:20,
         // justifyContent:'center',
         // alignItems:'center'
         
     },
     itemWrapper:{
-        paddingHorizontal:12,
-        paddingVertical:6,
-        marginHorizontal:6,
+        paddingHorizontal:  isAndroid() ? 0:12,
+        paddingVertical:  isAndroid() ? 0:6,
+        marginHorizontal:  isAndroid() ? 0:6,
         marginVertical:5
     },
     text:{
-        fontSize:26,
+      color: colors.black,
+        fontSize:isAndroid() ? 16: 26,
         fontWeight:'400',
         fontFamily:primary_regular_font.primary_regular_font
     },
     focusText:{
-        fontSize:26,
+        fontSize:isAndroid() ? 16: 26,
         color: colors.white,
         fontFamily:primary_regular_font.primary_regular_font
 
     },
     textTitle:{
-        fontSize:26,
+       fontSize:isAndroid() ? 16: 26,
         fontWeight:'700',
         fontFamily:primary_regular_font.primary_regular_font
 
         
     },
     focusTextTitle:{
-        fontSize:26,
+      fontSize:isAndroid() ? 16: 26,
         fontWeight:'700',
         color: colors.white,
         fontFamily:primary_regular_font.primary_regular_font
 
     },
     textSelected: {
-        fontSize: 27,
+        fontSize: isAndroid() ? 16: 27,
         fontWeight: '700',
         color: colors.white,
         fontFamily:primary_regular_font.primary_regular_font
 
     },
     aboutUsImg:{
-        height:400,
+        height: isAndroid() ? 200 : 400,
         width: StyleConfig.width - StyleConfig.resWidth(250),
         borderRadius:20,
         marginTop: 20
       },
       aboutUsTitle:{
-        fontSize: 40,
+        fontSize:isAndroid() ? 20: 40,
+
         fontWeight: '700',
         lineHeight: 62,
         color: colors.tomatoRed,
@@ -441,7 +445,7 @@ const styles = StyleSheet.create({
         fontFamily:primary_regular_font.primary_regular_font
       },
       aboutUsSubTitle:{
-        fontSize: 32,
+        fontSize:isAndroid() ? 18: 32,
         fontWeight: '700',
         lineHeight: 42,
         color: colors.black33,
@@ -451,7 +455,8 @@ const styles = StyleSheet.create({
 
       },
       aboutUsDetail:{
-        fontSize: 26,
+        fontSize:isAndroid() ? 16: 26,
+
         fontWeight: '400',
         lineHeight: 30,
         color: colors.black33,

@@ -87,11 +87,11 @@ const TVCast = ({item, ...props})=>{
                                 <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{`${DATA.match} match`}</Text>
                             </View>
                </View>
-               <View style={styles.ovalShapeView}>
+               {/* <View style={styles.ovalShapeView}>
                         <Text style={styles.top}>Top</Text>
 
                         <Text style={styles.rating}>{item.DATA.rating}</Text>
-                    </View>
+                    </View> */}
                     </View>
                
 
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(30),
-      width:320,
+      width: isAndroid() ? 150 : 320,
       borderWidth: StyleConfig.resWidth(5),
       height: StyleConfig.width*0.15,
       borderColor: colors.tomatoRed,
@@ -185,8 +185,8 @@ const styles = StyleSheet.create({
     },
     notHighlightFocused:{
       borderRadius:StyleConfig.resHeight(30),
-      width: isAndroid() ? 200 : 320,
-      height: StyleConfig.width*0.25,
+      width: isAndroid() ? 140 : 320,
+      height: isAndroid() ? 200 : StyleConfig.width*0.25,
       paddingTop:1,
       overflow:'hidden',
 

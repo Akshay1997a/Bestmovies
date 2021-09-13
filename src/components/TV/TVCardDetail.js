@@ -28,7 +28,7 @@ let DATA = {
 }
 
 const TVCardDetail = ({item, ...props})=>{
-  console.log('type',props?.selected);
+  // console.log('type',props?.selected);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -87,15 +87,15 @@ const TVCardDetail = ({item, ...props})=>{
           }
                          
 
-                <View style={styles.ovalShapeView}>
+                {/* <View style={styles.ovalShapeView}>
                         <Text style={styles.rating}>{item.DATA.rating}</Text>
-                    </View>
+                    </View> */}
 
                 </View>
-                <View style={{flexDirection:'row'}}>
+                {/* <View style={{flexDirection:'row'}}>
                       <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
                       <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:69 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'black', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
-                </View>
+                </View> */}
             </View>
             
           </View>
@@ -176,17 +176,17 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(20),
-      width:isAndroid() ? 200 : 356,
+      width:isAndroid() ? 180 : 356,
       borderWidth: StyleConfig.resWidth(5),
-      height: StyleConfig.width*0.30,
+      height:  isAndroid() ? StyleConfig.width*0.25 : StyleConfig.width*0.28,
       borderColor: colors.tomatoRed,
       overflow:'hidden',
       paddingTop:1,
     },
     notHighlightFocused:{
       borderRadius:StyleConfig.resHeight(20),
-      width:isAndroid() ? 200 : 356,
-      height: StyleConfig.width*0.30,
+      width:isAndroid() ? 180 : 356,
+      height:  isAndroid() ? StyleConfig.width*0.25 : StyleConfig.width*0.28,
       paddingTop:1,
       overflow:'hidden',
 

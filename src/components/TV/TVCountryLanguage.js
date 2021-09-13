@@ -3,8 +3,9 @@ import React, {
     useCallback,
     forwardRef,
     useImperativeHandle,
+    
   } from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import colors from '../../helper/colors';
 import StyleConfig from 'src/helper/StyleConfig'
@@ -40,17 +41,22 @@ const DATA = [
     { "id":19, "name":"Albaniya" }
 
 ]
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 const styles = StyleSheet.create({
+    container:{
+        marginLeft: isAndroid() ? 10 : 160,borderLeftWidth:1,borderLeftColor:colors.borderColor},
     backWrap:{
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
+        // paddingHorizontal: StyleConfig.resWidth(8),
+        paddingVertical:   isAndroid() ? 0: StyleConfig.resHeight(4),
         margin: 4
     },
     focusBackWrap:{
         backgroundColor: colors.tomatoRedLight,
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
-        margin: 4,
+        paddingHorizontal:   isAndroid() ? 0: StyleConfig.resWidth(8),
+        // paddingVertical: StyleConfig.resHeight(4),
+        margin:   isAndroid() ? 0:4,
         borderRadius:10
 
     }
@@ -90,7 +96,7 @@ const TVCountryLanguage = (props) =>{
                     
                     <View style={{flexDirection:'row',minHeight:1000}}>
 
-                    <View style={{marginLeft:160,borderLeftWidth:1,borderLeftColor:colors.borderColor}}>
+                    <View style={styles.container}>
                     {data.map((item, index)=>{
                         return(<Pressable
                          onPress={onPressHandle} 
@@ -98,19 +104,19 @@ const TVCountryLanguage = (props) =>{
                           onFocus={()=> setFocus(item.id)} style={item.id == focus  
                             ? 
                           { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
-                          :{ marginHorizontal:10,}} >
+                          :{ }} >
                                                                                                             
-                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid()? 16: 30,fontWeight:'400', padding: isAndroid() ? 2: 8, paddingHorizontal: 15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
 
                         </Pressable>)
                     })}
                     </View>
                     {
                         isCountryClick ?
-                    <View style={{marginLeft:160,borderLeftWidth:1,borderLeftColor:colors.borderColor}}>
+                    <View style={{marginLeft: isAndroid() ? 100: 160,borderLeftWidth:1,borderLeftColor:colors.borderColor}}>
                     {country.map((item, index)=>{
                         return(<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }:{ marginHorizontal:10,}} >
-                                                                                                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                                                                                                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid()? 16: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
 
                         </Pressable>)
                     })}
