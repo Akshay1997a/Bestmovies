@@ -13,7 +13,6 @@ import {
 import TVHeader from '../../components/TV/TVHeader';
 import TVTopBar from '../../components/TV/TVTopBar';
 import TVSideBar from '../../components/TV/TVSideBar';
-import TVTileView from '../../components/TV/TVTileView';
 import TVMovieListItem from '../../components/TV/TVMovieListItem';
 import TVSearchListItem from '../../components/TV/TVSearchListItem';
 import TVSortByModal from '../../components/TV/TVSortByModal';
@@ -25,7 +24,6 @@ import TVCountryModal from '../../components/TV/TVCountryModal';
 import TVGenreModal from '../../components/TV/TVGenreModal';
 import TVPriceModal from '../../components/TV/TVPriceModal';
 import TVProvidersModal from '../../components/TV/TVProvidersModal';
-import TVIncludeModal from '../../components/TV/TVIncludeModal';
 import TVKeyboard from '../../components/NumberButtons/';
 import MoviesJSON from '../../components/TV/movies.json';
 import primary_regular_font from '../../helper/fonts';
@@ -35,9 +33,7 @@ import colors from '../../helper/colors';
 const {width, height} = Dimensions.get('window');
 import StyleConfig from '../../helper/StyleConfig';
 import strings from '../../helper/strings';
-import {ScrollView} from 'react-native-gesture-handler';
 import Const from '../../helper/constants';
-import TVCardDetail from '../../components/TV/TVCardDetail';
 import {useTranslation} from 'react-i18next';
 let [
   NONE,

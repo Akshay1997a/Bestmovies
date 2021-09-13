@@ -85,8 +85,6 @@ const getRequestData = (data: any, contentType: String) => {
 }
 
 export const prepareApiRequest = (url: string, apiRequestType: String, contentType: String, params: any, body: any, successCallback: Function, errorCallback: Function, exceptionCallback: Function) => {
-    // if (isNotEmpty(params))
-    //     body = params
     requestApi(url, apiRequestType, params, getRequestData(body, contentType), successCallback, errorCallback, exceptionCallback);
 }
 
