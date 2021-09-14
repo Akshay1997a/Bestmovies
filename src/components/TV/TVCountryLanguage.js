@@ -67,7 +67,7 @@ const TVCountryLanguage = (props) =>{
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState(COUNTRY)
     const [ country, setCountry] = useState(DATA)
-    const [ isCountryClick, setCountryClick] = useState(false);
+    const [ isCountryClick, setCountryClick] = useState(true);
 
     const onPressHandle = (() => {
         setCountryClick(true);

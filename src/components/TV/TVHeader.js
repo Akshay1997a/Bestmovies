@@ -32,7 +32,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
 console.log('props TVHeader',props);
 
   const onFocus = useCallback((val) => {
-  props.reduxSetCurrFocus(0)
+  props.reduxSetCurrFocus('header')
     
     setFocus(val);
   });
@@ -86,11 +86,16 @@ console.log('props TVHeader',props);
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            focus == MY_LIST ? 
-            styles.itemWrapperSelected : styles.itemWrapper
+            props.focus === 'header' &&
+            focus == MY_LIST ?
+            styles.itemWrapperSelected :styles.itemWrapper
+
+            // focus == MY_LIST ? 
+            // styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
+              props.focus === 'header' && 
               focus == MY_LIST
                 ? styles.focusText
                 : selected == MY_LIST
@@ -106,21 +111,27 @@ console.log('props TVHeader',props);
           tvParallaxProperties={{magnification: 1.1}}
           style={
 
-            props.focus === 90 ?
-            styles.itemWrapper :
+            props.focus === 'header'  && 
             focus == MOVIES ?
              styles.itemWrapperSelected 
              : styles.itemWrapper
+            // styles.itemWrapperSelected :
+            // styles.itemWrapper 
+            // focus == MOVIES ?
+            //  styles.itemWrapperSelected 
+            //  : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 90 ?
-              styles.text :
-              focus == MOVIES
-                ? styles.focusText
-                : selected == MOVIES
-                ? styles.selectedText
-                : styles.text
+              props.focus === 'header' &&
+              focus == MOVIES ?
+
+              styles.focusText :styles.text
+              // focus == MOVIES
+              //   ? styles.focusText
+              //   : selected == MOVIES
+              //   ? styles.selectedText
+              //   : styles.text
             }>
             {strings.movies_text}
           </Text>
@@ -131,25 +142,30 @@ console.log('props TVHeader',props);
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-
-            props.focus === 90 ?
-            styles.itemWrapper :
+            props.focus === 'header' &&
             focus == TV_SHOW ?
-             styles.itemWrapperSelected 
-             : styles.itemWrapper
+            styles.itemWrapperSelected :styles.itemWrapper
+            // props.focus === 90 ?
+            // styles.itemWrapper :
+            // focus == TV_SHOW ?
+            //  styles.itemWrapperSelected 
+            //  : styles.itemWrapper
 
             // focus == TV_SHOW 
             // ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 90 ?
-              styles.text :
-              focus == TV_SHOW
-                ? styles.focusText
-                : selected == TV_SHOW
-                ? styles.selectedText
-                : styles.text
+              props.focus === 'header' &&
+            focus == TV_SHOW ?
+            styles.focusText :styles.text
+              // props.focus === 90 ?
+              // styles.text :
+              // focus == TV_SHOW
+              //   ? styles.focusText
+              //   : selected == TV_SHOW
+              //   ? styles.selectedText
+              //   : styles.text
               // focus == TV_SHOW
               //   ? styles.focusText
               //   : selected == TV_SHOW
@@ -166,23 +182,29 @@ console.log('props TVHeader',props);
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 90 ?
-            styles.itemWrapper :
+            props.focus === 'header' &&
             focus == SHORTS ?
-             styles.itemWrapperSelected 
-             : styles.itemWrapper
+            styles.itemWrapperSelected :styles.itemWrapper
+            // props.focus === 90 ?
+            // styles.itemWrapper :
+            // focus == SHORTS ?
+            //  styles.itemWrapperSelected 
+            //  : styles.itemWrapper
 
             // focus == SHORTS ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 90 ?
-              styles.text :
-              focus == SHORTS
-                ? styles.focusText
-                : selected == SHORTS
-                ? styles.selectedText
-                : styles.text
+              props.focus === 'header' &&
+              focus == SHORTS ?
+              styles.focusText :styles.text
+              // props.focus === 90 ?
+              // styles.text :
+              // focus == SHORTS
+              //   ? styles.focusText
+              //   : selected == SHORTS
+              //   ? styles.selectedText
+              //   : styles.text
               // focus == SHORTS
               //   ? styles.focusText
               //   : selected == SHORTS
@@ -199,27 +221,33 @@ console.log('props TVHeader',props);
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 90 ?
-            styles.itemWrapper :
+            props.focus === 'header' &&
             focus == DIRECTOR ?
-             styles.itemWrapperSelected 
-             : styles.itemWrapper
+            styles.itemWrapperSelected :styles.itemWrapper
+            // props.focus === 90 ?
+            // styles.itemWrapper :
+            // focus == DIRECTOR ?
+            //  styles.itemWrapperSelected 
+            //  : styles.itemWrapper
             // focus == DIRECTOR ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
+              props.focus === 'header' &&
+              focus == DIRECTOR ?
+              styles.focusText :styles.text
               // focus == DIRECTOR
               //   ? styles.focusText
               //   : selected == DIRECTOR
               //   ? styles.selectedText
               //   : styles.text
-              props.focus === 90 ?
-              styles.text :
-              focus == DIRECTOR
-                ? styles.focusText
-                : selected == DIRECTOR
-                ? styles.selectedText
-                : styles.text
+              // props.focus === 90 ?
+              // styles.text :
+              // focus == DIRECTOR
+              //   ? styles.focusText
+              //   : selected == DIRECTOR
+              //   ? styles.selectedText
+              //   : styles.text
             }>
             {strings.directors}
           </Text>
@@ -231,22 +259,28 @@ console.log('props TVHeader',props);
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 90 ||  props.focus === 100  ?
-            styles.itemWrapper :
+            props.focus === 'header' &&
             focus == ACTOR ?
-             styles.itemWrapperSelected 
-             : styles.itemWrapper
+            styles.itemWrapperSelected :styles.itemWrapper
+            // props.focus === 90 ||  props.focus === 100  ?
+            // styles.itemWrapper :
+            // focus == ACTOR ?
+            //  styles.itemWrapperSelected 
+            //  : styles.itemWrapper
             // focus == ACTOR ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 90 ||  props.focus === 100  ?
-              styles.text :
-              focus == ACTOR
-                ? styles.focusText
-                : selected == ACTOR
-                ? styles.selectedText
-                : styles.text
+              props.focus === 'header' &&
+              focus == ACTOR ?
+              styles.focusText :styles.text
+              // props.focus === 90 ||  props.focus === 100  ?
+              // styles.text :
+              // focus == ACTOR
+              //   ? styles.focusText
+              //   : selected == ACTOR
+              //   ? styles.selectedText
+              //   : styles.text
               // focus == ACTOR
               //   ? styles.focusText
               //   : selected == ACTOR

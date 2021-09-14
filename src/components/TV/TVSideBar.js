@@ -204,7 +204,7 @@ const TVSideBar = forwardRef(({ onChangeSelected, ...props }, ref) => {
             </View> : */}
             
             {/* props.headerSelected == MENU ? */}
-            <View style={{flexDirection:'row'}}>
+            <View style={{flexDirection:'row',marginLeft:10}}>
 
            
                     <View style={styles.container}>
@@ -436,7 +436,6 @@ const styles = StyleSheet.create({
       },
       aboutUsTitle:{
         fontSize:isAndroid() ? 20: 40,
-
         fontWeight: '700',
         lineHeight: 62,
         color: colors.tomatoRed,
@@ -456,7 +455,6 @@ const styles = StyleSheet.create({
       },
       aboutUsDetail:{
         fontSize:isAndroid() ? 16: 26,
-
         fontWeight: '400',
         lineHeight: 30,
         color: colors.black33,

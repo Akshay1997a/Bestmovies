@@ -254,7 +254,7 @@ const BackArrow = forwardRef(({ item }, ref) => {
 
     const onFocus = useCallback((val) => {
         // props.reduxSetCurrFocus(val)
-      props.reduxSetCurrFocus(100)
+      props.reduxSetCurrFocus('top')
 
   
         // console.log('onFocus TVSideBar***');
@@ -457,16 +457,26 @@ const BackArrow = forwardRef(({ item }, ref) => {
                                             <View style={{marginLeft:20,flexDirection:'row'}} >
                                             <View style={{marginRight: isAndroid() ? 22: 90}}>
                                                  <View  style={ 
-                                                        props.focus === 90 ?
-                                                        styles.itemWrapper :
-                                                      focus == item.key 
-                                                    ? styles.itemWrapperSelected : styles.itemWrapper} >
+                                                     props.focus === 'top' &&
+                                                     focus == item.key ?
+                                                     styles.itemWrapperSelected :styles.itemWrapper
+
+                                                    //     props.focus === 90 ?
+                                                    //     styles.itemWrapper :
+                                                    //   focus == item.key 
+                                                    // ? styles.itemWrapperSelected : styles.itemWrapper
+                                                }
+                                                     >
                                                              <Text style={
-                                                                  props.focus === 90 ?
-                                                                  styles.textTitle :
+                                                                  props.focus === 'top' &&
+                                                                //   props.focus === 90 ?
+                                                                //   styles.textTitle :
                                                                   focus == item.key ?
                                                                  styles.focusTextTitle :
-                                                                  styles.textTitle}>{item.title}</Text>
+                                                                  styles.textTitle
+                                                                  }
+                                                                  >
+                                                                      {item.title}</Text>
                                                  </View>
                                                             <Text 
                                                             numberOfLines={1}
