@@ -97,7 +97,7 @@ const DefaultHeader = ({navigate}) => {
       <TouchableOpacity onPress={() => navigate('Menu')}>
         <Image
           source={require('../../assets/Icons/BMicon.png')}
-          style={{width: 150, height: 60, resizeMode: 'center'}}
+          style={{width: 130, height: 83, resizeMode: 'center'}}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigate('Filter')}>

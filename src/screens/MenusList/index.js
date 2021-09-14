@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TouchableNativeFeedback,
   Share,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import HeaderModal from '../../components/HeaderModal';
@@ -140,14 +140,14 @@ const styles = StyleSheet.create({
   },
   PrimaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   PrimaryTileSubTitleStyle: {
     color: '#333333',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
     backgroundColor: 'gray',
-    opacity: 0.2,
+    opacity: 0.1,
     marginVertical: 5,
   },
   IconTileStyle: {
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   IconTileTitleStyle: {
     color: '#000000',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   SecondaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: "VAG Rounded Next",
+    fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
     fontWeight: '400',

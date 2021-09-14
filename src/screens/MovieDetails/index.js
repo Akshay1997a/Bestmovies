@@ -14,7 +14,6 @@ import {
   TouchableWithoutFeedback,
   InteractionManager,
   Animated,
-  Easing,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -40,6 +39,7 @@ import SVGTriangleBottom from '../../svgs/TriangleBottom';
 import SVGTriangleTop from '../../svgs/TriangleTop';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import RatingComponent from '../../svgs/RatingComponent';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -117,7 +117,9 @@ class MovieDetails extends Component {
   }
 
   rendeDirector = (data, index) => (
-    <TouchableOpacity key={index.toString()} style={styles.directorContainer}>
+    <TouchableOpacity
+      key={index.toString()}
+      style={{...styles.directorContainer}}>
       <Image style={styles.directorImage} source={data.image} />
       <View style={{flexWrap: 'wrap'}}>
         <Text numberOfLines={2} style={styles.directorName}>
@@ -231,7 +233,7 @@ class MovieDetails extends Component {
           <Image
             style={
               viewStyle === VIEW_STYLE.FULL_VIEW
-                ? {height: 450, width: window}
+                ? {height: 495, width: window}
                 : {
                     height: 250,
                   }
@@ -256,11 +258,11 @@ class MovieDetails extends Component {
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', padding: 15}}>
+        <View style={{flexDirection: 'row', padding: 10}}>
           <View style={{flex: 5}}>
             <Text style={styles.textFont}>Parasite</Text>
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <Text style={[styles.textSecondary, styles.italic]}>
+              <Text style={[styles.textSecondary]}>
                 Parasite(Original title)
               </Text>
             )}
@@ -311,8 +313,25 @@ class MovieDetails extends Component {
                 9.1
               </Text>
             </View>
+            {/* <RatingComponent
+              rating={'9.2'}
+              width={50}
+              height={30}
+              textStyle={{
+                fontSize: 22,
+                fontWeight: '700',
+                color: 'white',
+                fontFamily: 'VGA Rounded Next',
+              }}
+            /> */}
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <Text style={{fontWeight: '700', fontSize: 20, marginLeft: 17}}>
+              <Text
+                style={{
+                  fontWeight: '700',
+                  fontSize: 14.67,
+                  fontFamily: 'VGA Rounded Next',
+                  marginLeft: 17,
+                }}>
                 Best
               </Text>
             )}
@@ -321,32 +340,35 @@ class MovieDetails extends Component {
         {viewStyle === VIEW_STYLE.FULL_VIEW && (
           <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
             <View>
-              <Text style={styles.textFont}>Lorem Ipsum</Text>
-              <Text>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+              <Text style={styles.textFont}>Plot</Text>
+              <Text style={styles.textDesc}>
+                Greed and class discrimination threaten the newly formed
+                symbiotic relationship between the wealthy Park family and the
+                destitute Kim clan. Their adventures unfurl in three stories
+                that ingeniously trip back and forth in time.
               </Text>
             </View>
-            <View style={{height: window / 2, marginTop: 25}}>
+            <View style={{marginTop: 11}}>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textFont}>Director </Text>
                 <Text style={styles.textFont}>Cast</Text>
               </View>
-              <ScrollView horizontal={true} nestedScrollEnabled={true}>
+              <ScrollView
+                horizontal={true}
+                nestedScrollEnabled={true}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{height: 152}}>
                 {DATA.map((item, index) => this.rendeDirector(item, index))}
               </ScrollView>
             </View>
             {/* For the Rating */}
-            <View style={{marginTop: 25}}>
+            <View style={{marginTop: 11}}>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                 }}>
                 <Text style={styles.textFont}>Rating</Text>
-                <Text style={styles.textSecondary}>Overall: 9.1</Text>
               </View>
               <View
                 style={{
@@ -752,9 +774,9 @@ export default connect(mapStateToProps, null)(EnhanchedComponent);
 
 const styles = StyleSheet.create({
   textFont: {
-    color: '#333333',
+    color: '#000',
     fontFamily: 'VAG Rounded Next',
-    fontSize: 20,
+    fontSize: 17,
     fontStyle: 'normal',
     fontWeight: '700',
   },
@@ -775,10 +797,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
   },
   textSecondary: {
-    color: '#333333',
+    color: '#000',
     fontFamily: 'VAG Rounded Next',
     fontSize: 16,
-    fontStyle: 'italic',
     fontWeight: '400',
   },
   italic: {
@@ -793,10 +814,10 @@ const styles = StyleSheet.create({
   posterImage: {height: 450, width: window - 20, borderRadius: 12},
   posterDescContainer: {flexDirection: 'row', padding: 5},
   directorContainer: {
-    width: window / 4,
-    height: window / 2.9,
+    width: 78,
+    height: 149,
     backgroundColor: '#fff',
-    padding: 5,
+    // padding: 5,
     marginRight: 15,
     elevation: 5,
     alignItems: 'center',
@@ -804,28 +825,28 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   directorImage: {
-    height: '80%',
-    width: window / 4,
+    height: 104,
+    width: '100%',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
   directorName: {
-    color: '#333333',
-    fontFamily: 'Helvetica Neue',
-    fontSize: 12,
+    color: '#000',
+    fontFamily: 'VGA Rouonded Next',
+    fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: '700',
+    fontWeight: '400',
   },
   resultText: {
-    color: '#333333',
-    fontFamily: 'LEMON MILK Pro FTR',
+    color: '#000',
+    fontFamily: 'VGA Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   sortbyButText: {
-    color: '#333333',
-    fontFamily: 'LEMON MILK Pro FTR',
+    color: '#000',
+    fontFamily: 'VGA Rounded Next',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -886,5 +907,11 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     marginBottom: 10,
     borderRadius: 10,
+  },
+  textDesc: {
+    fontFamily: 'VGA Rounded Next',
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#000',
   },
 });

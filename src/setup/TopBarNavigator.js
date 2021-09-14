@@ -41,14 +41,23 @@ export function TopBarMainNavigator(props) {
       tabBar={(props) => <Header {...props} isTabBarVisible={true} />}
       tabBarOptions={{
         // scrollEnabled: !true,
-        indicatorStyle: {backgroundColor: 'red'},
-        activeTintColor: 'red',
+        indicatorStyle: {backgroundColor: '#ff0000'},
+        activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
-        labelStyle: {fontWeight: '700', fontSize: 14},
+        labelStyle: {
+          fontWeight: '700',
+          fontSize: 14,
+          color: '#000',
+          fontFamily: 'vag rounded next',
+        },
         tabStyle: {padding: 0},
       }}>
       <Tab.Screen name={'Movies'} children={MoviesStack} />
-      <Tab.Screen name={'TVShow'} component={MoviesStack} />
+      <Tab.Screen
+        name={'TVShow'}
+        component={MoviesStack}
+        options={{title: 'TV shows'}}
+      />
       <Tab.Screen name={'Shorts'} component={MoviesStack} />
       <Tab.Screen name={'Directors'} component={Directors} />
       <Tab.Screen name={'Actors'} component={Directors} />
@@ -70,10 +79,15 @@ export function TopBarSearchNavigator(props) {
         />
       )}
       tabBarOptions={{
-        indicatorStyle: {backgroundColor: 'red'},
-        activeTintColor: 'red',
+        indicatorStyle: {backgroundColor: '#ff000'},
+        activeTintColor: '#ff000',
         inactiveTintColor: 'black',
-        labelStyle: {fontWeight: '700', fontSize: 14},
+        labelStyle: {
+          fontWeight: '700',
+          fontSize: 14,
+          color: '#000',
+          fontFamily: 'VGA Rounded Next',
+        },
         tabStyle: {padding: 0},
       }}>
       <Tab.Screen name={'Title'} children={Search} />
@@ -93,10 +107,15 @@ export function TopBarSecondaryNavigator(props) {
       tabBar={(props) => <Header {...props} isTabBarVisible={true} />}
       tabBarOptions={{
         scrollEnabled: true,
-        indicatorStyle: {backgroundColor: 'red'},
-        activeTintColor: 'red',
+        indicatorStyle: {backgroundColor: '#ff0000'},
+        activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
-        labelStyle: {fontWeight: '700', fontSize: 14},
+        labelStyle: {
+          fontWeight: '700',
+          fontSize: 14,
+          color: '#000',
+          fontFamily: 'VGA Rounded Next',
+        },
         tabStyle: {padding: 0},
       }}>
       <Tab.Screen name={'About'} component={About} />

@@ -86,11 +86,7 @@ class Directors extends Component {
   }
 
   renderItemComponent = (data) => (
-    <TouchableNativeFeedback
-      onPress={() => {
-        const {navigate} = this.props.navigation;
-        navigate('Artist');
-      }}>
+    <TouchableNativeFeedback>
       <View
         style={{
           borderRadius: 12,
@@ -236,27 +232,13 @@ class Directors extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <Animated.FlatList
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {
-                  contentOffset: {
-                    y: this.props.scrollContext,
-                  },
-                },
-              },
-            ],
-            {useNativeDriver: true}, // Add this line
-          )}
+        <FlatList
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
             Platform.OS === 'android'
               ? () => <View style={{width: 20, height: 20}} />
               : ({highlighted}) => (
-                  <View
-                    style={[ highlighted && {marginLeft: 0}]}
-                  />
+                  <View style={[highlighted && {marginLeft: 0}]} />
                 )
           }
           ListHeaderComponent={() => (
@@ -306,7 +288,7 @@ export default EnhanchedComponent;
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 19,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -329,7 +311,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 16,
     fontStyle: 'italic',
     fontWeight: '400',
@@ -364,21 +346,21 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   resultText: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   sortbyButText: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -398,7 +380,7 @@ const styles = StyleSheet.create({
   },
   swipTitle: {
     color: '#FFFFFF',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',
