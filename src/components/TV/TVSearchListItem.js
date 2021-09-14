@@ -104,7 +104,7 @@ const TVCardDetail = ({item, ...props})=>{
           {/* //Bottom View */}
           <View style={{flexDirection:'row',marginLeft:10}}>
             <View>
-                <Text style={[{fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'black' }]} >{item.title}</Text>
+                <Text style={[{width:300,fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'black' }]} >{item.title}</Text>
                 <View style={{flexDirection:'row'}}>
                   <View>
                           <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{`${item.DATA.bornYear} ${item.DATA.country}`}</Text>

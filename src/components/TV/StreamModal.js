@@ -189,15 +189,15 @@ let [
                 name : "HBO",
                 image: AppImages.hbo
             },
-            { id:15,
+            { id:16,
                 name : "Hulu",
                 image: AppImages.hulu
             },
-            { id:16,
+            { id:17,
                 name : "Disney+",
                 image: AppImages.disnep
             },
-            { id:17,
+            { id:18,
                 name : "Apple TV+",
                 image: AppImages.appleTv
             }

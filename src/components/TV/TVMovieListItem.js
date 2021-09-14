@@ -45,7 +45,7 @@ const TVCardDetail = ({item, ...props})=>{
 
       const   onFocus =   useCallback(() => {
       // console.log('OnFocus TVCardDetail***',props);
-  props.reduxSetCurrFocus(90)
+  props.reduxSetCurrFocus('list')
       setFocus(0);
       setIsFocus(true);
     }, [0]);
@@ -94,22 +94,22 @@ const TVCardDetail = ({item, ...props})=>{
                       <View style={styles.thumb} >
                                 <Icon name={"thumbs-down"}  size={isAndroid() ? 15 : 35 } color={"white"} />
                           <View style={styles.circleShape}>
-                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontWeight:'800' ,textAlign:'center' ,fontSize: isAndroid() ? 10:18,color:props?.selected == 1 ? 'white' : 'white'}}>OK</Text>
+                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontWeight:'800' ,textAlign:'center' ,fontSize: isAndroid() ? 8:18,color:props?.selected == 1 ? 'white' : 'white'}}>OK</Text>
                                  
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"thumbs-up"} size={isAndroid() ? 15 : 20 } color={"white"} />
+                                  <Icon name={"thumbs-up"} size={isAndroid() ? 10 : 20 } color={"white"} />
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"plus"} size={isAndroid() ? 15 : 20 } color={"white"}  />
+                                  <Icon name={"plus"} size={isAndroid() ? 10 : 20 } color={"white"}  />
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"share"} size={isAndroid() ? 15 : 20 } color={"white"}  />
+                                  <Icon name={"share"} size={isAndroid() ? 10 : 20 } color={"white"}  />
                           </View>
                       </View>
                       :
                       <View  style={[{flexDirection:'row', flex:0.2, justifyContent:'flex-end',marginTop:-5,marginEnd:20}]} >
-                            <Icon name={"bookmark"} size={isAndroid() ? 25 : 50 } color={"#6495ED"} />
+                            <Icon name={"bookmark"} size={isAndroid() ? 25 : 20 } color={"#6495ED"} />
                       </View>
                         }
                    {/* </View> */}
@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
     flexDirection:'row', 
     paddingTop:10, 
     backgroundColor:"rgba(0,0,0, 0.3)",
-     paddingLeft:45, 
-     paddingRight:35,
+     paddingLeft: isAndroid()? 30: 35, 
+     paddingRight: isAndroid() ? 30: 35  ,
       justifyContent:'space-between'
   },
   rating:{
@@ -213,12 +213,12 @@ const styles = StyleSheet.create({
     // marginRight:40
  },
   circleShape: {
-    marginTop:10,
+    marginTop: isAndroid()? 5: 10,
     alignItems:'center',
     justifyContent:'center',  
-    marginLeft: isAndroid() ? 40 : 50,
-    width: isAndroid() ? 20 : 30,
-    height: isAndroid() ? 20 :  30,
+    marginLeft: isAndroid() ? 10 : 50,
+    width: isAndroid() ? 15 : 30,
+    height: isAndroid() ? 15 :  30,
     backgroundColor: '#A9A9A9',
     borderRadius: 100,
     transform: [{ scaleY: 2 }],

@@ -234,11 +234,6 @@ const items = [
         image: AppImages.appleTv,
         selected: false,
 
-    },{ id:36,
-        name : "Apple TV+",
-        image: AppImages.appleTv,
-        selected: false,
-
     }
     ]
 
@@ -330,7 +325,7 @@ props.item.selected ?
 
                 <TouchableOpacity onPress={()=>alert("To be implemented")}  >
                 <View style={
-                   isAndroid() ? {flexDirection:'row',alignItems:'center',}  : {flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center',marginBottom:10}
+                   isAndroid() ? {flexDirection:'row',alignItems:'center'}  : {flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center',marginBottom:10}
                    }>
 
                 <Image style={styles.watchImage} source={props.item.image} />
@@ -416,9 +411,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
     watchImage:{
-        borderWidth:1,
-        width: isAndroid()? 50: StyleConfig.resWidth(90),
-        height: StyleConfig.resHeight(130/2),
+        // borderWidth:1,
+        width: isAndroid()? 60: StyleConfig.resWidth(120),
+        height:  isAndroid() ? StyleConfig.resHeight(120/2) :StyleConfig.resHeight(120/2),
         borderRadius:10 ,
         marginLeft:10,
         marginTop: isAndroid()? 5:10
@@ -439,14 +434,14 @@ const styles = StyleSheet.create({
     },
     text:{
         // borderWidth:1,
-
+            height: isAndroid()? 35:80,
         fontFamily:primary_regular_font.primary_regular_font,
         fontSize:  isAndroid()? 14: StyleConfig.resHeight(28),
         fontWeight:'400',
         // borderWidth:1,
-        marginTop:isAndroid()? 10:0,
+        marginTop:isAndroid()? 10:10,
         color: '#999999',
-        // textAlign:"center",
+       
         marginLeft:10,
         width: isAndroid()? 100:150,
         
