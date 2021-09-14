@@ -49,6 +49,7 @@ render() {
         modalVisible ={this.state.modalVisible}
         selectedImage={this.state.selectedImage}
         {...this.props}
+        stateObj={this.state}
         />
       :
       <RenderMobile 
@@ -61,10 +62,12 @@ render() {
 
 // Map State To Props (Redux Store Passes State To Component)
 const mapStateToProps = (state) => {
-    console.log('State:', state);
+    console.log('State:>>>>>>>>>>>>>>>>>>>>>>>', state);
     // Redux Store --> Component
     return {
       counter: state.counter.counter,
+      focus: state.focus.focus,
+
     };
   };
   // Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)

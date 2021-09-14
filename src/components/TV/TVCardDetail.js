@@ -6,7 +6,8 @@ import {
     ImageBackground,
     StyleSheet,
     Dimensions,
-    Image
+    Image,
+    Platform
  } from 'react-native'
  import colors from 'src/helper/colors';
  const {width, height} = Dimensions.get('window')
@@ -27,7 +28,7 @@ let DATA = {
 }
 
 const TVCardDetail = ({item, ...props})=>{
-  console.log('type',props?.selected);
+  // console.log('type',props?.selected);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -86,25 +87,15 @@ const TVCardDetail = ({item, ...props})=>{
           }
                          
 
-                <View style={{
-                  alignItems:'center',
-                  justifyContent:'center',  
-                  marginLeft:60,
-                  //  marginRight: 10,
-                  width: 40,
-                  height: 40,
-                  backgroundColor: item.DATA.color,
-                  borderRadius: 100,
-                  transform: [{ scaleX: 2 }],
-                }}>
-                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'black'}}>{item.DATA.rating}</Text>
-                    </View>
+                {/* <View style={styles.ovalShapeView}>
+                        <Text style={styles.rating}>{item.DATA.rating}</Text>
+                    </View> */}
 
                 </View>
-                <View style={{flexDirection:'row'}}>
+                {/* <View style={{flexDirection:'row'}}>
                       <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
                       <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:69 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'black', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
-                </View>
+                </View> */}
             </View>
             
           </View>
@@ -121,7 +112,9 @@ const TVCardDetail = ({item, ...props})=>{
 
 export default TVCardDetail;
 const itemWidth = (StyleConfig.width-130)*0.18
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
   container:{
@@ -134,13 +127,21 @@ const styles = StyleSheet.create({
   ovalShapeView: {  
     alignItems:'center',
     justifyContent:'center',  
-    // marginTop: 20,
-    width: 40,
-    height: 40,
-    backgroundColor: '#efcc00',
+    marginLeft: isAndroid() ? 40 : 50,
+    width: isAndroid() ? 20 : 40,
+    height: isAndroid() ? 20 :  40,
+    backgroundColor: colors.black,
     borderRadius: 100,
     transform: [{ scaleX: 2 }],
+    // marginRight:40
  },
+ rating:{
+  fontFamily:primary_regular_font.primary_regular_font,
+  textAlign:'center',
+  fontWeight:'700',
+   fontSize: isAndroid() ? 10 :18,
+   color:'white'
+},
   circleShape: {
     flexDirection:'row',
     width: 40,
@@ -175,17 +176,17 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(20),
-      width:355,
+      width:isAndroid() ? 180 : 356,
       borderWidth: StyleConfig.resWidth(5),
-      height: StyleConfig.width*0.30,
+      height:  isAndroid() ? StyleConfig.width*0.25 : StyleConfig.width*0.28,
       borderColor: colors.tomatoRed,
       overflow:'hidden',
       paddingTop:1,
     },
     notHighlightFocused:{
       borderRadius:StyleConfig.resHeight(20),
-      width:355,
-      height: StyleConfig.width*0.30,
+      width:isAndroid() ? 180 : 356,
+      height:  isAndroid() ? StyleConfig.width*0.25 : StyleConfig.width*0.28,
       paddingTop:1,
       overflow:'hidden',
 

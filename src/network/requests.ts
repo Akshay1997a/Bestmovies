@@ -8,8 +8,10 @@ export const getTranslateFile = (
 	succesCallback: Function,
 	errorCallback: Function,
 ) => {
+
 	return (dispatch: Function) =>
 		commonApiWrapper(
+            dispatch,
 			endPoints.translate,
 			apiConstants.get_request_type,
 			apiConstants.raw_data_type,
@@ -25,8 +27,7 @@ export const getTranslateFile = (
 		);
 };
 
-const commonApiWrapper = (url: string, apiRequestType: String, contentType: String, path: string, requestData: any, params: any, successCallback: Function, errorCallback: Function,) => {
-    return (dispatch: any) => {
+const commonApiWrapper = (dispatch, url: string, apiRequestType: String, contentType: String, path: string, requestData: any, params: any, successCallback: Function, errorCallback: Function,) => {
         showLoader(true, dispatch);
         if (isNotEmpty(path))
             url = `${url}${path}/`
@@ -35,7 +36,6 @@ const commonApiWrapper = (url: string, apiRequestType: String, contentType: Stri
             (errorMessage: any, status: any) => { handleError(errorMessage, status, errorCallback, dispatch) },
             (exception: any) => { handleException(exception, dispatch) },
         )
-    }
 }
 
 const showLoader = (shouldShow: boolean, dispatch: any) => {

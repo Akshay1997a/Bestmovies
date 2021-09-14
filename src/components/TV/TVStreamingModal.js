@@ -53,6 +53,7 @@ const TVStreamingModal=(props)=>{
     //   }, [])
     return(
               <StreamModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={"Sort"} >
+                  
                 <ScrollView >
                     {data.map((item, index)=>{
                         return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >

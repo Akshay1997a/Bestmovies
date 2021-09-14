@@ -6,7 +6,8 @@ import {
     ImageBackground,
     StyleSheet,
     Dimensions,
-    Image
+    Image,
+    Platform
  } from 'react-native'
  import colors from 'src/helper/colors';
  const {width, height} = Dimensions.get('window')
@@ -108,24 +109,16 @@ const TVCardDetail = ({item, ...props})=>{
                   <View>
                           <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{`${item.DATA.bornYear} ${item.DATA.country}`}</Text>
                   </View>
-                <View style={{
-                  alignItems:'center',
-                  justifyContent:'center',  
-                  marginLeft:50,
-                  width: 40,
-                  height: 40,
-                  backgroundColor: item.DATA.color,
-                  borderRadius: 100,
-                  transform: [{ scaleX: 2 }],
-                }}>
-                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'white'}}>{item.DATA.rating}</Text>
-                    </View>
+                {/* <View style={styles.ovalShapeView}>
+                <Text style={styles.rating}>{item.DATA.rating}</Text>
+
+                    </View> */}
 
                 </View>
-                <View style={{flexDirection:'row'}}>
+                {/* <View style={{flexDirection:'row'}}>
                       <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
                       <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:55 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'white', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
-                </View>
+                </View> */}
             </View>
             
           </View>
@@ -142,7 +135,9 @@ const TVCardDetail = ({item, ...props})=>{
 
 export default TVCardDetail;
 const itemWidth = (StyleConfig.width-130)*0.18
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
   container:{
@@ -152,15 +147,23 @@ const styles = StyleSheet.create({
     // borderWidth:1,
     // borderColor:'black'
   },
+  rating:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    textAlign:'center',
+    fontWeight:'700',
+     fontSize: isAndroid() ? 10 :18,
+     color:'white'
+  },
   ovalShapeView: {  
     alignItems:'center',
     justifyContent:'center',  
-    // marginTop: 20,
-    width: 40,
-    height: 40,
-    backgroundColor: '#efcc00',
+    marginLeft: isAndroid() ? 40 : 50,
+    width: isAndroid() ? 20 : 40,
+    height: isAndroid() ? 20 :  40,
+    backgroundColor: colors.black,
     borderRadius: 100,
     transform: [{ scaleX: 2 }],
+    // marginRight:40
  },
   circleShape: {
     flexDirection:'row',
@@ -198,9 +201,10 @@ const styles = StyleSheet.create({
       borderRadius:StyleConfig.resHeight(30),
       // backgroundColor:'rgba(255,255,255,0.9)',
       // marginTop:50,
-      width:356,
+      width:isAndroid() ? 155 : 310,
       borderWidth: StyleConfig.resWidth(10),
-      height: StyleConfig.width*0.25,
+      height: isAndroid() ? StyleConfig.width*0.20 : StyleConfig.width*0.25,
+
       // marginVertical: StyleConfig.resHeight(10),
       // marginHorizontal: StyleConfig.resWidth(8),
       borderColor: colors.tomatoRed,
@@ -214,9 +218,11 @@ const styles = StyleSheet.create({
       // borderWidth: StyleConfig.resWidth(5),
       borderRadius:StyleConfig.resHeight(20),
       // marginTop:50,
-      width:356,
+      width:isAndroid() ? 155 : 310,
+      
+
       // backgroundColor:'rgba(255,255,255,0.9)',
-      height: StyleConfig.width*0.25,
+      height: isAndroid() ? StyleConfig.width*0.20 : StyleConfig.width*0.25,
       // marginVertical: StyleConfig.resHeight(10),
       // marginHorizontal: StyleConfig.resWidth(10),
       // paddingHorizontal:1,

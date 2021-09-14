@@ -28,6 +28,7 @@ defaultInstance.interceptors.request.use(
             }
         }
 
+        config.headers.language = "es"
         // let token = '';
         // let api_key = await AsyncStorage.getItem(apiConstants.api_token_key);
         // if (isNotEmpty(api_key)) {

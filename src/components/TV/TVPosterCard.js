@@ -6,7 +6,7 @@ import {
     Text,
     ImageBackground,
     TouchableOpacity,
-    Image
+    Image,Platform
 } from 'react-native'
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
@@ -60,7 +60,7 @@ const TVPosterCard = ({item, ...props})=>{
     const headerHeight = useHeaderHeight();
     const [selected, setSelected] = useState(-1) 
     return(
-        <View style={{flexDirection:'row', marginBottom:50}}>
+        <View style={{flexDirection:'row',}}>
            
             {/* <View style={styles.viewContainer}>
                 <ImageBackground
@@ -89,12 +89,12 @@ const TVPosterCard = ({item, ...props})=>{
                         { uri:item.thumbnail}
                         } >
                         <View style={[{flex:1,flexDirection:'row', paddingTop:10, backgroundColor:"rgba(0,0,0, 0.3)", paddingLeft:35, paddingRight:10, justifyContent:'space-between'}]} >
-                        <Icon name={"thumbs-down"}  size={50} color={"white"} />
-                        <Icon name={"eye"} size={50} color={"white"} />
-                        <Icon name={"thumbs-up"} size={50} color={"white"} />
+                        <Icon name={"thumbs-down"}  size={ isAndroid()? 25 : 50} color={"white"} />
+                        <Icon name={"eye"} size={ isAndroid()? 25 : 50} color={"white"} />
+                        <Icon name={"thumbs-up"} size={ isAndroid()? 25 : 50} color={"white"} />
                         <View style={[{ alignItems:'center', marginTop:-25}]}>
-                        <Icon name={"bookmark"} size={100} color={"blue"} style={[{ }]} />
-                        <Icon name={"plus"} size={35} color={"white"} style={[{position:'absolute', top:28}]} />
+                        <Icon name={"bookmark"} size={ isAndroid()? 50 :    100} color={"blue"} style={[{ }]} />
+                        <Icon name={"plus"}size={ isAndroid()? 25 : 35} color={"white"} style={[{position:'absolute', top:28}]} />
                         </View>
                         </View>
             </ImageBackground>
@@ -105,18 +105,18 @@ const TVPosterCard = ({item, ...props})=>{
                  <Text>HI</Text> */}
             {/* </View> */}
 
-                <View style={{marginLeft:40}} >
+                <View style={{marginLeft:isAndroid() ? 27: 40}} >
 
                 <Text numberOfLines={2} style={styles.titleText}>{item?.title}</Text>
-                 <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize:26, fontWeight:'400', color:'white'}]} >
+                 <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize: isAndroid() ? 17: 26, fontWeight:'400', color:'white'}]} >
                           Name of original title if foreign
                 </Text>
                 <View style={{flexDirection:'row',}}>
-                        <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize:26, fontWeight:'400', color:'white'}]} >
+                        <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize: isAndroid() ? 17:  26, fontWeight:'400', color:'white'}]} >
                                  Crime, Drama ,Thriller - 2019 - 154 min -18+
                         </Text>
                         <View style={{marginStart:400,}} >
-                        <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize:26, fontWeight:'400', color:'white'}]} >
+                        <Text style={[{fontFamily:primary_regular_font.primary_regular_font, fontSize: isAndroid() ? 17: 26, fontWeight:'400', color:'white'}]} >
                         78% match - 12    
                         </Text>
                         </View>
@@ -128,13 +128,13 @@ const TVPosterCard = ({item, ...props})=>{
                             <View>
 
                           <View style={{flexDirection:'row'}}>
-                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'700', color:colors.white }}>Director:</Text>
-                                <Text style={{textAlign:'center',justifyContent:'center' ,alignSelf:'center',fontFamily:primary_regular_font.primary_regular_font,fontSize: 26, fontWeight:'400', color:colors.white }}> Todd Phillips</Text>
+                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 17: 37, fontWeight:'700', color:colors.white }}>Director:</Text>
+                                <Text style={{textAlign:'center',justifyContent:'center' ,alignSelf:'center',fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 16: 26, fontWeight:'400', color:colors.white }}> Todd Phillips</Text>
                             </View>
 
                             <View style={{flexDirection:'row'}}>
-                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 37, fontWeight:'700', color:colors.white }}>Cast:</Text>
-                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: 26, fontWeight:'400', color:colors.white }}> Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy</Text>
+                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 17:  37, fontWeight:'700', color:colors.white }}>Cast:</Text>
+                                    <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 16: 26, fontWeight:'400', color:colors.white }}> Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy</Text>
                             </View>
                             </View>
                             <View style={{flexDirection:'row', marginTop: StyleConfig.resHeight(20)}}>
@@ -189,10 +189,10 @@ const TVPosterCard = ({item, ...props})=>{
                 {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
 
                     {items.map((obj, ind)=>(
-                        <TouchableOpacity onPress={()=>alert("To be implemented")} key={`${obj}-${ind}`} style={{margin:4,marginRight:55,}}>
+                        <TouchableOpacity onPress={()=>alert("To be implemented")} key={`${obj}-${ind}`} style={{margin:4,}}>
                         <Image style={styles.watchImage} source={obj.image} />
                         <Text style={styles.watchText}>{obj.name}</Text>
-                        <Text style={styles.watchText}>/month</Text>
+                        {/* <Text style={styles.watchText}>/month</Text> */}
 
                     </TouchableOpacity>
                     ))}
@@ -208,6 +208,10 @@ const TVPosterCard = ({item, ...props})=>{
 
 export default TVPosterCard;
 
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
+
 const styles = StyleSheet.create({
     viewContainer:{
         marginLeft:StyleConfig.resWidth(20),
@@ -222,6 +226,8 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         width: StyleConfig.width*0.20,
+        height: StyleConfig.width*0.30,
+
     },
     detailViewContainer:{
         flexDirection:'row',
@@ -296,7 +302,6 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         backgroundColor:colors.blue_color,
         borderRadius: 50,
-        borderRadius: 40,
         transform: [{ scaleX: 2 }],
         
     },

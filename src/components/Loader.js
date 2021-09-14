@@ -24,7 +24,7 @@ export const LoaderIndicator = () => (
         <ActivityIndicator
           size="large"
           style={{width: 30, height: 30}}
-          color={'grey'}
+          color={'red'}
         />
       </View>
     </View>

@@ -8,11 +8,13 @@ import {
   FlatList,
   Pressable,
   Image,
+  Platform,
 } from 'react-native';
 
 import TVHeader from '../../components/TV/TVHeader';
 import TVTopBar from '../../components/TV/TVTopBar';
 import TVSideBar from '../../components/TV/TVSideBar';
+import TVTileView from '../../components/TV/TVTileView';
 import TVMovieListItem from '../../components/TV/TVMovieListItem';
 import TVSearchListItem from '../../components/TV/TVSearchListItem';
 import TVSortByModal from '../../components/TV/TVSortByModal';
@@ -24,6 +26,7 @@ import TVCountryModal from '../../components/TV/TVCountryModal';
 import TVGenreModal from '../../components/TV/TVGenreModal';
 import TVPriceModal from '../../components/TV/TVPriceModal';
 import TVProvidersModal from '../../components/TV/TVProvidersModal';
+import TVIncludeModal from '../../components/TV/TVIncludeModal';
 import TVKeyboard from '../../components/NumberButtons/';
 import MoviesJSON from '../../components/TV/movies.json';
 import primary_regular_font from '../../helper/fonts';
@@ -33,7 +36,13 @@ import colors from '../../helper/colors';
 const {width, height} = Dimensions.get('window');
 import StyleConfig from '../../helper/StyleConfig';
 import strings from '../../helper/strings';
+import {ScrollView, State} from 'react-native-gesture-handler';
 import Const from '../../helper/constants';
+import TVCardDetail from '../../components/TV/TVCardDetail';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {getTranslateFile} from '../../network/requests';
+import {runTimeTranslations} from '../../i18n';
 import {useTranslation} from 'react-i18next';
 let [
   NONE,
@@ -64,7 +73,6 @@ let [NOTIFICATION, FRIENDS, PREFERANCE, MY_PROVIDER, ACCOUNT, LANGUAGE] = [
   21, 22, 23, 24, 25, 26,
 ];
 let [
-  NON,
   SORT_BY,
   LIKEDBY,
   STRREAMING,
@@ -75,7 +83,7 @@ let [
   PRICE,
   INCLUDES,
   PROVIDERS,
-] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const ADVERTISE_DATA = Const.ABOUT_US.map((item) =>
   item.id == 2 ? {...item, data: strings.advertise} : item,
@@ -147,6 +155,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   useEffect(() => {
     //   _enableTVEventHandler()
     // componentWillUnmount
+    console.log('propsssss', props);
+    props.getTranslateFile(
+      (res) => {
+        console.log('Response from translate api', res);
+        runTimeTranslations(res, res?.language);
+      },
+      (err) => {
+        console.log('Error from translate file', err);
+      },
+    );
     return () => {
       // Your code here
       //  if (this._tvEventHandler) {
@@ -166,6 +184,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     sidebar?.current?.setChangeFocus(val);
   };
   const oncloseModal = (val) => {
+    console.log('home-', props);
+    // console.log("state-",state);
+
     setShowSelected(NONE);
     onSideBarFocus(val);
   };
@@ -174,8 +195,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   function _handleEvent(value) {
     console.debug('value', value);
   }
+
+  const {t} = useTranslation();
+
   // console.log({selected, ADVERTISE_DATA})
-  const {t, i18n} = useTranslation();
   return (
     <View style={{backgroundColor: colors.white}}>
       <TVHeader
@@ -194,11 +217,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       {/* <ScrollView> */}
       <View
         hasTVPreferredFocus={true}
-        style={{
-          flexDirection: 'column',
-          marginHorizontal: 20,
-          backgroundColor: colors.white,
-        }}>
+        style={{flexDirection: 'column', backgroundColor: colors.white}}>
         <TVTopBar
           ref={sidebar}
           headerSelected={selected}
@@ -211,66 +230,27 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
           } */}
         {selected == SEARCH && (
           <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                width: StyleConfig.resWidth(600),
-                margin: 40,
-                height: '56%',
-              }}>
+            <View style={{width: StyleConfig.resWidth(600), marginTop: 30}}>
               <View style={{flexDirection: 'row', marginBottom: 10}}>
-                <View
-                  style={{
-                    flex: 0.34,
-                    height: 90,
-                    backgroundColor: colors.lightGrey,
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: 28,
-                      fontWeight: '700',
-                      color: colors.tomatoRed,
-                    }}>
-                    Title
+                <View style={styles.title}>
+                  <Text style={styles.titleText}>
+                    {t('award_types.id_1')} Title
                   </Text>
                 </View>
-                <View
-                  style={{
-                    flex: 0.34,
-                    marginTop: 30,
-                    backgroundColor: '#999999',
-                    marginHorizontal: 10,
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+                <View style={styles.artist}>
                   <Text
                     style={{
-                      fontSize: 28,
+                      fontSize: isAndroid() ? 14 : 28,
                       fontWeight: '400',
                       color: colors.black,
                     }}>
                     Artist
                   </Text>
                 </View>
-                <View
-                  style={{
-                    flex: 0.34,
-                    marginTop: 30,
-                    backgroundColor: '#999999',
-                    marginHorizontal: 10,
-                    borderTopLeftRadius: 20,
-                    borderTopRightRadius: 20,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+                <View style={styles.artist}>
                   <Text
                     style={{
-                      fontSize: 28,
+                      fontSize: isAndroid() ? 14 : 28,
                       fontWeight: '400',
                       color: colors.black,
                     }}>
@@ -279,48 +259,22 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 </View>
               </View>
 
-              <View
-                style={{
-                  flexDirection: 'row',
-                  backgroundColor: colors.lightGrey,
-                  borderRadius: 8,
-                  minHeight: 80,
-                  minWidth: 60,
-                  marginBottom: 20,
-                }}>
+              <View style={styles.tetxInputLayout}>
                 <View style={{flex: 1, flexDirection: 'row'}}>
                   <View style={{flex: 0.1, alignSelf: 'center'}}>
-                    <Image
-                      style={{marginStart: 10, height: 30, width: 30}}
-                      source={AppImages.icSearch}
-                    />
+                    <Image style={styles.search} source={AppImages.icSearch} />
                   </View>
 
                   <TextInput
                     placeholder={strings.search}
                     placeholderTextColor={colors.black}
                     keyboardType={strings.email_address}
-                    style={{
-                      backgroundColor: colors.lightGrey,
-                      flex: 0.8,
-                      alignSelf: 'center',
-                      fontSize: 34,
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontWeight: '700',
-                    }}
+                    style={styles.textInput}
                     onChangeText={(text) => setText(text)}
                   />
                   <View
                     style={{marginStart: 10, flex: 0.1, alignSelf: 'center'}}>
-                    <Image
-                      style={{
-                        marginEnd: 10,
-                        height: 40,
-                        width: 40,
-                        justifyContent: 'flex-end',
-                      }}
-                      source={AppImages.micro}
-                    />
+                    <Image style={styles.mic} source={AppImages.micro} />
                   </View>
                 </View>
               </View>
@@ -352,29 +306,21 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
         )}
         {selected == MY_LIST && (
           <View
-            style={{flex: 1, backgroundColor: colors.white}}
+            style={{backgroundColor: colors.white}}
             hasTVPreferredFocus={true}>
             {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
-              style={{
-                backgroundColor: 'white',
-                height: StyleConfig.resHeight(900),
-              }}>
-              <View style={{flexDirection: 'row', marginVertical: 10}}>
-                <Text
-                  style={{
-                    fontSize: 30,
-
-                    fontWeight: '800',
-                  }}>
-                  Ranking of best movies
-                </Text>
-
-                <Text style={{fontSize: 30, fontWeight: '200'}}>
-                  {' '}
-                  12,348 results{' '}
-                </Text>
+              style={{height: StyleConfig.resHeight(900)}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginVertical: isAndroid() ? 5 : 10,
+                  backgroundColor: colors.white,
+                  marginHorizontal: 10,
+                }}>
+                <Text style={styles.ranking}>Ranking of best movies</Text>
+                <Text style={styles.result}> 12,348 results </Text>
               </View>
               <FlatList
                 hasTVPreferredFocus={true}
@@ -466,14 +412,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
         {selected == MENU && showSelected == ABOUT_US && (
           <View hasTVPreferredFocus={true}>
             <TVSideBar onChangeSelected={(val) => setShowSelected(val)} />
-            {/* <FlatList 
-                data={Const.ABOUT_US}
-                keyExtractor={(item, index) => `item${index}`}
-                renderItem={({item})=>{
-                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} /> : 
-                  <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
-                }}
-              /> */}
           </View>
         )}
 
@@ -726,9 +664,89 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   );
 };
 
-export default RenderTV;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getTranslateFile,
+    },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(RenderTV);
+
+const isAndroid = () => {
+  return Platform.OS == 'android';
+};
 
 const styles = StyleSheet.create({
+  artistText: {
+    fontSize: isAndroid() ? 18 : 28,
+    fontWeight: '400',
+    color: colors.black,
+  },
+  titleText: {
+    fontSize: isAndroid() ? 18 : 28,
+    fontWeight: '700',
+    color: colors.tomatoRed,
+  },
+  title: {
+    flex: 0.34,
+    backgroundColor: colors.lightGrey,
+    borderTopLeftRadius: isAndroid() ? 5 : 20,
+    borderTopRightRadius: isAndroid() ? 5 : 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  artist: {
+    flex: 0.34,
+    // height:40,
+    // marginTop:30,
+    backgroundColor: '#999999',
+    marginHorizontal: isAndroid() ? 5 : 10,
+    borderTopLeftRadius: isAndroid() ? 5 : 20,
+    borderTopRightRadius: isAndroid() ? 5 : 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tetxInputLayout: {
+    flexDirection: 'row',
+    backgroundColor: colors.lightGrey,
+    borderRadius: 8,
+    minHeight: isAndroid() ? 40 : 80,
+    minWidth: 60,
+    marginBottom: isAndroid() ? 10 : 20,
+  },
+  mic: {
+    marginEnd: 10,
+    height: isAndroid() ? 20 : 40,
+    width: isAndroid() ? 20 : 40,
+    justifyContent: 'flex-end',
+  },
+  search: {
+    marginStart: 10,
+    height: isAndroid() ? 10 : 30,
+    width: isAndroid() ? 10 : 30,
+  },
+  textInput: {
+    backgroundColor: colors.lightGrey,
+    flex: 0.8,
+    alignSelf: 'center',
+    fontSize: isAndroid() ? 10 : 34,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: isAndroid() ? '400' : '700',
+  },
+  ranking: {
+    color: colors.black,
+    fontSize: isAndroid() ? 12 : 30,
+    fontWeight: '800',
+  },
+  result: {
+    fontFamily: 'VAGRoundedNext-light',
+    color: colors.black,
+    fontSize: isAndroid() ? 12 : 30,
+    fontWeight: '200',
+  },
   container: {
     backgroundColor: colors.black,
     flexDirection: 'row',

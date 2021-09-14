@@ -318,6 +318,8 @@ PODS:
     - React-Core (= 0.63.4-0)
     - React-cxxreact (= 0.63.4-0)
     - React-jsi (= 0.63.4-0)
+  - rn-fetch-blob (0.12.0):
+    - React-Core
   - RNCAsyncStorage (1.15.7):
     - React-Core
   - RNCMaskedView (0.1.11):
@@ -375,6 +377,7 @@ DEPENDENCIES:
   - React-RCTSettings (from `../node_modules/react-native/Libraries/Settings`)
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -463,6 +466,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Text"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  rn-fetch-blob:
+    :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
@@ -529,6 +534,7 @@ SPEC CHECKSUMS:
   React-RCTSettings: 5cd325d709b78968dcb6123c0d84ebbe16ff2b98
   React-RCTText: c14fecaa52f682ffc920d21dc06accee58ac0475
   ReactCommon: d8af14f3e586d78c8e8443e32fedb4c2eb745402
+  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: 7102fe8985f889579a3ae148d957bbb3f308122b
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNFBApp: 97b2da195d4606716b284a7c8a988dd8ed5cec41

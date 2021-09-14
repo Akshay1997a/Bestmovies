@@ -4,7 +4,7 @@ import React, {
     forwardRef,
     useImperativeHandle,
   } from 'react';
-import { View, Text, FlatList,Pressable, Image, StyleSheet, ScrollView,TouchableOpacity} from 'react-native'
+import { View, Text, FlatList,Pressable, Image, StyleSheet, ScrollView,TouchableOpacity,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../helper/colors';
@@ -13,7 +13,9 @@ import AppImages from '../../assets'
 import strings from '../../helper/strings';
 import StreamModal from './StreamModal';
 import primary_regular_font from '../../helper/fonts';
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 const DATA = [
     { "id":0, "name":"Rating" },
     { "id":1, "name":"Match" },
@@ -327,7 +329,9 @@ props.item.selected ?
       </TouchableOpacity>
 
                 <TouchableOpacity onPress={()=>alert("To be implemented")}  >
-                <View style={{flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center',marginBottom:10}}>
+                <View style={
+                   isAndroid() ? {flexDirection:'row',alignItems:'center',}  : {flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center',marginBottom:10}
+                   }>
 
                 <Image style={styles.watchImage} source={props.item.image} />
                 <Text style={
@@ -393,6 +397,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
       },
     itemWrapperSelected: {
+
         justifyContent: 'center',
         paddingHorizontal: 12,
         paddingVertical: 6,
@@ -411,16 +416,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
     watchImage:{
-        width: StyleConfig.resWidth(90),
+        borderWidth:1,
+        width: isAndroid()? 50: StyleConfig.resWidth(90),
         height: StyleConfig.resHeight(130/2),
         borderRadius:10 ,
         marginLeft:10,
-        marginTop:10
+        marginTop: isAndroid()? 5:10
         // paddingTop:40
     },
     focusText:{
         fontFamily:primary_regular_font.primary_regular_font,
-        fontSize: StyleConfig.resHeight(28),
+        fontSize: isAndroid()? 14:StyleConfig.resHeight(28),
         fontWeight:'400',
         // borderWidth:1,
         // marginTop:4,
@@ -432,29 +438,31 @@ const styles = StyleSheet.create({
         
     },
     text:{
+        // borderWidth:1,
+
         fontFamily:primary_regular_font.primary_regular_font,
-        fontSize: StyleConfig.resHeight(28),
+        fontSize:  isAndroid()? 14: StyleConfig.resHeight(28),
         fontWeight:'400',
         // borderWidth:1,
-        // marginTop:4,
+        marginTop:isAndroid()? 10:0,
         color: '#999999',
         // textAlign:"center",
         marginLeft:10,
-        width:150,
+        width: isAndroid()? 100:150,
         
         
     },
 
     selectedText:{
         fontFamily:primary_regular_font.primary_regular_font,
-        fontSize: StyleConfig.resHeight(28),
+        fontSize:  isAndroid()? 14:StyleConfig.resHeight(28),
         fontWeight:'700',
         // borderWidth:1,
         // marginTop:4,
         color: colors.tomatoRed,
         // textAlign:"center",
         marginLeft:25,
-        width:150,
+        width: isAndroid()? 100: 150,
         
         
     },

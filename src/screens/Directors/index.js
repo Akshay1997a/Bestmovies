@@ -95,7 +95,7 @@ export class Directors extends Component {
       />
       <View style={{padding: 10}}>
         <Text style={styles.textFont}>Martin Scorcecs</Text>
-        <View style={{flexDirection: 'row', alignItems: "center"}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View>
             <Text style={styles.textSecondary}>Director</Text>
             <Text numberOfLines={1} style={styles.textSecondary}>
@@ -133,7 +133,7 @@ export class Directors extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{padding: 10, backgroundColor: "#fff"}}>
+      <SafeAreaView style={{padding: 10, backgroundColor: '#fff'}}>
         <View
           style={{
             flexDirection: 'row',

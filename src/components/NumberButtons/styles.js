@@ -1,7 +1,19 @@
 const React = require('react-native');
+import {
+  View,
+  Image,
+  Text,
+  Pressable,
+  Platform
+} from 'react-native';
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
 import primary_regular_font from '../../helper/fonts';
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
+
+
 
 export default {
 
@@ -13,8 +25,8 @@ export default {
   txtDefault: {
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 34,
-    fontWeight: 'bold',
+    fontSize:  isAndroid() ? 18  : 34,
+    // fontWeight: 'bold',
   },
 
   contRow: {

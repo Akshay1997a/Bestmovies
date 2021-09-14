@@ -1,11 +1,12 @@
-import React, { useState, useCallback, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useCallback, forwardRef, useImperativeHandle,useEffect } from 'react';
 import {
     View,
     Pressable,
     StyleSheet,
     Text,
     Image,
-    ScrollView
+    ScrollView,
+    Platform
 } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler';
 import TVToggle from '../TV/TVToggle';
@@ -55,10 +56,7 @@ const PROFILE_DATA = [
 
 
 const MENU_DATA = [
-    {
-        key: ABOUT_US,
-        title: strings.about_us
-    },
+    
     {
         key: ADVERTISE,
         title: strings.advertise
@@ -225,8 +223,11 @@ const BACK_DATA = [
 ]
 const TVSideBar = forwardRef(({ onChangeSelected, ...props }, ref) => {
 
+// console.log('props',props);
+
+
 const BackArrow = forwardRef(({ item }, ref) => {
-    console.log('keu',item);
+    // console.log('keu',item);
     return (
             <View>
                 {
@@ -243,13 +244,36 @@ const BackArrow = forwardRef(({ item }, ref) => {
     );
 });
 
-    const [focus, setFocus] = useState(NONE);
+    const [focus, setFocus] = useState(props.focus === 20 ? NONE : 1);
     const [isScroll, setIsScroll] = useState(false);
+    if(props.focus === 20){
+        // console.log('OnFocus TVTopBar***',props);
+
+        // setFocus(NONE);
+    }
 
     const onFocus = useCallback((val) => {
+        // props.reduxSetCurrFocus(val)
+      props.reduxSetCurrFocus(100)
+
+  
+        // console.log('onFocus TVSideBar***');
+
         setFocus(val);
     });
 
+    const getData = async () => {
+        try {
+            // const value = await AsyncStorage.getItem('@storage_Key')
+
+          if(value !== null) {
+            // value previously stored
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
+      
     const onPressClick = ((val) => {
         if(val === 'Arrow'){
         setIsScroll(true);
@@ -258,16 +282,15 @@ const BackArrow = forwardRef(({ item }, ref) => {
             onChangeSelected(val);
 
         }
-        console.log('onPressClick called***',val);
+        // console.log('onPressClick TVSideBar***',val);
     });
 
     const onBlur = useCallback(() => {
-        console.log('onBlur called***');
+        // console.log('onBlur TVSideBar***');
         setFocus(-1);
       }, []);
 
-    useImperativeHandle(ref,
-        () => ({
+    useImperativeHandle(ref,() => ({
             setResetFocus() {
                 setFocus(NONE);
             },
@@ -275,11 +298,20 @@ const BackArrow = forwardRef(({ item }, ref) => {
                 setFocus(val);
             }
         }),
+        // console.log(isScroll)
     )
-    console.log(props.headerSelected, MENU_DATA)
+    useEffect(() => {
+        // console.log('focus');
+      }, [])
+    const callgetData =  () => {
+        // console.log('hi');
+        // setFocus(NONE);
+
+
+    }
+    // console.log(props.headerSelected, MENU_DATA)
     return (
         <>
-
             {props.headerSelected == PROFILE ? <View style={styles.container}>
                 {PROFILE_DATA.map((item, index) => {
                     return (
@@ -300,7 +332,7 @@ const BackArrow = forwardRef(({ item }, ref) => {
             </View> :
             
             props.headerSelected == MENU ? <View style={styles.container}>
-                {MENU_DATA.map((item, index) => {
+                {/* {MENU_DATA.map((item, index) => {
                     return (
                         <Pressable
                             key={item.key}
@@ -310,11 +342,10 @@ const BackArrow = forwardRef(({ item }, ref) => {
                             tvParallaxProperties={{ magnification: 1.1 }}
                             style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
                               <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
-                            {/* <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>'hi'</Text> */}
 
                         </Pressable>
                     )
-                })}
+                })} */}
 
             </View> :
 
@@ -323,7 +354,6 @@ const BackArrow = forwardRef(({ item }, ref) => {
                     horizontal={true}
                     >
                 <View style={styles.container}>
-
                     {
                         isScroll 
                         ?
@@ -407,8 +437,8 @@ const BackArrow = forwardRef(({ item }, ref) => {
                             return (
                                 <Pressable
                                     key={item.key}
-                                    onFocus={() => onFocus(item.key)}
-    
+                                    onFocus={() => onFocus( item.key)}
+                                    
                                     onPress={() => onPressClick(item.key)}
                                     tvParallaxProperties={{ magnification: 1.1 }}
                                     // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
@@ -425,9 +455,18 @@ const BackArrow = forwardRef(({ item }, ref) => {
                                             
                                             :
                                             <View style={{marginLeft:20,flexDirection:'row'}} >
-                                            <View style={{marginRight:90}}>
-                                                 <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                                                             <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
+                                            <View style={{marginRight: isAndroid() ? 22: 90}}>
+                                                 <View  style={ 
+                                                        props.focus === 90 ?
+                                                        styles.itemWrapper :
+                                                      focus == item.key 
+                                                    ? styles.itemWrapperSelected : styles.itemWrapper} >
+                                                             <Text style={
+                                                                  props.focus === 90 ?
+                                                                  styles.textTitle :
+                                                                  focus == item.key ?
+                                                                 styles.focusTextTitle :
+                                                                  styles.textTitle}>{item.title}</Text>
                                                  </View>
                                                             <Text 
                                                             numberOfLines={1}
@@ -480,6 +519,9 @@ const BackArrow = forwardRef(({ item }, ref) => {
 })
 
 export default TVSideBar;
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
     verticleLine: {
@@ -491,7 +533,7 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: colors.lightGrey,
-        height:100,
+        height:  isAndroid()? 50 :100,
         alignContent:'center',
         alignItems:'center',
         flexDirection:'row',
@@ -509,32 +551,29 @@ const styles = StyleSheet.create({
         // marginRight:-80,
     },
     text:{
-        fontSize:24,
+        fontSize: isAndroid() ? 12 :24,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'400'
     },
     focusText:{
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'900',
-        fontSize:24,
+        fontSize: isAndroid() ? 12 :24,
         color: colors.white,
         // width:   250
 
     },
     textTitle:{
-        fontSize:24,
+        color:colors.black,
+        fontSize: isAndroid() ? 12 :24,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'700',
-        // width:   250
-
     },
     focusTextTitle:{
-        fontSize:24,
+        fontSize: isAndroid() ? 12 :24,
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'700',
         color: colors.white,
-        // width:   250
-
     },
    
 })

@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback,useEffect} from 'react';
 import {
     View,
     Pressable,
@@ -6,8 +6,11 @@ import {
     ImageBackground,
     StyleSheet,
     Dimensions,
-    Image
+    Image,
+    Platform
  } from 'react-native'
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
  import colors from 'src/helper/colors';
  const {width, height} = Dimensions.get('window')
 import StyleConfig from 'src/helper/StyleConfig';
@@ -27,24 +30,41 @@ let DATA = {
 }
 
 const TVCardDetail = ({item, ...props})=>{
-  console.log('type',props?.selected);
+  // console.log('type',props?.selected);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
 
-    const onFocus = useCallback(() => {
-      console.log('OnFocus called***');
+  const storeData = async (value) => {
+    try {
+      // await AsyncStorage.setItem('TVMovieListItem', value)
+
+    } catch (e) {
+      // saving error
+    }
+  }
+
+      const   onFocus =   useCallback(() => {
+      // console.log('OnFocus TVCardDetail***',props);
+  props.reduxSetCurrFocus(90)
       setFocus(0);
       setIsFocus(true);
     }, [0]);
     
     const onBlur = useCallback(() => {
-      console.log('onBlur called***');
+      // console.log('onBlur TVCardDetail***');
       setFocus(-1);
       setIsFocus(false);
 
     }, []);
+
+    useEffect(() => {
+      const unsubscribe = props.navigation.addListener('focus', () => {
+      // console.log('focus TVMovieList ');
+
+      });
+    }, [])
     return (
-      <View>
+      <View >
       <Pressable
      
       style={styles.container}
@@ -71,24 +91,25 @@ const TVCardDetail = ({item, ...props})=>{
                         {
                           item.title === 'Joker'
                         ?
-                      <View style={[{zIndex:1, flex:1,flexDirection:'row', paddingTop:10, backgroundColor:"rgba(0,0,0, 0.3)", paddingLeft:45, paddingRight:35, justifyContent:'space-between'}]} >
-                                <Icon name={"thumbs-down"}  size={35} color={"white"} />
+                      <View style={styles.thumb} >
+                                <Icon name={"thumbs-down"}  size={isAndroid() ? 15 : 35 } color={"white"} />
                           <View style={styles.circleShape}>
-                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontWeight:'800' ,textAlign:'center' ,fontSize:20,color:props?.selected == 1 ? 'white' : 'white'}}>OK</Text>
+                                <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontWeight:'800' ,textAlign:'center' ,fontSize: isAndroid() ? 10:18,color:props?.selected == 1 ? 'white' : 'white'}}>OK</Text>
+                                 
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"thumbs-up"} size={35} color={"white"} />
+                                  <Icon name={"thumbs-up"} size={isAndroid() ? 15 : 20 } color={"white"} />
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"plus"} size={28} color={"white"}  />
+                                  <Icon name={"plus"} size={isAndroid() ? 15 : 20 } color={"white"}  />
                           </View>
                           <View style={styles.circleShape}>
-                                  <Icon name={"share"} size={28} color={"white"}  />
+                                  <Icon name={"share"} size={isAndroid() ? 15 : 20 } color={"white"}  />
                           </View>
                       </View>
                       :
                       <View  style={[{flexDirection:'row', flex:0.2, justifyContent:'flex-end',marginTop:-5,marginEnd:20}]} >
-                            <Icon name={"bookmark"} size={50} color={"#6495ED"} />
+                            <Icon name={"bookmark"} size={isAndroid() ? 25 : 50 } color={"#6495ED"} />
                       </View>
                         }
                    {/* </View> */}
@@ -103,29 +124,27 @@ const TVCardDetail = ({item, ...props})=>{
           {/* //Bottom View */}
           <View style={{flexDirection:'row',marginLeft:10}}>
             <View>
-                <Text style={[{fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'white' }]} >{item.title}</Text>
-                <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{DATA.type}</Text>
+                <Text style={[{fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize: isAndroid() ? StyleConfig.resHeight(20)  : StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'white' }]} >{item.title}</Text>
+                <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? StyleConfig.resHeight(20) :StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{DATA.type}</Text>
                 <View style={{flexDirection:'row'}}>
                   <View>
-                          <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
+                          <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? StyleConfig.resHeight(20) :StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
                   </View>
-                <View style={{
-                  alignItems:'center',
-                  justifyContent:'center',  
-                  marginLeft:50,
-                  width: 40,
-                  height: 40,
-                  backgroundColor: item.DATA.color,
-                  borderRadius: 100,
-                  transform: [{ scaleX: 2 }],
-                }}>
-                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'white'}}>{item.DATA.rating}</Text>
+                  <View style={{flexDirection:'row'}}>
+                  <View style={styles.ovalShapeView}>
+                        <Text style={styles.rating}>{item.DATA.rating}</Text>
                     </View>
+                  </View>
+               
 
                 </View>
-                <View style={{flexDirection:'row'}}>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:55 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'white', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
+                <View style={{flexDirection:'row' ,minWidth:160}}>
+                         <View  style={{flex:0.9}}>
+                            <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
+                        </View>
+                         <View style={{alignContent:'center',justifyContent:'center'}}>
+                             <Text style={styles.feedback}>{item.DATA.feedback}</Text>
+                          </View>
                 </View>
             </View>
             
@@ -143,50 +162,76 @@ const TVCardDetail = ({item, ...props})=>{
 
 export default TVCardDetail;
 const itemWidth = (StyleConfig.width-130)*0.18
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
+  feedback:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    // marginLeft: isAndroid() ? 40 : 55 ,
+    fontSize:StyleConfig.resHeight(24),
+     color:colors.black,
+      fontWeight:'700'},
+  ok:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    fontWeight:'800' ,
+    textAlign:'center',
+    fontSize: isAndroid() ? 10 : 20,
+    color:'white'
+  },
+  thumb:{
+    zIndex:1, 
+    flex:1,
+    flexDirection:'row', 
+    paddingTop:10, 
+    backgroundColor:"rgba(0,0,0, 0.3)",
+     paddingLeft:45, 
+     paddingRight:35,
+      justifyContent:'space-between'
+  },
+  rating:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    textAlign:'center',
+    fontWeight:'700',
+     fontSize: isAndroid() ? 10 :18,
+     color:'white'
+  },
   container:{
      marginVertical: StyleConfig.resHeight(10),
       marginHorizontal: StyleConfig.resWidth(10),
-    // borderRadius:StyleConfig.resHeight(20),
-    // borderWidth:1,
-    // borderColor:'black'
   },
   ovalShapeView: {  
     alignItems:'center',
     justifyContent:'center',  
-    // marginTop: 20,
-    width: 40,
-    height: 40,
-    backgroundColor: '#efcc00',
+    marginLeft: isAndroid() ? 40 : 50,
+    width: isAndroid() ? 20 : 40,
+    height: isAndroid() ? 20 :  40,
+    backgroundColor: colors.black,
     borderRadius: 100,
     transform: [{ scaleX: 2 }],
+    // marginRight:40
  },
   circleShape: {
-    flexDirection:'row',
-    width: 40,
-    height: 40,
-    borderRadius: 40 / 2,
+    marginTop:10,
     alignItems:'center',
-    justifyContent:'center',
-    backgroundColor: '#A9A9A9'
+    justifyContent:'center',  
+    marginLeft: isAndroid() ? 40 : 50,
+    width: isAndroid() ? 20 : 30,
+    height: isAndroid() ? 20 :  30,
+    backgroundColor: '#A9A9A9',
+    borderRadius: 100,
+    transform: [{ scaleY: 2 }],
+    
   },
-
-
     viewContainer:{
-        // borderWidth: StyleConfig.resWidth(1),
         borderRadius:StyleConfig.resHeight(20),
-        // backgroundColor:'rgba(255,255,255,0.9)',
         shadowColor: 'black',
         overflow:'hidden',
         shadowOpacity: 0.9,
         elevation: 10, 
-        // borderColor:'red',
         height: StyleConfig.width*0.30 ,
-        
     },
-
     highlight:{
       flexBasis: itemWidth+30,
       height: StyleConfig.width*0.40 ,
@@ -197,33 +242,22 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(30),
-      // backgroundColor:'rgba(255,255,255,0.9)',
-      // marginTop:50,
-      width:356,
-      borderWidth: StyleConfig.resWidth(10),
-      height: StyleConfig.width*0.32,
-      // marginVertical: StyleConfig.resHeight(10),
-      // marginHorizontal: StyleConfig.resWidth(8),
+      width:isAndroid() ? 180 : 356,
+      borderWidth:  isAndroid()  ? StyleConfig.resWidth(10) :StyleConfig.resWidth(10),
+      height: isAndroid() ?  StyleConfig.width*0.25 : StyleConfig.width*0.30,
       borderColor: colors.tomatoRed,
       overflow:'hidden',
-      // paddingHorizontal:1,
-      paddingTop:1,
+      padding:1,
+      // paddingBottom:1,
+      // paddingVertical:2,
+      // paddingHorizontal:2
     },
     notHighlightFocused:{
-      // borderColor: 'green',
-
-      // borderWidth: StyleConfig.resWidth(5),
       borderRadius:StyleConfig.resHeight(20),
-      // marginTop:50,
-      width:356,
-      // backgroundColor:'rgba(255,255,255,0.9)',
-      height: StyleConfig.width*0.32,
-      // marginVertical: StyleConfig.resHeight(10),
-      // marginHorizontal: StyleConfig.resWidth(10),
-      // paddingHorizontal:1,
+      width:isAndroid() ? 180 : 356,
+      height: isAndroid() ?  StyleConfig.width*0.25 : StyleConfig.width*0.30,
       paddingTop:1,
       overflow:'hidden',
-
     },
    
     });

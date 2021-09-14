@@ -6,7 +6,8 @@ import {
     ImageBackground,
     StyleSheet,
     Dimensions,
-    Image
+    Image,
+    Platform
  } from 'react-native'
  import colors from 'src/helper/colors';
  const {width, height} = Dimensions.get('window')
@@ -86,18 +87,11 @@ const TVCast = ({item, ...props})=>{
                                 <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{`${DATA.match} match`}</Text>
                             </View>
                </View>
-               <View style={{
-                  alignItems:'center',
-                  justifyContent:'center',  
-                  width: 70,
-                  height: 70,
-                  backgroundColor: "gray",
-                  borderRadius: 140/2,
-                }}>
-                        <Text style={{textAlign:'center',fontWeight:'700', fontSize:18,color:props?.selected == 1 ? 'white' : 'black'}}>Top</Text>
+               {/* <View style={styles.ovalShapeView}>
+                        <Text style={styles.top}>Top</Text>
 
-                        <Text style={{textAlign:'center',fontWeight:'900', fontSize:18,color:props?.selected == 1 ? 'white' : 'black'}}>{item.DATA.rating}</Text>
-                    </View>
+                        <Text style={styles.rating}>{item.DATA.rating}</Text>
+                    </View> */}
                     </View>
                
 
@@ -117,7 +111,9 @@ const TVCast = ({item, ...props})=>{
 
 export default TVCast;
 const itemWidth = (StyleConfig.width-130)*0.15
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const styles = StyleSheet.create({
   container:{
@@ -127,15 +123,24 @@ const styles = StyleSheet.create({
     // borderWidth:1,
     // borderColor:'black'
   },
+  top:{
+    textAlign:'center',
+    fontWeight:'700',
+     fontSize: isAndroid() ? 12 : 18,
+     color: 'black'
+    },
+  rating:{
+    textAlign:'center',
+    fontWeight:'900', 
+    fontSize: isAndroid() ? 12 : 18,
+    color:'black'},
   ovalShapeView: {  
     alignItems:'center',
     justifyContent:'center',  
-    // marginTop: 20,
-    width: 40,
-    height: 40,
-    backgroundColor: '#efcc00',
-    borderRadius: 100,
-    transform: [{ scaleX: 2 }],
+    width: isAndroid() ? 40: 70,
+    height: isAndroid() ? 40: 70,
+    backgroundColor: "gray",
+    borderRadius: 140/2,
  },
   circleShape: {
     flexDirection:'row',
@@ -171,17 +176,17 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(30),
-      width:320,
+      width: isAndroid() ? 150 : 320,
       borderWidth: StyleConfig.resWidth(5),
-      height: StyleConfig.width*0.25,
+      height: StyleConfig.width*0.15,
       borderColor: colors.tomatoRed,
       overflow:'hidden',
       paddingTop:1,
     },
     notHighlightFocused:{
       borderRadius:StyleConfig.resHeight(30),
-      width:320,
-      height: StyleConfig.width*0.25,
+      width: isAndroid() ? 140 : 320,
+      height: isAndroid() ? 200 : StyleConfig.width*0.25,
       paddingTop:1,
       overflow:'hidden',
 

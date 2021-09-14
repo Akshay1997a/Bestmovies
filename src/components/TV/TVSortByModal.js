@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View, Text, Pressable, Image, StyleSheet, ScrollView} from 'react-native'
+import { View, Text, Pressable, Image, StyleSheet, ScrollView,Platform} from 'react-native'
 import BaseModal from './BaseModal'
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig'
@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
 
     }
 })
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 const TVSortByModal=(props)=>{
     const [selected, setSelected] = useState(-1)
@@ -52,11 +55,17 @@ const TVSortByModal=(props)=>{
     //     fetchData();
     //   }, [])
     return(
-              <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={"Sort"} >
+              <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={"Sort by"} >
                 <ScrollView>
                     {data.map((item, index)=>{
-                        return(<Pressable onPress={props.onclose} onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
-                                                                                 <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                        return(<Pressable 
+                        onPress={props.onclose}
+                         onFocus={()=> setFocus(item.id)} 
+                         style={item.id == focus ? 
+                         { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:
+                         { marginHorizontal:10,}} >
+                                                                                 
+                          <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
                         </Pressable>)
                     })}
                 </ScrollView>

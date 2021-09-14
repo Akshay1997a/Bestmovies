@@ -14,11 +14,16 @@ const languageDetector = {
   cacheUserLanguage: () => {},
 };
 
+// const data = useSelector((state) => state);
+
+// console.log('data i get from redux hereeeee', data);
+
 i18next
   .use(languageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
+    supportedLngs: ['en', 'es', 'fr'],
     resources: {
       en: en,
       fr: fr,
@@ -29,3 +34,9 @@ i18next
   });
 
 export default i18next;
+
+export const runTimeTranslations = (runTimeData, lng = 'en') => {
+  console.log('data gets from api heree', runTimeData);
+  i18next.addResourceBundle(lng, 'translation', runTimeData, true, true);
+  i18next.changeLanguage(lng);
+};

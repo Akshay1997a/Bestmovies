@@ -98,7 +98,9 @@ export default RenderTV;
 
 
 
-
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 
 
 
