@@ -49,6 +49,10 @@
 		F31C51E4482E699F9F210E79 /* libPods-BestMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D09A7AA579A384476D49E9 /* libPods-BestMovies.a */; };
 		F3E6FE9EC69646F3AC829BDE /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEA44AA4168142938B6324F2 /* SimpleLineIcons.ttf */; };
 		FC849403989941468373AE13 /* Lemon Milk Pro Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5C2CBA6B70DE4C4F8A03A27B /* Lemon Milk Pro Bold.otf */; };
+		E45BDB89B4BF4114B11E2987 /* VAG_Rounded_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 819C025B5BD6439FA5B6E4F2 /* VAG_Rounded_Regular.ttf */; };
+		FFC75697FED4465CB965F270 /* VAG Rounded Next.otf in Resources */ = {isa = PBXBuildFile; fileRef = 96A75A74026B4B15984B4658 /* VAG Rounded Next.otf */; };
+		5D638B7C0841465294248DA4 /* vag rounded next.otf in Resources */ = {isa = PBXBuildFile; fileRef = 03491DC2B4EC448FB51C253F /* vag rounded next.otf */; };
+		2D478E204B8B4EBFBA80A18A /* vag rounded next.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21D3A14C83044986942C1FA2 /* vag rounded next.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +129,10 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FEF2419BEFAB488E4CD0A899 /* libPods-BestMovies-tvOS-BestMovies-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BestMovies-tvOS-BestMovies-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		819C025B5BD6439FA5B6E4F2 /* VAG_Rounded_Regular.ttf */ = {isa = PBXFileReference; name = "VAG_Rounded_Regular.ttf"; path = "../assets/fonts/VAG_Rounded_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		96A75A74026B4B15984B4658 /* VAG Rounded Next.otf */ = {isa = PBXFileReference; name = "VAG Rounded Next.otf"; path = "../assets/fonts/VAG Rounded Next.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		03491DC2B4EC448FB51C253F /* vag rounded next.otf */ = {isa = PBXFileReference; name = "vag rounded next.otf"; path = "../assets/fonts/vag rounded next.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		21D3A14C83044986942C1FA2 /* vag rounded next.ttf */ = {isa = PBXFileReference; name = "vag rounded next.ttf"; path = "../assets/fonts/vag rounded next.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +281,10 @@
 				18B12A7C120D45549F0DF168 /* ARIAL.TTF */,
 				7D9A3577C2BA460E824EB8AB /* VAGRoundedNext-Bold.otf */,
 				DD76359032AA41B1AAC70405 /* VAGRoundedNext-Regular.otf */,
+				819C025B5BD6439FA5B6E4F2 /* VAG_Rounded_Regular.ttf */,
+				96A75A74026B4B15984B4658 /* VAG Rounded Next.otf */,
+				03491DC2B4EC448FB51C253F /* vag rounded next.otf */,
+				21D3A14C83044986942C1FA2 /* vag rounded next.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -471,6 +483,10 @@
 				CA2D0066F52648A4AF3E7314 /* ARIAL.TTF in Resources */,
 				609F91A1C1CD4C94B6C52CF2 /* VAGRoundedNext-Bold.otf in Resources */,
 				8C3B1ADD95104635B5E772B6 /* VAGRoundedNext-Regular.otf in Resources */,
+				E45BDB89B4BF4114B11E2987 /* VAG_Rounded_Regular.ttf in Resources */,
+				FFC75697FED4465CB965F270 /* VAG Rounded Next.otf in Resources */,
+				5D638B7C0841465294248DA4 /* vag rounded next.otf in Resources */,
+				2D478E204B8B4EBFBA80A18A /* vag rounded next.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

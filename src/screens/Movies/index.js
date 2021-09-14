@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
 import {
   SafeAreaView,
@@ -10,26 +12,22 @@ import {
   FlatList,
   Modal,
   TouchableOpacity,
-  Share,
   TouchableWithoutFeedback,
-  Animated,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/Feather';
 import Iconm from 'react-native-vector-icons/FontAwesome5';
 import Inocons from 'react-native-vector-icons/Ionicons';
-import FAIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import Orientation from 'react-native-orientation';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterTypes';
 import {
-  HEADER_HEIGHT,
   TOTAL_HEADER_HEIGHT,
   useCollapsibleHeaderHOC,
 } from '../../components/Header';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import CardView from './CardView';
+import RatingComponent from '../../svgs/RatingComponent';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -157,24 +155,24 @@ export class Movies extends Component {
       navigate('MovieDetails');
     };
 
-    const onShare = () => {
-      Share.share({
-        title: 'Parasite',
-        url: 'https://www.youtube.com/watch?v=NPIS6i4dhnc',
-        message: 'Parasite',
-      })
-        .then((res) => {
-          console.log(res);
-        })
-        .then((err) => console.log(err));
-    };
+    // const onShare = () => {
+    //   Share.share({
+    //     title: 'Parasite',
+    //     url: 'https://www.youtube.com/watch?v=NPIS6i4dhnc',
+    //     message: 'Parasite',
+    //   })
+    //     .then((res) => {
+    //       console.log(res);
+    //     })
+    //     .then((err) => console.log(err));
+    // };
 
     return (
       <View
         style={{
           flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
           justifyContent: 'center',
-          borderRadius: 15,
+          borderRadius: 8,
           overflow: 'hidden',
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
@@ -183,8 +181,8 @@ export class Movies extends Component {
             elevation: 5,
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: 0.25,
-            shadowColor: "#000",
-            shadowRadius: 3.84
+            shadowColor: '#000',
+            shadowRadius: 3.84,
           }),
         }}>
         <TouchableOpacity
@@ -192,9 +190,7 @@ export class Movies extends Component {
           onPress={goToMovieDetails}>
           <View>
             <View style={{justifyContent: 'center'}}>
-              <TouchableOpacity
-                onPress={() => alert('heekk')}
-                style={{elevation: 1}}>
+              <TouchableOpacity style={{elevation: 1}}>
                 <View
                   style={{
                     position: 'absolute',
@@ -202,7 +198,7 @@ export class Movies extends Component {
                     right: 10,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    zIndex: 5000
+                    zIndex: 5000,
                   }}>
                   <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
                   <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
@@ -225,12 +221,12 @@ export class Movies extends Component {
               <Image
                 style={
                   viewStyle === VIEW_STYLE.FULL_VIEW
-                    ? {height: 450, width: window - 20, borderRadius: 15}
+                    ? {height: 450, width: window - 20, borderRadius: 8}
                     : {
                         height: 250,
                         width: window / 2 - 15,
-                        borderTopRightRadius: 15,
-                        borderTopLeftRadius: 15,
+                        borderTopRightRadius: 8,
+                        borderTopLeftRadius: 8,
                       }
                 }
                 source={data.image}
@@ -253,14 +249,13 @@ export class Movies extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{padding: 5}}>
+            <View style={{paddingTop: 5, paddingHorizontal: 5}}>
               <Text style={styles.textFont}>Parasite</Text>
               {viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <Text style={[styles.textSecondary, styles.italic]}>
                   Parasite(Original title)
                 </Text>
               )}
-              <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
             </View>
             <View
               style={{
@@ -268,11 +263,19 @@ export class Movies extends Component {
                 paddingHorizontal: 5,
                 paddingBottom: 5,
               }}>
-              <View style={{flex: 5}}>
-                <Text style={styles.textSecondary}>
-                  2016 - US - 17{' '}
-                  <AntDesign name="like1" color="#35B736" size={18} />
-                </Text>
+              <View style={{flex: 1}}>
+                <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={[styles.textSecondary]}>
+                    2016 - US - 17{' '}
+                    <AntDesign name="like1" color="#35B736" size={13} />
+                  </Text>
+                  <RatingComponent rating={9.2} />
+                </View>
                 {viewStyle === VIEW_STYLE.FULL_VIEW && (
                   <View style={{flexDirection: 'row'}}>
                     <View
@@ -293,7 +296,7 @@ export class Movies extends Component {
                   <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
                 </View>
               </View>
-              <View
+              {/* <View
                 style={{
                   flex: 1,
                   justifyContent: 'space-evenly',
@@ -330,7 +333,7 @@ export class Movies extends Component {
                     Best
                   </Text>
                 )}
-              </View>
+              </View> */}
             </View>
           </View>
         </TouchableOpacity>
@@ -664,19 +667,7 @@ export class Movies extends Component {
         </Modal>
         <SafeAreaView style={{flex: 1}}>
           <View style={{flex: 1, marginTop: 5}}>
-            <Animated.FlatList
-              onScroll={Animated.event(
-                [
-                  {
-                    nativeEvent: {
-                      contentOffset: {
-                        y: this.props.scrollContext,
-                      },
-                    },
-                  },
-                ],
-                {useNativeDriver: true}, // Add this line
-              )}
+            <FlatList
               key={viewStyle}
               bounces={false}
               contentContainerStyle={{
@@ -689,7 +680,9 @@ export class Movies extends Component {
                     flexDirection: 'row',
                   }}>
                   <View style={{flex: 3}}>
-                    <Text style={styles.resultText}>Top 1 of 91287 Movies</Text>
+                    <Text style={styles.resultText}>
+                      Ranking of best movies
+                    </Text>
                   </View>
                   <TouchableOpacity
                     style={{
@@ -742,8 +735,8 @@ export default connect(mapStateToProps, null)(EnhanchedComponent);
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
-    fontSize: 19,
+    fontFamily: 'VGA Rounded Next',
+    fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '700',
   },
@@ -764,10 +757,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
   },
   textSecondary: {
-    color: '#333333',
-    fontFamily: 'Helvetica Neue',
-    fontSize: 16,
-    fontStyle: 'italic',
+    color: '#000',
+    fontFamily: 'VGA Rounded Next',
+    fontSize: 14,
     fontWeight: '400',
   },
   italic: {
@@ -806,15 +798,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   resultText: {
-    color: '#333333',
-    fontFamily: 'LEMON MILK Pro FTR',
+    color: '#000',
+    fontFamily: 'VGA Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   sortbyButText: {
-    color: '#333333',
-    fontFamily: 'LEMON MILK Pro FTR',
+    color: '#000',
+    fontFamily: 'VGA Rounded Next',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: '400',

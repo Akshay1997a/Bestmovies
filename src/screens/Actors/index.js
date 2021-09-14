@@ -69,11 +69,7 @@ export class Actors extends Component {
     };
   }
   renderItemComponent = (data) => (
-    <TouchableNativeFeedback
-      onPress={() => {
-        const {navigate} = this.props.navigation;
-        navigate('Artist');
-      }}>
+    <TouchableNativeFeedback>
       <View
         style={{
           borderRadius: 12,
@@ -162,9 +158,7 @@ export class Actors extends Component {
             Platform.OS === 'android'
               ? () => <View style={{width: 20, height: 20}} />
               : ({highlighted}) => (
-                  <View
-                    style={[ highlighted && {marginLeft: 0}]}
-                  />
+                  <View style={[highlighted && {marginLeft: 0}]} />
                 )
           }
           data={DATA}
@@ -185,7 +179,7 @@ export default Actors;
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: "Arial",
+    fontFamily: 'Arial',
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '700',
@@ -208,7 +202,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '400',
@@ -218,14 +212,14 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#333333',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '500',
   },
   ratingTitleStyle: {
     color: '#000000',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
     fontWeight: '700',

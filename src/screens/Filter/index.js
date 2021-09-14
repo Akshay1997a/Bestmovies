@@ -22,13 +22,13 @@ import HeaderModal from '../../components/HeaderModal';
 import Switch from '../../components/Switch';
 import {SORT_BY_FILTER} from '../../redux/FilterModule/FilterTypes';
 // import {SafeAreaView} from 'react-native-safe-area-context'
-import {StatusBarContext} from "../../../App"
+import {StatusBarContext} from '../../../App';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 
 class Filter extends React.Component {
-  static contextType = StatusBarContext
+  static contextType = StatusBarContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -299,14 +299,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VGA Rounded Next',
     fontSize: 18,
     fontStyle: 'normal',
     fontWeight: '700',
   },
   textSecond: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VGA Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
     fontWeight: '400',

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: '#fff',
-    height: 60,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
