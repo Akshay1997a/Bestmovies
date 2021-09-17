@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -39,7 +39,9 @@ const styles = StyleSheet.create({
     fontFamily: 'VAG Rounded Next',
     fontSize: 22,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   closeBut: {
     position: 'absolute',

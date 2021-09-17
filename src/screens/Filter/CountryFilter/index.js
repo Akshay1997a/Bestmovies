@@ -155,6 +155,8 @@ const styles = StyleSheet.create({
     fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
 });

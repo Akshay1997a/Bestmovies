@@ -8,6 +8,7 @@ import {
   TouchableNativeFeedback,
   Share,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import HeaderModal from '../../components/HeaderModal';
@@ -143,14 +144,18 @@ const styles = StyleSheet.create({
     fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   PrimaryTileSubTitleStyle: {
     color: '#333333',
     fontFamily: 'VAG Rounded Next',
     fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   icStyle: {
     opacity: 0.2,
@@ -170,7 +175,9 @@ const styles = StyleSheet.create({
     fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   IconTileICStyle: {
     width: 40,
@@ -186,6 +193,8 @@ const styles = StyleSheet.create({
     fontFamily: 'VAG Rounded Next',
     fontSize: 20,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
 });

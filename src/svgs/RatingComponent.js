@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import Svg, {G, Ellipse, Defs, ClipPath} from 'react-native-svg';
 
 function EllipseComponent(props) {
@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     fontFamily: 'VGA Rounded Next',
     fontSize: 14,
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,16 +6,16 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import Header from '../../components/Header';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function Profile(props) {
   const [mode, setMode] = useState('LOGIN');
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         {/* <Header {...props} /> */}
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -25,10 +25,10 @@ export default function Profile(props) {
             <Text style={styles.headerTitleSecondary}>+ Watch lists</Text>
             <Text style={styles.headerTitleSecondary}>
               + Use as TV remote control
-          </Text>
+            </Text>
             <Text style={styles.headerTitleSecondary}>
               + See friends' ratings, etc.
-          </Text>
+            </Text>
           </View>
           <View style={[styles.col, styles.alignCenter]}>
             <View
@@ -42,7 +42,7 @@ export default function Profile(props) {
               <FontAwesome5Icon name="facebook-square" size={30} color="#fff" />
               <Text style={[styles.butText, styles.whiteText]}>
                 Enter with facebook
-            </Text>
+              </Text>
             </View>
             <View
               style={[
@@ -51,7 +51,7 @@ export default function Profile(props) {
                 styles.alignCenter,
                 styles.justifyContentCenter,
                 styles.wrap,
-                { backgroundColor: '#cccccc' },
+                {backgroundColor: '#cccccc'},
               ]}>
               <FontAwesome5Icon name="facebook-square" size={30} color="#fff" />
               <Text style={[styles.butText]}>Enter with Google</Text>
@@ -63,16 +63,16 @@ export default function Profile(props) {
                 styles.alignCenter,
                 styles.justifyContentCenter,
                 styles.wrap,
-                { backgroundColor: '#000' },
+                {backgroundColor: '#000'},
               ]}>
               <FontAwesome5Icon name="apple" size={30} color="#fff" />
               <Text style={[styles.butText, styles.whiteText]}>
                 Enter with Apple
-            </Text>
+              </Text>
             </View>
             <Text style={styles.TitleSecondary}>
               We do NOT post in your social media nor share your data.
-          </Text>
+            </Text>
             <Text style={styles.Title}>or...</Text>
           </View>
           <View>
@@ -94,19 +94,19 @@ export default function Profile(props) {
               <View style={styles.FormGroup}>
                 <Text style={[styles.Text, styles.bold, styles.MB10]}>
                   Email or phone
-              </Text>
+                </Text>
                 <TextInput style={styles.TextInput} placeholder="Email" />
               </View>
               <View style={styles.FormGroup}>
                 <Text style={[styles.Text, styles.bold, styles.MB10]}>
                   Password
-              </Text>
+                </Text>
                 <TextInput style={styles.TextInput} placeholder="Password" />
               </View>
               <View style={styles.FormGroup}>
                 <Text style={[styles.Text, styles.bold, styles.MB10]}>
                   Confirm Password
-              </Text>
+                </Text>
                 <TextInput
                   style={styles.TextInput}
                   placeholder="Confirm Password"
@@ -131,17 +131,21 @@ const styles = StyleSheet.create({
   },
   header: {
     color: '#000000',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 24,
     fontStyle: 'normal',
-    fontWeight: '500',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '500',
+    }),
   },
   headerTitleSecondary: {
     color: '#666666',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   artistImageContainer: {
     width: '100%',
@@ -151,7 +155,7 @@ const styles = StyleSheet.create({
   },
   HeadTitle: {
     color: '#000000',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 24,
     fontStyle: 'normal',
     fontWeight: '500',
@@ -182,39 +186,49 @@ const styles = StyleSheet.create({
   },
   artistName: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   artistDesc: {
     color: '#333333',
-    fontFamily: "Arial",
+    fontFamily: 'Arial',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   Title: {
     color: '#000000',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
     marginVertical: 10,
   },
   Text: {
     color: '#000000',
-    fontFamily: "Arial",
+    fontFamily: 'Arial',
     fontSize: 15,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   RankTitle: {
     color: '#000000',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 15,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   RankContainer: {
     width: 60,
@@ -228,17 +242,19 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
   },
-  alignCenter: { alignItems: 'center' },
-  justifyContentCenter: { justifyContent: 'center' },
+  alignCenter: {alignItems: 'center'},
+  justifyContentCenter: {justifyContent: 'center'},
   M10: {
     margin: 10,
   },
   TitleSecondary: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   rect: {
     backgroundColor: '#3867b8',
@@ -248,10 +264,12 @@ const styles = StyleSheet.create({
   },
   butText: {
     color: '#000',
-    fontFamily: "LEMON MILK Pro FTR",
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
     paddingHorizontal: 10,
   },
   wrap: {
@@ -261,10 +279,12 @@ const styles = StyleSheet.create({
   TextInput: {
     backgroundColor: '#fff',
     color: '#999999',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
     marginBottom: 10,
   },
   SignupView: {

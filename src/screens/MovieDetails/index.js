@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   InteractionManager,
   Animated,
+  Platform,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -327,10 +328,12 @@ class MovieDetails extends Component {
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
               <Text
                 style={{
-                  fontWeight: '700',
                   fontSize: 14.67,
                   fontFamily: 'VGA Rounded Next',
                   marginLeft: 17,
+                  ...(Platform.OS === 'ios' && {
+                    fontWeight: '700',
+                  }),
                 }}>
                 Best
               </Text>
@@ -778,7 +781,9 @@ const styles = StyleSheet.create({
     fontFamily: 'VAG Rounded Next',
     fontSize: 17,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   seprater: {
     backgroundColor: 'red',
@@ -800,7 +805,9 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'VAG Rounded Next',
     fontSize: 16,
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   italic: {
     fontStyle: 'italic',
@@ -835,21 +842,27 @@ const styles = StyleSheet.create({
     fontFamily: 'VGA Rouonded Next',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   resultText: {
     color: '#000',
     fontFamily: 'VGA Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   sortbyButText: {
     color: '#000',
     fontFamily: 'VGA Rounded Next',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   blurView: {
     position: 'absolute',
@@ -869,8 +882,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 22,
     fontStyle: 'normal',
-    fontWeight: '700',
     zIndex: 100,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   shadowView: {
     position: 'absolute',
@@ -899,7 +914,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'VAG Rounded Next',
     fontSize: 22,
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   images: {
     width: window - 20,
@@ -911,7 +928,9 @@ const styles = StyleSheet.create({
   textDesc: {
     fontFamily: 'VGA Rounded Next',
     fontSize: 16,
-    fontWeight: '400',
     color: '#000',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
 });

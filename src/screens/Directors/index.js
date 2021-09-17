@@ -12,6 +12,7 @@ import {
   Animated,
   Modal,
   TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import {
@@ -291,7 +292,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 19,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   seprater: {
     backgroundColor: 'red',
@@ -314,7 +317,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 16,
     fontStyle: 'italic',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   italic: {
     fontStyle: 'italic',
@@ -349,21 +354,27 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   resultText: {
     color: '#333333',
     fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   sortbyButText: {
     color: '#333333',
     fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   blurView: {
     position: 'absolute',
@@ -383,8 +394,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 22,
     fontStyle: 'normal',
-    fontWeight: '700',
     zIndex: 100,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   shadowView: {
     position: 'absolute',

@@ -7,7 +7,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import About from '../screens/About';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Header, {HEADER_HEIGHT, HEADER_TYPE} from '../components/Header';
-import {Animated, StyleSheet, Dimensions} from 'react-native';
+import {Animated, StyleSheet, Dimensions, Platform} from 'react-native';
 import {
   AnimationContext,
   useAnimationProvider,
@@ -45,10 +45,12 @@ export function TopBarMainNavigator(props) {
         activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
         labelStyle: {
-          fontWeight: '700',
           fontSize: 14,
           color: '#000',
           fontFamily: 'vag rounded next',
+          ...(Platform.OS === 'ios' && {
+            fontWeight: '700',
+          }),
         },
         tabStyle: {padding: 0},
       }}>
@@ -83,10 +85,12 @@ export function TopBarSearchNavigator(props) {
         activeTintColor: '#ff000',
         inactiveTintColor: 'black',
         labelStyle: {
-          fontWeight: '700',
           fontSize: 14,
           color: '#000',
           fontFamily: 'VGA Rounded Next',
+          ...(Platform.OS === 'ios' && {
+            fontWeight: '700',
+          }),
         },
         tabStyle: {padding: 0},
       }}>
@@ -111,10 +115,12 @@ export function TopBarSecondaryNavigator(props) {
         activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
         labelStyle: {
-          fontWeight: '700',
           fontSize: 14,
           color: '#000',
           fontFamily: 'VGA Rounded Next',
+          ...(Platform.OS === 'ios' && {
+            fontWeight: '700',
+          }),
         },
         tabStyle: {padding: 0},
       }}>

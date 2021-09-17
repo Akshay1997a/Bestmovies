@@ -201,7 +201,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontFamily: 'VAG Rounded Next',
     fontSize: 16,
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   butContainer: {
     // flex: 1,
@@ -231,6 +233,8 @@ const styles = StyleSheet.create({
     fontFamily: 'VAG Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
 });

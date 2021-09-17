@@ -6,10 +6,11 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import CardView from '../Movies/CardView';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function ArtistPage(props) {
   const goBack = () => {
@@ -138,10 +139,12 @@ const styles = StyleSheet.create({
   HeadTitle: {
     position: 'absolute',
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   backBut: {
     position: 'absolute',
@@ -164,39 +167,49 @@ const styles = StyleSheet.create({
   },
   artistName: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   artistDesc: {
     color: '#333333',
-    fontFamily: "Arial",
+    fontFamily: 'Arial',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   Title: {
     color: '#000000',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '700',
     marginVertical: 10,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   Text: {
     color: '#000000',
-    fontFamily: "Arial",
+    fontFamily: 'Arial',
     fontSize: 15,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   RankTitle: {
     color: '#000000',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 15,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   RankContainer: {
     width: 60,
@@ -217,9 +230,11 @@ const styles = StyleSheet.create({
   },
   TitleSecondary: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
 });

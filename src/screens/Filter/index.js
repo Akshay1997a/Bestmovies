@@ -302,14 +302,18 @@ const styles = StyleSheet.create({
     fontFamily: 'VGA Rounded Next',
     fontSize: 18,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   textSecond: {
     color: '#333333',
     fontFamily: 'VGA Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   switchEnableBorder: {
     borderColor: '#6fa6d3',

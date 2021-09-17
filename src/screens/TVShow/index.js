@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   FlatList,
   Modal,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/Feather';
@@ -205,7 +206,7 @@ export class TvShow extends Component {
   );
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: "#fff"}}>
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
         <View style={{flex: 1}}>
           <Modal visible={this.state.modalVisible} transparent={true}>
             <View
@@ -253,9 +254,7 @@ export class TvShow extends Component {
                   flexDirection: 'row',
                 }}>
                 <View style={{flex: 3}}>
-                  <Text style={styles.resultText}>
-                    Top 1 of 91287 Movies
-                  </Text>
+                  <Text style={styles.resultText}>Top 1 of 91287 Movies</Text>
                 </View>
                 <TouchableOpacity
                   style={{alignItems: 'flex-end', flexDirection: 'row'}}
@@ -431,10 +430,12 @@ export default TvShow;
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 19,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   seprater: {
     backgroundColor: 'red',
@@ -454,10 +455,12 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 16,
     fontStyle: 'italic',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   italic: {
     fontStyle: 'italic',
@@ -489,16 +492,20 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   resultText: {
-    color: "#333333",
-    fontFamily: "LEMON MILK Pro FTR",
+    color: '#333333',
+    fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 15,
-    fontStyle: "normal",
-    fontWeight: "500"
-  }
+    fontStyle: 'normal',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '500',
+    }),
+  },
 });

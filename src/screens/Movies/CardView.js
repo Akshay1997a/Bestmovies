@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 // import {SafeAreaView} from 'react-native-safe-area-context'
@@ -128,7 +128,7 @@ export class CardView extends Component {
           ItemSeparatorComponent={
             Platform.OS !== 'android' &&
             (({highlighted}) => (
-              <View style={[ highlighted && {marginLeft: 0}]} />
+              <View style={[highlighted && {marginLeft: 0}]} />
             ))
           }
           data={DATA}
@@ -154,17 +154,21 @@ const styles = StyleSheet.create({
   },
   textFont: {
     color: '#333333',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 13,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   textSecondary: {
     color: '#000000',
-    fontFamily: "Helvetica Neue",
+    fontFamily: 'Helvetica Neue',
     fontSize: 13,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   textFontOther: {
     fontSize: 12,

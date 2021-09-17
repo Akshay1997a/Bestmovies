@@ -13,6 +13,7 @@ import {
   Modal,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -738,7 +739,9 @@ const styles = StyleSheet.create({
     fontFamily: 'VGA Rounded Next',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   seprater: {
     backgroundColor: 'red',
@@ -760,7 +763,9 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'VGA Rounded Next',
     fontSize: 14,
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   italic: {
     fontStyle: 'italic',
@@ -795,21 +800,27 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   resultText: {
     color: '#000',
     fontFamily: 'VGA Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   sortbyButText: {
     color: '#000',
     fontFamily: 'VGA Rounded Next',
     fontSize: 14,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   blurView: {
     position: 'absolute',
@@ -829,7 +840,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 22,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
     zIndex: 100,
   },
   shadowView: {

@@ -9,6 +9,7 @@ import {
   Image,
   StyleSheet,
   TouchableNativeFeedback,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -205,7 +206,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica Neue',
     fontSize: 15,
     fontStyle: 'normal',
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
   italic: {
     fontStyle: 'italic',
@@ -215,13 +218,17 @@ const styles = StyleSheet.create({
     fontFamily: 'LEMON MILK Pro FTR',
     fontSize: 15,
     fontStyle: 'normal',
-    fontWeight: '500',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '500',
+    }),
   },
   ratingTitleStyle: {
     color: '#000000',
     fontFamily: 'Helvetica Neue',
     fontSize: 12,
     fontStyle: 'normal',
-    fontWeight: '700',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
 });
