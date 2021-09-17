@@ -1,27 +1,28 @@
-import React, {useRef, useState, useEffect,useCallback} from 'react';
+import React, {useRef, useState, useEffect, useCallback} from 'react';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
-    View,
-    Pressable,
-    Image,
-    Text,
-    ScrollView,
-    ImageBackground,
-    StyleSheet,
-    FlatList,
-    Dimensions,
-    TouchableOpacity,
-    Platform
- } from 'react-native'
-import TVPosterCard from '../../components/TV/TVPosterCard'
-import TVCardDetail from '../../components/TV/TVCardDetail'
-import TVCast from '../../components/TV/TVCast'
+  View,
+  Pressable,
+  Image,
+  Text,
+  ScrollView,
+  ImageBackground,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
+import TVPosterCard from '../../components/TV/TVPosterCard';
+import TVCardDetail from '../../components/TV/TVCardDetail';
+import TVCast from '../../components/TV/TVCast';
 import primary_regular_font from '../../helper/fonts';
- import colors from '../../helper/colors';
+import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import strings from '../../helper/strings';
-import AppImages from '../../assets'
+import AppImages from '../../assets';
+import {useTranslation} from 'react-i18next';
 
 // import {
 //   View,
@@ -65,19 +66,21 @@ const ENTRIES1 = [
     illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
   },
 ];
-const {width: screenWidth,height} = Dimensions.get('window');
+const {width: screenWidth, height} = Dimensions.get('window');
 
-const MyCarousel = ({item,posts, ...props})=>{
+const MyCarousel = ({item, posts, ...props}) => {
   // console.log('props',props);
 
+  const {t} = useTranslation();
+
   const [focus, setFocus] = useState(0);
-    const onFocus = useCallback(() => {
-      setFocus(0);
-    }, [0]);
-    
-    const onBlur = useCallback(() => {
-      setFocus(-1);
-    }, []);
+  const onFocus = useCallback(() => {
+    setFocus(0);
+  }, [0]);
+
+  const onBlur = useCallback(() => {
+    setFocus(-1);
+  }, []);
 
   // const {item } = props.route.params;
 
@@ -98,12 +101,7 @@ const MyCarousel = ({item,posts, ...props})=>{
         <ImageBackground
           source={{uri: item.illustration}}
           containerStyle={styles.imageContainer}
-          style={styles.image}
-         
-
-        >
-         
-          </ImageBackground>
+          style={styles.image}></ImageBackground>
         {/* <Text style={styles.title} numberOfLines={2}>
           {item.title}
         </Text> */}
@@ -117,12 +115,7 @@ const MyCarousel = ({item,posts, ...props})=>{
         <Image
           source={{uri: item.illustration}}
           // containerStyle={styles.imageContainer}
-          style={styles.bottomImage}
-         
-
-        >
-         
-          </Image>
+          style={styles.bottomImage}></Image>
         {/* <Text style={styles.title} numberOfLines={2}>
           {item.title}
         </Text> */}
@@ -133,119 +126,132 @@ const MyCarousel = ({item,posts, ...props})=>{
 
   return (
     <View style={styles.container}>
-       <ScrollView>
+      <ScrollView>
+        <TouchableOpacity onPress={goForward}>
+          {/* <Text>go to next slide</Text> */}
+        </TouchableOpacity>
 
-      <TouchableOpacity onPress={goForward}>
-        {/* <Text>go to next slide</Text> */}
-      </TouchableOpacity>
-
-      <Carousel
-      loop={true}
-      autoplayDelay={4000}
-      autoplay={true}
-        ref={carouselRef}
-        sliderWidth={screenWidth}
-        sliderHeight={screenWidth}
-        itemWidth={screenWidth}
-        data={entries}
-        renderItem={renderItem}
-        // hasParallaxImages={true}
-      />
-      <View style={[styles.item, {position: 'absolute',zIndex:1}]}>
-     
-
-      <Pressable 
-                  onFocus={onFocus}
-                  onBlur={onBlur}
-                  hasTVPreferredFocus={true}
-                  autoFocus={true} 
-                  style = {({pressed, focused}) => 
-                  ({
-                    backgroundColor: focused? 'rgba(255,255,255,0.5)': pressed ? 'red' : 'transparent',
-                    overflow:'hidden'
-                  })
-                }
-                  onPress={()=>props.navigation.goBack()}>
-                    <Image style={{ width: StyleConfig.resWidth(60),
-                            height: StyleConfig.resHeight(60),}} source={AppImages.arrow_left} />
-                    {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
-                </Pressable>
-                <View style={[styles.item, {position: 'absolute',top: isAndroid() ? 160: 450}]}>
-            <TVPosterCard item={item} {...props} />
-        </View>
-      </View>
-     
-      
         <Carousel
-       
-      loop={true}
-      autoplayDelay={4000}
-      autoplay={true}
-        ref={carouselRef}
-        sliderWidth={screenWidth}
-        // sliderHeight={100}
-        itemWidth={ isAndroid() ? 200 :400}
-        itemHeight={100}
-        data={entries}
-        renderItem={bottomRenderItem}
-        hasParallaxImages={true}
-      />
-        <View style={{flexDirection: 'row', }}>
-                <View style={{ marginTop: isAndroid() ? 6 :16 }}>
-                  <Text style={styles.director}>Director:</Text>
-                  <View style={{flexDirection: 'row'}}>
-                    <TVCast item={item} {...props} image = {item.director_image} />
-                  </View>
-                </View>
-                <View style={{ marginTop: isAndroid() ? 6 : 16 ,marginLeft:isAndroid() ? 10 :30}}>
-                  <Text style={styles.cast}>Cast:</Text>
-                  <View style={{flexDirection: 'row'}}>
+          loop={true}
+          autoplayDelay={4000}
+          autoplay={true}
+          ref={carouselRef}
+          sliderWidth={screenWidth}
+          sliderHeight={screenWidth}
+          itemWidth={screenWidth}
+          data={entries}
+          renderItem={renderItem}
+          // hasParallaxImages={true}
+        />
+        <View style={[styles.item, {position: 'absolute', zIndex: 1}]}>
+          <Pressable
+            onFocus={onFocus}
+            onBlur={onBlur}
+            hasTVPreferredFocus={true}
+            autoFocus={true}
+            style={({pressed, focused}) => ({
+              backgroundColor: focused
+                ? 'rgba(255,255,255,0.5)'
+                : pressed
+                ? 'red'
+                : 'transparent',
+              overflow: 'hidden',
+            })}
+            onPress={() => props.navigation.goBack()}>
+            <Image
+              style={{
+                width: StyleConfig.resWidth(60),
+                height: StyleConfig.resHeight(60),
+              }}
+              source={AppImages.arrow_left}
+            />
+            {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
+          </Pressable>
+          <View
+            style={[
+              styles.item,
+              {position: 'absolute', top: isAndroid() ? 160 : 450},
+            ]}>
+            <TVPosterCard item={item} {...props} />
+          </View>
+        </View>
 
-                  {item.actors_image.map((obj, ind)=>(
-                    <TVCast item={item} {...props}  image = {obj} />
+        <Carousel
+          loop={true}
+          autoplayDelay={4000}
+          autoplay={true}
+          ref={carouselRef}
+          sliderWidth={screenWidth}
+          // sliderHeight={100}
+          itemWidth={isAndroid() ? 200 : 400}
+          itemHeight={100}
+          data={entries}
+          renderItem={bottomRenderItem}
+          hasParallaxImages={true}
+        />
+        <View style={{flexDirection: 'row'}}>
+          <View style={{marginTop: isAndroid() ? 6 : 16}}>
+            <Text style={styles.director}>{t('professions.code_df')}:</Text>
+            <View style={{flexDirection: 'row'}}>
+              <TVCast item={item} {...props} image={item.director_image} />
+            </View>
+          </View>
+          <View
+            style={{
+              marginTop: isAndroid() ? 6 : 16,
+              marginLeft: isAndroid() ? 10 : 30,
+            }}>
+            <Text style={styles.cast}>{t('texts.id_14')}:</Text>
+            <View style={{flexDirection: 'row'}}>
+              {item.actors_image.map((obj, ind) => (
+                <TVCast item={item} {...props} image={obj} />
+              ))}
+            </View>
+          </View>
+        </View>
 
-                     ))}
-                  </View>
-                </View>
-              </View>
+        <View style={{flexDirection: 'row', marginTop: isAndroid() ? 10 : 80}}>
+          <View style={{marginTop: isAndroid() ? 0 : 30}}>
+            <Text style={styles.similar_titles}>{t('texts.id_230')}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <FlatList
+                hasTVPreferredFocus={true}
+                contentContainerStyle={{paddingBottom: 50}}
+                keyExtractor={(item, index) => `item${index}`}
+                numColumns={5}
+                data={posts}
+                renderItem={({item}) => (
+                  <TVCardDetail item={item} {...props} type="movie" />
+                )}
+              />
+            </View>
+          </View>
+        </View>
 
-              <View style={{flexDirection: 'row',marginTop: isAndroid() ? 10: 80}}>
-                <View style={{  marginTop: isAndroid() ? 0: 30 }}>
-                  <Text style={styles.similar_titles}>{strings.similar_titles}</Text>
-                  <View style={{flexDirection: 'row'}}>
-                  <FlatList
-                   hasTVPreferredFocus={true}
-                   contentContainerStyle={{paddingBottom:50}}
-                   keyExtractor={(item, index) => `item${index}`}
-                  numColumns={5}
-                  data={posts}
-                  renderItem = {({item}) => (
-                    <TVCardDetail item={item} {...props}  type = "movie"  />
-                  )}
-                  />
-                  </View>
-                </View>
-              </View>
-
-              <Pressable 
-                  onFocus={onFocus}
-                  onBlur={onBlur}
-                  hasTVPreferredFocus={true}
-                  autoFocus={true} 
-                  style = {({pressed, focused}) => 
-                  ({
-                    backgroundColor: focused? 'rgba(255,255,255,0.5)': pressed ? 'red' : 'transparent',
-                    overflow:'hidden'
-                  })
-                }
-                  onPress={()=>props.navigation.goBack()}>
-                    <Image style={{ width: StyleConfig.resWidth(60),
-                            height: StyleConfig.resHeight(60),}} source={AppImages.arrow_left} />
-                    {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
-                </Pressable>
-
-       </ScrollView>
-
+        <Pressable
+          onFocus={onFocus}
+          onBlur={onBlur}
+          hasTVPreferredFocus={true}
+          autoFocus={true}
+          style={({pressed, focused}) => ({
+            backgroundColor: focused
+              ? 'rgba(255,255,255,0.5)'
+              : pressed
+              ? 'red'
+              : 'transparent',
+            overflow: 'hidden',
+          })}
+          onPress={() => props.navigation.goBack()}>
+          <Image
+            style={{
+              width: StyleConfig.resWidth(60),
+              height: StyleConfig.resHeight(60),
+            }}
+            source={AppImages.arrow_left}
+          />
+          {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
+        </Pressable>
+      </ScrollView>
     </View>
   );
 };
@@ -253,47 +259,46 @@ const MyCarousel = ({item,posts, ...props})=>{
 export default MyCarousel;
 
 const isAndroid = () => {
-	return Platform.OS == "android";
+  return Platform.OS == 'android';
 };
 
 const styles = StyleSheet.create({
-  similar_titles:
-  {
-    fontFamily:primary_regular_font.primary_regular_font,
+  similar_titles: {
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: isAndroid() ? 17 : 37.33,
-     marginLeft:12,
-      fontWeight:'700',
-       color:colors.black
-},
-  director:{
-    fontFamily:primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 17 : 37,
-     marginLeft:12, 
-     fontWeight:'700',
-      color:colors.black, 
-    },
-  cast:{
-    fontFamily:primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 17 : 37,
-    marginLeft:12,
-    fontWeight:'700',
-    color:colors.black,
+    marginLeft: 12,
+    fontWeight: '700',
+    color: colors.black,
   },
-  title:{
-    fontSize:40
+  director: {
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 17 : 37,
+    marginLeft: 12,
+    fontWeight: '700',
+    color: colors.black,
+  },
+  cast: {
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 17 : 37,
+    marginLeft: 12,
+    fontWeight: '700',
+    color: colors.black,
+  },
+  title: {
+    fontSize: 40,
   },
   container: {
     flex: 1,
-    zIndex:1
+    zIndex: 1,
   },
   item: {
     width: screenWidth,
-    height: isAndroid() ?   screenWidth-500 :1000,
+    height: isAndroid() ? screenWidth - 500 : 1000,
   },
   secondItem: {
     // marginTop:40,
-    width: isAndroid() ?  300 : 400,
-    height: isAndroid() ? 200 :400,
+    width: isAndroid() ? 300 : 400,
+    height: isAndroid() ? 200 : 400,
   },
   imageContainer: {
     flex: 1,
@@ -307,9 +312,7 @@ const styles = StyleSheet.create({
   },
   bottomImage: {
     resizeMode: 'cover',
-    width: isAndroid() ?  200 : 400,
+    width: isAndroid() ? 200 : 400,
     height: 400,
-    
   },
 });
-

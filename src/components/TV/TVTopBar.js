@@ -1,14 +1,20 @@
-import React, { useState, useCallback, forwardRef, useImperativeHandle,useEffect } from 'react';
+import React, {
+  useState,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from 'react';
 import {
-    View,
-    Pressable,
-    StyleSheet,
-    Text,
-    Image,
-    ScrollView,
-    Platform
-} from 'react-native'
-import { FlatList } from 'react-native-gesture-handler';
+  View,
+  Pressable,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+  Platform,
+} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 import TVToggle from '../TV/TVToggle';
 
 import colors from '../../helper/colors';
@@ -17,322 +23,340 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import primary_regular_font from '../../helper/fonts';
+import transConstants from '../../helper/transConstants';
+import {useTranslation} from 'react-i18next';
 
-const ICON_SIZE = 24
-let [NONE, SORT_BY, LIKEDBY,STRREAMING ,RELEASE, GENRE, COUNTRY, AGES, PRICE,INCLUDES,PROVIDERS] = 
-[-1, 0, 1, 2, 3, 4, 5, 6, 7,8,9];
+const ICON_SIZE = 24;
+let [
+  NONE,
+  SORT_BY,
+  LIKEDBY,
+  STRREAMING,
+  RELEASE,
+  GENRE,
+  COUNTRY,
+  AGES,
+  PRICE,
+  INCLUDES,
+  PROVIDERS,
+] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let [SEARCH, MY_LIST, MOVIES, TV_SHOW, SHORTS, DIRECTOR, ACTOR, PROFILE, MENU] =
-    [0, 1, 2, 3, 4, 5, 6, 7, 8]
-let [ABOUT_US, ADVERTISE, COLLABORATE, JOBS, TERMS_OF_USE, PRIVACY_POLICY] = [11, 12, 13, 14, 15, 16]
-let [NOTIFICATION, FRIENDS, PREFERANCE, MY_PROVIDER, ACCOUNT, LANGUAGE] = [21, 22, 23, 24, 25, 26]
-
+  [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let [ABOUT_US, ADVERTISE, COLLABORATE, JOBS, TERMS_OF_USE, PRIVACY_POLICY] = [
+  11, 12, 13, 14, 15, 16,
+];
+let [NOTIFICATION, FRIENDS, PREFERANCE, MY_PROVIDER, ACCOUNT, LANGUAGE] = [
+  21, 22, 23, 24, 25, 26,
+];
 
 const PROFILE_DATA = [
-    {
-        key: NOTIFICATION,
-        title: strings.notification
-    },
-    {
-        key: FRIENDS,
-        title: strings.friends
-    },
-    {
-        key: PREFERANCE,
-        title: strings.preferences
-    },
-    {
-        key: MY_PROVIDER,
-        title: strings.my_provider
-    },
-    {
-        key: ACCOUNT,
-        title: strings.account
-    },
-    {
-        key: LANGUAGE,
-        title: strings.language
-    }
-]
-
+  {
+    key: NOTIFICATION,
+    title: strings.notification,
+  },
+  {
+    key: FRIENDS,
+    title: strings.friends,
+  },
+  {
+    key: PREFERANCE,
+    title: strings.preferences,
+  },
+  {
+    key: MY_PROVIDER,
+    title: strings.my_provider,
+  },
+  {
+    key: ACCOUNT,
+    title: strings.account,
+  },
+  {
+    key: LANGUAGE,
+    title: strings.language,
+  },
+];
 
 const MENU_DATA = [
-    
-    {
-        key: ADVERTISE,
-        title: strings.advertise
-    },
-    {
-        key: COLLABORATE,
-        title: strings.collaborate
-    },
-    {
-        key: JOBS,
-        title: strings.jobs
-    },
-    {
-        key: TERMS_OF_USE,
-        title: strings.terms_of_use
-    },
-    {
-        key: PRIVACY_POLICY,
-        title: strings.privacy_policy
-    }
-]
+  {
+    key: ADVERTISE,
+    title: strings.advertise,
+  },
+  {
+    key: COLLABORATE,
+    title: strings.collaborate,
+  },
+  {
+    key: JOBS,
+    title: strings.jobs,
+  },
+  {
+    key: TERMS_OF_USE,
+    title: strings.terms_of_use,
+  },
+  {
+    key: PRIVACY_POLICY,
+    title: strings.privacy_policy,
+  },
+];
 
 const DATA = [
-    {
-        "key": SORT_BY,
-        "title": strings.sort_by,
-        "details": strings.rating
-    },
-    {
-        "key": LIKEDBY,
-        "title": strings.liked_by,
-        "details": "--"
-    },
-    {
-        "key": STRREAMING,
-        "title": strings.streaming_service,
-        // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
-        "details" :"6, Free, Rent/Buy,..."
-    },
-    {
-        "key": RELEASE,
-        "title": strings.release,
-        "details": "Last 2 years"
-    },
-    {
-        "key": GENRE,
-        "title": strings.genre,
-        "details": "Comedy,Romantic"
-    },
-    {
-        "key": COUNTRY,
-        "title": strings.country,
-        "details": "Any"
-    },
-    {
-        "key": AGES,
-        "title": strings.ages,
-        "details": "15+"
-    },
+  {
+    key: SORT_BY,
+    title: 'texts.id_99',
+    details: 'texts.id_101',
+  },
+  {
+    key: LIKEDBY,
+    title: 'texts.id_160',
+    details: '--',
+  },
+  {
+    key: STRREAMING,
+    title: 'texts.id_144',
+    // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
+    details: '6, Free, Rent/Buy,...',
+  },
+  {
+    key: RELEASE,
+    title: 'texts.id_114',
+    details: 'texts.id_122',
+  },
+  {
+    key: GENRE,
+    title: 'texts.id_127',
+    details: 'Comedy,Romantic',
+    // transConstants.genres_comedy_romance,
+    // 'code_co,Romantic',
+  },
+  {
+    key: COUNTRY,
+    title: 'texts.id_137',
+    details: 'texts.id_172',
+  },
+  {
+    key: AGES,
+    title: 'texts.id_141',
+    details: '15+',
+  },
 
-   
-    {
-        "key": PRICE,
-        "title": strings.price,
-        "details": "Any"
-    },
-    {
-        "key": 'Arrow',
-        "title": strings.price,
-        "details": "Any"
-    },
-    // {
-    //     "key": INCLUDES,
-    //     "title": strings.include,
-    //     "details": " Watched browsed"
-    // },
-    // {
-    //     "key": PROVIDERS,
-    //     "title": 'Clear filters',
-    //     "details": ""
-    // },
-    // {
-    //     "key": THEATERS,
-    //     "title": strings.theaters,
-    // },{
-    //     "key": THREERENT,
-    //     "title": strings.three_rent,
-    // },{
-    //     "key": ALLFREE,
-    //     "title": strings.all_free,
-    // },
-]
+  {
+    key: PRICE,
+    title: 'texts.id_158',
+    details: 'texts.id_172',
+  },
+  {
+    key: 'Arrow',
+    title: 'texts.id_158',
+    details: 'texts.id_172',
+  },
+  // {
+  //     "key": INCLUDES,
+  //     "title": strings.include,
+  //     "details": " Watched browsed"
+  // },
+  // {
+  //     "key": PROVIDERS,
+  //     "title": 'Clear filters',
+  //     "details": ""
+  // },
+  // {
+  //     "key": THEATERS,
+  //     "title": strings.theaters,
+  // },{
+  //     "key": THREERENT,
+  //     "title": strings.three_rent,
+  // },{
+  //     "key": ALLFREE,
+  //     "title": strings.all_free,
+  // },
+];
 
 const BACK_DATA = [
-    // {
-    //     "key": SORT_BY,
-    //     "title": strings.sort_by,
-    //     "details": strings.rating
-    // },
-    // {
-    //     "key": LIKEDBY,
-    //     "title": strings.liked_by,
-    //     "details": "--"
-    // },
-    // {
-    //     "key": STRREAMING,
-    //     "title": strings.streaming_service,
-    //     // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
-    //     "details" :"6, Free, Rent/Buy,..."
-    // },
-    {
-        "key": 'BackArrow',
-        "title": strings.price,
-        "details": "Any"
-    },
-    {
-        "key": RELEASE,
-        "title": strings.release,
-        "details": "Last 2 years"
-    },
-    {
-        "key": GENRE,
-        "title": strings.genre,
-        "details": "Comedy,Romantic"
-    },
-    {
-        "key": COUNTRY,
-        "title": strings.country,
-        "details": "Any"
-    },
-    {
-        "key": AGES,
-        "title": strings.ages,
-        "details": "15+,Romantic"
-    },
+  // {
+  //     "key": SORT_BY,
+  //     "title": strings.sort_by,
+  //     "details": strings.rating
+  // },
+  // {
+  //     "key": LIKEDBY,
+  //     "title": strings.liked_by,
+  //     "details": "--"
+  // },
+  // {
+  //     "key": STRREAMING,
+  //     "title": strings.streaming_service,
+  //     // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
+  //     "details" :"6, Free, Rent/Buy,..."
+  // },
+  {
+    key: 'BackArrow',
+    title: strings.price,
+    details: 'Any',
+  },
+  {
+    key: RELEASE,
+    title: strings.release,
+    details: 'Last 2 years',
+  },
+  {
+    key: GENRE,
+    title: strings.genre,
+    details: 'Comedy,Romantic',
+  },
+  {
+    key: COUNTRY,
+    title: strings.country,
+    details: 'Any',
+  },
+  {
+    key: AGES,
+    title: strings.ages,
+    details: '15+,Romantic',
+  },
 
-   
-    {
-        "key": PRICE,
-        "title": strings.price,
-        "details": "Any"
-    },
-   
-    {
-        "key": INCLUDES,
-        "title": strings.include,
-        "details": " Include browsed"
-    },
-    {
-        "key": PROVIDERS,
-        "title": ' Clear filters',
-        "details": "  "
-    },
-    // {
-    //     "key": THEATERS,
-    //     "title": strings.theaters,
-    // },{
-    //     "key": THREERENT,
-    //     "title": strings.three_rent,
-    // },{
-    //     "key": ALLFREE,
-    //     "title": strings.all_free,
-    // },
-]
-const TVSideBar = forwardRef(({ onChangeSelected, ...props }, ref) => {
+  {
+    key: PRICE,
+    title: strings.price,
+    details: 'Any',
+  },
 
-// console.log('props',props);
+  {
+    key: INCLUDES,
+    title: strings.include,
+    details: ' Include browsed',
+  },
+  {
+    key: PROVIDERS,
+    title: ' Clear filters',
+    details: '  ',
+  },
+  // {
+  //     "key": THEATERS,
+  //     "title": strings.theaters,
+  // },{
+  //     "key": THREERENT,
+  //     "title": strings.three_rent,
+  // },{
+  //     "key": ALLFREE,
+  //     "title": strings.all_free,
+  // },
+];
+const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
+  // console.log('props',props);
 
+  const {t} = useTranslation();
 
-const BackArrow = forwardRef(({ item }, ref) => {
+  const BackArrow = forwardRef(({item}, ref) => {
     // console.log('keu',item);
     return (
-            <View>
-                {
-            item.key == INCLUDES
-            ?
-           null
-            :
-            <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-            <Icon name={"chevron-left"} size={40} color={"gray"} style={[{ }]} />
-                                     </View> 
-                }
-            </View>
-       
+      <View>
+        {item.key == INCLUDES ? null : (
+          <View
+            style={
+              focus == item.key
+                ? styles.itemWrapperSelected
+                : styles.itemWrapper
+            }>
+            <Icon name={'chevron-left'} size={40} color={'gray'} style={[{}]} />
+          </View>
+        )}
+      </View>
     );
-});
+  });
 
-    const [focus, setFocus] = useState(props.focus === 20 ? NONE : 1);
-    const [isScroll, setIsScroll] = useState(false);
-    if(props.focus === 20){
-        // console.log('OnFocus TVTopBar***',props);
+  const [focus, setFocus] = useState(props.focus === 20 ? NONE : 1);
+  const [isScroll, setIsScroll] = useState(false);
+  if (props.focus === 20) {
+    // console.log('OnFocus TVTopBar***',props);
+    // setFocus(NONE);
+  }
 
-        // setFocus(NONE);
-    }
+  const onFocus = useCallback((val) => {
+    // props.reduxSetCurrFocus(val)
+    props.reduxSetCurrFocus('top');
 
-    const onFocus = useCallback((val) => {
-        // props.reduxSetCurrFocus(val)
-      props.reduxSetCurrFocus('top')
+    // console.log('onFocus TVSideBar***');
 
-  
-        // console.log('onFocus TVSideBar***');
+    setFocus(val);
+  });
 
-        setFocus(val);
-    });
+  const getData = async () => {
+    try {
+      // const value = await AsyncStorage.getItem('@storage_Key')
 
-    const getData = async () => {
-        try {
-            // const value = await AsyncStorage.getItem('@storage_Key')
-
-          if(value !== null) {
-            // value previously stored
-          }
-        } catch(e) {
-          // error reading value
-        }
+      if (value !== null) {
+        // value previously stored
       }
-      
-    const onPressClick = ((val) => {
-        if(val === 'Arrow'){
-        setIsScroll(true);
-        }else{
-            setIsScroll(false);
-            onChangeSelected(val);
-
-        }
-        // console.log('onPressClick TVSideBar***',val);
-    });
-
-    const onBlur = useCallback(() => {
-        // console.log('onBlur TVSideBar***');
-        setFocus(-1);
-      }, []);
-
-    useImperativeHandle(ref,() => ({
-            setResetFocus() {
-                setFocus(NONE);
-            },
-            setChangeFocus(val) {
-                setFocus(val);
-            }
-        }),
-        // console.log(isScroll)
-    )
-    useEffect(() => {
-        // console.log('focus');
-      }, [])
-    const callgetData =  () => {
-        // console.log('hi');
-        // setFocus(NONE);
-
-
+    } catch (e) {
+      // error reading value
     }
-    // console.log(props.headerSelected, MENU_DATA)
-    return (
-        <>
-            {props.headerSelected == PROFILE ? <View style={styles.container}>
-                {PROFILE_DATA.map((item, index) => {
-                    return (
-                        <Pressable
-                            key={item.key}
-                            onFocus={() => onFocus(item.key)}
-                            onBlur={onBlur}
+  };
 
+  const onPressClick = (val) => {
+    if (val === 'Arrow') {
+      setIsScroll(true);
+    } else {
+      setIsScroll(false);
+      onChangeSelected(val);
+    }
+    // console.log('onPressClick TVSideBar***',val);
+  };
 
-                            onPress={() => onChangeSelected(item.key)}                                                          
-                            tvParallaxProperties={{ magnification: 1.1 }}
-                            style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                            <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
-                        </Pressable>
-                    )
-                })}
+  const onBlur = useCallback(() => {
+    // console.log('onBlur TVSideBar***');
+    setFocus(-1);
+  }, []);
 
-            </View> :
-            
-            props.headerSelected == MENU ? <View style={styles.container}>
-                {/* {MENU_DATA.map((item, index) => {
+  useImperativeHandle(
+    ref,
+    () => ({
+      setResetFocus() {
+        setFocus(NONE);
+      },
+      setChangeFocus(val) {
+        setFocus(val);
+      },
+    }),
+    // console.log(isScroll)
+  );
+  useEffect(() => {
+    // console.log('focus');
+  }, []);
+  const callgetData = () => {
+    // console.log('hi');
+    // setFocus(NONE);
+  };
+  // console.log(props.headerSelected, MENU_DATA)
+  return (
+    <>
+      {props.headerSelected == PROFILE ? (
+        <View style={styles.container}>
+          {PROFILE_DATA.map((item, index) => {
+            return (
+              <Pressable
+                key={item.key}
+                onFocus={() => onFocus(item.key)}
+                onBlur={onBlur}
+                onPress={() => onChangeSelected(item.key)}
+                tvParallaxProperties={{magnification: 1.1}}
+                style={
+                  focus == item.key
+                    ? styles.itemWrapperSelected
+                    : styles.itemWrapper
+                }>
+                <Text
+                  style={
+                    focus == item.key ? styles.focusTextTitle : styles.text
+                  }>
+                  {item.title}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      ) : props.headerSelected == MENU ? (
+        <View style={styles.container}>
+          {/* {MENU_DATA.map((item, index) => {
                     return (
                         <Pressable
                             key={item.key}
@@ -346,244 +370,221 @@ const BackArrow = forwardRef(({ item }, ref) => {
                         </Pressable>
                     )
                 })} */}
-
-            </View> :
-
-                    <ScrollView
-                    onBlur={onBlur}
-                    horizontal={true}
+        </View>
+      ) : (
+        <ScrollView onBlur={onBlur} horizontal={true}>
+          <View style={styles.container}>
+            {isScroll
+              ? BACK_DATA.map((item, index) => {
+                  return (
+                    <Pressable
+                      key={item.key}
+                      onFocus={() => onFocus(item.key)}
+                      onPress={() => onPressClick(item.key)}
+                      tvParallaxProperties={{magnification: 1.1}}
+                      // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
                     >
-                <View style={styles.container}>
-                    {
-                        isScroll 
-                        ?
-                        BACK_DATA.map((item, index) => {
-                            return (
-                                <Pressable
-                                    key={item.key}
-                                    onFocus={() => onFocus(item.key)}
-    
-                                    onPress={() => onPressClick(item.key)}
-                                    tvParallaxProperties={{ magnification: 1.1 }}
-                                    // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
-                                     >
-                                         {
-                                            item.key === 'BackArrow'
-                                            ?
-                                            <BackArrow item={item}/>
-                                            :
-                                            <View style={{marginLeft:20,flexDirection:'row'}} >
-                                            <View style={{marginRight:90}}>
-                                                 <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                                                                {
-                                                                    item.key === INCLUDES 
-                                                                    ?
-                                                                    <View style={{flexDirection:'row'}}>
-                                                                    <TVToggle />
-                                                             <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
-                                                             </View>
-                                                                    :
-                                                             <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
-                                                                }
-                                                 </View>
-                                                 {
-                                                                    item.key === INCLUDES 
-                                                                    ?
-                                                                    <View style={{flexDirection:'row'}}>
-                                                                    <TVToggle />
-                                                             <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.details}</Text>
-                                                             </View>
-                                                                    :
-                                                                    <Text 
-                                                                    numberOfLines={1}
-                                                                    style={styles.text}>{item.details}</Text>
-                                                                }
-                                                           
-                                            </View> 
-                                            {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
+                      {item.key === 'BackArrow' ? (
+                        <BackArrow item={item} />
+                      ) : (
+                        <View style={{marginLeft: 20, flexDirection: 'row'}}>
+                          <View style={{marginRight: 90}}>
+                            <View
+                              style={
+                                focus == item.key
+                                  ? styles.itemWrapperSelected
+                                  : styles.itemWrapper
+                              }>
+                              {item.key === INCLUDES ? (
+                                <View style={{flexDirection: 'row'}}>
+                                  <TVToggle />
+                                  <Text
+                                    style={
+                                      focus == item.key
+                                        ? styles.focusTextTitle
+                                        : styles.textTitle
+                                    }>
+                                    {item.title}
+                                  </Text>
+                                </View>
+                              ) : (
+                                <Text
+                                  style={
+                                    focus == item.key
+                                      ? styles.focusTextTitle
+                                      : styles.textTitle
+                                  }>
+                                  {item.title}
+                                </Text>
+                              )}
+                            </View>
+                            {item.key === INCLUDES ? (
+                              <View style={{flexDirection: 'row'}}>
+                                <TVToggle />
+                                <Text
+                                  style={
+                                    focus == item.key
+                                      ? styles.focusTextTitle
+                                      : styles.textTitle
+                                  }>
+                                  {item.details}
+                                </Text>
+                              </View>
+                            ) : (
+                              <Text numberOfLines={1} style={styles.text}>
+                                {item.details}
+                              </Text>
+                            )}
+                          </View>
+                          {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
               <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
             </View> */}
-                                            <View>
-                                                {
-                                                    item.title === ' Clear filters' 
-                                                    ?
-                                                    <View style={{marginRight:80}} >
-                                                        </View>
-                                                    // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
-                                                    //     borderColor:'red',
-                                                    //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
-                                                    :
-                                                     <View style={styles.verticleLine}>
-                                                    </View> 
-                                                }
-                                               
-                                           
-                                            </View>
-                                        </View>
-            
-                                        }
-    
-    
-    
-                               
-    
-    
-    
-                                </Pressable>
-                            )
-                        })
-                        :
-                        DATA.map((item, index) => {
-                            return (
-                                <Pressable
-                                    key={item.key}
-                                    onFocus={() => onFocus( item.key)}
-                                    
-                                    onPress={() => onPressClick(item.key)}
-                                    tvParallaxProperties={{ magnification: 1.1 }}
-                                    // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
-                                     >
-                                         {
-                                            item.key === 'Arrow' 
-                                            ?
-                                            <View  style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                                                            <Image style={{ width: StyleConfig.resWidth(30),
-                                                borderColor:'red',
-                                                   height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
-                                                 </View>
-                                           
-                                            
-                                            :
-                                            <View style={{marginLeft:20,flexDirection:'row'}} >
-                                            <View style={{marginRight: isAndroid() ? 22: 90}}>
-                                                 <View  style={ 
-                                                     props.focus === 'top' &&
-                                                     focus == item.key ?
-                                                     styles.itemWrapperSelected :styles.itemWrapper
+                          <View>
+                            {item.title === ' Clear filters' ? (
+                              <View style={{marginRight: 80}}></View>
+                            ) : (
+                              // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
+                              //     borderColor:'red',
+                              //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
+                              <View style={styles.verticleLine}></View>
+                            )}
+                          </View>
+                        </View>
+                      )}
+                    </Pressable>
+                  );
+                })
+              : DATA.map((item, index) => {
+                  return (
+                    <Pressable
+                      key={item.key}
+                      onFocus={() => onFocus(item.key)}
+                      onPress={() => onPressClick(item.key)}
+                      tvParallaxProperties={{magnification: 1.1}}
+                      // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
+                    >
+                      {item.key === 'Arrow' ? (
+                        <View
+                          style={
+                            focus == item.key
+                              ? styles.itemWrapperSelected
+                              : styles.itemWrapper
+                          }>
+                          <Image
+                            style={{
+                              width: StyleConfig.resWidth(30),
+                              borderColor: 'red',
+                              height: StyleConfig.resHeight(30),
+                            }}
+                            source={AppImages.arrow_right}
+                          />
+                        </View>
+                      ) : (
+                        <View style={{marginLeft: 20, flexDirection: 'row'}}>
+                          <View style={{marginRight: isAndroid() ? 22 : 90}}>
+                            <View
+                              style={
+                                props.focus === 'top' && focus == item.key
+                                  ? styles.itemWrapperSelected
+                                  : styles.itemWrapper
 
-                                                    //     props.focus === 90 ?
-                                                    //     styles.itemWrapper :
-                                                    //   focus == item.key 
-                                                    // ? styles.itemWrapperSelected : styles.itemWrapper
-                                                }
-                                                     >
-                                                             <Text style={
-                                                                  props.focus === 'top' &&
-                                                                //   props.focus === 90 ?
-                                                                //   styles.textTitle :
-                                                                  focus == item.key ?
-                                                                 styles.focusTextTitle :
-                                                                  styles.textTitle
-                                                                  }
-                                                                  >
-                                                                      {item.title}</Text>
-                                                 </View>
-                                                            <Text 
-                                                            numberOfLines={1}
-                                                            style={styles.text}>{item.details}</Text>
-                                            </View> 
-                                            {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
+                                //     props.focus === 90 ?
+                                //     styles.itemWrapper :
+                                //   focus == item.key
+                                // ? styles.itemWrapperSelected : styles.itemWrapper
+                              }>
+                              <Text
+                                style={
+                                  props.focus === 'top' &&
+                                  //   props.focus === 90 ?
+                                  //   styles.textTitle :
+                                  focus == item.key
+                                    ? styles.focusTextTitle
+                                    : styles.textTitle
+                                }>
+                                {t(item.title)}
+                              </Text>
+                            </View>
+                            <Text numberOfLines={1} style={styles.text}>
+                              {t(item.details)}
+                            </Text>
+                          </View>
+                          {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
               <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
             </View> */}
-                                            <View>
-                                                {
-                                                    item.title === 'Price' 
-                                                    ?
-                                                    null
-                                                    // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
-                                                    //     borderColor:'red',
-                                                    //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
-                                                    :
-                                                     <View style={styles.verticleLine}>
-                                                    </View> 
-                                                }
-                                               
-                                           
-                                            </View>
-                                        </View>
-            
-                                        }
-    
-    
-    
-                               
-    
-    
-    
-                                </Pressable>
-                            )
-                        })
-                    }
-                    
-                   
-                    
-                          
-
-                </View>
-
-</ScrollView>
-
-                }
-        </>
-    )
-})
+                          <View>
+                            {item.title === 'Price' ? null : (
+                              // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
+                              //     borderColor:'red',
+                              //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
+                              <View style={styles.verticleLine}></View>
+                            )}
+                          </View>
+                        </View>
+                      )}
+                    </Pressable>
+                  );
+                })}
+          </View>
+        </ScrollView>
+      )}
+    </>
+  );
+});
 
 export default TVSideBar;
 const isAndroid = () => {
-	return Platform.OS == "android";
+  return Platform.OS == 'android';
 };
 
 const styles = StyleSheet.create({
-    verticleLine: {
-        height: '80%',
-        width: 1,
-        backgroundColor: '#909090',
-        alignSelf:'center'
-      },
-    container: {
-        flex:1,
-        backgroundColor: colors.lightGrey,
-        height:  isAndroid()? 50 :100,
-        alignContent:'center',
-        alignItems:'center',
-        flexDirection:'row',
-        borderColor:'red',
-        borderRadius:20,
-
-    },
-    itemWrapperSelected:{
-        backgroundColor: colors.tomatoRed,
-        borderRadius:10,
-        padding:5,
-        // marginRight:-80,
-    },
-    itemWrapper:{
-        // marginRight:-80,
-    },
-    text:{
-        fontSize: isAndroid() ? 12 :24,
-        fontFamily:primary_regular_font.primary_regular_font,
-        fontWeight:'400'
-    },
-    focusText:{
-        fontFamily:primary_regular_font.primary_regular_font,
-        fontWeight:'900',
-        fontSize: isAndroid() ? 12 :24,
-        color: colors.white,
-        // width:   250
-
-    },
-    textTitle:{
-        color:colors.black,
-        fontSize: isAndroid() ? 12 :24,
-        fontFamily:primary_regular_font.primary_regular_font,
-        fontWeight:'700',
-    },
-    focusTextTitle:{
-        fontSize: isAndroid() ? 12 :24,
-        fontFamily:primary_regular_font.primary_regular_font,
-        fontWeight:'700',
-        color: colors.white,
-    },
-   
-})
+  verticleLine: {
+    height: '80%',
+    width: 1,
+    backgroundColor: '#909090',
+    alignSelf: 'center',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.lightGrey,
+    height: isAndroid() ? 50 : 100,
+    alignContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderColor: 'red',
+    borderRadius: 20,
+  },
+  itemWrapperSelected: {
+    backgroundColor: colors.tomatoRed,
+    borderRadius: 10,
+    padding: 5,
+    // marginRight:-80,
+  },
+  itemWrapper: {
+    // marginRight:-80,
+  },
+  text: {
+    fontSize: isAndroid() ? 12 : 24,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '400',
+  },
+  focusText: {
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '900',
+    fontSize: isAndroid() ? 12 : 24,
+    color: colors.white,
+    // width:   250
+  },
+  textTitle: {
+    color: colors.black,
+    fontSize: isAndroid() ? 12 : 24,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '700',
+  },
+  focusTextTitle: {
+    fontSize: isAndroid() ? 12 : 24,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '700',
+    color: colors.white,
+  },
+});

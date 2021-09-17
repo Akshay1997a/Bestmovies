@@ -9,5 +9,5 @@ export default {
     light_orange:"#ffdbcc",
     blue_color:"#4183e2",
     "black33":"#333333",
-
+    "black": "#000000"
 }

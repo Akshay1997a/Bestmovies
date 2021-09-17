@@ -1,92 +1,32 @@
 import React from 'react';
-import {
-  ImageBackground,
-  StyleSheet,
-  ScrollView,
-  Text,
-  View,
-  TouchableHighlight,
-  Modal,
-  Image
-  } from 'react-native';
+import { Platform, LogBox } from 'react-native';
+import Router from './src/setup/Router';
+import { Provider } from 'react-redux';
+// Imports: Redux Store
+import { store, persistor } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { enableScreens } from 'react-native-screens';
+import { AnimationProvider } from './src/Providers/CollapsibleHeaderProvider';
+import { useSafeAreaInsets, withSafeAreaInsets, SafeAreaView, } from 'react-native-safe-area-context';
+import StatusBar from './src/components/StatusBar';
+import { useState } from 'react';
 
-class App extends React.Component {
-state = {
-  posts: [],
-  modalVisible:false,
-};
+export const StatusBarContext = React.createContext()
 
-componentDidMount() {
-  fetch('https://www.reddit.com/r/pic/top.json?t=year')
-    .then(response => response.json())
-    .then(json => {
-      const posts = json.data.children.map(child => child.data);
-      this.setState({posts});
-    });
-}
-
-render() {
+enableScreens(true);
+// React Native App
+export default function App(props) {
+  const [statusBarColor, setStatusBarColor] = useState("#fff")
   return (
-<ScrollView contentContainerStyle={styles.container}>
-{this.state.posts.map(post => (
-  <View style={styles.tile} key={post.id}>
-    <TouchableHighlight
-      style={styles.highlight}
-      underlayColor='#a8dadc'
-      // We use onPress to open Modal and to set selected image url to state
-      onPress={() => this.setState({ modalVisible: true, selectedImage: post.url })}
-    >
-      <ImageBackground
-        style={{ width: '100%', height: '100%' }}
-        source={{ uri: post.thumbnail }}
-        imageStyle={styles.background}
-      />
-    </TouchableHighlight>
-    <Text style={styles.title}>{post.title}</Text>
-  </View>
-))}
-<Modal
-  animationType={'fade'}
-  transparent={true}
-  visible={this.state.modalVisible}
-  onRequestClose={() => this.setState({ modalVisible: false })}
->
-
-  <TouchableHighlight activeOpacity={1} onPress={() => this.setState({ modalVisible: false })}>
-    <Image
-      source={{ uri: this.state.selectedImage }}
-      style={{ width: '100%', height: '100%' }}
-    />
-  </TouchableHighlight>
-</Modal>
-</ScrollView>
-
+    <StatusBarContext.Provider value={{ value: statusBarColor, setStatusBarColor }}>
+      <Provider store={store}>
+        {/* <StatusBar backgroundColor={statusBarColor} /> */}
+        <PersistGate persistor={persistor}>
+          <AnimationProvider>
+            <Router />
+          </AnimationProvider>
+        </PersistGate>
+      </Provider>
+    </StatusBarContext.Provider>
   );
 }
-}
-
-export default App;
-
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f1faee',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  tile: {
-    flexBasis: '20%',
-    height: 370,
-    marginTop: 10,
-    marginBottom: 20,
-    padding: 10,
-  },
-  background: {
-    borderColor: '#1d3557',
-    borderRadius: 20,
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  });

@@ -5,17 +5,14 @@ import {
     StyleSheet,
     TouchableOpacity
  } from 'react-native'
- import colors from '../../helper/colors';
- import StyleConfig from '../../helper/StyleConfig'
- import Ionicons from 'react-native-vector-icons/Ionicons';
+ import colors from 'src/helper/colors';
+ 
 
 const RenderMobile = ({ ...props})=>{
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={()=> props.navigation.navigate("MyListScreen")}>
-                <Text>Render Mobile</Text>
-                <Ionicons  name="ios-search" size={30} />
-           
+            <Text>Render Mobile</Text>
             </TouchableOpacity>
         </View>
     )

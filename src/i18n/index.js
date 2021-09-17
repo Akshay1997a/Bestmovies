@@ -23,10 +23,9 @@ i18next
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
-    supportedLngs: ['en', 'es', 'fr'],
+    supportedLngs: ['en', 'es'],
     resources: {
       en: en,
-      fr: fr,
     },
     react: {
       useSuspense: false,

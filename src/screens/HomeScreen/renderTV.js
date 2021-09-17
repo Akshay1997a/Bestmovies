@@ -233,8 +233,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
             <View style={{width: StyleConfig.resWidth(600), marginTop: 30}}>
               <View style={{flexDirection: 'row', marginBottom: 10}}>
                 <View style={styles.title}>
-                  <Text style={styles.titleText}>
-                    {t('award_types.id_1')} Title
+                  <Text style={styles.titleText}>{t('texts.id_35')}</Text>
+                </View>
+                <View style={styles.artist}>
+                  <Text
+                    style={{
+                      fontSize: isAndroid() ? 14 : 28,
+                      fontWeight: '400',
+                      color: colors.black,
+                    }}>
+                    {t('texts.id_38')}
                   </Text>
                 </View>
                 <View style={styles.artist}>
@@ -244,17 +252,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                       fontWeight: '400',
                       color: colors.black,
                     }}>
-                    Artist
-                  </Text>
-                </View>
-                <View style={styles.artist}>
-                  <Text
-                    style={{
-                      fontSize: isAndroid() ? 14 : 28,
-                      fontWeight: '400',
-                      color: colors.black,
-                    }}>
-                    User
+                    {t('texts.id_41')}
                   </Text>
                 </View>
               </View>
@@ -266,7 +264,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   </View>
 
                   <TextInput
-                    placeholder={strings.search}
+                    placeholder={t('texts.id_20')}
                     placeholderTextColor={colors.black}
                     keyboardType={strings.email_address}
                     style={styles.textInput}
@@ -319,7 +317,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   backgroundColor: colors.white,
                   marginHorizontal: 10,
                 }}>
-                <Text style={styles.ranking}>Ranking of best movies</Text>
+                <Text style={styles.ranking}>{t('texts.id_78')}</Text>
                 <Text style={styles.result}> 12,348 results </Text>
               </View>
               <FlatList
@@ -637,12 +635,14 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
         oncloseModal={() => oncloseModal(RELEASE)}
         onclose={() => oncloseModal(RELEASE)}
       />
-      <TVCountryModal
-        action={onPressClick}
-        visible={showSelected == COUNTRY}
-        oncloseModal={() => oncloseModal(COUNTRY)}
-        onclose={() => oncloseModal(COUNTRY)}
-      />
+      {showSelected && (
+        <TVCountryModal
+          action={onPressClick}
+          visible={showSelected == COUNTRY}
+          oncloseModal={() => oncloseModal(COUNTRY)}
+          onclose={() => oncloseModal(COUNTRY)}
+        />
+      )}
       <TVGenreModal
         visible={showSelected == GENRE}
         oncloseModal={() => oncloseModal(GENRE)}

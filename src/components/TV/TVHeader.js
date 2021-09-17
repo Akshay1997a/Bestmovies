@@ -11,6 +11,7 @@ import {useHeaderHeight} from '@react-navigation/stack';
 import AppImages from 'src/assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 
 const ICON_SIZE = 24;
 let [
@@ -27,13 +28,15 @@ let [
 ] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
+  const {t} = useTranslation();
+
   const headerHeight = useHeaderHeight();
   const [focus, setFocus] = useState(NONE);
-console.log('props TVHeader',props);
+  console.log('props TVHeader', props);
 
   const onFocus = useCallback((val) => {
-  props.reduxSetCurrFocus('header')
-    
+    props.reduxSetCurrFocus('header');
+
     setFocus(val);
   });
 
@@ -86,23 +89,22 @@ console.log('props TVHeader',props);
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' &&
-            focus == MY_LIST ?
-            styles.itemWrapperSelected :styles.itemWrapper
+            props.focus === 'header' && focus == MY_LIST
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper
 
-            // focus == MY_LIST ? 
+            // focus == MY_LIST ?
             // styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 'header' && 
-              focus == MY_LIST
+              props.focus === 'header' && focus == MY_LIST
                 ? styles.focusText
                 : selected == MY_LIST
                 ? styles.selectedText
                 : styles.text
             }>
-            {strings.my_lists}
+            {t('texts.id_15')}
           </Text>
         </Pressable>
         <Pressable
@@ -110,30 +112,27 @@ console.log('props TVHeader',props);
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-
-            props.focus === 'header'  && 
-            focus == MOVIES ?
-             styles.itemWrapperSelected 
-             : styles.itemWrapper
+            props.focus === 'header' && focus == MOVIES
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper
             // styles.itemWrapperSelected :
-            // styles.itemWrapper 
+            // styles.itemWrapper
             // focus == MOVIES ?
-            //  styles.itemWrapperSelected 
+            //  styles.itemWrapperSelected
             //  : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 'header' &&
-              focus == MOVIES ?
-
-              styles.focusText :styles.text
+              props.focus === 'header' && focus == MOVIES
+                ? styles.focusText
+                : styles.text
               // focus == MOVIES
               //   ? styles.focusText
               //   : selected == MOVIES
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.movies_text}
+            {t('texts.id_2')}
           </Text>
         </Pressable>
 
@@ -142,23 +141,23 @@ console.log('props TVHeader',props);
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' &&
-            focus == TV_SHOW ?
-            styles.itemWrapperSelected :styles.itemWrapper
+            props.focus === 'header' && focus == TV_SHOW
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper
             // props.focus === 90 ?
             // styles.itemWrapper :
             // focus == TV_SHOW ?
-            //  styles.itemWrapperSelected 
+            //  styles.itemWrapperSelected
             //  : styles.itemWrapper
 
-            // focus == TV_SHOW 
+            // focus == TV_SHOW
             // ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 'header' &&
-            focus == TV_SHOW ?
-            styles.focusText :styles.text
+              props.focus === 'header' && focus == TV_SHOW
+                ? styles.focusText
+                : styles.text
               // props.focus === 90 ?
               // styles.text :
               // focus == TV_SHOW
@@ -172,32 +171,31 @@ console.log('props TVHeader',props);
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.tv_shows}
+            {t('texts.id_4')}
           </Text>
         </Pressable>
-
         <Pressable
           onFocus={() => onFocus(SHORTS)}
           onPress={() => onLocalChangeSelected()}
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' &&
-            focus == SHORTS ?
-            styles.itemWrapperSelected :styles.itemWrapper
+            props.focus === 'header' && focus == SHORTS
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper
             // props.focus === 90 ?
             // styles.itemWrapper :
             // focus == SHORTS ?
-            //  styles.itemWrapperSelected 
+            //  styles.itemWrapperSelected
             //  : styles.itemWrapper
 
             // focus == SHORTS ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 'header' &&
-              focus == SHORTS ?
-              styles.focusText :styles.text
+              props.focus === 'header' && focus == SHORTS
+                ? styles.focusText
+                : styles.text
               // props.focus === 90 ?
               // styles.text :
               // focus == SHORTS
@@ -211,7 +209,7 @@ console.log('props TVHeader',props);
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.shorts}
+            {t('texts.id_6')}
           </Text>
         </Pressable>
 
@@ -221,21 +219,21 @@ console.log('props TVHeader',props);
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' &&
-            focus == DIRECTOR ?
-            styles.itemWrapperSelected :styles.itemWrapper
+            props.focus === 'header' && focus == DIRECTOR
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper
             // props.focus === 90 ?
             // styles.itemWrapper :
             // focus == DIRECTOR ?
-            //  styles.itemWrapperSelected 
+            //  styles.itemWrapperSelected
             //  : styles.itemWrapper
             // focus == DIRECTOR ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 'header' &&
-              focus == DIRECTOR ?
-              styles.focusText :styles.text
+              props.focus === 'header' && focus == DIRECTOR
+                ? styles.focusText
+                : styles.text
               // focus == DIRECTOR
               //   ? styles.focusText
               //   : selected == DIRECTOR
@@ -249,7 +247,7 @@ console.log('props TVHeader',props);
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.directors}
+            {t('texts.id_8')}
           </Text>
         </Pressable>
 
@@ -259,21 +257,21 @@ console.log('props TVHeader',props);
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' &&
-            focus == ACTOR ?
-            styles.itemWrapperSelected :styles.itemWrapper
+            props.focus === 'header' && focus == ACTOR
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper
             // props.focus === 90 ||  props.focus === 100  ?
             // styles.itemWrapper :
             // focus == ACTOR ?
-            //  styles.itemWrapperSelected 
+            //  styles.itemWrapperSelected
             //  : styles.itemWrapper
             // focus == ACTOR ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             style={
-              props.focus === 'header' &&
-              focus == ACTOR ?
-              styles.focusText :styles.text
+              props.focus === 'header' && focus == ACTOR
+                ? styles.focusText
+                : styles.text
               // props.focus === 90 ||  props.focus === 100  ?
               // styles.text :
               // focus == ACTOR
@@ -287,7 +285,7 @@ console.log('props TVHeader',props);
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.actors}
+            {t('texts.id_11')}
           </Text>
         </Pressable>
 
@@ -338,18 +336,18 @@ console.log('props TVHeader',props);
 export default TVHeader;
 
 const isAndroid = () => {
-	return Platform.OS == "android";
+  return Platform.OS == 'android';
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flexDirection: 'row',
-    marginVertical:5
+    marginVertical: 5,
   },
   bannerIcon: {
-    width: isAndroid() ? 110 :210,
-    height: isAndroid() ? 110/2 : 210/2,
+    width: isAndroid() ? 110 : 210,
+    height: isAndroid() ? 110 / 2 : 210 / 2,
   },
   itemWrapperSelected: {
     justifyContent: 'center',
@@ -370,23 +368,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: isAndroid() ? 12 :32,
-    fontFamily:primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 12 : 32,
+    fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '400',
-    color:colors.black
-
+    color: colors.black,
   },
   focusText: {
-    fontSize: isAndroid() ? 12 :32,
+    fontSize: isAndroid() ? 12 : 32,
     fontWeight: '700',
     color: colors.white,
   },
   selectedText: {
-    fontSize: isAndroid() ? 12 :32,
+    fontSize: isAndroid() ? 12 : 32,
     fontWeight: '700',
     color: colors.tomatoRed,
-    fontFamily:primary_regular_font.primary_regular_font
-
+    fontFamily: primary_regular_font.primary_regular_font,
   },
   headerIcon: {
     width: StyleConfig.resWidth(40),

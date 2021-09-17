@@ -27,6 +27,32 @@ export const getTranslateFile = (
 		);
 };
 
+
+export const getLanguageList = (
+    param:any,
+	succesCallback: Function,
+	errorCallback: Function,
+) => {
+
+	return (dispatch: Function) =>
+		commonApiWrapper(
+            dispatch,
+			endPoints.languageList + `cd=${param?.cd}`,
+			apiConstants.get_request_type,
+			apiConstants.raw_data_type,
+			null,
+			null,
+			null,
+			(response: any, dispatch: any) => {
+				if (succesCallback) {
+					succesCallback(response);
+				}
+			},
+			(err) => errorCallback(err),
+		);
+};
+
+
 const commonApiWrapper = (dispatch, url: string, apiRequestType: String, contentType: String, path: string, requestData: any, params: any, successCallback: Function, errorCallback: Function,) => {
         showLoader(true, dispatch);
         if (isNotEmpty(path))

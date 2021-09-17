@@ -312,7 +312,6 @@ const styles = StyleSheet.create({
     borderColor: '#6fa6d3',
     borderWidth: 1,
   },
-
   switchDisableBorder: {
     borderColor: '#f2f2f2',
     borderWidth: 1,

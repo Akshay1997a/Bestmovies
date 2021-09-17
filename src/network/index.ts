@@ -3,6 +3,7 @@ import { endPoints } from  './endPoints';
 import { apiConstants } from '../helper/apiConstants';
 import { objToFormData, logOnConsole, isNotEmpty } from '../helper/globalFunctions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18n from 'i18next';
 
 
 var qs = require('qs')
@@ -27,8 +28,11 @@ defaultInstance.interceptors.request.use(
                 config.headers[apiConstants.content_type_key] = apiConstants.raw_data_type;
             }
         }
-
-        config.headers.language = "es"
+       
+        let lang = i18n.language || "en"
+        //  await AsyncStorage.getItem("langType")
+        // alert(lang)
+        config.headers.language = lang && ['en', 'es'].includes(lang) ? lang : "en"
         // let token = '';
         // let api_key = await AsyncStorage.getItem(apiConstants.api_token_key);
         // if (isNotEmpty(api_key)) {

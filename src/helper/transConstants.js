@@ -36,6 +36,7 @@ export default {
   genres_animation: 'genres.code_an',
   genres_biography: 'genres.code_bi',
   genres_comedy: 'genres.code_co',
+  genres_comedy_romance: ['genres.code_co', 'genres.code_ro'],
   genres_crime: 'genres.code_cr',
   genres_documentary: 'genres.code_do',
   genres_drama: 'genres.code_dr',
