@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   PrimaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   PrimaryTileSubTitleStyle: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 18,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   IconTileTitleStyle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   SecondaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

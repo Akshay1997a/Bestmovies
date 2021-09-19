@@ -77,6 +77,8 @@
 		<string>VAG Rounded Next.otf</string>
 		<string>vag rounded next.otf</string>
 		<string>vag rounded next.ttf</string>
+		<string>VAG Rounded Next Bold.otf</string>
+		<string>VAG Rounded Next Regular.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

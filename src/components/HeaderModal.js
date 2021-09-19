@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#FF3300',
-    fontFamily: 'VAG Rounded Next',
     fontSize: 22,
     fontStyle: 'normal',
+    fontFamily: 'VAG Rounded Next Bold',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),

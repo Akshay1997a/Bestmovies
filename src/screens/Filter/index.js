@@ -299,7 +299,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter);
 const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 18,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   },
   textSecond: {
     color: '#333333',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

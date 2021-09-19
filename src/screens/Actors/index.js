@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 15,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#333333',
-    fontFamily: 'LEMON MILK Pro FTR',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 15,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   ratingTitleStyle: {
     color: '#000000',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 12,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

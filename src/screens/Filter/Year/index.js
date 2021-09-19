@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

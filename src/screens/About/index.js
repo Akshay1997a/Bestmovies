@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   heading: {
     color: '#333333',
     fontSize: 18.67,
-    fontFamily: 'LEMON MILK Pro FTR',
+    fontFamily: 'VAG Rounded Next Regular',
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '500',
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   heading2: {
     color: '#333333',
-    fontFamily: 'LEMON MILK Pro FTR',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 14.67,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

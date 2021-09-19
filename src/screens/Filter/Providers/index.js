@@ -100,7 +100,12 @@ export class Provider extends Component {
       <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
         <HeaderModal title="Streaming services" {...this.props} />
         {selectedCountry && (
-          <View style={{alignItems: 'flex-end', marginBottom: 20, paddingHorizontal: 10}}>
+          <View
+            style={{
+              alignItems: 'flex-end',
+              marginBottom: 20,
+              paddingHorizontal: 10,
+            }}>
             <TouchableOpacity onPress={this.navigateToCountries.bind(this)}>
               <View
                 style={{
@@ -119,7 +124,12 @@ export class Provider extends Component {
             </TouchableOpacity>
           </View>
         )}
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: 10,
+          }}>
           <TouchableOpacity style={[styles.butContainer, styles.butActive]}>
             <Text style={[styles.butText, styles.activeButText]}>All</Text>
           </TouchableOpacity>
@@ -199,7 +209,7 @@ const styles = StyleSheet.create({
   },
   butText: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -230,7 +240,7 @@ const styles = StyleSheet.create({
   },
   filterText: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

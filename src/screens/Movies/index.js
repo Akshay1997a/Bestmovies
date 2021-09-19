@@ -736,7 +736,7 @@ export default connect(mapStateToProps, null)(EnhanchedComponent);
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -761,7 +761,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#000',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 14,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -797,7 +797,7 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 12,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -806,16 +806,16 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#000',
-    fontFamily: 'VGA Rounded Next',
     fontSize: 16,
     fontStyle: 'normal',
+    fontFamily: 'VAG Rounded Next Bold',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
   },
   sortbyButText: {
     color: '#000',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -837,7 +837,7 @@ const styles = StyleSheet.create({
   },
   swipTitle: {
     color: '#FFFFFF',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 22,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

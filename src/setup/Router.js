@@ -55,7 +55,7 @@ const StackNav = () => {
         backgroundColor: 'rgba(0,0,0,0.2)',
         overflow: 'hidden',
         // marginTop: insets.top,
-        marginBottom: insets.bottom,
+        // marginBottom: insets.bottom,
       },
       cardOverlayEnabled: true,
       animationTypeForReplace: 'push',

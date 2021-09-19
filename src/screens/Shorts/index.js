@@ -423,7 +423,7 @@ export default Shorts;
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 19,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     fontStyle: 'italic',
     ...(Platform.OS === 'ios' && {
@@ -485,7 +485,7 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 12,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#333333',
-    fontFamily: 'LEMON MILK Pro FTR',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 15,
     fontStyle: 'normal',
     fontWeight: '500',

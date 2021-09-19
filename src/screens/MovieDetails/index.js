@@ -322,14 +322,14 @@ class MovieDetails extends Component {
                 fontSize: 22,
                 fontWeight: '700',
                 color: 'white',
-                fontFamily: 'VGA Rounded Next',
+                fontFamily: 'VAG Rounded Next Regular',
               }}
             /> */}
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
               <Text
                 style={{
                   fontSize: 14.67,
-                  fontFamily: 'VGA Rounded Next',
+                  fontFamily: 'VAG Rounded Next Bold',
                   marginLeft: 17,
                   ...(Platform.OS === 'ios' && {
                     fontWeight: '700',
@@ -778,7 +778,7 @@ export default connect(mapStateToProps, null)(EnhanchedComponent);
 const styles = StyleSheet.create({
   textFont: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 17,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -803,7 +803,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -848,7 +848,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#000',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -857,7 +857,7 @@ const styles = StyleSheet.create({
   },
   sortbyButText: {
     color: '#000',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -879,7 +879,7 @@ const styles = StyleSheet.create({
   },
   swipTitle: {
     color: '#FFFFFF',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 22,
     fontStyle: 'normal',
     zIndex: 100,
@@ -912,7 +912,7 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     color: '#FFFFFF',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 22,
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -926,7 +926,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   textDesc: {
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     color: '#000',
     ...(Platform.OS === 'ios' && {

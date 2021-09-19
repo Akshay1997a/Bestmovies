@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   HeadTitle: {
     position: 'absolute',
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   artistName: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 18,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   },
   Title: {
     color: '#000000',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 16,
     fontStyle: 'normal',
     marginVertical: 10,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   RankTitle: {
     color: '#000000',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Bold',
     fontSize: 15,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   },
   TitleSecondary: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 12,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

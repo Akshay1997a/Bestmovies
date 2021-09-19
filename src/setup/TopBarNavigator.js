@@ -47,9 +47,9 @@ export function TopBarMainNavigator(props) {
         labelStyle: {
           fontSize: 14,
           color: '#000',
-          fontFamily: 'vag rounded next',
+          fontFamily: 'VAG Rounded Next Regular',
           ...(Platform.OS === 'ios' && {
-            fontWeight: '700',
+            fontWeight: '400',
           }),
         },
         tabStyle: {padding: 0},
@@ -87,9 +87,9 @@ export function TopBarSearchNavigator(props) {
         labelStyle: {
           fontSize: 14,
           color: '#000',
-          fontFamily: 'VGA Rounded Next',
+          fontFamily: 'VAG Rounded Next Regular',
           ...(Platform.OS === 'ios' && {
-            fontWeight: '700',
+            fontWeight: '400',
           }),
         },
         tabStyle: {padding: 0},
@@ -117,9 +117,9 @@ export function TopBarSecondaryNavigator(props) {
         labelStyle: {
           fontSize: 14,
           color: '#000',
-          fontFamily: 'VGA Rounded Next',
+          fontFamily: 'VAG Rounded Next Regular',
           ...(Platform.OS === 'ios' && {
-            fontWeight: '700',
+            fontWeight: '400',
           }),
         },
         tabStyle: {padding: 0},
