@@ -20,15 +20,15 @@ const isAndroid = () => {
 };
 const styles = StyleSheet.create({
   backWrap: {
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
+    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
+    margin: isAndroid() ? 0 : 4,
   },
   focusBackWrap: {
-    backgroundColor: colors.tomatoRedLight,
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
+    backgroundColor: colors.tomatoRed,
+    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
+    margin: isAndroid() ? 0 : 4,
     borderRadius: 10,
   },
 });
@@ -37,7 +37,15 @@ const TVAgesModal = (props) => {
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState([]);
+  const onPressClick = (val) => {
+    val.selected = true;
+    console.log('onPressClick TVAgesModal***', val);
+    props.action(props.keySort);
+    props.visible = true;
 
+    //   props.onclose();
+    setSelected(val);
+  };
   const onFocus = useCallback(() => {
     console.log('OnFocus called***');
     setFocus(0);
@@ -65,13 +73,12 @@ const TVAgesModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.ages}
-      titleId={'age_rating'}>
+      title={strings.ages}>
       <ScrollView>
         {data.map((item, index) => {
           return (
             <Pressable
-              onPress={props.onclose}
+              onPress={() => onPressClick(item)}
               onFocus={() => setFocus(item.id)}
               style={
                 item.id == focus
@@ -87,10 +94,16 @@ const TVAgesModal = (props) => {
                   fontFamily: primary_regular_font.primary_regular_font,
                   fontSize: isAndroid() ? 15 : 30,
                   fontWeight: '400',
-                  color: item.id == focus ? colors.white : colors.black,
+                  color:
+                    item.id == focus
+                      ? colors.white
+                      : item.selected
+                      ? colors.tomatoRed
+                      : colors.black,
                 }}>
                 {item.ages + '+'}
               </Text>
+              {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.ages+'+'}</Text> */}
             </Pressable>
           );
         })}

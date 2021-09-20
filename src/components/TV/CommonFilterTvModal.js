@@ -21,30 +21,28 @@ const DATA = [
   {id: 2, name: "Friend's Like"},
   {id: 3, name: 'Popularity'},
 ];
+
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
 
 const heightLayout = (title) => {
   // console.log('titi',title)
-  if (title === 'sort_by') {
+  if (title === 'Sort by') {
     return isAndroid() ? 130 : 250;
-  } else if (title === 'liked_by') {
+  } else if (title === 'Liked by') {
     return isAndroid() ? 300 : 600;
-  } else if (title === 'age_rating') {
+  } else if (title === 'Age rating (max)') {
     return isAndroid() ? 250 : 600;
-  } else if (title === 'release_year') {
+  } else if (title === 'Release year') {
     return isAndroid() ? 250 : 500;
-  } else if (title === 'country_of_origin') {
+  } else if (title === 'Countries of origin') {
     return isAndroid() ? 500 : 1000;
-  } else if (title === 'genres') {
+  } else if (title === 'Genres') {
     return isAndroid() ? 300 : 500;
-  } else if (title === 'price') {
+  } else if (title === 'Price') {
     return isAndroid() ? 250 : 600;
   } else if (title === 'Providers') {
-    // return isAndroid() ? 300 : 500;
-  } else {
-    return 500;
   }
 };
 const styles = StyleSheet.create({
@@ -62,20 +60,30 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 10,
   },
+  highlightFocused: {
+    height: 20,
+    width: 10,
+  },
+  notHighlightFocused: {
+    height: 100,
+    width: 100,
+  },
 });
 
 const CommonFilterTvModal = (props) => {
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
+  const [isFocus, setIsFocus] = useState(false);
 
   const onFocus = useCallback(() => {
-    console.log('OnFocus CommonFilterTvModal called***');
+    console.log('OnFocus CommonFilterTvModal called***', focus);
     setFocus(0);
+    setIsFocus(false);
   }, [0]);
 
   const onBlur = useCallback(() => {
-    console.log('onBlur  CommonFilterTvModal called***');
+    console.log('onBlur  CommonFilterTvModal called***', focus);
     setFocus(-1);
   }, []);
   // useEffect(() => {
@@ -96,7 +104,7 @@ const CommonFilterTvModal = (props) => {
         style={{
           minWidth: isAndroid() ? 250 : 500,
           backgroundColor: colors.white,
-          maxHeight: heightLayout(props.titleId),
+          maxHeight: heightLayout(props.title),
           borderRadius: 10,
           paddingVertical: 10,
           paddingStart: 5,
@@ -112,8 +120,10 @@ const CommonFilterTvModal = (props) => {
             onBlur={onBlur}
             onFocus={onFocus}
             onPress={props.onclose}
-            style={{height: 30, width: 30}}>
-            <Image source={AppImages.back_bk} style={{height: 20, width: 10}} />
+            style={({pressed, hovered, focused}) =>
+              focused ? styles.focusBackWrap : styles.backWrap
+            }>
+            <Image source={AppImages.back_bk} style={styles.highlightFocused} />
           </Pressable>
           <Text
             style={{

@@ -12,7 +12,6 @@ import StyleConfig from '../../helper/StyleConfig';
 import TVCountryLanguage from '../TV/TVCountryLanguage';
 import primary_regular_font from '../../helper/fonts';
 import Const from '../../helper/constants';
-import {useTranslation} from 'react-i18next';
 
 const ICON_SIZE = 24;
 let [
@@ -62,33 +61,6 @@ const PRIVACY_POLICY_DATA = Const.ABOUT_US.map((item) =>
   item.id == 2 ? {...item, data: strings.privacy_policy} : item,
 );
 
-const PROFILE_DATA = [
-  {
-    key: NOTIFICATION,
-    title: strings.notification,
-  },
-  {
-    key: FRIENDS,
-    title: strings.friends,
-  },
-  {
-    key: PREFERANCE,
-    title: strings.preferences,
-  },
-  {
-    key: MY_PROVIDER,
-    title: strings.my_provider,
-  },
-  {
-    key: ACCOUNT,
-    title: strings.account,
-  },
-  {
-    key: LANGUAGE,
-    title: strings.language,
-  },
-];
-
 const MENU_DATA = [
   {
     key: COUNTRY_LANGUAGE,
@@ -96,11 +68,11 @@ const MENU_DATA = [
   },
   {
     key: MOBILE_APP,
-    title: 'texts.id_16',
+    title: strings.mobile_app,
   },
   {
     key: INVITE_FRIEND,
-    title: 'texts.id_18',
+    title: strings.invite_friend,
   },
   {
     key: ABOUT_US,
@@ -128,83 +100,22 @@ const MENU_DATA = [
   },
 ];
 
-const DATA = [
-  {
-    key: SORT_BY,
-    title: strings.sort_by,
-    details: strings.rating,
-  },
-  {
-    key: LIKEDBY,
-    title: strings.liked_by,
-    details: '-',
-  },
-  {
-    key: LIKEDBY,
-    title: strings.streaming_service,
-    details:
-      'Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters',
-  },
-  {
-    key: RELEASE,
-    title: strings.release,
-    details: 'Last 2 years',
-  },
-  {
-    key: GENRE,
-    title: strings.genre,
-    details: 'Comedy,Romantic',
-  },
-  {
-    key: COUNTRY,
-    title: strings.country,
-    details: 'All',
-  },
-  {
-    key: AGES,
-    title: strings.ages,
-    details: 'All',
-  },
-
-  {
-    key: PRICE,
-    title: strings.price,
-    details: 'All',
-  },
-  {
-    key: INCLUDES,
-    title: strings.include,
-    details: 'Watched',
-  },
-  {
-    key: PROVIDERS,
-    title: 'Clear filters',
-    details: '',
-  },
-  // {
-  //     "key": THEATERS,
-  //     "title": strings.theaters,
-  // },{
-  //     "key": THREERENT,
-  //     "title": strings.three_rent,
-  // },{
-  //     "key": ALLFREE,
-  //     "title": strings.all_free,
-  // },
-];
 const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
-  const {t} = useTranslation();
+  console.log('props>>>', props);
 
   const [focus, setFocus] = useState(NONE);
   const [key, setKey] = useState(9);
+  const [selected, setSelected] = useState(9);
 
   const onFocus = useCallback((val) => {
+    console.log('onFocus TVSideBar>>>', val);
+    props.reduxSetCurrFocus('menu');
+
     setFocus(val);
   });
-
   const onPressHandle = (val) => {
     setKey(val);
-    console.log('key', val);
+    setSelected(val);
     // setFocus(val);
   };
 
@@ -247,15 +158,22 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                 onPress={() => onPressHandle(item.key)}
                 tvParallaxProperties={{magnification: 1.1}}
                 style={
-                  focus == item.key
+                  props.focus === 'menu' && focus == item.key
                     ? styles.itemWrapperSelected
                     : styles.itemWrapper
                 }>
                 <Text
                   style={
-                    focus == item.key ? styles.focusTextTitle : styles.text
+                    props.focus === 'menu' && focus == item.key
+                      ? styles.focusText
+                      : selected == item.key
+                      ? styles.selectedText
+                      : styles.text
+
+                    //  styles.focusTextTitle :
+                    //   styles.text
                   }>
-                  {t(item.title)}
+                  {item.title}
                 </Text>
                 {/* <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>'hi'</Text> */}
               </Pressable>
@@ -264,7 +182,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         </View>
         {key == COUNTRY_LANGUAGE && (
           <View hasTVPreferredFocus={true}>
-            <TVCountryLanguage></TVCountryLanguage>
+            <TVCountryLanguage {...props}></TVCountryLanguage>
             {/* <FlatList 
                 data={COLLABORATE_DATA}
                 keyExtractor={(item, index) => `item${index}`}
@@ -603,6 +521,12 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: isAndroid() ? 16 : 26,
     fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+  },
+  selectedText: {
+    fontSize: isAndroid() ? 12 : 32,
+    fontWeight: '700',
+    color: colors.tomatoRed,
     fontFamily: primary_regular_font.primary_regular_font,
   },
   focusText: {

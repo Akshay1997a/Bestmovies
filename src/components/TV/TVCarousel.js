@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
+import TVMovieListItem from '../../components/TV/TVMovieListItem';
 import TVPosterCard from '../../components/TV/TVPosterCard';
 import TVCardDetail from '../../components/TV/TVCardDetail';
 import TVCast from '../../components/TV/TVCast';
@@ -22,7 +23,6 @@ import StyleConfig from '../../helper/StyleConfig';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import strings from '../../helper/strings';
 import AppImages from '../../assets';
-import {useTranslation} from 'react-i18next';
 
 // import {
 //   View,
@@ -40,6 +40,11 @@ import {useTranslation} from 'react-i18next';
 // import TVPosterCard from '../../components/TV/TVPosterCard'
 
 const ENTRIES1 = [
+  {
+    title: 'Beautiful and dramatic Antelope Canyon',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    illustration: 'https://i.imgur.com/UYiroysl.jpg',
+  },
   {
     title: 'Beautiful and dramatic Antelope Canyon',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
@@ -70,8 +75,6 @@ const {width: screenWidth, height} = Dimensions.get('window');
 
 const MyCarousel = ({item, posts, ...props}) => {
   // console.log('props',props);
-
-  const {t} = useTranslation();
 
   const [focus, setFocus] = useState(0);
   const onFocus = useCallback(() => {
@@ -147,16 +150,11 @@ const MyCarousel = ({item, posts, ...props}) => {
           <Pressable
             onFocus={onFocus}
             onBlur={onBlur}
-            hasTVPreferredFocus={true}
-            autoFocus={true}
-            style={({pressed, focused}) => ({
-              backgroundColor: focused
-                ? 'rgba(255,255,255,0.5)'
-                : pressed
-                ? 'red'
-                : 'transparent',
-              overflow: 'hidden',
-            })}
+            // hasTVPreferredFocus={true}
+            // autoFocus={true}
+            style={({pressed, focused}) =>
+              focused ? styles.focusBackWrap : styles.notfocusbackWrap
+            }
             onPress={() => props.navigation.goBack()}>
             <Image
               style={{
@@ -177,21 +175,22 @@ const MyCarousel = ({item, posts, ...props}) => {
         </View>
 
         <Carousel
+          //  vertical={3}
           loop={true}
           autoplayDelay={4000}
-          autoplay={true}
+          // autoplay={true}
           ref={carouselRef}
           sliderWidth={screenWidth}
           // sliderHeight={100}
-          itemWidth={isAndroid() ? 200 : 400}
-          itemHeight={100}
+          itemWidth={isAndroid() ? 190 : 400}
+          itemHeight={110}
           data={entries}
           renderItem={bottomRenderItem}
-          hasParallaxImages={true}
+          // hasParallaxImages={true}
         />
         <View style={{flexDirection: 'row'}}>
           <View style={{marginTop: isAndroid() ? 6 : 16}}>
-            <Text style={styles.director}>{t('professions.code_df')}:</Text>
+            <Text style={styles.director}>Director:</Text>
             <View style={{flexDirection: 'row'}}>
               <TVCast item={item} {...props} image={item.director_image} />
             </View>
@@ -201,7 +200,7 @@ const MyCarousel = ({item, posts, ...props}) => {
               marginTop: isAndroid() ? 6 : 16,
               marginLeft: isAndroid() ? 10 : 30,
             }}>
-            <Text style={styles.cast}>{t('texts.id_14')}:</Text>
+            <Text style={styles.cast}>Cast:</Text>
             <View style={{flexDirection: 'row'}}>
               {item.actors_image.map((obj, ind) => (
                 <TVCast item={item} {...props} image={obj} />
@@ -210,9 +209,9 @@ const MyCarousel = ({item, posts, ...props}) => {
           </View>
         </View>
 
-        <View style={{flexDirection: 'row', marginTop: isAndroid() ? 10 : 80}}>
-          <View style={{marginTop: isAndroid() ? 0 : 30}}>
-            <Text style={styles.similar_titles}>{t('texts.id_230')}</Text>
+        <View style={{flexDirection: 'row'}}>
+          <View style={{marginTop: isAndroid() ? 0 : 0}}>
+            <Text style={styles.similar_titles}>{strings.similar_titles}</Text>
             <View style={{flexDirection: 'row'}}>
               <FlatList
                 hasTVPreferredFocus={true}
@@ -221,7 +220,7 @@ const MyCarousel = ({item, posts, ...props}) => {
                 numColumns={5}
                 data={posts}
                 renderItem={({item}) => (
-                  <TVCardDetail item={item} {...props} type="movie" />
+                  <TVMovieListItem item={item} {...props} type="movie" />
                 )}
               />
             </View>
@@ -231,24 +230,22 @@ const MyCarousel = ({item, posts, ...props}) => {
         <Pressable
           onFocus={onFocus}
           onBlur={onBlur}
-          hasTVPreferredFocus={true}
-          autoFocus={true}
-          style={({pressed, focused}) => ({
-            backgroundColor: focused
-              ? 'rgba(255,255,255,0.5)'
-              : pressed
-              ? 'red'
-              : 'transparent',
-            overflow: 'hidden',
-          })}
+          // hasTVPreferredFocus={true}
+          // autoFocus={true}
+          style={({pressed, focused}) =>
+            focused ? styles.focusBackWrap : styles.notfocusbackWrap
+          }
           onPress={() => props.navigation.goBack()}>
-          <Image
-            style={{
-              width: StyleConfig.resWidth(60),
-              height: StyleConfig.resHeight(60),
-            }}
-            source={AppImages.arrow_left}
-          />
+          <View style={{flexDirection: 'row', width: 100}}>
+            <Image
+              style={{
+                width: StyleConfig.resWidth(60),
+                height: StyleConfig.resHeight(60),
+              }}
+              source={AppImages.arrow_left}
+            />
+          </View>
+
           {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
         </Pressable>
       </ScrollView>
@@ -297,7 +294,7 @@ const styles = StyleSheet.create({
   },
   secondItem: {
     // marginTop:40,
-    width: isAndroid() ? 300 : 400,
+    width: isAndroid() ? 200 : 400,
     height: isAndroid() ? 200 : 400,
   },
   imageContainer: {
@@ -311,8 +308,24 @@ const styles = StyleSheet.create({
     // resizeMode: 'cover',
   },
   bottomImage: {
-    resizeMode: 'cover',
-    width: isAndroid() ? 200 : 400,
+    // resizeMode: 'cover',
+    width: isAndroid() ? 210 : 400,
     height: 400,
+  },
+  notfocusbackWrap: {
+    paddingHorizontal: StyleConfig.resWidth(8),
+    paddingVertical: StyleConfig.resHeight(4),
+    // margin: 4,
+    // marginLeft:10,
+  },
+  focusBackWrap: {
+    width: 100,
+    backgroundColor: colors.tomatoRed,
+    // paddingHorizontal: isAndroid() ? 0: StyleConfig.resWidth(8),
+    // paddingVertical:  isAndroid() ? 0:StyleConfig.resHeight(4),
+    // margin: isAndroid() ? 0:4,
+    borderRadius: 10,
+
+    // marginLeft:10,
   },
 });

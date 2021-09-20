@@ -15,11 +15,10 @@ import AppImages from '../../assets';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
-import {useTranslation} from 'react-i18next';
 
 const DATA = [
   {id: 0, name: 'Any'},
-  {id: 1, name: 'texts.id_159'},
+  {id: 1, name: 'Free'},
   {id: 2, name: '< $1'},
   {id: 3, name: '< $2'},
   {id: 4, name: '< $3'},
@@ -36,24 +35,32 @@ const isAndroid = () => {
 };
 const styles = StyleSheet.create({
   backWrap: {
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
+    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
+    margin: isAndroid() ? 0 : 4,
   },
   focusBackWrap: {
-    backgroundColor: colors.tomatoRedLight,
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
+    backgroundColor: colors.tomatoRed,
+    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
+    margin: isAndroid() ? 0 : 4,
     borderRadius: 10,
   },
 });
 
 const TVPriceModal = (props) => {
-  const {t} = useTranslation();
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
+  const onPressClick = (val) => {
+    val.selected = true;
+    console.log('onPressClick TVAgesModal***', val);
+    props.action(props.keySort);
+    props.visible = true;
+
+    //   props.onclose();
+    setSelected(val);
+  };
 
   // useEffect(() => {
 
@@ -72,32 +79,29 @@ const TVPriceModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.price}
-      titleId={'price'}>
+      title={strings.price}>
       <ScrollView>
         {data.map((item, index) => {
           return (
             <Pressable
-              onPress={props.onclose}
+              onPress={() => onPressClick(item)}
               onFocus={() => setFocus(item.id)}
-              style={
-                item.id == focus
-                  ? {
-                      borderRadius: 20,
-                      marginHorizontal: 10,
-                      backgroundColor: colors.tomatoRed,
-                    }
-                  : {marginHorizontal: 10}
-              }>
+              style={item.id == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
                 style={{
                   fontFamily: primary_regular_font.primary_regular_font,
                   fontSize: isAndroid() ? 15 : 30,
                   fontWeight: '400',
-                  color: item.id == focus ? colors.white : colors.black,
+                  color:
+                    item.id == focus
+                      ? colors.white
+                      : item.selected
+                      ? colors.tomatoRed
+                      : colors.black,
                 }}>
-                {t(item.name)}
+                {item.name}
               </Text>
+              {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text> */}
             </Pressable>
           );
         })}

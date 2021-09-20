@@ -11,9 +11,12 @@ import {
 import StyleConfig from '../../helper/StyleConfig'
 import AppImages from '../../assets';
 import styles from './styles';
-
+import colors from '../../helper/colors';
+const isAndroid = () => {
+	return Platform.OS == "android";
+};
 const TVKeyboard = ({...props})=>{
-console.log('ite',props);
+// console.log('ite',props);
   const [focus, setFocus] = useState(false);
     const onFocus = useCallback(() => {
       setFocus(true);
@@ -23,49 +26,100 @@ console.log('ite',props);
       setFocus(false);
     }, []);
    const  _handleOnPress = (value,index) => {
-        // console.log('value',value);
-        // console.log('index',index);
+        console.log('value',value);
+        console.log('subIndex',index);
+        props.onBtnPress(value[index]);
         requestAnimationFrame(() => {
-            props.onBtnPress(value);
         });
 
     }    
     return(
-      <View hasTVPreferredFocus={true} style={styles.container}>
+      <View style={styles.container}>
+
+      <View hasTVPreferredFocus={true} >
         {props.buttons.map((item, index)=>{
           return(
-            <View key={`key${index}`} style={{flexDirection: 'row'}}>
-            {item.map((subItem, subIndex)=>{
-              return <Pressable
-               key={`subInd${subIndex}`} 
-              style={({focused})=> 
-              focused ? styles.pressableFocused : styles.pressable}
-              onPress={_handleOnPress(item)}
-               >
-                { typeof subItem == 'string' && <Text style={styles.txtDefault}>{subItem}</Text>}
-                { typeof subItem == 'number' && subItem == AppImages.next_bk && <View style={styles.symbolButton}>
-                                                    <Image style={{ width: StyleConfig.resWidth(10),
-                                                       height: StyleConfig.resHeight(20),}} source={subItem} />
-                                               </View> }
-                { typeof subItem == 'number' && subItem == AppImages.space &&<View style={styles.symbolButton}>
-                    <Image style={{ width: StyleConfig.resWidth(60),
-                        height: StyleConfig.resHeight(20),}} source={subItem} />
-                </View> }
-                { typeof subItem == 'number' && subItem == AppImages.delete &&<View style={styles.symbolButton}>
-                    <Image style={{ width: StyleConfig.resWidth(40),
-                        height: StyleConfig.resHeight(30),}} source={subItem} />
-                </View> }
-                { typeof subItem == 'number' && subItem == AppImages.delete_all &&<View style={styles.symbolButton}>
-                    <Image style={{ width: StyleConfig.resWidth(30),
-                        height: StyleConfig.resHeight(40),}} source={subItem} />
-                </View> }
-              </Pressable>
-            })}
+
+            <View>
+                    <View key={`key${index}`} style={{flexDirection: 'row'}}>
+                    {item.map((subItem, subIndex)=>{
+                      return <Pressable
+                      key={`subInd${subIndex}`} 
+                      style={({focused})=> 
+                      focused ? 
+                      styles.pressableFocused:
+                      subItem == AppImages.back_bk && focused ?
+                      styles.back_bk: 
+                      styles.pressable}
+                      onPress={() => _handleOnPress(item,subIndex)}
+                      >
+                        { typeof subItem == 'string' && <Text style={styles.txtDefault}>{subItem}</Text>}
+                        { typeof subItem == 'number' && subItem == AppImages.back_bk && <View>
+                                                            <Image  source={subItem} style={{ width: isAndroid() ? StyleConfig.resWidth(20):20,
+                                height: isAndroid() ? StyleConfig.resHeight(30) : 30,}} />
+                                                      </View> }
+                        { typeof subItem == 'number' && subItem == AppImages.next_bk && <View style={styles.symbolButton}>
+                                                            <Image  style={{ width: isAndroid() ? StyleConfig.resWidth(20):20,
+                                height: isAndroid() ? StyleConfig.resHeight(30) : 30,}} source={subItem}  />
+                                                      </View> }
+                                                      
+                        { typeof subItem == 'number' && subItem == AppImages.space &&<View style={styles.symbolButton}>
+                            <Image style={{ width: StyleConfig.resWidth(60),
+                                height: StyleConfig.resHeight(20),}} source={subItem} />
+                        </View> }
+                        {  subItem == AppImages.delete &&<View style={styles.symbolButton}>
+                            <Image style={{ width: StyleConfig.resWidth(40),
+                                height: StyleConfig.resHeight(30),}} source={subItem} />
+                        </View> }
+                        { typeof subItem == 'number' && subItem == AppImages.delete_all &&<View style={styles.symbolButton}>
+                            <Image style={{ width: StyleConfig.resWidth(30),
+                                height: StyleConfig.resHeight(40),}} source={subItem} />
+                        </View> }
+                        
+                      </Pressable>
+                    })}
+                  
+                    </View>
+             
             </View>
+
+            
           )
         })}
-        
+        {/* <Pressable
+        style={({focused})=> 
+        focused ? styles.pressableFocused : styles.pressable}
+        >
+
+        <View style={{flexDirection:'row',}} >
+              <View style={{backgroundColor:colors.lightGrey,margin:5 ,width: StyleConfig.resWidth(75),
+                    height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                    <Image style={styles.deleteButton} source={AppImages.back_bk} />
+              </View>
+              <View style={{backgroundColor:colors.lightGrey,marginLeft:2,marginTop:5 ,marginRight:5,width: StyleConfig.resWidth(75),
+                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                    <Image style={styles.deleteButton} source={AppImages.next_bk} />
+              </View>
+              <View style={{backgroundColor:colors.lightGrey,marginLeft:1,marginTop:5 ,width: StyleConfig.resWidth(160),
+                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                    <Image style={styles.deleteButton} source={AppImages.space} />
+              </View>
+              <View style={{backgroundColor:colors.lightGrey,margin:5 ,width: StyleConfig.resWidth(80),
+                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                    <Image style={styles.deleteButton} source={AppImages.delete} />
+              </View>
+              <View style={{backgroundColor:colors.lightGrey,marginLeft:1,marginTop:5 ,width: StyleConfig.resWidth(75),
+                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+                    <Image style={styles.deleteButton} source={AppImages.delete_all} />
+              </View>
+        </View>
+        </Pressable> */}
+
       </View>
+              <Text style={{fontSize: isAndroid() ?  18 :40,marginTop:10}}> 12 results</Text>
+              </View>
+
+
     );
 //         return (
 //           <View hasTVPreferredFocus={true}  style={styles.container}>

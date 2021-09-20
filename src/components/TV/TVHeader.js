@@ -11,7 +11,6 @@ import {useHeaderHeight} from '@react-navigation/stack';
 import AppImages from 'src/assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
-import {useTranslation} from 'react-i18next';
 
 const ICON_SIZE = 24;
 let [
@@ -28,8 +27,6 @@ let [
 ] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
-  const {t} = useTranslation();
-
   const headerHeight = useHeaderHeight();
   const [focus, setFocus] = useState(NONE);
   console.log('props TVHeader', props);
@@ -104,7 +101,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                 ? styles.selectedText
                 : styles.text
             }>
-            {t('texts.id_15')}
+            {strings.my_lists}
           </Text>
         </Pressable>
         <Pressable
@@ -125,14 +122,11 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             style={
               props.focus === 'header' && focus == MOVIES
                 ? styles.focusText
+                : selected == MOVIES
+                ? styles.selectedText
                 : styles.text
-              // focus == MOVIES
-              //   ? styles.focusText
-              //   : selected == MOVIES
-              //   ? styles.selectedText
-              //   : styles.text
             }>
-            {t('texts.id_2')}
+            {strings.movies_text}
           </Text>
         </Pressable>
 
@@ -171,9 +165,10 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {t('texts.id_4')}
+            {strings.tv_shows}
           </Text>
         </Pressable>
+
         <Pressable
           onFocus={() => onFocus(SHORTS)}
           onPress={() => onLocalChangeSelected()}
@@ -209,7 +204,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {t('texts.id_6')}
+            {strings.shorts}
           </Text>
         </Pressable>
 
@@ -247,7 +242,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {t('texts.id_8')}
+            {strings.directors}
           </Text>
         </Pressable>
 
@@ -285,7 +280,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {t('texts.id_11')}
+            {strings.actors}
           </Text>
         </Pressable>
 
@@ -344,6 +339,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: 'row',
     marginVertical: 5,
+    // marginEnd:100
+    // marginRight:10
   },
   bannerIcon: {
     width: isAndroid() ? 110 : 210,
@@ -361,25 +358,25 @@ const styles = StyleSheet.create({
   },
   itemWrapper: {
     justifyContent: 'center',
-    paddingHorizontal: 12,
+    paddingHorizontal: isAndroid() ? 12 : 20,
     paddingVertical: 6,
-    // marginHorizontal:18,
+    marginHorizontal: isAndroid() ? 10 : 20,
     minWidth: 60,
     alignItems: 'center',
   },
   text: {
-    fontSize: isAndroid() ? 12 : 32,
+    fontSize: isAndroid() ? 18 : 32,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '400',
     color: colors.black,
   },
   focusText: {
-    fontSize: isAndroid() ? 12 : 32,
+    fontSize: isAndroid() ? 18 : 32,
     fontWeight: '700',
     color: colors.white,
   },
   selectedText: {
-    fontSize: isAndroid() ? 12 : 32,
+    fontSize: isAndroid() ? 18 : 32,
     fontWeight: '700',
     color: colors.tomatoRed,
     fontFamily: primary_regular_font.primary_regular_font,

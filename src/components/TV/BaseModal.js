@@ -15,5 +15,4 @@ const TVSortByModal=(props)=>{
         </Modal>
     )
 }
-
 export default TVSortByModal

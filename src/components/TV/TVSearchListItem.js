@@ -28,7 +28,7 @@ let DATA = {
 }
 
 const TVCardDetail = ({item, ...props})=>{
-  console.log('item',item);
+  // console.log('item',item);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -104,7 +104,7 @@ const TVCardDetail = ({item, ...props})=>{
           {/* //Bottom View */}
           <View style={{flexDirection:'row',marginLeft:10}}>
             <View>
-                <Text style={[{width:300,fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'black' }]} >{item.title}</Text>
+                <Text style={[{width: isAndroid()? 90: 300,fontFamily:primary_regular_font.primary_regular_font, marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'black' }]} >{item.title}</Text>
                 <View style={{flexDirection:'row'}}>
                   <View>
                           <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'400'}]}>{`${item.DATA.bornYear} ${item.DATA.country}`}</Text>
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
       // marginTop:50,
       width:isAndroid() ? 155 : 310,
       borderWidth: StyleConfig.resWidth(10),
-      height: isAndroid() ? StyleConfig.width*0.20 : StyleConfig.width*0.25,
+      height: isAndroid() ? StyleConfig.width*0.20 : StyleConfig.width*0.22,
 
       // marginVertical: StyleConfig.resHeight(10),
       // marginHorizontal: StyleConfig.resWidth(8),
@@ -218,11 +218,11 @@ const styles = StyleSheet.create({
       // borderWidth: StyleConfig.resWidth(5),
       borderRadius:StyleConfig.resHeight(20),
       // marginTop:50,
-      width:isAndroid() ? 155 : 310,
+      width:isAndroid() ? 160 : 325,
       
 
       // backgroundColor:'rgba(255,255,255,0.9)',
-      height: isAndroid() ? StyleConfig.width*0.20 : StyleConfig.width*0.25,
+      height: isAndroid() ? StyleConfig.width*0.20 : StyleConfig.width*0.22,
       // marginVertical: StyleConfig.resHeight(10),
       // marginHorizontal: StyleConfig.resWidth(10),
       // paddingHorizontal:1,

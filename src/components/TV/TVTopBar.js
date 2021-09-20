@@ -23,8 +23,6 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import primary_regular_font from '../../helper/fonts';
-import transConstants from '../../helper/transConstants';
-import {useTranslation} from 'react-i18next';
 
 const ICON_SIZE = 24;
 let [
@@ -102,92 +100,53 @@ const MENU_DATA = [
 const DATA = [
   {
     key: SORT_BY,
-    title: 'texts.id_99',
-    details: 'texts.id_101',
+    title: strings.sort_by,
+    details: strings.rating,
   },
   {
     key: LIKEDBY,
-    title: 'texts.id_160',
+    title: strings.liked_by,
     details: '--',
   },
   {
     key: STRREAMING,
-    title: 'texts.id_144',
-    // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
+    title: strings.streaming_service,
     details: '6, Free, Rent/Buy,...',
   },
   {
     key: RELEASE,
-    title: 'texts.id_114',
-    details: 'texts.id_122',
+    title: strings.release,
+    details: 'Last 2 years',
   },
   {
     key: GENRE,
-    title: 'texts.id_127',
-    details: transConstants.genres_comedy,
-    // transConstants.genres_comedy_romance,
-    // 'code_co,Romantic',
+    title: strings.genre,
+    details: 'Comedy,Romantic',
   },
   {
     key: COUNTRY,
-    title: 'texts.id_137',
-    details: 'texts.id_172',
+    title: strings.country,
+    details: 'Any',
   },
   {
     key: AGES,
-    title: 'texts.id_141',
+    title: strings.ages,
     details: '15+',
   },
 
   {
     key: PRICE,
-    title: 'texts.id_158',
-    details: 'texts.id_172',
+    title: strings.price,
+    details: 'Any',
   },
   {
     key: 'Arrow',
-    title: 'texts.id_158',
-    details: 'texts.id_172',
+    title: strings.price,
+    details: 'Any',
   },
-  // {
-  //     "key": INCLUDES,
-  //     "title": strings.include,
-  //     "details": " Watched browsed"
-  // },
-  // {
-  //     "key": PROVIDERS,
-  //     "title": 'Clear filters',
-  //     "details": ""
-  // },
-  // {
-  //     "key": THEATERS,
-  //     "title": strings.theaters,
-  // },{
-  //     "key": THREERENT,
-  //     "title": strings.three_rent,
-  // },{
-  //     "key": ALLFREE,
-  //     "title": strings.all_free,
-  // },
 ];
 
 const BACK_DATA = [
-  // {
-  //     "key": SORT_BY,
-  //     "title": strings.sort_by,
-  //     "details": strings.rating
-  // },
-  // {
-  //     "key": LIKEDBY,
-  //     "title": strings.liked_by,
-  //     "details": "--"
-  // },
-  // {
-  //     "key": STRREAMING,
-  //     "title": strings.streaming_service,
-  //     // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
-  //     "details" :"6, Free, Rent/Buy,..."
-  // },
   {
     key: 'BackArrow',
     title: strings.price,
@@ -241,10 +200,8 @@ const BACK_DATA = [
   //     "title": strings.all_free,
   // },
 ];
-const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
-  // console.log('props',props);
-
-  const {t} = useTranslation();
+const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
+  console.log(' TVSideBar selected Top', selected == 'sort');
 
   const BackArrow = forwardRef(({item}, ref) => {
     // console.log('keu',item);
@@ -266,6 +223,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
 
   const [focus, setFocus] = useState(props.focus === 20 ? NONE : 1);
   const [isScroll, setIsScroll] = useState(false);
+  console.log('props headerSelected >>>', props.topSelected);
+
   if (props.focus === 20) {
     // console.log('OnFocus TVTopBar***',props);
     // setFocus(NONE);
@@ -275,7 +234,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     // props.reduxSetCurrFocus(val)
     props.reduxSetCurrFocus('top');
 
-    // console.log('onFocus TVSideBar***');
+    console.log('onFocus TVBar***');
 
     setFocus(val);
   });
@@ -293,13 +252,14 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   };
 
   const onPressClick = (val) => {
-    if (val === 'Arrow') {
+    val.selected = true;
+    console.log('onPressClick TVSideBar******', val);
+    if (val.key === 'Arrow') {
       setIsScroll(true);
     } else {
       setIsScroll(false);
-      onChangeSelected(val);
+      onChangeSelected(val.key);
     }
-    // console.log('onPressClick TVSideBar***',val);
   };
 
   const onBlur = useCallback(() => {
@@ -346,7 +306,11 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                 }>
                 <Text
                   style={
-                    focus == item.key ? styles.focusTextTitle : styles.text
+                    focus == item.key
+                      ? styles.focusTextTitle
+                      : selected == 'sort'
+                      ? styles.focusText
+                      : styles.text
                   }>
                   {item.title}
                 </Text>
@@ -380,7 +344,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                     <Pressable
                       key={item.key}
                       onFocus={() => onFocus(item.key)}
-                      onPress={() => onPressClick(item.key)}
+                      onPress={() => onPressClick(item)}
                       tvParallaxProperties={{magnification: 1.1}}
                       // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
                     >
@@ -459,7 +423,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                     <Pressable
                       key={item.key}
                       onFocus={() => onFocus(item.key)}
-                      onPress={() => onPressClick(item.key)}
+                      onPress={() => onPressClick(item)}
                       tvParallaxProperties={{magnification: 1.1}}
                       // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
                     >
@@ -481,7 +445,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                         </View>
                       ) : (
                         <View style={{marginLeft: 20, flexDirection: 'row'}}>
-                          <View style={{marginRight: isAndroid() ? 22 : 90}}>
+                          <View style={{marginRight: isAndroid() ? 25 : 75}}>
                             <View
                               style={
                                 props.focus === 'top' && focus == item.key
@@ -495,18 +459,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                               }>
                               <Text
                                 style={
-                                  props.focus === 'top' &&
-                                  //   props.focus === 90 ?
-                                  //   styles.textTitle :
-                                  focus == item.key
+                                  (props.focus === 'top') & (focus == item.key)
                                     ? styles.focusTextTitle
+                                    : item.selected
+                                    ? //  props.topSelected == item.key ?
+                                      styles.focusText
                                     : styles.textTitle
                                 }>
-                                {t(item.title)}
+                                {item.title}
                               </Text>
                             </View>
                             <Text numberOfLines={1} style={styles.text}>
-                              {t(item.details)}
+                              {item.details}
                             </Text>
                           </View>
                           {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
@@ -547,12 +511,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.lightGrey,
-    height: isAndroid() ? 50 : 100,
+    height: isAndroid() ? 40 : 90,
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderColor: 'red',
-    borderRadius: 20,
+    borderRadius: 10,
+    marginStart: 10,
   },
   itemWrapperSelected: {
     backgroundColor: colors.tomatoRed,
@@ -572,7 +537,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '900',
     fontSize: isAndroid() ? 12 : 24,
-    color: colors.white,
+    color: colors.tomatoRed,
     // width:   250
   },
   textTitle: {

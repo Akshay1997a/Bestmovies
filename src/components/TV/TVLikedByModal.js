@@ -15,50 +15,56 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
-import {useTranslation} from 'react-i18next';
 
 const DATA = [
   {id: 0, name: '---'},
   {id: 1, name: '+ Add friend'},
-  {id: 2, name: 'texts.id_101'},
-  {id: 3, name: 'texts.id_101'},
-  {id: 4, name: 'texts.id_103'},
-  {id: 5, name: 'texts.id_105'},
-  {id: 6, name: 'texts.id_107'},
+  {id: 2, name: 'Rating'},
+  {id: 3, name: 'Rating'},
+  {id: 4, name: 'Match'},
+  {id: 5, name: "Friend's Like"},
+  {id: 6, name: 'Popularity'},
   {id: 7, name: '+ Add friend'},
-  {id: 8, name: 'texts.id_101'},
-  {id: 9, name: 'texts.id_101'},
-  {id: 10, name: 'texts.id_103'},
-  {id: 11, name: 'texts.id_105'},
-  {id: 12, name: 'texts.id_107'},
+  {id: 8, name: 'Rating'},
+  {id: 9, name: 'Rating'},
+  {id: 10, name: 'Match'},
+  {id: 11, name: "Friend's Like"},
+  {id: 12, name: 'Popularity'},
 ];
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
   backWrap: {
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
-    marginLeft: 10,
+    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
+    margin: isAndroid() ? 0 : 4,
   },
   focusBackWrap: {
-    backgroundColor: colors.tomatoRedLight,
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
+    backgroundColor: colors.tomatoRed,
+    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
+    margin: isAndroid() ? 0 : 4,
     borderRadius: 10,
-    marginLeft: 10,
   },
 });
 
 const TVLikedByModal = (props) => {
-  const {t} = useTranslation();
+  // console.log('props selected>>>',props);
 
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
 
+  const onPressClick = (val) => {
+    val.selected = true;
+    console.log('onPressClick TVLikedByModal***', val);
+    props.action(props.keySort);
+    props.visible = true;
+
+    //   props.onclose();
+    setSelected(val);
+  };
   // useEffect(() => {
 
   //     async function fetchData() {
@@ -76,31 +82,27 @@ const TVLikedByModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={'Liked by'}
-      titleId={'liked_by'}>
+      title={'Liked by'}>
       <ScrollView>
         {data.map((item, index) => {
           return (
             <Pressable
-              onPress={props.onclose}
+              onPress={() => onPressClick(item)}
               onFocus={() => setFocus(item.id)}
-              style={
-                item.id == focus
-                  ? {
-                      borderRadius: 20,
-                      marginHorizontal: 10,
-                      backgroundColor: colors.tomatoRed,
-                    }
-                  : {marginHorizontal: 10}
-              }>
+              style={item.id == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
                 style={{
                   fontFamily: primary_regular_font.primary_regular_font,
                   fontSize: isAndroid() ? 15 : 30,
                   fontWeight: '400',
-                  color: item.id == focus ? colors.white : colors.black,
+                  color:
+                    item.id == focus
+                      ? colors.white
+                      : item.selected
+                      ? colors.tomatoRed
+                      : colors.black,
                 }}>
-                {t(item.name)}
+                {item.name}
               </Text>
             </Pressable>
           );

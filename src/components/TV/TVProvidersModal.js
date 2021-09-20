@@ -18,20 +18,22 @@ const DATA = [
     { "id":7, "name":"Last 50 years" },
     { "id":8, "name":"All time" }
 ]
+const isAndroid = () => {
+	return Platform.OS == "android";
+}
 
 const styles = StyleSheet.create({
     backWrap:{
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
-        margin: 4
+        paddingHorizontal:isAndroid() ? 0: StyleConfig.resWidth(8),
+        paddingVertical:isAndroid() ? 0: StyleConfig.resHeight(4),
+        margin:isAndroid() ? 0: 4
     },
     focusBackWrap:{
-        backgroundColor: colors.tomatoRedLight,
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
-        margin: 4,
+        backgroundColor: colors.tomatoRed,
+        paddingHorizontal: isAndroid() ? 0: StyleConfig.resWidth(8),
+        paddingVertical:  isAndroid() ? 0:StyleConfig.resHeight(4),
+        margin: isAndroid() ? 0:4,
         borderRadius:10
-
     }
 })
 
@@ -59,7 +61,9 @@ const TVProvidersModal = (props) =>{
                     data={data}
                     contentContainerStyle={{paddingHorizontal:10}}
                     renderItem={({item})=>{
-                        return (<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:10, padding:5, backgroundColor: colors.light_orange}:{ padding:5, }} >
+                        return (<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)}
+                        style={item.id == focus ? styles.focusBackWrap:styles.backWrap
+                        } >
                         <Image source={{uri: item.image}} style={{ width: StyleConfig.resWidth(50),
                         height: StyleConfig.resHeight(50), borderRadius:25}} />
                     </Pressable>)
