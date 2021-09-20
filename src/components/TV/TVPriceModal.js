@@ -72,7 +72,8 @@ const TVPriceModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.price}>
+      title={strings.price}
+      titleId={'price'}>
       <ScrollView>
         {data.map((item, index) => {
           return (

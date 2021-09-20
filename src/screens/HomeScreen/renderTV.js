@@ -415,7 +415,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
         {selected == MENU && showSelected == COUNTRY_LANGUAGE && (
           <View hasTVPreferredFocus={true}>
-            <Text>dadsdsd</Text>
+            {/* <Text>dadsdsd</Text> */}
             {/* <TVSideBar onChangeSelected={(val)=> setShowSelected(val) }/> */}
             {/* <FlatList 
                 data={Const.ABOUT_US}
@@ -635,14 +635,12 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
         oncloseModal={() => oncloseModal(RELEASE)}
         onclose={() => oncloseModal(RELEASE)}
       />
-      {showSelected && (
-        <TVCountryModal
-          action={onPressClick}
-          visible={showSelected == COUNTRY}
-          oncloseModal={() => oncloseModal(COUNTRY)}
-          onclose={() => oncloseModal(COUNTRY)}
-        />
-      )}
+      <TVCountryModal
+        action={onPressClick}
+        visible={showSelected == COUNTRY}
+        oncloseModal={() => oncloseModal(COUNTRY)}
+        onclose={() => oncloseModal(COUNTRY)}
+      />
       <TVGenreModal
         visible={showSelected == GENRE}
         oncloseModal={() => oncloseModal(GENRE)}

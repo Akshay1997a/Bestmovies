@@ -1046,7 +1046,8 @@ const TVCountryModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={t('texts.id_137')}>
+      title={t('texts.id_137')}
+      titleId={'country_of_origin'}>
       {/* <NavigationEvents onDidFocus={() => alert('A')} /> */}
       <ScrollView>
         {countryList !== null &&

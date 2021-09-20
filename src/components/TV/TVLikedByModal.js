@@ -76,7 +76,8 @@ const TVLikedByModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={'Liked by'}>
+      title={'Liked by'}
+      titleId={'liked_by'}>
       <ScrollView>
         {data.map((item, index) => {
           return (

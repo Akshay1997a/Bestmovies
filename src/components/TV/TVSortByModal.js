@@ -51,24 +51,13 @@ const TVSortByModal = (props) => {
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
 
-  // useEffect(() => {
-
-  //     async function fetchData() {
-  //         fetch('https://60cde54091cc8e00178dc16b.mockapi.io/generes')
-  //         .then(res => res.json())
-  //         .then(resJson => {
-  //             setData(resJson)
-  //         }).catch(e => console.log(e));
-  //     }
-
-  //     fetchData();
-  //   }, [])
   return (
     <CommonFilterTvModal
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={'Sort by'}>
+      title={t('texts.id_99')}
+      titleId={'sort_by'}>
       <ScrollView>
         {data.map((item, index) => {
           return (

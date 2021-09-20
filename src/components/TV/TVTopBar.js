@@ -124,7 +124,7 @@ const DATA = [
   {
     key: GENRE,
     title: 'texts.id_127',
-    details: 'Comedy,Romantic',
+    details: transConstants.genres_comedy,
     // transConstants.genres_comedy_romance,
     // 'code_co,Romantic',
   },
