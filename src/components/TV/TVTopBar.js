@@ -93,7 +93,6 @@ const DATA = [
     {
         "key": STRREAMING,
         "title": strings.streaming_service,
-        // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
         "details" :"6, Free, Rent/Buy,..."
     },
     {
@@ -128,45 +127,10 @@ const DATA = [
         "title": strings.price,
         "details": "Any"
     },
-    // {
-    //     "key": INCLUDES,
-    //     "title": strings.include,
-    //     "details": " Watched browsed"
-    // },
-    // {
-    //     "key": PROVIDERS,
-    //     "title": 'Clear filters',
-    //     "details": ""
-    // },
-    // {
-    //     "key": THEATERS,
-    //     "title": strings.theaters,
-    // },{
-    //     "key": THREERENT,
-    //     "title": strings.three_rent,
-    // },{
-    //     "key": ALLFREE,
-    //     "title": strings.all_free,
-    // },
 ]
 
 const BACK_DATA = [
-    // {
-    //     "key": SORT_BY,
-    //     "title": strings.sort_by,
-    //     "details": strings.rating
-    // },
-    // {
-    //     "key": LIKEDBY,
-    //     "title": strings.liked_by,
-    //     "details": "--"
-    // },
-    // {
-    //     "key": STRREAMING,
-    //     "title": strings.streaming_service,
-    //     // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
-    //     "details" :"6, Free, Rent/Buy,..."
-    // },
+   
     {
         "key": 'BackArrow',
         "title": strings.price,
@@ -221,9 +185,9 @@ const BACK_DATA = [
     //     "title": strings.all_free,
     // },
 ]
-const TVSideBar = forwardRef(({ onChangeSelected, ...props }, ref) => {
+const TVSideBar = forwardRef(({selected, onChangeSelected, ...props }, ref) => {
 
-// console.log('props',props);
+    console.log(' TVSideBar selected Top',selected == 'sort');
 
 
 const BackArrow = forwardRef(({ item }, ref) => {
@@ -246,6 +210,8 @@ const BackArrow = forwardRef(({ item }, ref) => {
 
     const [focus, setFocus] = useState(props.focus === 20 ? NONE : 1);
     const [isScroll, setIsScroll] = useState(false);
+console.log('props headerSelected >>>',props.topSelected);
+
     if(props.focus === 20){
         // console.log('OnFocus TVTopBar***',props);
 
@@ -257,9 +223,10 @@ const BackArrow = forwardRef(({ item }, ref) => {
       props.reduxSetCurrFocus('top')
 
   
-        // console.log('onFocus TVSideBar***');
+        console.log('onFocus TVBar***');
 
         setFocus(val);
+
     });
 
     const getData = async () => {
@@ -275,14 +242,15 @@ const BackArrow = forwardRef(({ item }, ref) => {
       }
       
     const onPressClick = ((val) => {
-        if(val === 'Arrow'){
+        val.selected = true;
+        console.log('onPressClick TVSideBar******',val);
+        if(val.key === 'Arrow'){
         setIsScroll(true);
         }else{
             setIsScroll(false);
-            onChangeSelected(val);
+            onChangeSelected(val.key);
 
         }
-        // console.log('onPressClick TVSideBar***',val);
     });
 
     const onBlur = useCallback(() => {
@@ -324,7 +292,14 @@ const BackArrow = forwardRef(({ item }, ref) => {
                             onPress={() => onChangeSelected(item.key)}                                                          
                             tvParallaxProperties={{ magnification: 1.1 }}
                             style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                            <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
+                            <Text style={
+                                focus == item.key ?
+                                 styles.focusTextTitle :
+                                 selected == 'sort' ?
+                                 styles.focusText  :
+                                  styles.text
+                                  }
+                                  >{item.title}</Text>
                         </Pressable>
                     )
                 })}
@@ -363,7 +338,7 @@ const BackArrow = forwardRef(({ item }, ref) => {
                                     key={item.key}
                                     onFocus={() => onFocus(item.key)}
     
-                                    onPress={() => onPressClick(item.key)}
+                                    onPress={() => onPressClick(item)}
                                     tvParallaxProperties={{ magnification: 1.1 }}
                                     // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
                                      >
@@ -439,7 +414,7 @@ const BackArrow = forwardRef(({ item }, ref) => {
                                     key={item.key}
                                     onFocus={() => onFocus( item.key)}
                                     
-                                    onPress={() => onPressClick(item.key)}
+                                    onPress={() => onPressClick(item)}
                                     tvParallaxProperties={{ magnification: 1.1 }}
                                     // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
                                      >
@@ -455,7 +430,7 @@ const BackArrow = forwardRef(({ item }, ref) => {
                                             
                                             :
                                             <View style={{marginLeft:20,flexDirection:'row'}} >
-                                            <View style={{marginRight: isAndroid() ? 22: 90}}>
+                                            <View style={{marginRight: isAndroid() ? 25: 75}}>
                                                  <View  style={ 
                                                      props.focus === 'top' &&
                                                      focus == item.key ?
@@ -468,11 +443,11 @@ const BackArrow = forwardRef(({ item }, ref) => {
                                                 }
                                                      >
                                                              <Text style={
-                                                                  props.focus === 'top' &&
-                                                                //   props.focus === 90 ?
-                                                                //   styles.textTitle :
-                                                                  focus == item.key ?
+                                                                  props.focus === 'top' & focus == item.key ?
                                                                  styles.focusTextTitle :
+                                                                 item.selected ?
+                                                                //  props.topSelected == item.key ?
+                                                                 styles.focusText  :
                                                                   styles.textTitle
                                                                   }
                                                                   >
@@ -543,13 +518,13 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: colors.lightGrey,
-        height:  isAndroid()? 50 :100,
+        height:  isAndroid()? 40 :90,
         alignContent:'center',
         alignItems:'center',
         flexDirection:'row',
         borderColor:'red',
-        borderRadius:20,
-
+        borderRadius:10,
+        marginStart:10
     },
     itemWrapperSelected:{
         backgroundColor: colors.tomatoRed,
@@ -569,7 +544,7 @@ const styles = StyleSheet.create({
         fontFamily:primary_regular_font.primary_regular_font,
         fontWeight:'900',
         fontSize: isAndroid() ? 12 :24,
-        color: colors.white,
+        color: colors.tomatoRed,
         // width:   250
 
     },
@@ -585,5 +560,6 @@ const styles = StyleSheet.create({
         fontWeight:'700',
         color: colors.white,
     },
+
    
 })

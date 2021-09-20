@@ -8,30 +8,35 @@ import AppImages from '../../assets'
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
-
-const styles = StyleSheet.create({
-    backWrap:{
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
-        margin: 4
-    },
-    focusBackWrap:{
-        backgroundColor: colors.tomatoRedLight,
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
-        margin: 4,
-        borderRadius:10
-
-    }
-})
 const isAndroid = () => {
 	return Platform.OS == "android";
 }
+const styles = StyleSheet.create({
+    backWrap:{
+        paddingHorizontal:isAndroid() ? 0: StyleConfig.resWidth(8),
+        paddingVertical:isAndroid() ? 0: StyleConfig.resHeight(4),
+        margin:isAndroid() ? 0: 4
+    },
+    focusBackWrap:{
+        backgroundColor: colors.tomatoRed,
+        paddingHorizontal: isAndroid() ? 0: StyleConfig.resWidth(8),
+        paddingVertical:  isAndroid() ? 0:StyleConfig.resHeight(4),
+        margin: isAndroid() ? 0:4,
+        borderRadius:10
+    }
+})
+
 const TVGenreModal=(props)=>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState([])
-
+    const onPressClick = ((val) => {
+        val.selected = true;
+         console.log('onPressClick TVCountryModal***',val);
+         props.action(props.keySort);
+       //   props.onclose();
+         setSelected(val);
+     });
     useEffect(() => {
         async function fetchData() {
             fetch('https://60cde54091cc8e00178dc16b.mockapi.io/generes')
@@ -52,9 +57,20 @@ const TVGenreModal=(props)=>{
                             
                     </View>
                     {data.map((item, index)=>{
-                        return(<Pressable onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
+                        return(<Pressable
+                            onPress={()=>onPressClick(item)}
+
+                             onFocus={()=> setFocus(item.id)}
+                        style={item.id == focus ? styles.focusBackWrap:styles.backWrap
+                        } >
+                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', 
+                                                       color: item.id == focus
+                                                        ? colors.white 
+                                                        : item.selected
+                                                        ? colors.tomatoRed
+                                                        : colors.black}}>{item.generes}</Text>
                             {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8,paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text> */}
-                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text>
+                            {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text> */}
 
                         </Pressable>)
                     })}

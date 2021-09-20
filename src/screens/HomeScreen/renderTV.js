@@ -66,18 +66,22 @@ const buttons = [
   ['y', 'z', '1', '2', '3','4'],
 
   ['5', '6', '7','8','9','0'],
+  [AppImages.back_bk, AppImages.next_bk, AppImages.space,AppImages.delete,AppImages.delete_all],
+
 ];
 const posts_json = MoviesJSON.data.children.map(child => child.data);
 
 const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
-    const [selected, setSelected] = useState(MY_LIST)
+  const [topSelected, setTopSelected] = useState(0);
+    const [selected, setSelected] = useState(MOVIES)
     const [selectedItem, setSelectedItem] = useState(posts? posts[0] : null)
     const [showSelected, setShowSelected] = useState(NONE)
     const sidebar = useRef();
     const header = useRef();
-    const [text, setText] = useState('');
+    // const [text, setText] = useState('sadad');
+    const [text, onChangeText] = React.useState(null);
     let _tvEventHandler 
-    
+    console.log('onChangeSelected',selected)
 
     // const _enableTVEventHandler =()=> {
     //   this._tvEventHandler = new TVEventHandler();
@@ -124,12 +128,12 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
     }
 
     onSideBarFocus=(val)=>{
-      console.log("onSideBarFocus-")
+      // console.log("onSideBarFocus-")
       sidebar?.current?.setChangeFocus(val)
       
   }
   const oncloseModal=(val)=> {
-    console.log("home-",props);
+    // console.log("home-",props);
     // console.log("state-",state);
     
     setShowSelected(NONE)
@@ -137,10 +141,28 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
   }
 
   const onPressClick = ((val) => {
+    setTopSelected(val);
+    console.debug(' onPressClick value>>>>>',val);
+
 });
   function _handleEvent(value){
-    console.debug('value',value);
-
+    console.debug('value>>>>>',value);
+    let data = '';
+    if(value == 33){
+      data = text.slice(0, -1);
+    }else if(value == 28){
+      //
+    }else if(value == 12){
+      data =  text == null ?  value : text + '\n';
+    }else if(value == 13){
+      data = text.slice(0, -1);
+    }else if(value == 14){
+      data = null;
+    }
+    else{
+      data =  text == null ?  value : text + value;
+    }
+    onChangeText(data);
   }
     // console.log({selected, ADVERTISE_DATA})
     return (
@@ -155,15 +177,20 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
         } } />
      {/* <ScrollView> */}
       <View hasTVPreferredFocus={true} style={{flexDirection:'column',backgroundColor:colors.white}}>
-      <TVTopBar  ref={sidebar} headerSelected={selected}  {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
+      <TVTopBar topSelected ={topSelected} selected={showSelected== SORT_BY} ref={sidebar} headerSelected={selected}  {...props}  onChangeSelected={(val)=> 
+      {
+        console.log('onChangeSelected',val);
+        setShowSelected(val) 
+      }
+         }/>
 
           {/* { selected != SEARCH && 
           <TVTopBar ref={sidebar} headerSelected={selected} hasTVPreferredFocus={true} {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
           } */}
           {selected == SEARCH && 
           <View style={{flexDirection: 'row'}}>
-            <View style={{ width: StyleConfig.resWidth(600),marginTop:30}}>
-              <View style={{flexDirection:'row',marginBottom:10}} >
+            <View style={{ width: StyleConfig.resWidth(500),marginTop: isAndroid()? 30: 100,marginRight:20,marginLeft:10}}>
+              {/* <View style={{flexDirection:'row',marginBottom:10}} >
                   <View style={styles.title}>
                     
                         <Text style={styles.titleText}>Title</Text>
@@ -175,20 +202,27 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
                   <View style={styles.artist}>
                   <Text style={{fontSize: isAndroid() ? 14: 28,fontWeight:'400',color:colors.black}}>User</Text>
                   </View>
-              </View>
+              </View> */}
 
               <View style={styles.tetxInputLayout}>
               <View style={{flex:1,flexDirection:'row'}}>
                 <View style={{flex:0.1,alignSelf:'center'}} >
                      <Image style={styles.search} source={AppImages.icSearch} />
                   </View>
-                  
-                    <TextInput 
+                  {/* <TextInput 
                       placeholder={strings.search}
                       placeholderTextColor={colors.black}
                       keyboardType={strings.email_address}
-                      style={styles.textInput}
+                      style={{backgroundColor:colors.lightGrey, flex:0.8,alignSelf:'center',fontSize:34,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'700'}}
                       onChangeText={text => setText(text)}
+                    /> */}
+                    <TextInput 
+                    onSelectionChange={(event) => console.log(event.nativeEvent.selection)}
+                      placeholderTextColor={colors.black}
+                      placeholder={strings.search}
+                    style={styles.textInput}
+                    onChangeText={onChangeText}
+                    value={text}
                     />
                     <View style={{marginStart:10,flex:0.1,alignSelf:'center'}} >
                     <Image style={styles.mic} source={AppImages.micro} />
@@ -222,17 +256,17 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
                 /> 
           </View>}
           {selected == MY_LIST && 
-            <View  style={{backgroundColor: colors.white }} hasTVPreferredFocus={true}>
+            <View  hasTVPreferredFocus={true}>
 
               {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
-              <View hasTVPreferredFocus={true} style={{height: StyleConfig.resHeight(900)}}>
+              <View hasTVPreferredFocus={true} style={{height: StyleConfig.resHeight(900),borderWidth:1}}>
                  <View style={{flexDirection:'row', marginVertical: isAndroid() ? 5: 10,backgroundColor:colors.white,marginHorizontal:10}} >
                     <Text style={styles.ranking} >Ranking of best movies</Text>
                     <Text style={styles.result}>  12,348  results </Text>
                  </View>
                  <FlatList
                    hasTVPreferredFocus={true}
-                   contentContainerStyle={{paddingBottom:50}}
+                  //  contentContainerStyle={{paddingBottom:50}}
                    keyExtractor={(item, index) => `item${index}`}
                   numColumns={5}
                   data={posts}
@@ -245,9 +279,13 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
           
             {selected == MOVIES && 
             <View style={[{flex:1,backgroundColor: colors.white}]} hasTVPreferredFocus={true}>
+
               {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
               <View hasTVPreferredFocus={true} style={{backgroundColor: colors.white, height: StyleConfig.resHeight(900)}}>
-                
+                 <View style={{flexDirection:'row', marginVertical: isAndroid() ? 5: 10,backgroundColor:colors.white,marginHorizontal:10}} >
+                    <Text style={styles.ranking} >Ranking of best movies</Text>
+                    <Text style={styles.result}>  12,348  results </Text>
+                 </View>
                   <FlatList
                    hasTVPreferredFocus={true}
                    contentContainerStyle={{paddingBottom:50}}
@@ -255,7 +293,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
                   numColumns={5}
                   data={posts}
                   renderItem = {({item}) => (
-                    <TVMovieListItem item={item} {...props}  type = "movie" selected={MY_LIST} />
+                    <TVMovieListItem item={item} {...props}  type = "movie" selected={MOVIES} />
                   )}
                   />
               </View>
@@ -293,7 +331,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
 
             {selected == MENU && showSelected == ABOUT_US && 
             <View hasTVPreferredFocus={true}  >
-              <TVSideBar onChangeSelected={(val)=> setShowSelected(val) }/>
+              <TVSideBar selected={MENU} {...props} onChangeSelected={(val)=> setShowSelected(val)  }/>
             </View> }
 
             {selected == MENU && showSelected == COUNTRY_LANGUAGE && 
@@ -380,17 +418,41 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props})=>{
              
             </View> }
         </View>
-        <TVSortByModal visible={showSelected== SORT_BY} oncloseModal={()=> oncloseModal(SORT_BY)} onclose={()=> oncloseModal(SORT_BY)}  />
-        <TVLikedByModal visible={showSelected== LIKEDBY} oncloseModal={()=> oncloseModal(LIKEDBY)} onclose={()=> oncloseModal(LIKEDBY)}  />
-        <TVStreamingModal visible={showSelected== STRREAMING} oncloseModal={()=> oncloseModal(STRREAMING)} onclose={()=> oncloseModal(STRREAMING)}  />
-        <TVAgesModal visible={showSelected== AGES} oncloseModal={()=> oncloseModal(AGES)} onclose={()=> oncloseModal(AGES)}  />
-        <TVReleaseModal visible={showSelected== RELEASE} oncloseModal={()=> oncloseModal(RELEASE)} onclose={()=> oncloseModal(RELEASE)}  />
+        <TVSortByModal 
+         keySort={SORT_BY}
+         action={onPressClick}
+          selected={true}    
+        visible={showSelected== SORT_BY} oncloseModal={()=> oncloseModal(SORT_BY)} onclose={()=> oncloseModal(SORT_BY)}  />
+        <TVLikedByModal 
+         keySort={LIKEDBY}
+         action={onPressClick}
+         selected={true} visible={showSelected== LIKEDBY} oncloseModal={()=> oncloseModal(LIKEDBY)} onclose={()=> oncloseModal(LIKEDBY)}  />
+        <TVStreamingModal
+        action={onPressClick}
+        keySort={STRREAMING}
+         visible={showSelected== STRREAMING} oncloseModal={()=> oncloseModal(STRREAMING)} onclose={()=> oncloseModal(STRREAMING)}  />
+        <TVAgesModal
+         action={onPressClick}
+         keySort={AGES}
+         visible={showSelected== AGES} oncloseModal={()=> oncloseModal(AGES)} onclose={()=> oncloseModal(AGES)}  />
+        <TVReleaseModal
+         action={onPressClick}
+         keySort={RELEASE}
+         visible={showSelected== RELEASE} oncloseModal={()=> oncloseModal(RELEASE)} onclose={()=> oncloseModal(RELEASE)}  />
         <TVCountryModal
          action={onPressClick}
+         keySort={COUNTRY}
          visible={showSelected== COUNTRY} oncloseModal={()=> oncloseModal(COUNTRY)} onclose={()=> oncloseModal(COUNTRY)}  />
-        <TVGenreModal visible={showSelected== GENRE} oncloseModal={()=> oncloseModal(GENRE)} onclose={()=> oncloseModal(GENRE)}  />
-        <TVPriceModal visible={showSelected== PRICE} oncloseModal={()=> oncloseModal(PRICE)} onclose={()=> oncloseModal(PRICE)}  />
-        <TVProvidersModal visible={showSelected== PROVIDERS} oncloseModal={()=> oncloseModal(PROVIDERS)} onclose={()=> oncloseModal(PROVIDERS)}  />
+        <TVGenreModal
+         action={onPressClick}
+         keySort={GENRE}
+         visible={showSelected== GENRE} oncloseModal={()=> oncloseModal(GENRE)} onclose={()=> oncloseModal(GENRE)}  />
+        <TVPriceModal
+         action={onPressClick}
+         keySort={PRICE} visible={showSelected== PRICE} oncloseModal={()=> oncloseModal(PRICE)} onclose={()=> oncloseModal(PRICE)}  />
+        <TVProvidersModal 
+         action={onPressClick}
+         keySort={PROVIDERS}visible={showSelected== PROVIDERS} oncloseModal={()=> oncloseModal(PROVIDERS)} onclose={()=> oncloseModal(PROVIDERS)}  />
         {/* <TVIncludeModal visible={showSelected== INCLUDES} oncloseModal={()=> oncloseModal(INCLUDES)} onclose={()=> oncloseModal(INCLUDES)}  /> */}
         {/* </ScrollView>  */}
       </View>
@@ -415,6 +477,14 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center'
   },
+  input: {
+    width:'100%',
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    color:colors.tomatoRed
+  },
   artist:{
     flex:0.34,
     // height:40,
@@ -432,7 +502,7 @@ const styles = StyleSheet.create({
      borderRadius:8, 
       minHeight: isAndroid() ?  40 : 80,
       minWidth:60,
-      marginBottom:isAndroid() ?  10 : 20},
+      marginBottom:isAndroid() ?  10 : 10},
   mic:{
     marginEnd:10,
     height: isAndroid() ? 20 : 40,
@@ -440,24 +510,25 @@ const styles = StyleSheet.create({
     justifyContent:'flex-end'},
   search:{
     marginStart:10,
-    height: isAndroid()? 10 : 30,
-    width: isAndroid() ? 10: 30,},
+    height: isAndroid()? 12 : 30,
+    width: isAndroid() ? 12: 30,},
   textInput:{
+    color:colors.black,
     backgroundColor:colors.lightGrey,
      flex:0.8,alignSelf:'center',
-     fontSize: isAndroid()? 10: 34,
+     fontSize: isAndroid()? 16: 34,
      fontFamily:primary_regular_font.primary_regular_font,
-     fontWeight: isAndroid() ? '400' : '700'},
+     fontWeight: isAndroid() ? '400' : '400'},
   ranking:{
     color:colors.black,
-    fontSize: isAndroid() ?  12 :30,
-    fontWeight:'800'
+    fontSize: isAndroid() ?  15 :30,
+    fontWeight: isAndroid() ? 'bold' :'700'
   },
   result:{
     fontFamily:'VAGRoundedNext-light',
     color:colors.black,
-    fontSize: isAndroid() ? 12 : 30,
-    fontWeight:'200'
+    fontSize: isAndroid() ? 15 : 30,
+    fontWeight: isAndroid() ? '400' :'400'
   },
     container: {
       backgroundColor: colors.black,

@@ -24,7 +24,13 @@ const styles = StyleSheet.create({
         margin: 4,
         borderRadius:10
 
-    }
+    },
+    selectedText: {
+      fontSize: isAndroid() ? 12 :32,
+      fontWeight: '700',
+      color: colors.tomatoRed,
+      fontFamily:primary_regular_font.primary_regular_font
+    },
 })
 const data =[
     {
@@ -1004,12 +1010,17 @@ const data =[
 const TVCountryModal=(props)=>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
+
+   //  const [selected, setSelected] = useState();
+
     // const [ data, setData] = useState([])
 
     const onPressClick = ((val) => {
+       val.selected = true;
         console.log('onPressClick TVCountryModal***',val);
-        props.action(val);
-        props.onclose();
+        props.action(props.keySort);
+      //   props.onclose();
+        setSelected(val);
     });
     // useEffect(() => {
         
@@ -1042,8 +1053,25 @@ const TVCountryModal=(props)=>{
                           style={
                               item.code == focus 
                               ?
-                               { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed}:{ marginHorizontal:10,}} >
-                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.code == focus ? colors.white : colors.black}}>{item.name}</Text>
+                               {
+                                   borderRadius:20, 
+                                   marginHorizontal:10,
+                                    backgroundColor: colors.tomatoRed
+                                    }:
+                                    {
+                                        marginHorizontal:10,
+                                        }} >
+                            <Text style={{
+                               fontFamily:primary_regular_font.primary_regular_font,
+                               fontSize: isAndroid() ? 15: 30,
+                               fontWeight:'400',
+                                color: item.code == focus ?
+                                 colors.white 
+                                 : item.selected
+                                 ? colors.tomatoRed
+                                 // : styles.text
+                                 : colors.black
+                                }}>{item.name}</Text>
 
                             {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8, paddingHorizontal:15, 
                             color: item.code == focus ? colors.white : colors.black}}>{item.name}</Text> */}

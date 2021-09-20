@@ -8,7 +8,7 @@ export default  {
     customized_text:"Customized",
     from_text:"From",
     to_text:"To",
-    search:"Search title or artist",
+    search:"Search title, artist or user",
     email_address:"email-address",
     similar_titles:"Similar titles:",
     best_movies:"BestMovies",
@@ -25,7 +25,7 @@ export default  {
     all:"All",
     ages:"Age rating (max)",
     liked_by:"Liked By",
-    streaming_service:"Streaming services",
+    streaming_service:"Where to watch",
 
     providers:"Providers",
     theaters:"+ theaters",

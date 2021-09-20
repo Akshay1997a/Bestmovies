@@ -20,30 +20,38 @@ const DATA = [
     { "id":7, "name":"Last 50 years" },
     { "id":8, "name":"All time" }
 ]
-const styles = StyleSheet.create({
-    backWrap:{
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
-        margin: 4
-    },
-    focusBackWrap:{
-        backgroundColor: colors.tomatoRedLight,
-        paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical: StyleConfig.resHeight(4),
-        margin: 4,
-        borderRadius:10
-
-    }
-})
-
 const isAndroid = () => {
 	return Platform.OS == "android";
 }
+const styles = StyleSheet.create({
+    backWrap:{
+        paddingHorizontal:isAndroid() ? 0: StyleConfig.resWidth(8),
+        paddingVertical:isAndroid() ? 0: StyleConfig.resHeight(4),
+        margin:isAndroid() ? 0: 4
+    },
+    focusBackWrap:{
+        backgroundColor: colors.tomatoRed,
+        paddingHorizontal: isAndroid() ? 0: StyleConfig.resWidth(8),
+        paddingVertical:  isAndroid() ? 0:StyleConfig.resHeight(4),
+        margin: isAndroid() ? 0:4,
+        borderRadius:10
+    }
+})
+
+
 const TVReleaseModal = (props) =>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState(DATA)
+    const onPressClick = ((val) => {
+        val.selected = true;
+         console.log('onPressClick TVAgesModal***',val);
+         props.action(props.keySort);
+         props.visible = true;
 
+       //   props.onclose();
+         setSelected(val);
+     });
     return(
         // <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
         //     <View style={{width: 350, minHeight: 300, backgroundColor: 'white'}}>
@@ -58,8 +66,17 @@ const TVReleaseModal = (props) =>{
             <CommonFilterTvModal visible={props?.visible} oncloseModal={props.oncloseModal} onclose={props?.onclose}  title={strings.release} >
                 <ScrollView>
                     {data.map((item, index)=>{
-                        return(<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.light_orange }:{ marginHorizontal:10,}} >
-                                                                                                                                                                                           <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                        return(<Pressable
+                            onPress={()=>onPressClick(item)}
+                               onFocus={()=> setFocus(item.id)}
+                        style={item.id == focus ? styles.focusBackWrap:styles.backWrap
+                                } >
+                                                       <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', 
+                                                       color: item.id == focus
+                                                        ? colors.white 
+                                                        : item.selected
+                                                        ? colors.tomatoRed
+                                                        : colors.black}}>{item.name}</Text>
 
 
                         </Pressable>)

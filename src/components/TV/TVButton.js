@@ -6,15 +6,15 @@ import primary_regular_font from '../../helper/fonts';
 const isAndroid = () => {
 	return Platform.OS == "android";
 };
-const TVButton = ({text,bgColor}) => {
+const TVButton = ({text,bgColor,selected}) => {
   return (
     <TouchableOpacity style={{
-      backgroundColor: bgColor,
+      // backgroundColor: bgColor,
       borderRadius:20,
       // borderWidth:1,
       // marginRight:20,
       // paddingRight: 15,
-      width: '29%',
+      width: '30%',
       // height: 100,
       // alignItems:'center'
       alignItems:'center',
@@ -22,7 +22,7 @@ const TVButton = ({text,bgColor}) => {
       marginHorizontal:15
     }}>
       <View style={{ backgroundColor:{bgColor}, justifyContent:'center',alignContent:'center',alignItems:'center',alignSelf:'center'}}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={ selected == 1 || 2 || 3 ? styles.focusText : styles.text}>{text}</Text>
       </View>
 
     </TouchableOpacity>
@@ -31,7 +31,7 @@ const TVButton = ({text,bgColor}) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.lightGrey,
+    backgroundColor: '#efefef',
     borderRadius:20,
     // borderWidth:1,
     // marginRight:20,
@@ -46,10 +46,20 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    fontSize:  isAndroid() ? 16: 30,
-    fontWeight:'700',
+    // borderWidth:1,
+    fontSize:  isAndroid() ? 10: 30,
+    fontWeight:'400',
      fontFamily:  primary_regular_font.primary_regular_font,
-    color: 'white',
+     color: '#999999',
+    textAlign: 'center',
+  },
+  focusText: {
+    width: isAndroid() ? 100 :200,
+    // borderWidth:1,
+    fontSize:  isAndroid() ? 14: 30,
+    fontWeight:'400',
+     fontFamily:  primary_regular_font.primary_regular_font,
+     color: colors.white,
     textAlign: 'center',
   },
 });

@@ -125,13 +125,10 @@ console.log('props TVHeader',props);
             style={
               props.focus === 'header' &&
               focus == MOVIES ?
-
-              styles.focusText :styles.text
-              // focus == MOVIES
-              //   ? styles.focusText
-              //   : selected == MOVIES
-              //   ? styles.selectedText
-              //   : styles.text
+               styles.focusText
+              : selected == MOVIES
+              ? styles.selectedText
+              : styles.text
             }>
             {strings.movies_text}
           </Text>
@@ -345,7 +342,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flexDirection: 'row',
-    marginVertical:5
+    marginVertical:5,
+    // marginEnd:100
+    // marginRight:10 
   },
   bannerIcon: {
     width: isAndroid() ? 110 :210,
@@ -363,26 +362,26 @@ const styles = StyleSheet.create({
   },
   itemWrapper: {
     justifyContent: 'center',
-    paddingHorizontal: 12,
+    paddingHorizontal: isAndroid() ? 12 : 20,
     paddingVertical: 6,
-    // marginHorizontal:18,
+    marginHorizontal: isAndroid() ? 10: 20,
     minWidth: 60,
     alignItems: 'center',
   },
   text: {
-    fontSize: isAndroid() ? 12 :32,
+    fontSize: isAndroid() ? 18 :32,
     fontFamily:primary_regular_font.primary_regular_font,
     fontWeight: '400',
     color:colors.black
 
   },
   focusText: {
-    fontSize: isAndroid() ? 12 :32,
+    fontSize: isAndroid() ? 18 :32,
     fontWeight: '700',
     color: colors.white,
   },
   selectedText: {
-    fontSize: isAndroid() ? 12 :32,
+    fontSize: isAndroid() ? 18 :32,
     fontWeight: '700',
     color: colors.tomatoRed,
     fontFamily:primary_regular_font.primary_regular_font

@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
     container:{
         marginLeft: isAndroid() ? 10 : 160,borderLeftWidth:1,borderLeftColor:colors.borderColor},
     backWrap:{
-        // paddingHorizontal: StyleConfig.resWidth(8),
-        paddingVertical:   isAndroid() ? 0: StyleConfig.resHeight(4),
+        paddingHorizontal: StyleConfig.resWidth(8),
+        // paddingVertical:   isAndroid() ? 0: StyleConfig.resHeight(2),
         margin: 4
     },
     focusBackWrap:{
-        backgroundColor: colors.tomatoRedLight,
+        backgroundColor: colors.tomatoRed,
         paddingHorizontal:   isAndroid() ? 0: StyleConfig.resWidth(8),
-        // paddingVertical: StyleConfig.resHeight(4),
+        // paddingVertical:  isAndroid() ? 0 :StyleConfig.resHeight(2),
         margin:   isAndroid() ? 0:4,
         borderRadius:10
 
@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
 })
 
 const TVCountryLanguage = (props) =>{
+  console.log('props>>>',props);
+
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState(COUNTRY)
@@ -74,7 +76,10 @@ const TVCountryLanguage = (props) =>{
         // console.log('key',val);
         // setFocus(val);
     });
-
+    const onFocus = useCallback((val) => {
+        props.reduxSetCurrFocus('countryLang')
+          setFocus(val);
+        });
     const onBlur = useCallback(() => {
         console.log('onBlur')
 
@@ -101,12 +106,26 @@ const TVCountryLanguage = (props) =>{
                         return(<Pressable
                          onPress={onPressHandle} 
                         //  onBlur={onBlur()}
-                          onFocus={()=> setFocus(item.id)} style={item.id == focus  
+                      onFocus={() => onFocus(item.id)}
+
+                        //   onFocus={()=> setFocus(item.id)}
+                           style={
+                            props.focus === 'countryLang' && 
+                               item.id == focus  
                             ? 
-                          { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
+                            styles.focusBackWrap
+                        //   { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
                           :{ }} >
                                                                                                             
-                        <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid()? 16: 30,fontWeight:'400', padding: isAndroid() ? 2: 8, paddingHorizontal: 15, color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                        <Text style={{
+                            fontFamily:primary_regular_font.primary_regular_font,
+                            fontSize: isAndroid()? 16: 30,
+                            fontWeight:'400',
+                             padding: isAndroid() ? 2: 8,
+                              paddingHorizontal: 15,
+                               color:  props.focus === 'countryLang' &&  item.id == focus ?
+                                colors.white : colors.black
+                                }}>{item.name}</Text>
 
                         </Pressable>)
                     })}
@@ -115,8 +134,22 @@ const TVCountryLanguage = (props) =>{
                         isCountryClick ?
                     <View style={{marginLeft: isAndroid() ? 100: 160,borderLeftWidth:1,borderLeftColor:colors.borderColor}}>
                     {country.map((item, index)=>{
-                        return(<Pressable onPress={props.onclose}  onFocus={()=> setFocus(item.id)} style={item.id == focus ? { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }:{ marginHorizontal:10,}} >
-                                                                                                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid()? 16: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text>
+                        return(<Pressable onPress={props.onclose}
+                            onFocus={() => onFocus(item.id)}
+                           style={
+                                 props.focus === 'countryLang' && 
+                               item.id == focus
+                                ? 
+                                styles.focusBackWrap
+                                :styles.backWrap
+                                } >
+                             <Text style={{
+                                 fontFamily:primary_regular_font.primary_regular_font,
+                                 fontSize: isAndroid()? 16: 30,
+                                 fontWeight:'400',
+                                  color:  props.focus === 'countryLang' && item.id == focus ?
+                                   colors.white : colors.black
+                                   }}>{item.name}</Text>
 
                         </Pressable>)
                     })}

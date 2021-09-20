@@ -13,6 +13,7 @@ import {
     TouchableOpacity,
     Platform
  } from 'react-native'
+import TVMovieListItem from '../../components/TV/TVMovieListItem'
 import TVPosterCard from '../../components/TV/TVPosterCard'
 import TVCardDetail from '../../components/TV/TVCardDetail'
 import TVCast from '../../components/TV/TVCast'
@@ -39,6 +40,11 @@ import AppImages from '../../assets'
 // import TVPosterCard from '../../components/TV/TVPosterCard'
 
 const ENTRIES1 = [
+  {
+    title: 'Beautiful and dramatic Antelope Canyon',
+    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+    illustration: 'https://i.imgur.com/UYiroysl.jpg',
+  },
   {
     title: 'Beautiful and dramatic Antelope Canyon',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
@@ -157,14 +163,10 @@ const MyCarousel = ({item,posts, ...props})=>{
       <Pressable 
                   onFocus={onFocus}
                   onBlur={onBlur}
-                  hasTVPreferredFocus={true}
-                  autoFocus={true} 
-                  style = {({pressed, focused}) => 
-                  ({
-                    backgroundColor: focused? 'rgba(255,255,255,0.5)': pressed ? 'red' : 'transparent',
-                    overflow:'hidden'
-                  })
-                }
+                  // hasTVPreferredFocus={true}
+                  // autoFocus={true} 
+                  style={({pressed, focused}) => focused ? styles.focusBackWrap : styles.notfocusbackWrap}
+
                   onPress={()=>props.navigation.goBack()}>
                     <Image style={{ width: StyleConfig.resWidth(60),
                             height: StyleConfig.resHeight(60),}} source={AppImages.arrow_left} />
@@ -177,18 +179,18 @@ const MyCarousel = ({item,posts, ...props})=>{
      
       
         <Carousel
-       
+      //  vertical={3}
       loop={true}
       autoplayDelay={4000}
-      autoplay={true}
+      // autoplay={true}
         ref={carouselRef}
         sliderWidth={screenWidth}
         // sliderHeight={100}
-        itemWidth={ isAndroid() ? 200 :400}
-        itemHeight={100}
+        itemWidth={ isAndroid() ? 190 :400}
+        itemHeight={110}
         data={entries}
         renderItem={bottomRenderItem}
-        hasParallaxImages={true}
+        // hasParallaxImages={true}
       />
         <View style={{flexDirection: 'row', }}>
                 <View style={{ marginTop: isAndroid() ? 6 :16 }}>
@@ -209,8 +211,8 @@ const MyCarousel = ({item,posts, ...props})=>{
                 </View>
               </View>
 
-              <View style={{flexDirection: 'row',marginTop: isAndroid() ? 10: 80}}>
-                <View style={{  marginTop: isAndroid() ? 0: 30 }}>
+              <View style={{flexDirection: 'row'}}>
+                <View style={{  marginTop: isAndroid() ? 0: 0 }}>
                   <Text style={styles.similar_titles}>{strings.similar_titles}</Text>
                   <View style={{flexDirection: 'row'}}>
                   <FlatList
@@ -220,7 +222,7 @@ const MyCarousel = ({item,posts, ...props})=>{
                   numColumns={5}
                   data={posts}
                   renderItem = {({item}) => (
-                    <TVCardDetail item={item} {...props}  type = "movie"  />
+                    <TVMovieListItem item={item} {...props}  type = "movie"  />
                   )}
                   />
                   </View>
@@ -230,17 +232,16 @@ const MyCarousel = ({item,posts, ...props})=>{
               <Pressable 
                   onFocus={onFocus}
                   onBlur={onBlur}
-                  hasTVPreferredFocus={true}
-                  autoFocus={true} 
-                  style = {({pressed, focused}) => 
-                  ({
-                    backgroundColor: focused? 'rgba(255,255,255,0.5)': pressed ? 'red' : 'transparent',
-                    overflow:'hidden'
-                  })
-                }
+                  // hasTVPreferredFocus={true}
+                  // autoFocus={true} 
+                  style={({pressed, focused}) => focused ? styles.focusBackWrap : styles.notfocusbackWrap}
                   onPress={()=>props.navigation.goBack()}>
+                    <View style={{flexDirection:'row',width:100}} >
+
                     <Image style={{ width: StyleConfig.resWidth(60),
                             height: StyleConfig.resHeight(60),}} source={AppImages.arrow_left} />
+                    </View>
+
                     {/* <Icon name={"arrow-left"} type={"fontawesome"} size={70} color="white" /> */}
                 </Pressable>
 
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
   },
   secondItem: {
     // marginTop:40,
-    width: isAndroid() ?  300 : 400,
+    width: isAndroid() ?  200 : 400,
     height: isAndroid() ? 200 :400,
   },
   imageContainer: {
@@ -306,10 +307,27 @@ const styles = StyleSheet.create({
     // resizeMode: 'cover',
   },
   bottomImage: {
-    resizeMode: 'cover',
-    width: isAndroid() ?  200 : 400,
+    // resizeMode: 'cover',
+    width: isAndroid() ?  210 : 400,
     height: 400,
     
   },
+  notfocusbackWrap:{
+        
+    paddingHorizontal: StyleConfig.resWidth(8),
+    paddingVertical: StyleConfig.resHeight(4),
+    // margin: 4,
+    // marginLeft:10,
+},
+focusBackWrap:{
+  width:100,
+  backgroundColor: colors.tomatoRed,
+        // paddingHorizontal: isAndroid() ? 0: StyleConfig.resWidth(8),
+        // paddingVertical:  isAndroid() ? 0:StyleConfig.resHeight(4),
+        // margin: isAndroid() ? 0:4,
+        borderRadius:10,
+
+    // marginLeft:10,
+},
 });
 

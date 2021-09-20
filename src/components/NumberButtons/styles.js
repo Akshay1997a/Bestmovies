@@ -19,11 +19,11 @@ export default {
 
   container: {
     flex:1,
-
+    // borderWidth:1,
   },
 
   txtDefault: {
-    color: '#000',
+    color: colors.black,
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize:  isAndroid() ? 18  : 34,
     // fontWeight: 'bold',
@@ -33,16 +33,23 @@ export default {
     flex: 1,
     flexDirection: 'row',
   },
-  pressableFocused:{ flex: 1,
+  pressableFocused:{
+    padding: isAndroid()? 12: 20,
+    borderRadius:10,
+     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 3,
     borderColor: 'white',
     backgroundColor: colors.tomatoRed},
-    pressable:{ flex: 1,
+    pressable:{ 
+      // borderWidth:1,
+      padding: isAndroid()? 12: 20,
+      borderRadius:10,
+      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: 3,
+      borderWidth:  isAndroid()? 1:  3,
       borderColor: 'white',
       backgroundColor: '#e5e5e5'},
 
@@ -57,19 +64,36 @@ export default {
     
   },
   symbolButton: {
+    // borderWidth:1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding:30  
+    // padding:10   
+  },
+  back_bk:{
+    // borderWidth:1,
+
+    // marginRight:100,
+    // padding: isAndroid()? 10: 30,
+    // borderRadius:10,
+     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderWidth: 3,
+    borderColor: 'white',
+    // backgroundColor: colors.black
+  
   },
   deleteButton: {
-
+    width:30,
+    height:30,
+    // borderWidth:1,
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
-    borderColor: 'white',
-    backgroundColor: '#e5e5e5',
-    padding:27  
+    // borderWidth: 3,
+    // borderColor: 'white',
+    // backgroundColor: '#e5e5e5',
+    // padding:17  
   },
   deleteAllButton: {
 

@@ -34,14 +34,14 @@ const items = [
         image: AppImages.amazon
     },
     { id:3,
-        name : "HBO",
-        image: AppImages.hbo,
+        name : "Netflix",
+        image: AppImages.netflix,
         selected: false,
 
     },
     { id:4,
-        name : "Hulu",
-        image: AppImages.hulu,
+        name : "Netflix",
+        image: AppImages.netflix,
         selected: false,
 
     },
@@ -71,14 +71,14 @@ const items = [
 
     },
     { id:9,
-        name : "HBO",
-        image: AppImages.hbo,
+        name : "Netflix",
+        image: AppImages.netflix,
         selected: false,
 
     },
     { id:10,
-        name : "Hulu",
-        image: AppImages.hulu,
+        name : "Netflix",
+        image: AppImages.netflix,
         selected: false,
 
     },
@@ -114,8 +114,8 @@ const items = [
 
     },
     { id:16,
-        name : "Hulu",
-        image: AppImages.hulu,
+        name : "Apple TV+",
+        image: AppImages.appleTv,
         selected: false,
 
     },
@@ -151,8 +151,8 @@ const items = [
 
     },
     { id:21,
-        name : "Hulu",
-        image: AppImages.hulu,
+        name : "Disney+",
+        image: AppImages.disnep,
         selected: false,
 
     },
@@ -185,8 +185,8 @@ const items = [
 
     },
     { id:27,
-        name : "Hulu",
-        image: AppImages.hulu,
+        name : "Netflix",
+        image: AppImages.netflix,
         selected: false,
 
     },
@@ -207,14 +207,14 @@ const items = [
         selected: false,
 
     }, { id:31,
-        name : "HBO",
-        image: AppImages.hbo,
+        name : "Netflix",
+        image: AppImages.netflix,
         selected: false,
 
     },
     { id:32,
-        name : "Hulu",
-        image: AppImages.hulu,
+        name : "Disney+",
+        image: AppImages.disnep,
         selected: false,
 
     },
@@ -293,10 +293,10 @@ const TVSubscriptionRender=(props)=>{
     return(
         
         <ScrollView  
-        showsVerticalScrollIndicator={true}
+        // showsVerticalScrollIndicator={true}
            >
            
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row',borderColor:'red',  marginBottom: isAndroid() ? 0: 10}}>
         {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
 
             {/* {
@@ -307,7 +307,7 @@ const TVSubscriptionRender=(props)=>{
                    onPress={()=>onPressClick(props.item)}
                     onFocus={()=> setFocus(props.item.id)}
                      style={props.item.id == focus ? 
-                    { borderRadius:20, backgroundColor: colors.tomatoRed ,}
+                    { borderRadius:10, backgroundColor: colors.tomatoRed ,}
                     :{ }}
                      >
       <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
@@ -325,7 +325,12 @@ props.item.selected ?
 
                 <TouchableOpacity onPress={()=>alert("To be implemented")}  >
                 <View style={
-                   isAndroid() ? {flexDirection:'row',alignItems:'center'}  : {flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center',marginBottom:10}
+                   isAndroid() ? {flexDirection:'row',alignItems:'center'}  : {
+                       flexDirection:'row',
+                       justifyContent:'center',
+                       alignContent:'center',
+                       alignItems:'center'  ,
+                    }
                    }>
 
                 <Image style={styles.watchImage} source={props.item.image} />
@@ -354,20 +359,23 @@ props.item.selected ?
 }
 
 const TVSubscription=(props)=>{
-    const onPressClick = ((val) => {
-        console.log('onPressClick TVSubscription***',val);
-        let data = items[val.id];
 
-        for (const element of items) {
-            if(element.id == val.id){
-                if(element.selected){
-                    element.selected = false;
-                }else{
-                    element.selected = true
-                }
-                console.log('element***',element);
-            }
-        }
+    const onPressClick = ((val) => {
+        let data = items[val.id];
+val.selected = true
+props.action(props.items);
+
+
+        // for (const element of items) {
+        //     if(element.id == val.id){
+        //         if(element.selected){
+        //             element.selected = false;
+        //         }else{
+        //             element.selected = true
+        //         }
+        //         console.log('element***',element);
+        //     }
+        // }
 
     });
 
@@ -377,7 +385,7 @@ const TVSubscription=(props)=>{
      //    contentContainerStyle={{paddingBottom:50}}
      //    keyExtractor={(item, index) => `item${index}`}
        numColumns={5}
-       data={items}
+       data={props.items}
        renderItem = {({item}) => (
          <TVSubscriptionRender item={item}   type = "movie"  action= {onPressClick} />
        )}
@@ -389,75 +397,82 @@ export default TVSubscription
 const styles = StyleSheet.create({
     scrollView: {
         backgroundColor: 'pink',
-        marginHorizontal: 20,
+        // marginHorizontal: 20,
       },
     itemWrapperSelected: {
 
         justifyContent: 'center',
         paddingHorizontal: 12,
         paddingVertical: 6,
-        marginHorizontal: 18,
+        // marginHorizontal: 18,
         backgroundColor: colors.tomatoRed,
         borderRadius: 30,
         minWidth: 60,
         alignItems: 'center',
       },
       itemWrapper: {
+        //   borderWidth:1,
         justifyContent: 'center',
         paddingHorizontal: 12,
         paddingVertical: 6,
-        marginHorizontal:18,
+        // marginHorizontal:18,
         minWidth: 60,
         alignItems: 'center',
       },
     watchImage:{
         // borderWidth:1,
-        width: isAndroid()? 60: StyleConfig.resWidth(120),
-        height:  isAndroid() ? StyleConfig.resHeight(120/2) :StyleConfig.resHeight(120/2),
-        borderRadius:10 ,
+        width: isAndroid()? 60: StyleConfig.resWidth(95),
+        height:  isAndroid() ? StyleConfig.resHeight(120/2) :StyleConfig.resHeight(60),
+        borderRadius: isAndroid() ? 5 :10 ,
         marginLeft:10,
-        marginTop: isAndroid()? 5:10
+        marginVertical: isAndroid()? 5:5
         // paddingTop:40
     },
     focusText:{
+        // borderWidth:1,
+
         fontFamily:primary_regular_font.primary_regular_font,
-        fontSize: isAndroid()? 14:StyleConfig.resHeight(28),
+        fontSize: isAndroid()? 14:StyleConfig.resHeight(24),
         fontWeight:'400',
         // borderWidth:1,
         // marginTop:4,
         color: colors.white,
         // textAlign:"center",
         marginLeft:10,
-        width:150,
+        width: isAndroid()?100 : 150,
+
+        // width: isAndroid()?100 : 100,
         
         
     },
     text:{
         // borderWidth:1,
-            height: isAndroid()? 35:80,
+            // height: isAndroid()? 35:80,
         fontFamily:primary_regular_font.primary_regular_font,
-        fontSize:  isAndroid()? 14: StyleConfig.resHeight(28),
+        fontSize:  isAndroid()? 14: StyleConfig.resHeight(26),
         fontWeight:'400',
         // borderWidth:1,
-        marginTop:isAndroid()? 10:10,
+        // marginTop:isAndroid()? 10:10,
         color: '#999999',
        
         marginLeft:10,
-        width: isAndroid()? 100:150,
+        width: isAndroid()?100 : 150,
+
         
         
     },
 
     selectedText:{
         fontFamily:primary_regular_font.primary_regular_font,
-        fontSize:  isAndroid()? 14:StyleConfig.resHeight(28),
+        fontSize:  isAndroid()? 14:StyleConfig.resHeight(26),
         fontWeight:'700',
         // borderWidth:1,
         // marginTop:4,
         color: colors.tomatoRed,
         // textAlign:"center",
-        marginLeft:25,
-        width: isAndroid()? 100: 150,
+        marginLeft:10,
+        width: isAndroid()?100 : 150,
+
         
         
     },

@@ -58,6 +58,16 @@ const styles = StyleSheet.create({
         borderRadius:10,
         marginLeft:10,
 
+    },
+    highlightFocused:{
+       height:20,
+       width:10,
+
+    },
+    notHighlightFocused:{
+       height:100,
+       width:100
+
     }
 })
 
@@ -65,14 +75,18 @@ const CommonFilterTvModal=(props)=>{
     const [selected, setSelected] = useState(-1)
     const [ focus, setFocus] = useState(-1)
     const [ data, setData] = useState(DATA)
+  const [isFocus, setIsFocus] = useState(false);
+
 
     const onFocus = useCallback(() => {
-        console.log('OnFocus CommonFilterTvModal called***');
+        console.log('OnFocus CommonFilterTvModal called***',focus);
         setFocus(0);
+      setIsFocus(false);
+
       }, [0]);
       
       const onBlur = useCallback(() => {
-        console.log('onBlur  CommonFilterTvModal called***');
+        console.log('onBlur  CommonFilterTvModal called***',focus);
         setFocus(-1);
       }, []);
     // useEffect(() => {
@@ -94,8 +108,9 @@ const CommonFilterTvModal=(props)=>{
                     <Pressable
                     onBlur={onBlur}
                     onFocus={onFocus}
-                     onPress={props.onclose} style={{height:30,width:30}} >
-                        <Image source={AppImages.back_bk} style={{height:20,width:10, }}  />
+                     onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap } >
+                        <Image source={AppImages.back_bk} 
+                        style={ styles.highlightFocused}  />
                     </Pressable>
                     <Text style={{fontFamily:primary_regular_font.primary_regular_font ,fontSize: isAndroid() ?  17: 34, fontWeight:'700', textAlign:'center'}}>{props?.title}</Text>
                     <View style={{width: StyleConfig.resWidth(36), margin:4}} />

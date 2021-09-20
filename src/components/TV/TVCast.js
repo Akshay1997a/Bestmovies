@@ -9,6 +9,7 @@ import {
     Image,
     Platform
  } from 'react-native'
+import primary_regular_font from '../../helper/fonts';
  import colors from 'src/helper/colors';
  const {width, height} = Dimensions.get('window')
 import StyleConfig from 'src/helper/StyleConfig';
@@ -18,10 +19,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets'
 
 let DATA = {
+  feedback:'Top',
+  rating:'128',
     name: "Todd Phillips",
     type: "Drama, Adventura",
     country: "United States",
-    dob:"US. Born 1927",
+    dob:"Born 1927",
     bornYear: "2019 -",
     match: "78% match - 12 ",
     follower: "5.7",
@@ -73,19 +76,91 @@ const TVCast = ({item, ...props})=>{
           </View>
           {/* //Bottom View */}
           <View style={{flexDirection:'column'}}>
-                <Text style={[{ marginVertical:5,fontSize:StyleConfig.resHeight(24), fontWeight:'700',  color: props?.selected == 1 ? 'black' : 'black' }]} >{DATA.name}</Text>
+                <Text style={[{
+                      fontFamily:primary_regular_font.primary_regular_font,
+                   marginVertical:5,
+                  fontSize:StyleConfig.resHeight(24),
+                   fontWeight:'700', 
+                    color: props?.selected == 1 ? 'black' : 'black' }]}
+                     >{DATA.name}</Text>
                 <View style={{flexDirection:'row'}}>
 
                 <View>
-                            <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{DATA.designation}</Text>
-                            <View style={{flexDirection:'row'}}>
+                            <Text
+                             style={[{
+                               fontSize:StyleConfig.resHeight(30),
+                               color:props?.selected == 1 ? 'black' : 'black', 
+                               fontFamily:primary_regular_font.primary_regular_font,
+                               fontWeight:'400'}]}>{DATA.designation}</Text>
+                                <View 
+                                 style={{
+                                 marginTop: isAndroid() ? -5: -10,
+
+                                   flexDirection:'row',
+                         justifyContent:'space-between',
+                         width: isAndroid() ? 143: 300}}>
+                         
+                            <Text style={[{
+
+                              // fontFamily:primary_regular_font.primary_regular_font,
+                              fontSize:StyleConfig.resHeight(30),
+                               color: 'black', 
+                               fontWeight:'400'}]}>{DATA.country}</Text>
+                             <Text style={styles.feedback}>{DATA.feedback}</Text>
+
+                        </View>
+                               <View  style={{
+
+                                 flexDirection:'row',
+                                 justifyContent:'space-between',
+                        width: isAndroid() ? 140: 300}}>
+                            <Text style={[{
+                              fontFamily:primary_regular_font.primary_regular_font,
+                              fontSize:StyleConfig.resHeight(30),
+                               color: 'black', 
+                               fontWeight:'400'}]}>{DATA.dob}</Text>
+                               <View 
+                             
+                               style={{ 
+                                // paddingTop:3,
+                                alignItems:'center',
+                                justifyContent:'center',
+                                width: isAndroid() ? 25 : 60,
+                                height: isAndroid() ? 25 :  56,
+                                borderRadius: 100,
+                                transform: [{ scaleX: 1.5 }],
+                                backgroundColor:item.DATA.color
+                             }}>
+                             <Text style={{
+                               color:colors.white,
+                               fontWeight:'700',
+                               fontSize:StyleConfig.resHeight(20),
+                            //  fontStyle : primary_regular_font.primary_regular_font
+                            }}
+                              >{DATA.rating}</Text>
+                             </View>
+
+                        </View>
+                        
+                        
+                            {/* <View style={{flexDirection:'row'}}>
                             <View>
-                                    <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{DATA.dob}</Text>
+                                    <Text
+                                     style={[{
+                                      fontFamily:primary_regular_font.primary_regular_font,
+                                       fontSize:StyleConfig.resHeight(24),
+                                      color:props?.selected == 1 ? 'black' : 'black', 
+                                      fontWeight:'400'}]}>{DATA.country}</Text>
                             </View>
                             </View>
                             <View style={{flexDirection:'row'}}>
-                                <Text style={[{fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'black', fontWeight:'500'}]}>{`${DATA.match} match`}</Text>
-                            </View>
+                                <Text style={[
+                                  {
+                                    fontFamily:primary_regular_font.primary_regular_font,
+                                    fontSize:StyleConfig.resHeight(24),
+                                   color:props?.selected == 1 ? 'black' : 'black',
+                                    fontWeight:'400'}]}>{`${DATA.dob} match`}</Text>
+                            </View> */}
                </View>
                {/* <View style={styles.ovalShapeView}>
                         <Text style={styles.top}>Top</Text>
@@ -116,6 +191,12 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  feedback:{
+    fontFamily:primary_regular_font.primary_regular_font,
+    // marginLeft: isAndroid() ? 40 : 55 ,
+    fontSize:StyleConfig.resHeight(26),
+     color:colors.black,
+      fontWeight:'400'},
   container:{
      marginVertical: StyleConfig.resHeight(20),
       marginHorizontal: StyleConfig.resWidth(10),
@@ -134,7 +215,7 @@ const styles = StyleSheet.create({
     fontWeight:'900', 
     fontSize: isAndroid() ? 12 : 18,
     color:'black'},
-  ovalShapeView: {  
+   ovalShapeView: {  
     alignItems:'center',
     justifyContent:'center',  
     width: isAndroid() ? 40: 70,
@@ -176,7 +257,7 @@ const styles = StyleSheet.create({
     },
     highlightFocused:{
       borderRadius:StyleConfig.resHeight(30),
-      width: isAndroid() ? 150 : 320,
+      width: isAndroid() ? 160 : 320,
       borderWidth: StyleConfig.resWidth(5),
       height: StyleConfig.width*0.15,
       borderColor: colors.tomatoRed,
@@ -184,8 +265,8 @@ const styles = StyleSheet.create({
       paddingTop:1,
     },
     notHighlightFocused:{
-      borderRadius:StyleConfig.resHeight(30),
-      width: isAndroid() ? 140 : 320,
+      borderRadius:StyleConfig.resHeight(20),
+      width: isAndroid() ? 150 : 320,
       height: isAndroid() ? 200 : StyleConfig.width*0.25,
       paddingTop:1,
       overflow:'hidden',
