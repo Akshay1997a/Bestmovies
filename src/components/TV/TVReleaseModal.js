@@ -15,18 +15,20 @@ import AppImages from 'src/assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 
 const DATA = [
   {id: 0, name: 'New'},
   {id: 1, name: 'This year'},
-  {id: 2, name: 'Last 2 years'},
+  {id: 2, name: 'texts.id_122'},
   {id: 3, name: 'Last 3 years'},
-  {id: 4, name: 'Last 5 years'},
-  {id: 5, name: 'Last 10 years'},
-  {id: 6, name: 'Last 25 years'},
-  {id: 7, name: 'Last 50 years'},
+  {id: 4, name: 'texts.id_123'},
+  {id: 5, name: 'texts.id_124'},
+  {id: 6, name: 'texts.id_125'},
+  {id: 7, name: 'texts.id_126'},
   {id: 8, name: 'All time'},
 ];
+
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -46,6 +48,8 @@ const styles = StyleSheet.create({
 });
 
 const TVReleaseModal = (props) => {
+  const {t} = useTranslation();
+
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
@@ -53,7 +57,7 @@ const TVReleaseModal = (props) => {
     val.selected = true;
     console.log('onPressClick TVAgesModal***', val);
     props.action(props.keySort);
-    props.visible = true;
+    // props.visible = true;
 
     //   props.onclose();
     setSelected(val);
@@ -73,7 +77,8 @@ const TVReleaseModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.release}>
+      title={strings.release}
+      titleId={'release_year'}>
       <ScrollView>
         {data.map((item, index) => {
           return (
@@ -93,7 +98,7 @@ const TVReleaseModal = (props) => {
                       ? colors.tomatoRed
                       : colors.black,
                 }}>
-                {item.name}
+                {t(item.name)}
               </Text>
             </Pressable>
           );

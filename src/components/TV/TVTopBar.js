@@ -23,6 +23,8 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
+import transConstants from '../../helper/transConstants';
 
 const ICON_SIZE = 24;
 let [
@@ -100,67 +102,70 @@ const MENU_DATA = [
 const DATA = [
   {
     key: SORT_BY,
-    title: strings.sort_by,
-    details: strings.rating,
+    title: 'texts.id_99',
+    details: 'texts.id_101',
   },
   {
     key: LIKEDBY,
-    title: strings.liked_by,
+    title: 'texts.id_160',
     details: '--',
   },
   {
     key: STRREAMING,
-    title: strings.streaming_service,
+    title: 'texts.id_144',
+    // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
     details: '6, Free, Rent/Buy,...',
   },
   {
     key: RELEASE,
-    title: strings.release,
-    details: 'Last 2 years',
+    title: 'texts.id_114',
+    details: 'texts.id_122',
   },
   {
     key: GENRE,
-    title: strings.genre,
-    details: 'Comedy,Romantic',
+    title: 'texts.id_127',
+    details: transConstants.genres_comedy,
+    // transConstants.genres_comedy_romance,
+    // 'code_co,Romantic',
   },
   {
     key: COUNTRY,
-    title: strings.country,
-    details: 'Any',
+    title: 'texts.id_137',
+    details: 'texts.id_172',
   },
   {
     key: AGES,
-    title: strings.ages,
+    title: 'texts.id_141',
     details: '15+',
   },
 
   {
     key: PRICE,
-    title: strings.price,
-    details: 'Any',
+    title: 'texts.id_158',
+    details: 'texts.id_172',
   },
   {
     key: 'Arrow',
-    title: strings.price,
-    details: 'Any',
+    title: 'texts.id_158',
+    details: 'texts.id_172',
   },
 ];
 
 const BACK_DATA = [
   {
     key: 'BackArrow',
-    title: strings.price,
+    title: 'texts.id_158',
     details: 'Any',
   },
   {
     key: RELEASE,
-    title: strings.release,
+    title: 'texts.id_114',
     details: 'Last 2 years',
   },
   {
     key: GENRE,
-    title: strings.genre,
-    details: 'Comedy,Romantic',
+    title: 'texts.id_127',
+    details: transConstants.genres_comedy,
   },
   {
     key: COUNTRY,
@@ -169,24 +174,24 @@ const BACK_DATA = [
   },
   {
     key: AGES,
-    title: strings.ages,
+    title: 'texts.id_141',
     details: '15+,Romantic',
   },
 
   {
     key: PRICE,
-    title: strings.price,
-    details: 'Any',
+    title: 'texts.id_158',
+    details: 'texts.id_172',
   },
 
   {
     key: INCLUDES,
-    title: strings.include,
-    details: ' Include browsed',
+    title: 'texts.id_170',
+    details: 'texts.id_171',
   },
   {
     key: PROVIDERS,
-    title: ' Clear filters',
+    title: 'texts.id_111',
     details: '  ',
   },
   // {
@@ -202,6 +207,8 @@ const BACK_DATA = [
 ];
 const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
   console.log(' TVSideBar selected Top', selected == 'sort');
+
+  const {t} = useTranslation();
 
   const BackArrow = forwardRef(({item}, ref) => {
     // console.log('keu',item);
@@ -368,7 +375,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                         ? styles.focusTextTitle
                                         : styles.textTitle
                                     }>
-                                    {item.title}
+                                    {t(item.title)}
                                   </Text>
                                 </View>
                               ) : (
@@ -378,7 +385,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                       ? styles.focusTextTitle
                                       : styles.textTitle
                                   }>
-                                  {item.title}
+                                  {t(item.title)}
                                 </Text>
                               )}
                             </View>
@@ -391,12 +398,12 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                       ? styles.focusTextTitle
                                       : styles.textTitle
                                   }>
-                                  {item.details}
+                                  {t(item.details)}
                                 </Text>
                               </View>
                             ) : (
                               <Text numberOfLines={1} style={styles.text}>
-                                {item.details}
+                                {t(item.details)}
                               </Text>
                             )}
                           </View>
@@ -466,11 +473,11 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                       styles.focusText
                                     : styles.textTitle
                                 }>
-                                {item.title}
+                                {t(item.title)}
                               </Text>
                             </View>
                             <Text numberOfLines={1} style={styles.text}>
-                              {item.details}
+                              {t(item.details)}
                             </Text>
                           </View>
                           {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>

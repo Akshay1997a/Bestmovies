@@ -15,13 +15,15 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 
 const DATA = [
-  {id: 0, name: 'Rating'},
-  {id: 1, name: 'Match'},
-  {id: 2, name: "Friend's Like"},
-  {id: 3, name: 'Popularity'},
+  {id: 0, name: 'texts.id_101'},
+  {id: 1, name: 'texts.id_103'},
+  {id: 2, name: 'texts.id_105'},
+  {id: 3, name: 'texts.id_107'},
 ];
+
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -43,6 +45,8 @@ const styles = StyleSheet.create({
 const TVSortByModal = (props, key) => {
   console.log('props selected TVSortByModal>>>kkkk', props);
 
+  const {t} = useTranslation();
+
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
@@ -51,7 +55,7 @@ const TVSortByModal = (props, key) => {
     val.selected = true;
     console.log('onPressClick TVSortByModal***', val);
     props.action(props.keySort);
-    props.visible = true;
+    // props.visible = true;
 
     //   props.onclose();
     setSelected(val);
@@ -74,7 +78,8 @@ const TVSortByModal = (props, key) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={'Sort by'}>
+      title={t('texts.id_99')}
+      titleId={'sort_by'}>
       <ScrollView>
         {data.map((item, index) => {
           return (
@@ -94,7 +99,7 @@ const TVSortByModal = (props, key) => {
                       ? colors.tomatoRed
                       : colors.black,
                 }}>
-                {item.name}
+                {t(item.name)}
               </Text>
             </Pressable>
           );

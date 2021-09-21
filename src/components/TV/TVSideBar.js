@@ -12,6 +12,7 @@ import StyleConfig from '../../helper/StyleConfig';
 import TVCountryLanguage from '../TV/TVCountryLanguage';
 import primary_regular_font from '../../helper/fonts';
 import Const from '../../helper/constants';
+import {useTranslation} from 'react-i18next';
 
 const ICON_SIZE = 24;
 let [
@@ -68,11 +69,11 @@ const MENU_DATA = [
   },
   {
     key: MOBILE_APP,
-    title: strings.mobile_app,
+    title: 'texts.id_16',
   },
   {
     key: INVITE_FRIEND,
-    title: strings.invite_friend,
+    title: 'texts.id_18',
   },
   {
     key: ABOUT_US,
@@ -99,9 +100,10 @@ const MENU_DATA = [
     title: strings.privacy_policy,
   },
 ];
-
 const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   console.log('props>>>', props);
+
+  const {t} = useTranslation();
 
   const [focus, setFocus] = useState(NONE);
   const [key, setKey] = useState(9);
@@ -173,7 +175,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                     //  styles.focusTextTitle :
                     //   styles.text
                   }>
-                  {item.title}
+                  {t(item.title)}
                 </Text>
                 {/* <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>'hi'</Text> */}
               </Pressable>

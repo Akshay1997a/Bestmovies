@@ -11,6 +11,7 @@ import {useHeaderHeight} from '@react-navigation/stack';
 import AppImages from 'src/assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 
 const ICON_SIZE = 24;
 let [
@@ -27,6 +28,8 @@ let [
 ] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
+  const {t} = useTranslation();
+
   const headerHeight = useHeaderHeight();
   const [focus, setFocus] = useState(NONE);
   console.log('props TVHeader', props);
@@ -101,7 +104,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                 ? styles.selectedText
                 : styles.text
             }>
-            {strings.my_lists}
+            {t('texts.id_15')}
           </Text>
         </Pressable>
         <Pressable
@@ -126,7 +129,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                 ? styles.selectedText
                 : styles.text
             }>
-            {strings.movies_text}
+            {t('texts.id_2')}
           </Text>
         </Pressable>
 
@@ -165,7 +168,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.tv_shows}
+            {t('texts.id_4')}
           </Text>
         </Pressable>
 
@@ -204,7 +207,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.shorts}
+            {t('texts.id_6')}
           </Text>
         </Pressable>
 
@@ -242,7 +245,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.directors}
+            {t('texts.id_8')}
           </Text>
         </Pressable>
 
@@ -280,7 +283,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               //   ? styles.selectedText
               //   : styles.text
             }>
-            {strings.actors}
+            {t('texts.id_11')}
           </Text>
         </Pressable>
 

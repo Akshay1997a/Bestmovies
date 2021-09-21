@@ -39,6 +39,11 @@ import strings from '../../helper/strings';
 import {ScrollView, State} from 'react-native-gesture-handler';
 import Const from '../../helper/constants';
 import TVCardDetail from '../../components/TV/TVCardDetail';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {getTranslateFile} from '../../network/requests';
+import transConstants from '../../helper/transConstants';
+import {useTranslation} from 'react-i18next';
 let [
   NONE,
   SEARCH,
@@ -119,6 +124,8 @@ const buttons = [
 const posts_json = MoviesJSON.data.children.map((child) => child.data);
 
 const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
+  const {t} = useTranslation();
+
   const [topSelected, setTopSelected] = useState(0);
   const [selected, setSelected] = useState(MOVIES);
   const [selectedItem, setSelectedItem] = useState(posts ? posts[0] : null);
@@ -160,6 +167,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   useEffect(() => {
     //   _enableTVEventHandler()
     // componentWillUnmount
+    console.log('propsssss', props);
+    props.getTranslateFile(
+      (res) => {
+        console.log('Response from translate api', res);
+        runTimeTranslations(res, res?.language);
+      },
+      (err) => {
+        console.log('Error from translate file', err);
+      },
+    );
     return () => {
       // Your code here
       //  if (this._tvEventHandler) {
@@ -283,7 +300,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                       console.log(event.nativeEvent.selection)
                     }
                     placeholderTextColor={colors.black}
-                    placeholder={strings.search}
+                    placeholder={t('texts.id_20')}
                     style={styles.textInput}
                     onChangeText={onChangeText}
                     value={text}
@@ -333,7 +350,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   backgroundColor: colors.white,
                   marginHorizontal: 10,
                 }}>
-                <Text style={styles.ranking}>Ranking of best movies</Text>
+                <Text style={styles.ranking}>{t('texts.id_78')}</Text>
                 <Text style={styles.result}> 12,348 results </Text>
               </View>
               <FlatList
@@ -373,7 +390,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   backgroundColor: colors.white,
                   marginHorizontal: 10,
                 }}>
-                <Text style={styles.ranking}>Ranking of best movies</Text>
+                <Text style={styles.ranking}>{t('texts.id_78')}</Text>
                 <Text style={styles.result}> 12,348 results </Text>
               </View>
               <FlatList
@@ -711,7 +728,17 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   );
 };
 
-export default RenderTV;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getTranslateFile,
+    },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(RenderTV);
+
 const isAndroid = () => {
   return Platform.OS == 'android';
 };

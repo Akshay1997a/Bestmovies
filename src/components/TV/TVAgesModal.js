@@ -41,7 +41,7 @@ const TVAgesModal = (props) => {
     val.selected = true;
     console.log('onPressClick TVAgesModal***', val);
     props.action(props.keySort);
-    props.visible = true;
+    // props.visible = true;
 
     //   props.onclose();
     setSelected(val);

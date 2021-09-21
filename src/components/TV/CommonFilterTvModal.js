@@ -28,23 +28,27 @@ const isAndroid = () => {
 
 const heightLayout = (title) => {
   // console.log('titi',title)
-  if (title === 'Sort by') {
+  if (title === 'sort_by') {
     return isAndroid() ? 130 : 250;
-  } else if (title === 'Liked by') {
+  } else if (title === 'liked_by') {
     return isAndroid() ? 300 : 600;
-  } else if (title === 'Age rating (max)') {
+  } else if (title === 'age_rating') {
     return isAndroid() ? 250 : 600;
-  } else if (title === 'Release year') {
+  } else if (title === 'release_year') {
     return isAndroid() ? 250 : 500;
-  } else if (title === 'Countries of origin') {
+  } else if (title === 'country_of_origin') {
     return isAndroid() ? 500 : 1000;
-  } else if (title === 'Genres') {
+  } else if (title === 'genres') {
     return isAndroid() ? 300 : 500;
-  } else if (title === 'Price') {
+  } else if (title === 'price') {
     return isAndroid() ? 250 : 600;
   } else if (title === 'Providers') {
+    // return isAndroid() ? 300 : 500;
+  } else {
+    return 500;
   }
 };
+
 const styles = StyleSheet.create({
   backWrap: {
     paddingHorizontal: StyleConfig.resWidth(8),
@@ -99,7 +103,7 @@ const CommonFilterTvModal = (props) => {
   //     fetchData();
   //   }, [])
   return (
-    <BaseModal visible={props.visible} oncloseModal={props.oncloseModal}>
+    <BaseModal visible={props?.visible} oncloseModal={props.oncloseModal}>
       <View
         style={{
           minWidth: isAndroid() ? 250 : 500,

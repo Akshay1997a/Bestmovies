@@ -16,6 +16,7 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -35,6 +36,8 @@ const styles = StyleSheet.create({
 });
 
 const TVGenreModal = (props) => {
+  const {t} = useTranslation();
+
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState([]);
@@ -62,7 +65,8 @@ const TVGenreModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.genre}>
+      title={t('texts.id_127')}
+      titleId={'genres'}>
       <ScrollView>
         <View style={{marginStart: 10, flexDirection: 'row'}}>
           <ToggleSwitch size="small" disabled isOn={true} />
@@ -74,7 +78,7 @@ const TVGenreModal = (props) => {
               fontWeight: '400',
               color: colors.black,
             }}>
-            Sub generes
+            {t('texts.id_128')}
           </Text>
         </View>
         {data.map((item, index) => {

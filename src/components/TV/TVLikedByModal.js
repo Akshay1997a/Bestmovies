@@ -15,25 +15,28 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 
 const DATA = [
   {id: 0, name: '---'},
   {id: 1, name: '+ Add friend'},
-  {id: 2, name: 'Rating'},
-  {id: 3, name: 'Rating'},
-  {id: 4, name: 'Match'},
-  {id: 5, name: "Friend's Like"},
-  {id: 6, name: 'Popularity'},
+  {id: 2, name: 'texts.id_101'},
+  {id: 3, name: 'texts.id_101'},
+  {id: 4, name: 'texts.id_103'},
+  {id: 5, name: 'texts.id_105'},
+  {id: 6, name: 'texts.id_107'},
   {id: 7, name: '+ Add friend'},
-  {id: 8, name: 'Rating'},
-  {id: 9, name: 'Rating'},
-  {id: 10, name: 'Match'},
-  {id: 11, name: "Friend's Like"},
-  {id: 12, name: 'Popularity'},
+  {id: 8, name: 'texts.id_101'},
+  {id: 9, name: 'texts.id_101'},
+  {id: 10, name: 'texts.id_103'},
+  {id: 11, name: 'texts.id_105'},
+  {id: 12, name: 'texts.id_107'},
 ];
+
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
+
 const styles = StyleSheet.create({
   backWrap: {
     paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
 
 const TVLikedByModal = (props) => {
   // console.log('props selected>>>',props);
+  const {t} = useTranslation();
 
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
@@ -60,7 +64,7 @@ const TVLikedByModal = (props) => {
     val.selected = true;
     console.log('onPressClick TVLikedByModal***', val);
     props.action(props.keySort);
-    props.visible = true;
+    // props.visible = true;
 
     //   props.onclose();
     setSelected(val);
@@ -82,7 +86,8 @@ const TVLikedByModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={'Liked by'}>
+      title={'Liked by'}
+      titleId={'liked_by'}>
       <ScrollView>
         {data.map((item, index) => {
           return (
@@ -102,7 +107,7 @@ const TVLikedByModal = (props) => {
                       ? colors.tomatoRed
                       : colors.black,
                 }}>
-                {item.name}
+                {t(item.name)}
               </Text>
             </Pressable>
           );

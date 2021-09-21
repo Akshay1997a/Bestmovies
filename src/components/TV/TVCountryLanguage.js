@@ -20,11 +20,20 @@ import AppImages from 'src/assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
+import {useFocusEffect} from '@react-navigation/core';
+import i18next from 'i18next';
+import {runTimeTranslations} from '../../i18n';
+import {getLanguageList, getTranslateFile} from '../../network/requests';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 const COUNTRY = [
   {id: 0, name: 'United States'},
-  {id: 1, name: 'English'},
+  {id: 1, name: 'English', code: 'en'},
+  {id: 2, name: 'Spanish', code: 'es'},
 ];
+
 const DATA = [
   {id: 10, name: 'United States'},
   {id: 11, name: 'Albaniya'},
@@ -71,18 +80,47 @@ const styles = StyleSheet.create({
 
 const TVCountryLanguage = (props) => {
   console.log('props>>>', props);
+  const {t, i18n} = useTranslation();
 
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(COUNTRY);
   const [country, setCountry] = useState(DATA);
   const [isCountryClick, setCountryClick] = useState(true);
+  const [countryList, setCountryList] = useState(null);
 
-  const onPressHandle = () => {
+  useFocusEffect(() => {
+    let lng = i18n.language;
+    let countryData = i18next.getDataByLanguage(lng);
+    let countryTemp = countryData?.translation?.countries_listed;
+    console.log('CountryDataaa', countryData);
+    countryTemp && setCountryList(countryTemp);
+  });
+
+  const changeLanguage = () => {
+    props.getTranslateFile(
+      (res) => {
+        console.log('Response from translate api', res);
+        runTimeTranslations(res, res?.language);
+      },
+      (err) => {
+        console.log('Error from translate file', err);
+      },
+    );
+  };
+
+  const onPressHandle = async (item) => {
     setCountryClick(true);
+
+    if (item?.code) {
+      //   await AsyncStorage.setItem('langType', item?.code);
+      i18n.changeLanguage(item?.code);
+      changeLanguage();
+    }
     // console.log('key',val);
     // setFocus(val);
   };
+
   const onFocus = useCallback((val) => {
     props.reduxSetCurrFocus('countryLang');
     setFocus(val);
@@ -93,24 +131,15 @@ const TVCountryLanguage = (props) => {
     setFocus(false);
   }, []);
 
+  console.log('countryList', countryList);
   return (
-    // <BaseModal visible={props.visible} oncloseModal={props.oncloseModal} >
-    //     <View style={{width: 350, minHeight: 300, backgroundColor: 'white'}}>
-    //         <View style={{flexDirection:'row', justifyContent:'space-between', alignItems: 'center'}}>
-    //             <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
-    //                 <Image style={{ width: StyleConfig.resWidth(20),
-    //                     height: StyleConfig.resHeight(20),}} source={AppImages.icBackArrow} />
-    //             </Pressable>
-    //             <Text style={{fontSize:26, fontWeight:'700', textAlign:'center'}}>{strings.release}</Text>
-    //             <View style={{width: StyleConfig.resWidth(36), margin:4}} />
-    //         </View>
     <ScrollView>
       <View style={{flexDirection: 'row', minHeight: 1000}}>
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
               <Pressable
-                onPress={onPressHandle}
+                onPress={() => onPressHandle(item)}
                 //  onBlur={onBlur()}
                 onFocus={() => onFocus(item.id)}
                 //   onFocus={()=> setFocus(item.id)}
@@ -145,38 +174,49 @@ const TVCountryLanguage = (props) => {
               borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
-            {country.map((item, index) => {
-              return (
-                <Pressable
-                  onPress={props.onclose}
-                  onFocus={() => onFocus(item.id)}
-                  style={
-                    props.focus === 'countryLang' && item.id == focus
-                      ? styles.focusBackWrap
-                      : styles.backWrap
-                  }>
-                  <Text
-                    style={{
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: isAndroid() ? 16 : 30,
-                      fontWeight: '400',
-                      color:
-                        props.focus === 'countryLang' && item.id == focus
-                          ? colors.white
-                          : colors.black,
-                    }}>
-                    {item.name}
-                  </Text>
-                </Pressable>
-              );
-            })}
+            {countryList !== null &&
+              Object.entries(countryList).map((item, index) => {
+                let [temp, code] = item[0].split('_');
+                return (
+                  <Pressable
+                    onPress={() => getLanguageList(code)}
+                    onFocus={() => onFocus(code)}
+                    // onFocus={() => setFocus(code)}
+                    style={
+                      props.focus === code && code == focus
+                        ? styles.focusBackWrap
+                        : styles.backWrap
+                    }>
+                    <Text
+                      style={{
+                        fontFamily: primary_regular_font.primary_regular_font,
+                        fontSize: isAndroid() ? 16 : 30,
+                        fontWeight: '400',
+                        color:
+                          props.focus === code && item.id == focus
+                            ? colors.white
+                            : colors.black,
+                      }}>
+                      {item[1]}
+                    </Text>
+                  </Pressable>
+                );
+              })}
           </View>
         ) : null}
       </View>
     </ScrollView>
-    //     </View>
-    // </BaseModal>
   );
 };
 
-export default TVCountryLanguage;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getTranslateFile,
+      getLanguageList,
+    },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(TVCountryLanguage);

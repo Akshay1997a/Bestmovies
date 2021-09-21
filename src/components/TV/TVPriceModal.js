@@ -15,10 +15,11 @@ import AppImages from '../../assets';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 
 const DATA = [
   {id: 0, name: 'Any'},
-  {id: 1, name: 'Free'},
+  {id: 1, name: 'texts.id_159'},
   {id: 2, name: '< $1'},
   {id: 3, name: '< $2'},
   {id: 4, name: '< $3'},
@@ -49,37 +50,29 @@ const styles = StyleSheet.create({
 });
 
 const TVPriceModal = (props) => {
+  const {t} = useTranslation();
+
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
+
   const onPressClick = (val) => {
     val.selected = true;
     console.log('onPressClick TVAgesModal***', val);
     props.action(props.keySort);
-    props.visible = true;
+    // props.visible = true;
 
     //   props.onclose();
     setSelected(val);
   };
 
-  // useEffect(() => {
-
-  //     async function fetchData() {
-  //         fetch('https://60cde54091cc8e00178dc16b.mockapi.io/generes')
-  //         .then(res => res.json())
-  //         .then(resJson => {
-  //             setData(resJson)
-  //         }).catch(e => console.log(e));
-  //     }
-
-  //     fetchData();
-  //   }, [])
   return (
     <CommonFilterTvModal
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.price}>
+      title={strings.price}
+      titleId={'price'}>
       <ScrollView>
         {data.map((item, index) => {
           return (
@@ -99,9 +92,8 @@ const TVPriceModal = (props) => {
                       ? colors.tomatoRed
                       : colors.black,
                 }}>
-                {item.name}
+                {t(item.name)}
               </Text>
-              {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.name}</Text> */}
             </Pressable>
           );
         })}
