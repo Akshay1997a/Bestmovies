@@ -1,75 +1,60 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Dimensions
-  } from 'react-native';
-const {width} = Dimensions.get('window')
-import HTML from 'react-native-render-html'
-const HTML_CONTENT = `<h1>Hello, World!</h1>
+import {StyleSheet, Dimensions} from 'react-native';
+import {connect} from 'react-redux';
+import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../redux/const';
+import {SET_COUNTER, SET_CURR_FOCUS} from '../../redux/const';
+import RenderTV from './renderTV';
+import RenderMobile from './renderMobile';
+import colors from '../../helper/colors';
+import StyleConfig from '../../helper/StyleConfig';
+import MoviesJSON from '../../components/TV/movies.json';
+//import firebase from '../../helper/firebase';
+// import crashlytics from '@react-native-firebase/crashlytics';
 
-<p>You can modify the text in the box to the left any way you like, and
-then click the "Show Page" button below the box to display the
-result here. Go ahead and do this as often and as long as you like.</p>
-
-<p>You can also use this page to test your Javascript functions and local
-style declarations. Everything you do will be handled entirely by your own
-browser; nothing you type into the text box will be sent back to the
-server.</p>
-
-<p>When you are satisfied with your page, you can select all text in the
-textarea and copy it to a new text file, with an extension of
-either <b>.htm</b> or <b>.html</b>, depending on your Operating System.
-This file can then be moved to your Web server.</p>`
- 
+const {width} = Dimensions.get('window');
 class MyListScreen extends React.Component {
-state = {
-  posts: [],
-  modalVisible:false,
-};
+  state = {
+    posts: [],
+    modalVisible: false,
+  };
 
-componentDidMount() {
-  fetch('./movies.json')
-    .then(response => response.json())
-    .then(json => {
-      const posts = json.data.children.map(child => child.data);
-      console.log('post..>>',posts);
-      this.setState({posts});
-    });
+  render() {
+    console.log('StyleConfig.isTV- ', StyleConfig.isTV);
+    return StyleConfig.isTV ? (
+      <RenderTV {...this.props} />
+    ) : (
+      <RenderMobile {...this.props} />
+    );
+  }
 }
 
-render() {
-  return (
-    <View style={{flex: 1, backgroundColor:'white'}}>
-      <HTML
-      source={{ html: HTML_CONTENT }} 
-      />
-    </View>
-  );
-}
-}
-
-export default MyListScreen;
+export default connect(null, null)(MyListScreen);
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f1faee',
+    backgroundColor: colors.black,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   tile: {
-    flexBasis: width*0.2,
-    height: width*0.15,
+    flexBasis: width * 0.2,
+    height: width * 0.15,
     marginTop: 10,
     marginBottom: 20,
     padding: 10,
   },
-  background: {
+  highlight: {
     borderColor: '#1d3557',
+    borderRadius: 20,
+    borderColor: 'green',
+  },
+  highlightFocused: {
+    borderWidth: 5,
+    borderColor: 'orange',
     borderRadius: 20,
   },
   title: {
     fontSize: 20,
     textAlign: 'center',
   },
-  });
+});

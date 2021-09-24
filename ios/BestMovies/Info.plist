@@ -38,7 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>VAGRoundedNext-Regular.otf</string>
@@ -60,6 +60,21 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
+		<string>Lemon Milk Pro Bold Italic.otf</string>
+		<string>Lemon Milk Pro Bold.otf</string>
+		<string>Lemon Milk Pro Medium Italic.otf</string>
+		<string>Lemon Milk Pro Medium.otf</string>
+		<string>Lemon Milk Pro Regular Italic.otf</string>
+		<string>Lemon Milk Pro Regular.otf</string>
+		<string>Lemon Milk Pro Ultra Light Italic.otf</string>
+		<string>Lemon Milk Pro Ultra Light.otf</string>
+		<string>VAG Rounded Regular.ttf</string>
+		<string>ARIAL.TTF</string>
+		<string>VAG_Rounded_Regular.ttf</string>
+		<string>VAG Rounded Next.otf</string>
+		<string>vag rounded next.otf</string>
+		<string>vag rounded next.ttf</string>
+		<string>VAG_Rounded_Next-It.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

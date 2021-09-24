@@ -1,25 +1,26 @@
 import React from 'react';
-import { Platform, LogBox } from 'react-native';
+import {Platform, LogBox} from 'react-native';
 import Router from './src/setup/Router';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 // Imports: Redux Store
-import { store, persistor } from './src/redux/store';
-import { PersistGate } from 'redux-persist/integration/react';
-import { enableScreens } from 'react-native-screens';
-import { AnimationProvider } from './src/Providers/CollapsibleHeaderProvider';
-import { useSafeAreaInsets, withSafeAreaInsets, SafeAreaView, } from 'react-native-safe-area-context';
-import StatusBar from './src/components/StatusBar';
-import { useState } from 'react';
+import {store, persistor} from './src/redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
+import {enableScreens} from 'react-native-screens';
+import {AnimationProvider} from './src/Providers/CollapsibleHeaderProvider';
+import {useState} from 'react';
+import Loader from './src/components/Loader';
 
-export const StatusBarContext = React.createContext()
+export const StatusBarContext = React.createContext();
 
 enableScreens(true);
 // React Native App
 export default function App(props) {
-  const [statusBarColor, setStatusBarColor] = useState("#fff")
+  const [statusBarColor, setStatusBarColor] = useState('#fff');
   return (
-    <StatusBarContext.Provider value={{ value: statusBarColor, setStatusBarColor }}>
+    <StatusBarContext.Provider
+      value={{value: statusBarColor, setStatusBarColor}}>
       <Provider store={store}>
+        <Loader />
         {/* <StatusBar backgroundColor={statusBarColor} /> */}
         <PersistGate persistor={persistor}>
           <AnimationProvider>

@@ -1,71 +1,60 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import HeaderModal from '../../../components/HeaderModal';
-import {updateSortByAction} from '../../../redux/FilterModule/FilterActions';
-import {SORT_BY_FILTER} from '../../../redux/FilterModule/FilterTypes';
+import {StyleSheet, Dimensions} from 'react-native';
+import {connect} from 'react-redux';
+import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../../redux/const';
+import {SET_COUNTER, SET_CURR_FOCUS} from '../../../redux/const';
+import RenderTV from './renderTV';
+import RenderMobile from './renderMobile';
+import colors from '../../../helper/colors';
+import StyleConfig from '../../../helper/StyleConfig';
+import MoviesJSON from '../../../components/TV/movies.json';
+//import firebase from '../../helper/firebase';
+// import crashlytics from '@react-native-firebase/crashlytics';
 
-const {height} = Dimensions.get('screen');
+const {width} = Dimensions.get('window');
+class SoryBy extends React.Component {
+  state = {
+    posts: [],
+    modalVisible: false,
+  };
 
-export default function SoryBy(props) {
-  const {sortBy} = useSelector((state) => state.filterConfig);
-  const dispatch = useDispatch();
-  return (
-    <View style={styles.container}>
-      <HeaderModal title="Sort By" {...props} />
-      <View style={{padding: 10}}>
-        {Object.entries(SORT_BY_FILTER).map((value, index) => (
-          <Button
-            key={index.toString()}
-            title={value[1]}
-            isActive={sortBy === SORT_BY_FILTER[value[0]]}
-            onPress={() => dispatch(updateSortByAction(value[1]))}
-          />
-        ))}
-      </View>
-    </View>
-  );
+  render() {
+    console.log('StyleConfig.isTV- ', StyleConfig.isTV);
+    return StyleConfig.isTV ? (
+      <RenderTV {...this.props} />
+    ) : (
+      <RenderMobile {...this.props} />
+    );
+  }
 }
 
-const Button = ({title, isActive, onPress}) => (
-  <TouchableOpacity
-    style={[styles.butContainer, isActive && styles.butActive]}
-    onPress={onPress}>
-    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
-      {title}
-    </Text>
-  </TouchableOpacity>
-);
+export default connect(null, null)(SoryBy);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: height,
-    backgroundColor: '#fff',
-    marginTop: 'auto',
+    backgroundColor: colors.black,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-  butContainer: {
+  tile: {
+    flexBasis: width * 0.2,
+    height: width * 0.15,
+    marginTop: 10,
+    marginBottom: 20,
     padding: 10,
-    borderRadius: 15,
   },
-  butActive: {
-    backgroundColor: '#FF4D01',
+  highlight: {
+    borderColor: '#1d3557',
+    borderRadius: 20,
+    borderColor: 'green',
   },
-  butActiveText: {
-    color: '#fff',
-    fontWeight: '700',
+  highlightFocused: {
+    borderWidth: 5,
+    borderColor: 'orange',
+    borderRadius: 20,
   },
-  butTitle: {
-    color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+  title: {
     fontSize: 20,
-    fontStyle: 'normal',
-    fontWeight: '400',
+    textAlign: 'center',
   },
 });

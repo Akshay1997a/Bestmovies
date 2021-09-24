@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   ratingText: {
     color: '#fff',
     position: 'absolute',
-    fontFamily: 'VGA Rounded Next',
+    fontFamily: 'VAG Rounded Next',
     fontSize: 14,
     fontWeight: '700',
   },

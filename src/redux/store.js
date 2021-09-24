@@ -1,26 +1,67 @@
-// Imports: Dependencies
-import {createStore, applyMiddleware} from 'redux';
+// // Imports: Dependencies
+// import {createStore, applyMiddleware} from 'redux';
+// import thunkMiddleware from 'redux-thunk';
+// import {createLogger} from 'redux-logger';
+// import createSagaMiddleware from 'redux-saga';
+
+// // Imports: Redux Root Reducer
+// import rootReducer from './reducers';
+
+// // Imports: Redux Root Saga
+// import {rootSaga} from './sagas';
+
+// // Middleware: Redux Saga
+// const sagaMiddleware = createSagaMiddleware();
+
+// // Redux: Store
+// const store = createStore(
+//   rootReducer,
+//   applyMiddleware(sagaMiddleware, thunkMiddleware, createLogger()),
+// );
+
+// // Middleware: Redux Saga
+// sagaMiddleware.run(rootSaga);
+
+// Exports
+// export default store;
+
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import persistReducer from 'redux-persist/es/persistReducer';
+import thunk from 'redux-thunk';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import persistStore from 'redux-persist/es/persistStore';
+import FilterReducer from './FilterModule/FilterReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import createSagaMiddleware from 'redux-saga';
 import thunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger';
-import createSagaMiddleware from 'redux-saga';
-
-// Imports: Redux Root Reducer
 import rootReducer from './reducers';
-
-// Imports: Redux Root Saga
-import {rootSaga} from './sagas';
 
 // Middleware: Redux Saga
 const sagaMiddleware = createSagaMiddleware();
 
-// Redux: Store
+const middleware = [thunk, sagaMiddleware, thunkMiddleware, createLogger()];
+
+const config = {
+  key: 'best_movie',
+  storage: AsyncStorage,
+};
+
+const rootReducerOrg = combineReducers({
+  filterConfig: FilterReducer,
+  rootReducer: rootReducer,
+});
+
+const persistedReducer = persistReducer(config, rootReducerOrg);
+
 const store = createStore(
-  rootReducer,
-  applyMiddleware(sagaMiddleware, thunkMiddleware, createLogger()),
+  persistedReducer,
+  composeWithDevTools(applyMiddleware(...middleware)),
 );
+const persistor = persistStore(store);
 
-// Middleware: Redux Saga
-sagaMiddleware.run(rootSaga);
+store.subscribe(() => {
+  console.log('NEW STATE', store.getState());
+});
 
-// Exports
-export default store;
+export {store, persistor};

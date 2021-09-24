@@ -1,191 +1,60 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  Share,
-  SafeAreaView,
-} from 'react-native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import HeaderModal from '../../components/HeaderModal';
-import {APP_PLAYSTORE_URL} from '../../config/urls';
-// import { SafeAreaView } from 'react-native-safe-area-context';
+import {StyleSheet, Dimensions} from 'react-native';
+import {connect} from 'react-redux';
+import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../redux/const';
+import {SET_COUNTER, SET_CURR_FOCUS} from '../../redux/const';
+import RenderTV from './renderTV';
+import RenderMobile from './renderMobile';
+import colors from '../../helper/colors';
+import StyleConfig from '../../helper/StyleConfig';
+import MoviesJSON from '../../components/TV/movies.json';
+//import firebase from '../../helper/firebase';
+// import crashlytics from '@react-native-firebase/crashlytics';
 
-export default function MenusList(props) {
-  const {replace, navigate} = props.navigation;
-
-  const inviteFriend = () => {
-    Share.share(
-      {
-        url: APP_PLAYSTORE_URL,
-        title: 'Best Movie App',
-        message: 'Best Movie App',
-      },
-      {dialogTitle: 'Best Movie App', subject: 'Best'},
-    );
+const {width} = Dimensions.get('window');
+class MenusList extends React.Component {
+  state = {
+    posts: [],
+    modalVisible: false,
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <HeaderModal title="Menu" {...props} />
-      <ScrollView contentContainerStyle={styles.scrollviewStyle}>
-        <PrimaryTile
-          title="Country"
-          subTitle="United States"
-          onPress={() => navigate('Country')}
-        />
-        <PrimaryTile
-          title="Language"
-          subTitle="English"
-          onPress={() => navigate('Languages')}
-        />
-        <View style={styles.divider} />
-        <IconTile title="TV app" iconName="tv" iconSize={20} />
-        <IconTile title="Mobile app" iconName="mobile" iconSize={32} />
-        <IconTile
-          title="Invite friends"
-          iconName="share"
-          iconSize={18}
-          onPress={inviteFriend}
-        />
-        <View style={styles.divider} />
-        <View style={[styles.row, styles.PV10]}>
-          <IconButton name="facebook" />
-          <IconButton name="twitter" />
-          <IconButton name="instagram" />
-        </View>
-        <View style={styles.divider} />
-        <SecondaryTile title="About" onPress={() => replace('About')} />
-        <SecondaryTile title="Advertise" onPress={() => replace('About')} />
-        <SecondaryTile title="Collaborate" onPress={() => replace('About')} />
-        <SecondaryTile title="Jobs" onPress={() => replace('About')} />
-        <SecondaryTile title="Contact us" onPress={() => replace('About')} />
-        <SecondaryTile title="Terms of use" onPress={() => replace('About')} />
-        <SecondaryTile
-          title="Privacy policy"
-          onPress={() => replace('About')}
-        />
-      </ScrollView>
-    </SafeAreaView>
-  );
+  render() {
+    console.log('StyleConfig.isTV- ', StyleConfig.isTV);
+    return StyleConfig.isTV ? (
+      <RenderTV {...this.props} />
+    ) : (
+      <RenderMobile {...this.props} />
+    );
+  }
 }
 
-const PrimaryTile = ({title, subTitle, onPress}) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={[styles.PrimaryTileStyle, styles.row]}>
-      <View style={[styles.col, {flex: 3}]}>
-        <Text style={styles.PrimaryTileTitleStyle}>{title}</Text>
-        <Text style={styles.PrimaryTileSubTitleStyle}>{subTitle}</Text>
-      </View>
-      <FontAwesomeIcon name="chevron-right" style={styles.icStyle} size={20} />
-    </View>
-  </TouchableOpacity>
-);
-
-const SecondaryTile = ({title, onPress}) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={styles.SecondaryTileStyle}>
-      <Text style={styles.SecondaryTileTitleStyle}>{title}</Text>
-    </View>
-  </TouchableOpacity>
-);
-
-const IconTile = ({title, iconName, iconSize, onPress}) => (
-  <TouchableOpacity onPress={onPress}>
-    <View style={[styles.IconTileStyle, styles.row]}>
-      <View style={[styles.itemCenter, {width: 25, marginRight: 5}]}>
-        <FontAwesomeIcon name={iconName} size={iconSize} />
-      </View>
-      <Text style={styles.IconTileTitleStyle}>{title}</Text>
-    </View>
-  </TouchableOpacity>
-);
-
-const IconButton = (props, onPress) => (
-  <TouchableOpacity onPress={onPress}>
-    <FontAwesomeIcon style={styles.socialIc} size={20} {...props} />
-  </TouchableOpacity>
-);
+export default connect(null, null)(MenusList);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  row: {
+    backgroundColor: colors.black,
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-  col: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+  tile: {
+    flexBasis: width * 0.2,
+    height: width * 0.15,
+    marginTop: 10,
+    marginBottom: 20,
+    padding: 10,
   },
-  itemCenter: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  highlight: {
+    borderColor: '#1d3557',
+    borderRadius: 20,
+    borderColor: 'green',
   },
-  socialIc: {
-    marginRight: 31,
+  highlightFocused: {
+    borderWidth: 5,
+    borderColor: 'orange',
+    borderRadius: 20,
   },
-  scrollviewStyle: {
-    paddingHorizontal: 10,
-  },
-
-  PrimaryTileStyle: {
-    paddingVertical: 10,
-    alignItems: 'center',
-  },
-  PrimaryTileTitleStyle: {
-    color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+  title: {
     fontSize: 20,
-    fontStyle: 'normal',
-    fontWeight: '700',
-  },
-  PrimaryTileSubTitleStyle: {
-    color: '#333333',
-    fontFamily: 'VAG Rounded Next',
-    fontSize: 18,
-    fontStyle: 'normal',
-    fontWeight: '400',
-  },
-  icStyle: {
-    opacity: 0.2,
-  },
-  divider: {
-    height: 1,
-    width: '100%',
-    backgroundColor: 'gray',
-    opacity: 0.1,
-    marginVertical: 5,
-  },
-  IconTileStyle: {
-    paddingVertical: 10,
-  },
-  IconTileTitleStyle: {
-    color: '#000000',
-    fontFamily: 'VAG Rounded Next',
-    fontSize: 20,
-    fontStyle: 'normal',
-    fontWeight: '700',
-  },
-  IconTileICStyle: {
-    width: 40,
-  },
-  PV10: {
-    paddingVertical: 10,
-  },
-  SecondaryTileStyle: {
-    paddingVertical: 10,
-  },
-  SecondaryTileTitleStyle: {
-    color: '#000000',
-    fontFamily: 'VAG Rounded Next',
-    fontSize: 20,
-    fontStyle: 'normal',
-    fontWeight: '400',
+    textAlign: 'center',
   },
 });

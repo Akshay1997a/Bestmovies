@@ -32,7 +32,7 @@ export const LoaderIndicator = () => (
 );
 
 const Loader = () => {
-  const loading = useSelector((state) => state.UI.isLoading);
+  const loading = useSelector((state) => state?.UI?.isLoading);
   return (
     <React.Fragment>{loading ? <LoaderIndicator /> : null}</React.Fragment>
   );

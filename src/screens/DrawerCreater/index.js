@@ -1,83 +1,56 @@
-// import React from 'react';
-// import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-// import {
-//   DrawerContentScrollView,
-//   DrawerItemList,
-//   DrawerItem,
-//   DrawerDivider,
-// } from 'react-navigation-drawer';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import React from 'react';
+import {StyleSheet, Dimensions} from 'react-native';
+import {connect} from 'react-redux';
+import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../redux/const';
+import {SET_COUNTER, SET_CURR_FOCUS} from '../../redux/const';
+import RenderTV from './renderTV';
+import RenderMobile from './renderMobile';
+import colors from '../../helper/colors';
+import StyleConfig from '../../helper/StyleConfig';
+import MoviesJSON from '../../components/TV/movies.json';
+//import firebase from '../../helper/firebase';
+// import crashlytics from '@react-native-firebase/crashlytics';
 
-// function Slider({...props}) {
-//   const navigateTo = (name) => {
-//     const {navigation} = props;
-//     navigation.navigate(name);
-//   };
+const {width} = Dimensions.get('window');
+class Slider extends React.Component {
+  state = {
+    posts: [],
+    modalVisible: false,
+  };
 
-//   return (
-//     <DrawerContentScrollView {...props}>
-//       <DrawerItemList {...props} />
-//       <View style={styles.seperator} />
-//       <View style={styles.row}>
-//         <TouchableOpacity>
-//           <Icon name="facebook" size={25} style={styles.socialIc} />
-//         </TouchableOpacity>
-//         <TouchableOpacity>
-//           <Icon name="twitter" size={25} style={styles.socialIc} />
-//         </TouchableOpacity>
-//         <TouchableOpacity>
-//           <Icon name="instagram" size={25} style={styles.socialIc} />
-//         </TouchableOpacity>
-//       </View>
-//       <DrawerItem
-//         label="About"
-//         labelStyle={styles.labelStyle}
-//         onPress={() => navigateTo('About')}></DrawerItem>
-//       <DrawerItem label="Advertise" labelStyle={styles.labelStyle}></DrawerItem>
-//       <DrawerItem
-//         label="Collaborate"
-//         labelStyle={styles.labelStyle}></DrawerItem>
-//       <DrawerItem label="Jobs" labelStyle={styles.labelStyle}></DrawerItem>
-//       <DrawerItem label="Investors" labelStyle={styles.labelStyle}></DrawerItem>
-//       <DrawerItem
-//         label="Contact Us"
-//         labelStyle={styles.labelStyle}></DrawerItem>
-//       <DrawerItem
-//         label="Terms of Use"
-//         labelStyle={styles.labelStyle}></DrawerItem>
-//       <DrawerItem
-//         label="Privacy Policy"
-//         labelStyle={styles.labelStyle}></DrawerItem>
-//     </DrawerContentScrollView>
-//   );
-// }
+  render() {
+    console.log('StyleConfig.isTV- ', StyleConfig.isTV);
+    return <RenderMobile {...this.props} />;
+  }
+}
 
-// export default Slider;
-// const styles = StyleSheet.create({
-//   labelStyle: {
-//     fontSize: 17,
-//     fontWeight: '700',
-//     color: 'black',
-//     marginTop: -10,
-//     marginBottom: -5,
-//   },
-//   seprater: {
-//     backgroundColor: 'red',
-//     height: 1,
-//   },
-//   row: {
-//     flexDirection: 'row',
-//     marginHorizontal: 18,
-//     marginVertical: 20,
-//   },
-//   socialIc: {
-//     opacity: 0.5,
-//     marginRight: 20,
-//   },
-//   seperator: {
-//     width: '100%',
-//     height: 1,
-//     backgroundColor: 'gray',
-//     opacity: 0.3,
-//   },
-// });
+export default connect(null, null)(Slider);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.black,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  tile: {
+    flexBasis: width * 0.2,
+    height: width * 0.15,
+    marginTop: 10,
+    marginBottom: 20,
+    padding: 10,
+  },
+  highlight: {
+    borderColor: '#1d3557',
+    borderRadius: 20,
+    borderColor: 'green',
+  },
+  highlightFocused: {
+    borderWidth: 5,
+    borderColor: 'orange',
+    borderRadius: 20,
+  },
+  title: {
+    fontSize: 20,
+    textAlign: 'center',
+  },
+});

@@ -1,134 +1,358 @@
-import React from 'react'
-const isMobile = false ;
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-import StyleConfig from 'src/helper/StyleConfig'
-
-
-import HomeScreen from 'src/screens/HomeScreen'
-import MyListScreen from 'src/screens/MyListScreen'
-import Filter from 'src/screens/Filter'
-import Year from 'src/screens/Filter/Year'
-import Country from 'src/screens/Filter/Country'
-import Provider from 'src/screens/Filter/Providers'
-import Ages from 'src/screens/Filter/Ages'
+import HomeScreen from 'src/screens/HomeScreen';
+import MyListScreen from 'src/screens/MyListScreen';
+import Filter from 'src/screens/Filter';
+import Year from 'src/screens/Filter/Year';
+import CountryFilter from 'src/screens/Filter/CountryFilter';
+import Provider from 'src/screens/Filter/Providers';
+import Ages from 'src/screens/Filter/Ages';
 import Generes from 'src/screens/Filter/Generes';
 import Price from 'src/screens/Filter/Price';
 import Linkby from 'src/screens/Filter/LinkBy';
-import Languages from 'src/screens/Filter/Original Languages';
-import Menu from 'src/screens/Menu';
-// import Slider from 'src/screens/DrawerCreater';
-import Movies from 'src/screens/Movies';
-import TVShow from 'src/screens/TVShow';
-import Shorts from 'src/screens/Shorts';
-import Actors from 'src/screens/Actors';
-import Directors from 'src/screens/Directors';
-import Search from 'src/screens/Search';
-import About from 'src/screens/About';
+import LanguageFilter from 'src/screens/Filter/LanguageFilter';
+import ArtistPage from '../screens/ArtistPage';
+import Profile from '../screens/Profile';
+import YoutubePlayer from '../components/YoutubePlayer';
+import {StyleSheet, View, Platform} from 'react-native';
+import MenusList from '../screens/MenusList';
+import Header from '../components/Header';
+import {
+  TopBarMainNavigator,
+  TopBarSearchNavigator,
+  TopBarSecondaryNavigator,
+} from './TopBarNavigator';
+import HeaderModal from '../components/HeaderModal';
+import SortBy from '../screens/Filter/SortBy';
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+import Country from '../screens/Country';
+import Language from '../screens/LanguageScreen';
 
-// const Drawer =createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const StackNav=()=>{
-  return(
-    <Stack.Navigator initialRouteName="Menu" >
-    <Stack.Screen name="Filter" component={Filter} />
-    <Stack.Screen name="Year" component={Year} />
-    <Stack.Screen name="Country" component={Country} />
-    <Stack.Screen name="Provider" component={Provider} />
-    <Stack.Screen name="Ages" component={Ages} />
-    <Stack.Screen name="Generes" component={Generes} />
-    <Stack.Screen name="Price" component={Price} />
-    <Stack.Screen name="Linkby" component={Linkby} />
-    <Stack.Screen name="Languages" component={Languages} />
-    {/* <Stack.Screen name="Menu" component={Menu} /> */}
-</Stack.Navigator>
+const StackNav = () => {
+  const insets = useSafeAreaInsets();
+  const commonOptions = {
+    headerBackImage: () => <FontAwesome5 name="angle-left" size={30} />,
+    headerShown: false,
+    headerTitleAlign: 'center',
+    //...Platform.OS === "ios" && TransitionPresets.FadeFromBottomAndroid,
+  };
+
+  const modalScreenOptions = (screenProps) => {
+    const title = screenProps.route.name;
+    return {
+      headerShown: true,
+      headerTitleAlign: 'center',
+      cardStyle: {
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        overflow: 'hidden',
+        // marginTop: insets.top,
+        marginBottom: insets.bottom,
+      },
+      cardOverlayEnabled: true,
+      animationTypeForReplace: 'push',
+      headerStyle: {
+        elevation: 0,
+      },
+      cardStyleInterpolator: ({current: {progress}}) => ({
+        cardStyle: {
+          opacity: progress.interpolate({
+            inputRange: [0, 0.5, 0.9, 1],
+            outputRange: [0, 0.25, 0.7, 1],
+          }),
+        },
+        containerStyle: {
+          backgroundColor: 'transparent',
+        },
+        overlayStyle: {
+          opacity: progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 0.5],
+            extrapolate: 'clamp',
+          }),
+        },
+      }),
+      ...TransitionPresets.ModalSlideFromBottomIOS,
+      header: (headerProps) => (
+        <HeaderModal title={title} modalProps={screenProps} {...headerProps} />
+      ),
+    };
+  };
+
+  return (
+    <Stack.Navigator
+      initialRouteName="Menu"
+      mode="modal"
+      screenOptions={{
+        header: (props) => <Header {...props} />,
+      }}>
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="MyListScreen" component={MyListScreen} />
+      <Stack.Screen
+        name="Filter"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Filter {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="MenusList"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <MenusList {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Year"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Year {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="CountryFilter"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <CountryFilter {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Country"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Country {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Sortby"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <SortBy {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Provider"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Provider {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Ages"
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Ages {...props} />
+          </View>
+        )}
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+      />
+      <Stack.Screen
+        name="Generes"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Generes {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Price"
+        component={Price}
+        options={{
+          ...commonOptions,
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Linkby"
+        component={Linkby}
+        options={{
+          ...commonOptions,
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="LanguageFilter"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <LanguageFilter {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Languages"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Language {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Menu"
+        component={TopBarMainNavigator}
+        options={{
+          ...commonOptions,
+          headerStyle: {
+            elevation: 0,
+          },
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Search"
+        options={{
+          ...commonOptions,
+          headerShown: false,
+          headerStyle: {
+            elevation: 0,
+          },
+        }}
+        component={TopBarSearchNavigator}
+      />
+      <Stack.Screen
+        name="About"
+        options={{
+          ...commonOptions,
+          headerShown: false,
+          // header: (props) => <Header {...props} />,
+        }}
+        component={TopBarSecondaryNavigator}
+      />
+      <Stack.Screen
+        name="Artist"
+        component={ArtistPage}
+        options={{...commonOptions}}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{...commonOptions}}
+      />
+      <Stack.Screen
+        name="YoutubePlayer"
+        component={YoutubePlayer}
+        options={{...commonOptions}}
+      />
+    </Stack.Navigator>
   );
 };
 
 const Router = () => {
   return (
+    <SafeAreaProvider>
       <NavigationContainer>
-          {/* <Drawer.Navigator>
-              <Drawer.Screen name="Menu" component={Menu} 
-               options={{
-                title: 'Home',
-                drawerIcon: ({focused}) => (
-                   <Icon
-                      name="user"
-                      size={25}
-                      color={focused ? '#7cc' : '#ccc'}
-                   />
-                ),
-             }}/>
-              <Drawer.Screen name="My Kids" component={StackNav}/>
-              <Drawer.Screen name="Notification" component={Languages}
-                 options={{title: 'Home',drawerIcon: ({focused}) => (<Icon name="user" size={25} color={focused ? '#7cc' : '#ccc'}  /> ), }}
-              />
-              <Drawer.Screen name="Friend" component={Languages} 
-                options={{title: 'Home',drawerIcon: ({focused}) => (<FontAwesome5 name="user-friends" size={25} color={focused ? '#7cc' : '#ccc'}  /> ), }}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Get TV app"
-          component={Languages}
-          options={{
-            title: 'Get TV app',
-            drawerIcon: ({focused}) => (
-              <Icons
-                name="download"
-                size={25}
-                color={focused ? '#7cc' : '#ccc'}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="ConnectTV"
-          component={Languages}
-          options={{
-            title: 'ConnectTV',
-            drawerIcon: ({focused}) => (
-              <Ionicons
-                name="bluetooth"
-                size={25}
-                color={focused ? '#7cc' : '#ccc'}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Share to friend"
-          component={Languages}
-          options={{
-            title: 'Share to friend',
-            drawerIcon: ({focused}) => (
-              <Ionicons
-                name="send-sharp"
-                size={25}
-                color={focused ? '#7cc' : '#ccc'}
-              />
-            ),
-          }}
-        />
-        {/* <Drawer.Screen name="Filter" component={Filter} /> 
-              <Drawer.Screen name="About" component={Languages} />
-              <Drawer.Screen name="Advertise" component={Languages} />
-              <Drawer.Screen name="Collaborate" component={Languages} />
-              <Drawer.Screen name="Jobs" component={Languages} />
-              <Drawer.Screen name="Investors" component={Languages} />
-              <Drawer.Screen name="Contact Us " component={Languages} />
-              <Drawer.Screen name="Terms of use" component={Languages} />
-          </Drawer.Navigator> */}
-    </NavigationContainer>
+        <StackNav />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
-}
-export default Router
+};
+export default Router;
+
+const styles = StyleSheet.create({
+  butContainer: {
+    padding: 10,
+  },
+  ModalContainer: {
+    height: '100%',
+    marginTop: Platform.OS === 'android' ? 10 : 48,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+    elevation: 10,
+  },
+});

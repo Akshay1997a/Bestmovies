@@ -86,7 +86,7 @@ export function TopBarSearchNavigator(props) {
           fontWeight: '700',
           fontSize: 14,
           color: '#000',
-          fontFamily: 'VGA Rounded Next',
+          fontFamily: 'VAG Rounded Next',
         },
         tabStyle: {padding: 0},
       }}>
@@ -114,7 +114,7 @@ export function TopBarSecondaryNavigator(props) {
           fontWeight: '700',
           fontSize: 14,
           color: '#000',
-          fontFamily: 'VGA Rounded Next',
+          fontFamily: 'VAG Rounded Next',
         },
         tabStyle: {padding: 0},
       }}>

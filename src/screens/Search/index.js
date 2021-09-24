@@ -1,68 +1,60 @@
-import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import CardView from '../Movies/CardView';
+import React from 'react';
+import {StyleSheet, Dimensions} from 'react-native';
+import {connect} from 'react-redux';
+import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../redux/const';
+import {SET_COUNTER, SET_CURR_FOCUS} from '../../redux/const';
+import RenderTV from './renderTV';
+import RenderMobile from './renderMobile';
+import colors from '../../helper/colors';
+import StyleConfig from '../../helper/StyleConfig';
+import MoviesJSON from '../../components/TV/movies.json';
+//import firebase from '../../helper/firebase';
+// import crashlytics from '@react-native-firebase/crashlytics';
 
-export class Search extends Component {
+const {width} = Dimensions.get('window');
+class Search extends React.Component {
+  state = {
+    posts: [],
+    modalVisible: false,
+  };
+
   render() {
-    return (
-      <KeyboardAvoidingView
-        style={{flex: 1, backgroundColor: '#fff', paddingHorizontal: 10}}>
-        <KeyboardAvoidingView
-          style={{
-            backgroundColor: '#eee',
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderRadius: 10,
-            paddingHorizontal: 20,
-            // paddingVertical: 10,
-            marginBottom: 5,
-          }}>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 55,
-              marginRight: 10,
-            }}>
-            <Icon name="search" size={20} color="#232323" />
-          </TouchableOpacity>
-          <TextInput
-            style={{
-              flex: 1,
-              fontSize: 18,
-            }}
-            placeholder="Search title or artist"
-          />
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 55,
-            }}>
-            <Icon name="microphone" size={20} color="#232323" />
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-        <View style={{marginBottom: 10, flex: 5.7, backgroundColor: '#fff'}}>
-          <View
-            style={{flexDirection: 'row', padding: 3, alignItems: 'center'}}>
-            <Text style={{fontSize: 15, fontWeight: '700', marginLeft: 2}}>
-              6 Result
-            </Text>
-          </View>
-          <View style={{flex: 1, alignItems: 'center'}}>
-            <CardView />
-          </View>
-        </View>
-      </KeyboardAvoidingView>
+    console.log('StyleConfig.isTV- ', StyleConfig.isTV);
+    return StyleConfig.isTV ? (
+      <RenderTV {...this.props} />
+    ) : (
+      <RenderMobile {...this.props} />
     );
   }
 }
 
-export default Search;
+export default connect(null, null)(Search);
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.black,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  tile: {
+    flexBasis: width * 0.2,
+    height: width * 0.15,
+    marginTop: 10,
+    marginBottom: 20,
+    padding: 10,
+  },
+  highlight: {
+    borderColor: '#1d3557',
+    borderRadius: 20,
+    borderColor: 'green',
+  },
+  highlightFocused: {
+    borderWidth: 5,
+    borderColor: 'orange',
+    borderRadius: 20,
+  },
+  title: {
+    fontSize: 20,
+    textAlign: 'center',
+  },
+});

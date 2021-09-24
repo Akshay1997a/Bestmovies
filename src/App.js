@@ -4,7 +4,7 @@ import Router from './setup/Router';
 import TVRouter from './setup/TVRouter';
 import {Provider} from 'react-redux';
 // Imports: Redux Store
-import store from 'src/redux/store';
+import store from './redux/store';
 import Loader from './components/Loader';
 
 // React Native App
