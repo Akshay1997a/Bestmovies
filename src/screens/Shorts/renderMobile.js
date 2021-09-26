@@ -420,6 +420,7 @@ export class RenderMobile extends Component {
 }
 
 export default RenderMobile;
+
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',

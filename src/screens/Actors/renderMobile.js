@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withTranslation} from 'react-i18next';
 import {
   Text,
   View,
@@ -134,7 +135,10 @@ export class RenderMobile extends Component {
       </View>
     </TouchableNativeFeedback>
   );
+
   render() {
+    let {t} = this.props;
+
     return (
       <SafeAreaView style={{padding: 10, backgroundColor: '#fff'}}>
         <View
@@ -150,7 +154,7 @@ export class RenderMobile extends Component {
               this.setState({modalVisible: true});
             }}>
             <Icon name="triangle-down" size={20} color="#232323" />
-            <Text style={styles.resultText}>Rating</Text>
+            <Text style={styles.resultText}>{t('texts.id_101')}</Text>
           </TouchableOpacity>
         </View>
         <FlatList
@@ -176,7 +180,7 @@ export class RenderMobile extends Component {
   }
 }
 
-export default RenderMobile;
+export default withTranslation()(RenderMobile);
 
 const styles = StyleSheet.create({
   textFont: {

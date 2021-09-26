@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   View,
   Text,
@@ -18,6 +19,8 @@ import {APP_PLAYSTORE_URL} from '../../config/urls';
 export default function RenderMobile(props) {
   const {replace, navigate} = props.navigation;
 
+  let {t} = useTranslation();
+
   const inviteFriend = () => {
     Share.share(
       {
@@ -34,12 +37,12 @@ export default function RenderMobile(props) {
       <HeaderModal title="Menu" {...props} />
       <ScrollView contentContainerStyle={styles.scrollviewStyle}>
         <PrimaryTile
-          title="Country"
+          title={t('texts.id_28')}
           subTitle="United States"
           onPress={() => navigate('Country')}
         />
         <PrimaryTile
-          title="Language"
+          title={t('texts.id_31')}
           subTitle="English"
           onPress={() => navigate('Languages')}
         />

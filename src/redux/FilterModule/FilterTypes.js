@@ -11,8 +11,8 @@ export const VIEW_STYLE = {
 };
 
 export const SORT_BY_FILTER = {
-  RATING: 'Rating',
-  POPULARITY: 'popularity',
+  RATING: 'texts.id_101',
+  POPULARITY: 'texts.id_107',
 };
 
 // export const

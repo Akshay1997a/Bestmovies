@@ -437,6 +437,8 @@ export class Country extends Component {
     </TouchableOpacity>
   );
 
+  componentDidMount() {}
+
   render() {
     return (
       <SafeAreaView>

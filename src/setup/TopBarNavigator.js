@@ -13,6 +13,7 @@ import {
   useAnimationProvider,
 } from '../Providers/CollapsibleHeaderProvider';
 import Search from '../screens/Search';
+import {useTranslation} from 'react-i18next';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const TopBarContext = React.createContext(null);
@@ -34,6 +35,7 @@ function MoviesStack(props) {
 
 export function TopBarMainNavigator(props) {
   const Tab = createMaterialTopTabNavigator();
+  const {t} = useTranslation();
   return (
     <Tab.Navigator
       initialRouteName="Movies"
@@ -52,21 +54,23 @@ export function TopBarMainNavigator(props) {
         },
         tabStyle: {padding: 0},
       }}>
-      <Tab.Screen name={'Movies'} children={MoviesStack} />
+      <Tab.Screen name={t('texts.id_2')} children={MoviesStack} />
       <Tab.Screen
-        name={'TVShow'}
+        name={t('texts.id_5')}
         component={MoviesStack}
         options={{title: 'TV shows'}}
       />
-      <Tab.Screen name={'Shorts'} component={MoviesStack} />
-      <Tab.Screen name={'Directors'} component={Directors} />
-      <Tab.Screen name={'Actors'} component={Directors} />
+      <Tab.Screen name={t('texts.id_6')} component={MoviesStack} />
+      <Tab.Screen name={t('texts.id_8')} component={Directors} />
+      <Tab.Screen name={t('texts.id_11')} component={Directors} />
     </Tab.Navigator>
   );
 }
 
 export function TopBarSearchNavigator(props) {
   const Tab = createMaterialTopTabNavigator();
+  let {t} = useTranslation();
+
   return (
     <Tab.Navigator
       initialRouteName="Title"
@@ -83,16 +87,18 @@ export function TopBarSearchNavigator(props) {
         activeTintColor: '#ff000',
         inactiveTintColor: 'black',
         labelStyle: {
-          fontWeight: '700',
           fontSize: 14,
           color: '#000',
           fontFamily: 'VAG Rounded Next',
+          ...(Platform.OS === 'ios' && {
+            fontWeight: '700',
+          }),
         },
         tabStyle: {padding: 0},
       }}>
-      <Tab.Screen name={'Title'} children={Search} />
-      <Tab.Screen name={'Artist'} component={Search} />
-      <Tab.Screen name={'User'} component={Search} />
+      {/* <Tab.Screen name={'Title'} children={Search} /> */}
+      <Tab.Screen name={t('texts.id_38')} component={Search} />
+      <Tab.Screen name={t('texts.id_41')} component={Search} />
     </Tab.Navigator>
   );
 }

@@ -17,6 +17,7 @@ import {COUNTRIES_LIST} from '../../../config/CountriesList';
 import Svg, {SvgFromUri as SVGImage, Rect} from 'react-native-svg';
 import HeaderModal from '../../../components/HeaderModal';
 import Switch from '../../../components/Switch';
+import {withTranslation} from 'react-i18next';
 
 const DATA = [
   {
@@ -94,11 +95,13 @@ export class RenderMobile extends Component {
       </TouchableOpacity>
     </View>
   );
+
   render() {
+    let {t} = this.props;
     const {selectedCountry} = this.state;
     return (
       <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
-        <HeaderModal title="Streaming services" {...this.props} />
+        <HeaderModal title={t('texts.id_144')} {...this.props} />
         {selectedCountry && (
           <View
             style={{
@@ -113,7 +116,7 @@ export class RenderMobile extends Component {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={styles.filterText}>Country :</Text>
+                <Text style={styles.filterText}>{t('texts.id_28')} :</Text>
                 <View style={{width: 10}} />
                 <SVGImage width={30} height={20} uri={selectedCountry.flag} />
                 <View style={{width: 10}} />
@@ -134,11 +137,11 @@ export class RenderMobile extends Component {
             <Text style={[styles.butText, styles.activeButText]}>All</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.butContainer}>
-            <Text style={styles.butText}>My Provider</Text>
+            <Text style={styles.butText}>{t('texts.id_147')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.butContainer}>
-            <Text style={styles.butText}>Save as</Text>
-            <Text style={styles.butText}>MY Provider</Text>
+            <Text style={styles.butText}>{t('texts.id_148')}</Text>
+            {/* <Text style={styles.butText}>MY Provider</Text> */}
           </TouchableOpacity>
         </View>
         <ScrollView
@@ -147,7 +150,7 @@ export class RenderMobile extends Component {
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 5}}>
               <Text style={{fontSize: 15, fontWeight: '700', margin: 10}}>
-                Subscriptions: 1
+                {t('texts.id_156')}: 1
               </Text>
             </View>
           </View>
@@ -175,9 +178,7 @@ export class RenderMobile extends Component {
               trackColor={{true: '#ff3300', false: '#EFEFEF'}}
             />
             <View style={{width: 10}} />
-            <Text style={styles.filterText}>
-              Free streaming services with ads
-            </Text>
+            <Text style={styles.filterText}>{t('texts.id_150')}</Text>
           </View>
           <View style={styles.finterItem}>
             <Switch
@@ -186,7 +187,7 @@ export class RenderMobile extends Component {
               trackColor={{true: '#ff3300', false: '#EFEFEF'}}
             />
             <View style={{width: 10}} />
-            <Text style={styles.filterText}>Rent / buy streaming services</Text>
+            <Text style={styles.filterText}>{t('texts.id_152')}</Text>
           </View>
           <View style={styles.finterItem}>
             <Switch
@@ -194,7 +195,7 @@ export class RenderMobile extends Component {
               trackColor={{true: '#ff3300', false: '#EFEFEF'}}
             />
             <View style={{width: 10}} />
-            <Text style={styles.filterText}>Local movie theaters</Text>
+            <Text style={styles.filterText}>{t('texts.id_154')}</Text>
           </View>
         </View>
       </SafeAreaView>
@@ -202,7 +203,7 @@ export class RenderMobile extends Component {
   }
 }
 
-export default RenderMobile;
+export default withTranslation()(RenderMobile);
 
 const styles = StyleSheet.create({
   container: {

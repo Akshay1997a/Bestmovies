@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withTranslation} from 'react-i18next';
 import {
   Text,
   View,
@@ -8,9 +9,15 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import HeaderModal from '../../components/HeaderModal';
+import {runTimeTranslations} from '../../i18n';
+import {getTranslateFile} from '../../network/requests';
+import i18n from 'i18next';
+import Loader from '../../components/Loader';
 
-import {Button} from '../Country';
+// import {Button} from '../Country';
 
 const DATA = [
   {
@@ -426,13 +433,54 @@ export class RenderMobile extends Component {
       refreshing: true,
       window,
       screen,
+      seletedLanguage: i18n.language,
     };
   }
 
+  handleLanguage = (code) => {
+    this.props.i18n.changeLanguage(code);
+    // this.setState({
+    //   seletedLanguage: code,
+    // });
+    this.changeLanguage(code);
+  };
+
+  changeLanguage = (code) => {
+    this.props.getTranslateFile(
+      (res) => {
+        console.log('Response from translate api', res);
+        runTimeTranslations(res, res?.language);
+      },
+      (err) => {
+        console.log('Error from translate file', err);
+      },
+    );
+  };
+
   render() {
+    let {t} = this.props;
     return (
       <SafeAreaView style={styles.container}>
-        <HeaderModal title={'Your language'} {...this.props} />
+        {/* <Loader /> */}
+        <HeaderModal title={t('texts.id_31')} {...this.props} />
+        <View style={[{marginHorizontal: 10}]}>
+          <Button
+            key={'yutuy'}
+            title={'English'}
+            isActive={i18n.language == 'en'}
+            onPress={() => {
+              this.handleLanguage('en');
+            }}
+          />
+          <Button
+            key={'asbbschbs'}
+            title={'Spanish'}
+            isActive={i18n.language == 'es'}
+            onPress={() => {
+              this.handleLanguage('es');
+            }}
+          />
+        </View>
         <FlatList
           margin={10}
           showsVerticalScrollIndicator={false}
@@ -447,7 +495,7 @@ export class RenderMobile extends Component {
             <Button
               key={item.id}
               title={item.languages}
-              isActive={index === 0}
+              isActive={false}
               onPress={() => {}}
             />
           )}
@@ -458,9 +506,53 @@ export class RenderMobile extends Component {
   }
 }
 
-export default RenderMobile;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getTranslateFile,
+      // getLanguageList,
+    },
+    dispatch,
+  );
+};
+
+export default withTranslation()(
+  connect(null, mapDispatchToProps)(RenderMobile),
+);
+
+export const Button = ({title, isActive, onPress}) => (
+  <TouchableOpacity
+    style={[styles.butContainer, isActive && styles.butActive]}
+    onPress={() => onPress(title)}>
+    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
+      {title}
+    </Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
+  butContainer: {
+    padding: 10,
+    borderRadius: 15,
+    marginVertical: 5,
+  },
+  butActive: {
+    backgroundColor: '#FF4D01',
+  },
+  butActiveText: {
+    color: '#fff',
+    fontWeight: '700',
+  },
+  butTitle: {
+    color: '#000000',
+    fontFamily: 'VAG Rounded Next',
+    fontSize: 20,
+    fontStyle: 'normal',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#fff',

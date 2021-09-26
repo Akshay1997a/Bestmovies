@@ -18,7 +18,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 export default function RenderMobile() {
   const [isLoaded, setLoaded] = useState(false);
   const {reset} = useCollapsibleHeader();
-  const screens = [{name: 'About', component: About}];
+  // const screens = [{name: 'About', component: About}];
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {

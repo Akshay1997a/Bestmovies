@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, View} from 'react-native';
 import {connect} from 'react-redux';
 import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../redux/const';
 import {SET_COUNTER, SET_CURR_FOCUS} from '../../redux/const';
@@ -20,6 +20,8 @@ class About extends React.Component {
 
   render() {
     console.log('StyleConfig.isTV- ', StyleConfig.isTV);
+
+    // return <View style={[{backgroundColor: 'red', flex: 1}]}></View>;
     return StyleConfig.isTV ? (
       <RenderTV {...this.props} />
     ) : (

@@ -1,6 +1,7 @@
 import React from 'react';
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
+import StyleConfig from '../helper/StyleConfig';
 
 export const LoaderIndicator = () => (
   <View style={[styles.container, styles.horizontal]}>
@@ -32,7 +33,9 @@ export const LoaderIndicator = () => (
 );
 
 const Loader = () => {
-  const loading = useSelector((state) => state?.UI?.isLoading);
+  const loading = useSelector((state) =>
+    StyleConfig.isTV ? state?.UI?.isLoading : state?.rootReducer?.UI?.isLoading,
+  );
   return (
     <React.Fragment>{loading ? <LoaderIndicator /> : null}</React.Fragment>
   );

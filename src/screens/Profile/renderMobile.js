@@ -11,8 +11,11 @@ import {
 import Header from '../../components/Header';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 export default function RenderMobile(props) {
+  let {t} = useTranslation();
+
   const [mode, setMode] = useState('LOGIN');
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -20,15 +23,15 @@ export default function RenderMobile(props) {
         {/* <Header {...props} /> */}
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={[styles.col, styles.alignCenter]}>
-            <Text style={styles.HeadTitle}>Free & quick sign up</Text>
-            <Text style={styles.headerTitleSecondary}>+ Custom matches</Text>
-            <Text style={styles.headerTitleSecondary}>+ Watch lists</Text>
+            <Text style={styles.HeadTitle}>{t('texts.id_231')}</Text>
+            <Text style={styles.headerTitleSecondary}>{t('texts.id_232')}</Text>
+            {/* <Text style={styles.headerTitleSecondary}>+ Watch lists</Text>
             <Text style={styles.headerTitleSecondary}>
               + Use as TV remote control
             </Text>
             <Text style={styles.headerTitleSecondary}>
               + See friends' ratings, etc.
-            </Text>
+            </Text> */}
           </View>
           <View style={[styles.col, styles.alignCenter]}>
             <View
@@ -141,6 +144,7 @@ const styles = StyleSheet.create({
   headerTitleSecondary: {
     color: '#666666',
     fontFamily: 'VAG Rounded Next',
+    textAlign: 'center',
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

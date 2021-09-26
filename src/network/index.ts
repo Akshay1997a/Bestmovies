@@ -28,7 +28,7 @@ defaultInstance.interceptors.request.use(
                 config.headers[apiConstants.content_type_key] = apiConstants.raw_data_type;
             }
         }
-       
+    //    i18n.changeLanguage("en")
         let lang = i18n.language || "en"
         //  await AsyncStorage.getItem("langType")
         // alert(lang)

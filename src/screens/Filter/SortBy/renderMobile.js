@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   StyleSheet,
   Text,
@@ -15,15 +16,17 @@ const {height} = Dimensions.get('screen');
 
 export default function RenderMobile(props) {
   const {sortBy} = useSelector((state) => state.filterConfig);
+  let {t} = useTranslation();
   const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
-      <HeaderModal title="Sort By" {...props} />
+      <HeaderModal title={t('texts.id_99')} {...props} />
       <View style={{padding: 10}}>
         {Object.entries(SORT_BY_FILTER).map((value, index) => (
           <Button
             key={index.toString()}
-            title={value[1]}
+            title={t(value[1])}
             isActive={sortBy === SORT_BY_FILTER[value[0]]}
             onPress={() => dispatch(updateSortByAction(value[1]))}
           />

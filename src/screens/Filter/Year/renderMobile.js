@@ -10,24 +10,27 @@ import {
 } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HeaderModal from '../../../components/HeaderModal';
+import {useTranslation} from 'react-i18next';
 
 const WIDTH = Dimensions.get('window').width;
 
 export default function RenderMobile(props) {
+  let {t} = useTranslation();
+
   return (
     <View style={styles.container}>
       <HeaderModal title="Year of release" {...props} />
       <ScrollView contentContainerStyle={{padding: 10}}>
-        <Button title="Any" isActive={true} />
+        <Button title={t('texts.id_172')} isActive={true} />
         <Button title="Last week" isActive={false} />
-        <Button title="Last nonth" isActive={false} />
-        <Button title="Last 3 months" isActive={false} />
-        <Button title="Last year" isActive={false} />
-        <Button title="Last 2 year" isActive={false} />
-        <Button title="Last 5 year" isActive={false} />
-        <Button title="Last 10 year" isActive={false} />
-        <Button title="Last 25 year" isActive={false} />
-        <Button title="Last 50 year" isActive={false} />
+        <Button title={t('texts.id_118')} isActive={false} />
+        <Button title={t('texts.id_119')} isActive={false} />
+        <Button title={t('texts.id_121')} isActive={false} />
+        <Button title={t('texts.id_122')} isActive={false} />
+        <Button title={t('texts.id_123')} isActive={false} />
+        <Button title={t('texts.id_124')} isActive={false} />
+        <Button title={t('texts.id_125')} isActive={false} />
+        <Button title={t('texts.id_126')} isActive={false} />
         <View style={styles.SliderContainer}>
           <MultiSlider
             sliderLength={WIDTH - 40}

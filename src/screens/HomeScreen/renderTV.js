@@ -44,6 +44,7 @@ import {bindActionCreators} from 'redux';
 import {getTranslateFile} from '../../network/requests';
 import transConstants from '../../helper/transConstants';
 import {useTranslation} from 'react-i18next';
+import {runTimeTranslations} from '../../i18n';
 let [
   NONE,
   SEARCH,

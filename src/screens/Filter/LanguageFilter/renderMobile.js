@@ -8,10 +8,22 @@ import {
   FlatList,
   StyleSheet,
   Platform,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 import HeaderModal from '../../../components/HeaderModal';
 import SearchBar from '../../../components/SearchBar';
-import {Button} from '../../Country';
+// import {Button} from '../../Country';
+
+export const Button = ({title, isActive, onPress}) => (
+  <TouchableOpacity
+    style={[styles.butContainer, isActive && styles.butActive]}
+    onPress={() => onPress(title)}>
+    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
+      {title}
+    </Text>
+  </TouchableOpacity>
+);
 
 const DATA = [
   {
@@ -419,7 +431,7 @@ const DATA = [
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 
-export class RenderMobile extends Component {
+class RenderMobile extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -23,6 +23,7 @@ import Switch from '../../components/Switch';
 import {SORT_BY_FILTER} from '../../redux/FilterModule/FilterTypes';
 // import {SafeAreaView} from 'react-native-safe-area-context'
 import {StatusBarContext} from '../../../App';
+import {withTranslation} from 'react-i18next';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -86,10 +87,11 @@ class Filter extends React.Component {
     if (selectedCountries.length > 0) {
       titleTextStyle.push(styles.isActiveText);
     }
+    let {t} = this.props;
 
     return (
       <View style={{backgroundColor: '#fff', paddingBottom: 30}}>
-        <HeaderModal title="Filter" {...this.props} />
+        <HeaderModal title={t('texts.id_109')} {...this.props} />
         <ScrollView
           contentContainerStyle={{
             marginHorizontal: 10,
@@ -103,7 +105,7 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={styles.textTitle}>Sort by</Text>
+              <Text style={styles.textTitle}>{t('texts.id_99')}</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>{sortBy}</Text>
               </View>
@@ -120,7 +122,7 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={styles.textTitle}>Liked by</Text>
+              <Text style={styles.textTitle}>{t('texts.id_160')}</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>_ _</Text>
               </View>
@@ -133,7 +135,7 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('Provider')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={[styles.textTitle]}>Streaming services (US)</Text>
+              <Text style={[styles.textTitle]}>{t('texts.id_144')} (US)</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
                   Netflix,Amazon Prime ,HBO,Flimin(Theaters included)
@@ -152,7 +154,7 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={styles.textTitle}>Year</Text>
+              <Text style={styles.textTitle}>{t('texts.id_112')}</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>Any</Text>
               </View>
@@ -163,7 +165,7 @@ class Filter extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={[styles.textTitle]}>Generes</Text>
+              <Text style={[styles.textTitle]}>{t('texts.id_127')}</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>
                   Comedy,Drama,Thriller,Action,Documentary,Horror
@@ -178,7 +180,7 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('CountryFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={titleTextStyle}>Countries</Text>
+              <Text style={titleTextStyle}>{t('texts.id_29')}</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
                   USA,UK,France,Spain,Argentina,Italy,Canada,Germany
@@ -193,9 +195,9 @@ class Filter extends React.Component {
             // onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Age rating</Text>
+              <Text style={styles.textTitle}>{t('texts.id_141')}</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>Any</Text>
+                <Text style={{fontSize: 15}}>{t('texts.id_172')}</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -206,7 +208,7 @@ class Filter extends React.Component {
             // onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Price</Text>
+              <Text style={styles.textTitle}>{t('texts.id_158')}</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>{'< 10 €'}</Text>
               </View>
@@ -221,7 +223,7 @@ class Filter extends React.Component {
             <View style={{flex: 5.5}}>
               <Text style={styles.textTitle}>Original Language</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>Any</Text>
+                <Text style={{fontSize: 15}}>{t('texts.id_172')}</Text>
               </View>
             </View>
             <View style={{flex: 0.5, alignItems: 'center'}}>
@@ -233,7 +235,7 @@ class Filter extends React.Component {
               />
             </View>
           </TouchableOpacity>
-          <Text style={styles.textTitle}>Include</Text>
+          <Text style={styles.textTitle}>{t('texts.id_167')}</Text>
           <View style={{marginTop: 10}}>
             <View
               style={{
@@ -259,7 +261,7 @@ class Filter extends React.Component {
                   this.setState({switchValueIncludePIH: values})
                 }
               />
-              <Text style={styles.textSecond}>Previously browsed</Text>
+              <Text style={styles.textSecond}>{t('texts.id_171')}</Text>
             </View>
           </View>
           <TouchableOpacity
@@ -272,7 +274,7 @@ class Filter extends React.Component {
                 fontSize: 15,
                 fontWeight: '700',
               }}>
-              Clear Filters
+              {t('texts.id_111')}
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -294,7 +296,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default withTranslation()(
+  connect(mapStateToProps, mapDispatchToProps)(Filter),
+);
 
 const styles = StyleSheet.create({
   textTitle: {

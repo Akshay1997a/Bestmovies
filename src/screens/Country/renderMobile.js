@@ -11,6 +11,10 @@ import {
 import SearchBar from '../../components/SearchBar';
 import {COUNTRIES_LIST} from '../../config/CountriesList';
 import HeaderModal from '../../components/HeaderModal';
+import {withTranslation} from 'react-i18next';
+import i18next from 'i18next';
+import strings from '../../helper/strings';
+import {isNotEmpty} from '../../helper/globalFunctions';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -26,11 +30,29 @@ export class RenderMobile extends Component {
       searchString: '',
       window,
       screen,
+      countryData: [],
     };
 
     this.selectUnselectCountry = this.selectUnselectCountry.bind(this);
     this.onSearchHandler = this.onSearchHandler.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
+  }
+
+  componentDidMount() {
+    let lng = this.props.i18n.language;
+    let countryData = i18next.getDataByLanguage(lng);
+    let countryTemp = countryData?.translation?.countries_listed;
+    let result = isNotEmpty(countryTemp)
+      ? Object.keys(countryTemp).map((key) => [String(key), countryTemp[key]])
+      : [];
+    this.setState(
+      {
+        countryData: result,
+      },
+      () => {
+        console.log('country data we get hereeee', this.state.countryData);
+      },
+    );
   }
 
   selectUnselectCountry(name) {
@@ -54,12 +76,13 @@ export class RenderMobile extends Component {
 
   render() {
     const {selectedCountries, filtereddCountries, searchString} = this.state;
+    let {t} = this.props;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-        <HeaderModal title="Your country" {...this.props} />
+        <HeaderModal title={t('texts.id_140')} {...this.props} />
         <View style={{padding: 10}}>
           <SearchBar
-            placeholder="Enter country"
+            placeholder={t('texts.id_27')}
             value={searchString}
             onChangeText={(text) => this.onSearchHandler(text)}
             onClear={this.onClearSearch}
@@ -73,17 +96,20 @@ export class RenderMobile extends Component {
               ))
             }
             data={
-              filtereddCountries.length > 0
-                ? filtereddCountries
-                : COUNTRIES_LIST
+              this.state.countryData
+              // filtereddCountries.length > 0
+              //   ? filtereddCountries
+              //   : COUNTRIES_LIST
             }
-            renderItem={({item, index}) => (
-              <Button
-                title={item.name}
-                isActive={selectedCountries.includes(item.name)}
-                onPress={(name) => this.selectUnselectCountry(name)}
-              />
-            )}
+            renderItem={({item, index}) => {
+              return (
+                <Button
+                  title={item?.[1]}
+                  isActive={selectedCountries.includes(item?.[1])}
+                  onPress={(name) => this.selectUnselectCountry(name)}
+                />
+              );
+            }}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
@@ -92,7 +118,7 @@ export class RenderMobile extends Component {
   }
 }
 
-export default RenderMobile;
+export default withTranslation()(RenderMobile);
 
 export const Button = ({title, isActive, onPress}) => (
   <TouchableOpacity

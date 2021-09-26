@@ -41,6 +41,7 @@ import SVGTriangleTop from '../../svgs/TriangleTop';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
+import {withTranslation} from 'react-i18next';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -493,6 +494,7 @@ class RenderMobile extends Component {
   render() {
     const {isIntroTipVisible, selectedFilter, isLoaded} = this.state;
     const {onScroll} = this.props;
+    let {t} = this.props;
 
     if (!isLoaded) {
       return <Loader />;
@@ -543,7 +545,7 @@ class RenderMobile extends Component {
                 fontWeight: '700',
                 padding: 5,
               }}>
-              Sort By
+              {t('texts.id_99')}
             </Text>
             <TouchableOpacity
               style={[
@@ -554,7 +556,7 @@ class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
-              <Text style={styles.modalText}>Rating</Text>
+              <Text style={styles.modalText}>{t('texts.id_101')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -576,7 +578,7 @@ class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
-              <Text style={styles.modalText}>Friends'Like</Text>
+              <Text style={styles.modalText}>{t('texts.id_105')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -588,7 +590,7 @@ class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
               }>
-              <Text style={styles.modalText}>Popular</Text>
+              <Text style={styles.modalText}>{t('texts.id_107')}</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -771,7 +773,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const EnhanchedComponent = useCollapsibleHeaderHOC(RenderMobile);
+const EnhanchedComponent = useCollapsibleHeaderHOC(
+  withTranslation()(RenderMobile),
+);
 
 export default connect(mapStateToProps, null)(EnhanchedComponent);
 

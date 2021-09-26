@@ -544,7 +544,7 @@ export class RenderMobile extends Component {
                 fontWeight: '700',
                 padding: 5,
               }}>
-              Sort By
+              {t('texts.id_99')}
             </Text>
             <TouchableOpacity
               style={[
@@ -555,7 +555,7 @@ export class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
-              <Text style={styles.modalText}>Rating</Text>
+              <Text style={styles.modalText}>{t('texts.id_101')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -565,7 +565,7 @@ export class RenderMobile extends Component {
                   styles.filterSelected,
               ]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
-              <Text style={styles.modalText}>Match</Text>
+              <Text style={styles.modalText}>{t('texts.id_103')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -577,7 +577,7 @@ export class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
-              <Text style={styles.modalText}>Friends'Like</Text>
+              <Text style={styles.modalText}>{t('texts.id_105')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -589,7 +589,7 @@ export class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
               }>
-              <Text style={styles.modalText}>Popular</Text>
+              <Text style={styles.modalText}>{t('texts.id_107')}</Text>
             </TouchableOpacity>
           </View>
         </Modal>

@@ -19,7 +19,9 @@ export default function HeaderModal(props) {
           />
         </TouchableOpacity>
       </View>
-      <Text style={styles.title}>{title}</Text>
+      <Text numberOfLines={1} style={styles.title}>
+        {title}
+      </Text>
     </View>
   );
 }
@@ -40,6 +42,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontStyle: 'normal',
     fontWeight: '700',
+    marginHorizontal: 70,
+    textAlign: 'center',
   },
   closeBut: {
     position: 'absolute',

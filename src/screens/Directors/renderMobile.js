@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withTranslation} from 'react-i18next';
 import {
   Text,
   View,
@@ -156,6 +157,7 @@ class RenderMobile extends Component {
 
   render() {
     const {selectedFilter} = this.state;
+    let {t} = this.props;
 
     return (
       <SafeAreaView style={{backgroundColor: '#fff'}}>
@@ -184,7 +186,7 @@ class RenderMobile extends Component {
                 fontWeight: '700',
                 padding: 5,
               }}>
-              Sort By
+              {t('texts.id_99')}
             </Text>
             <TouchableOpacity
               style={[
@@ -195,7 +197,7 @@ class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
-              <Text style={styles.modalText}>Rating</Text>
+              <Text style={styles.modalText}>{t('texts.id_101')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -205,7 +207,7 @@ class RenderMobile extends Component {
                   styles.filterSelected,
               ]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
-              <Text style={styles.modalText}>Match</Text>
+              <Text style={styles.modalText}>{t('texts.id_103')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -217,7 +219,7 @@ class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
-              <Text style={styles.modalText}>Friends'Like</Text>
+              <Text style={styles.modalText}>{t('texts.id_105')}</Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -259,7 +261,7 @@ class RenderMobile extends Component {
                 onPress={() => {
                   this.setState({modalVisible: true});
                 }}>
-                <Text style={styles.sortbyButText}>Rating</Text>
+                <Text style={styles.sortbyButText}>{t('texts.id_101')}</Text>
                 <Icon name="chevron-down" size={20} color="#232323" />
               </TouchableOpacity>
             </View>
@@ -282,7 +284,9 @@ class RenderMobile extends Component {
   }
 }
 
-const EnhanchedComponent = useCollapsibleHeaderHOC(RenderMobile);
+const EnhanchedComponent = useCollapsibleHeaderHOC(
+  withTranslation()(RenderMobile),
+);
 
 export default EnhanchedComponent;
 

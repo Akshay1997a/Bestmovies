@@ -1,3 +1,5 @@
+// //FOr TVos need to use below store
+
 // // Imports: Dependencies
 // import {createStore, applyMiddleware} from 'redux';
 // import thunkMiddleware from 'redux-thunk';
@@ -22,8 +24,9 @@
 // // Middleware: Redux Saga
 // sagaMiddleware.run(rootSaga);
 
-// Exports
 // export default store;
+
+//// FOr mobile need to use that store hereeee
 
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import persistReducer from 'redux-persist/es/persistReducer';

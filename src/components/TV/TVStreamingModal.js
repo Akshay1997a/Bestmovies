@@ -19,7 +19,7 @@ const DATA = [
   {id: 0, name: 'Rating'},
   {id: 1, name: 'Match'},
   {id: 2, name: "Friend's Like"},
-  {id: 3, name: 'Popularitydad'},
+  {id: 3, name: 'Popularity'},
 ];
 
 const styles = StyleSheet.create({

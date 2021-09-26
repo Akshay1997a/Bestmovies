@@ -19,7 +19,6 @@ class LanguageFilter extends React.Component {
   };
 
   render() {
-    console.log('StyleConfig.isTV- ', StyleConfig.isTV);
     return StyleConfig.isTV ? (
       <RenderTV {...this.props} />
     ) : (
@@ -28,7 +27,7 @@ class LanguageFilter extends React.Component {
   }
 }
 
-export default connect(null, null)(LanguageFilter);
+export default LanguageFilter;
 
 const styles = StyleSheet.create({
   container: {
