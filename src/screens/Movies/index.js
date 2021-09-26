@@ -516,20 +516,12 @@ export class Movies extends Component {
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
               height: 250,
-              borderRadius: 10,
+              borderRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
               elevation: 10,
             }}>
-            <Text
-              style={{
-                fontSize: 22,
-                color: '#FF3300',
-                fontWeight: '700',
-                padding: 5,
-              }}>
-              Sort By
-            </Text>
+            <Text style={styles.soryByHead}>Sort By</Text>
             <TouchableOpacity
               style={[
                 styles.filterBut,
@@ -539,7 +531,14 @@ export class Movies extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
-              <Text style={styles.modalText}>Rating</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_RATING
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                Rating
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -549,7 +548,14 @@ export class Movies extends Component {
                   styles.filterSelected,
               ]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
-              <Text style={styles.modalText}>Match</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_MATCH
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                Match
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -561,7 +567,14 @@ export class Movies extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
-              <Text style={styles.modalText}>Friends'Like</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                Friends'Like
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -573,7 +586,14 @@ export class Movies extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
               }>
-              <Text style={styles.modalText}>Popular</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                Popular
+              </Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -748,8 +768,22 @@ const styles = StyleSheet.create({
     height: 1,
   },
   modalText: {
-    fontSize: 18,
     padding: 10,
+    fontFamily: 'VAG Rounded Next Regular',
+    color: '#000',
+    fontSize: 20,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
+  },
+  modalTextSelected: {
+    padding: 10,
+    fontFamily: 'VAG Rounded Next Bold',
+    color: '#fff',
+    fontSize: 20,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   shadow: {
     borderColor: 'red',
@@ -815,7 +849,7 @@ const styles = StyleSheet.create({
   },
   sortbyButText: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next Bold',
+    fontFamily: 'VAG Rounded Next Regular',
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -856,10 +890,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: 'gray',
-    opacity: 0.2,
+    opacity: 0.1,
   },
   filterBut: {
-    width: '90%',
+    width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -870,5 +904,14 @@ const styles = StyleSheet.create({
   },
   filterSelectedText: {
     color: '#fff',
+  },
+  soryByHead: {
+    padding: 5,
+    fontFamily: 'VAG Rounded Next Bold',
+    fontSize: 22,
+    color: '#ff3300',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
 });

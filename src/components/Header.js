@@ -17,6 +17,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
+import FA from 'react-native-vector-icons/FontAwesome';
 import {useAnimationProvider} from '../Providers/CollapsibleHeaderProvider';
 import {SearchTitle} from './SearchBar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -28,8 +29,7 @@ import StatusBar from './StatusBar';
 export const HEADER_HEIGHT = 60;
 export const TAB_BAR_HEIGHT = 40;
 export const TOTAL_HEADER_HEIGHT = HEADER_HEIGHT + TAB_BAR_HEIGHT;
-export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
-  Dimensions.get('screen');
+export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('screen');
 
 export const HEADER_TYPE = {
   DEFAULT: 'DEFAULT',
@@ -52,11 +52,7 @@ export default function Header(props) {
   return (
     <>
       <StatusBar backgroundColor="#fff" />
-      <Animated.View
-        style={[
-          styles.headerContainer,
-          {paddingTop: inset.top, transform: [{translateY: translateY}]},
-        ]}>
+      <Animated.View style={[styles.headerContainer, {paddingTop: inset.top, transform: [{translateY: translateY}]}]}>
         {headerType === undefined || headerType === HEADER_TYPE.DEFAULT ? (
           <DefaultHeader navigate={(name) => navigate(name)} />
         ) : (
@@ -100,12 +96,10 @@ const DefaultHeader = ({navigate}) => {
           style={{width: 130, height: 83, resizeMode: 'center'}}
         />
       </TouchableOpacity>
+      <View style={{height: 50}} />
       <TouchableOpacity onPress={() => navigate('Filter')}>
         <View style={{position: 'relative'}}>
-          <Image
-            source={require('../../assets/Icons/filter_ic.png')}
-            style={{width: 25, height: 25}}
-          />
+          <Image source={require('../../assets/Icons/filter_ic.png')} style={{width: 25, height: 25}} />
           {isFilterApplied && <View style={styles.circleDot} />}
         </View>
       </TouchableOpacity>
@@ -113,7 +107,7 @@ const DefaultHeader = ({navigate}) => {
         <Icon name="ios-search" size={25} color="#232323" />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigate('Profile')}>
-        <FA5 name="user" size={25} color="#232323" />
+        <FA name="user" size={25} color="#232323" />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigate('MenusList')}>
         <Icons name="dots-three-vertical" size={25} color="#232323" />
@@ -179,13 +173,7 @@ function TopBar(props) {
         props.style,
       ]}>
       {routes.map((item, ind) => (
-        <TabButton
-          key={item.key}
-          title={item.name}
-          index={ind}
-          onPress={() => navigateTo(ind)}
-          {...props}
-        />
+        <TabButton key={item.key} title={item.name} index={ind} onPress={() => navigateTo(ind)} {...props} />
       ))}
       <Animated.View
         style={[
@@ -204,18 +192,8 @@ function TabButton({title, index, onPress, ...rest}) {
   console.log(rest);
   return (
     <TouchableNativeFeedback key={state.routes[index].key} onPress={onPress}>
-      <View
-        style={[
-          styles.TabButStyle,
-          rest.scrollEnabled && {width: SCREEN_WIDTH / 4},
-        ]}>
-        <Text
-          style={[
-            rest.labelStyle,
-            state.index === index
-              ? {color: activeTintColor}
-              : {color: inactiveTintColor},
-          ]}>
+      <View style={[styles.TabButStyle, rest.scrollEnabled && {width: SCREEN_WIDTH / 4}]}>
+        <Text style={[rest.labelStyle, state.index === index ? {color: activeTintColor} : {color: inactiveTintColor}]}>
           {title}
         </Text>
       </View>
@@ -262,13 +240,7 @@ export function useCollapsibleHeaderHOC(WrappedComponent) {
     const {onScrollY} = useCollapsibleHeader();
     const scrollContext = useAnimationProvider();
 
-    return (
-      <WrappedComponent
-        {...props}
-        onScrollY={onScrollY}
-        scrollContext={scrollContext}
-      />
-    );
+    return <WrappedComponent {...props} onScrollY={onScrollY} scrollContext={scrollContext} />;
   };
 }
 

@@ -1,28 +1,24 @@
+/* eslint-disable prettier/prettier */
 import {values} from 'lodash';
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  SafeAreaView,
-  Platform,
-} from 'react-native';
+import {View, Text, TouchableOpacity, Dimensions, ScrollView, StyleSheet, SafeAreaView, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import {
   changeView,
   clearFiltersAction,
+  updatePreviouslyWatchedValue,
+  updateWatchedValue,
 } from '../../redux/FilterModule/FilterActions';
-import {VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
+import {FilterInitialState, VIEW_STYLE} from '../../redux/FilterModule/FilterReducer';
 import HeaderModal from '../../components/HeaderModal';
 import Switch from '../../components/Switch';
 import {SORT_BY_FILTER} from '../../redux/FilterModule/FilterTypes';
 // import {SafeAreaView} from 'react-native-safe-area-context'
 import {StatusBarContext} from '../../../App';
+import _ from 'lodash';
+import {DATA} from '../Filter/Providers';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -58,8 +54,7 @@ class Filter extends React.Component {
   }
 
   renderItemComponent = (data) => (
-    <TouchableOpacity
-      style={{backgroundColor: '#ebe6e1', borderRadius: 10, padding: 10}}>
+    <TouchableOpacity style={{backgroundColor: '#ebe6e1', borderRadius: 10, padding: 10}}>
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 5}}>
           <Text style={styles.textTitle}>{data.title}</Text>
@@ -81,12 +76,27 @@ class Filter extends React.Component {
     };
 
     const {onClose} = this.props;
-    const {countries: selectedCountries, sortBy} = this.props.filterConfig;
+    const {countries: selectedCountries, sortBy, providerConfig, year, languages} = this.props.filterConfig;
     const titleTextStyle = [styles.textTitle];
     if (selectedCountries.length > 0) {
       titleTextStyle.push(styles.isActiveText);
     }
 
+    const providerTextStyle = [styles.textTitle];
+    if (!_.isEqual(providerConfig, FilterInitialState.providerConfig)) {
+      providerTextStyle.push(styles.isActiveText);
+    }
+
+    const yearTextStyle = [styles.textTitle];
+    console.log('isEqual', !_.isEqual(year, FilterInitialState.year));
+    if (!_.isEqual(year, FilterInitialState.year)) {
+      yearTextStyle.push(styles.isActiveText);
+    }
+
+    const languageTextStyle = [styles.textTitle];
+    if (languages.length > 0) {
+      languageTextStyle.push(styles.isActiveText);
+    }
     return (
       <View style={{backgroundColor: '#fff', paddingBottom: 30}}>
         <HeaderModal title="Filter" {...this.props} />
@@ -129,14 +139,14 @@ class Filter extends React.Component {
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Provider')}
-            style={styles.butContainer}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Provider')} style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={[styles.textTitle]}>Streaming services (US)</Text>
+              <Text style={providerTextStyle}>Where to watch (US)</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
-                  Netflix,Amazon Prime ,HBO,Flimin(Theaters included)
+                  {DATA.filter((i) => providerConfig.selectedProviders.includes(i.id))
+                    .map((i) => i.name)
+                    .join(', ')}
                 </Text>
               </View>
             </View>
@@ -152,9 +162,9 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={styles.textTitle}>Year</Text>
+              <Text style={yearTextStyle}>Year</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>Any</Text>
+                <Text style={styles.textSecond}>{year.type}</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -165,23 +175,19 @@ class Filter extends React.Component {
             <View style={{flex: 5.5}}>
               <Text style={[styles.textTitle]}>Generes</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>
-                  Comedy,Drama,Thriller,Action,Documentary,Horror
-                </Text>
+                <Text style={styles.textSecond}>Comedy,Drama,Thriller,Action,Documentary,Horror</Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('CountryFilter')}
-            style={styles.butContainer}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('CountryFilter')} style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text style={titleTextStyle}>Countries</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
-                  USA,UK,France,Spain,Argentina,Italy,Canada,Germany
+                  {selectedCountries.length > 0 ? selectedCountries.join(', ') : 'Any'}
                 </Text>
               </View>
             </View>
@@ -219,18 +225,13 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('LanguageFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>Original Language</Text>
+              <Text style={languageTextStyle}>Original Language</Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>Any</Text>
+                <Text style={{fontSize: 15}}>{languages.length > 0 ? languages.join(', ') : 'Any'}</Text>
               </View>
             </View>
             <View style={{flex: 0.5, alignItems: 'center'}}>
-              <Icon
-                name="chevron-right"
-                size={30}
-                color="#232323"
-                style={{opacity: 0.5}}
-              />
+              <Icon name="chevron-right" size={30} color="#232323" style={{opacity: 0.5}} />
             </View>
           </TouchableOpacity>
           <Text style={styles.textTitle}>Include</Text>
@@ -241,10 +242,8 @@ class Filter extends React.Component {
                 flexDirection: 'row',
               }}>
               <Switch
-                value={this.state.switchValueIncludeW}
-                onValueChange={(values) =>
-                  this.setState({switchValueIncludeW: values})
-                }
+                value={this.props.filterConfig.watched}
+                onValueChange={(value) => this.props.updateWatched(value)}
               />
               <Text style={styles.textSecond}>Watching</Text>
             </View>
@@ -254,17 +253,13 @@ class Filter extends React.Component {
                 flexDirection: 'row',
               }}>
               <Switch
-                value={this.state.switchValueIncludePIH}
-                onValueChange={(values) =>
-                  this.setState({switchValueIncludePIH: values})
-                }
+                value={this.props.filterConfig.previouslyBrowsed}
+                onValueChange={(value) => this.props.updatePriviouslyBrowsed(value)}
               />
               <Text style={styles.textSecond}>Previously browsed</Text>
             </View>
           </View>
-          <TouchableOpacity
-            style={{padding: 5}}
-            onPress={() => this.props.clearFilter()}>
+          <TouchableOpacity style={{padding: 5}} onPress={() => this.props.clearFilter()}>
             <Text
               style={{
                 color: '#ff3300',
@@ -291,6 +286,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeView: (view) => dispatch(changeView(view)),
     clearFilter: () => dispatch(clearFiltersAction()),
+    updateWatched: (val) => dispatch(updateWatchedValue(val)),
+    updatePriviouslyBrowsed: (val) => dispatch(updatePreviouslyWatchedValue(val)),
   };
 };
 

@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  Dimensions,
-  SafeAreaView,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {Text, View, Dimensions, SafeAreaView, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import SearchBar from '../../../components/SearchBar';
 import {COUNTRIES_LIST} from '../../../config/CountriesList';
 import HeaderModal from '../../../components/HeaderModal';
@@ -68,36 +60,19 @@ export class CountryFilter extends Component {
             onClear={this.onClearSearch}
           />
           <View>
-            <Button
-              title="Any"
-              isActive={selectedCountries.length === 0}
-              onPress={() => updateCountries([])}
-            />
+            <Button title="Any" isActive={selectedCountries.length === 0} onPress={() => updateCountries([])} />
             <Button
               title="Your country (US)"
-              isActive={
-                selectedCountries.findIndex(
-                  (i) => i === 'United States of America',
-                ) >= 0
-              }
-              onPress={(val) =>
-                this.selectUnselectCountry('United States of America')
-              }
+              isActive={selectedCountries.findIndex((i) => i === 'United States of America') >= 0}
+              onPress={(val) => this.selectUnselectCountry('United States of America')}
             />
           </View>
           <FlatList
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={
-              Platform.OS !== 'android' &&
-              (({highlighted}) => (
-                <View style={[highlighted && {marginLeft: 0}]} />
-              ))
+              Platform.OS !== 'android' && (({highlighted}) => <View style={[highlighted && {marginLeft: 0}]} />)
             }
-            data={
-              filtereddCountries.length > 0
-                ? filtereddCountries
-                : COUNTRIES_LIST
-            }
+            data={filtereddCountries.length > 0 ? filtereddCountries : COUNTRIES_LIST}
             renderItem={({item, index}) => (
               <Button
                 title={item.name}
@@ -128,12 +103,8 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(CountryFilter);
 
 const Button = ({title, isActive, onPress}) => (
-  <TouchableOpacity
-    style={[styles.butContainer, isActive && styles.butActive]}
-    onPress={() => onPress(title)}>
-    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
-      {title}
-    </Text>
+  <TouchableOpacity style={[styles.butContainer, isActive && styles.butActive]} onPress={() => onPress(title)}>
+    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>{title}</Text>
   </TouchableOpacity>
 );
 

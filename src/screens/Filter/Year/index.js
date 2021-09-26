@@ -1,56 +1,77 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
-import {
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HeaderModal from '../../../components/HeaderModal';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {updateYear} from '../../../redux/FilterModule/FilterActions';
+import {YEARS_TYPE} from '../../../redux/FilterModule/FilterTypes';
 
 const WIDTH = Dimensions.get('window').width;
 
 export default function Year(props) {
+  const year = useSelector((state) => state.filterConfig.year);
+  const dispatch = useDispatch();
+
+  const setYear = ({type, from, to}) => dispatch(updateYear({type, from, to}));
+
   return (
     <View style={styles.container}>
       <HeaderModal title="Year of release" {...props} />
       <ScrollView contentContainerStyle={{padding: 10}}>
-        <Button title="Any" isActive={true} />
-        <Button title="Last week" isActive={false} />
-        <Button title="Last nonth" isActive={false} />
-        <Button title="Last 3 months" isActive={false} />
-        <Button title="Last year" isActive={false} />
-        <Button title="Last 2 year" isActive={false} />
-        <Button title="Last 5 year" isActive={false} />
-        <Button title="Last 10 year" isActive={false} />
-        <Button title="Last 25 year" isActive={false} />
-        <Button title="Last 50 year" isActive={false} />
+        <Button title="Any" isActive={year.type === YEARS_TYPE.ANY} onPress={() => setYear({type: YEARS_TYPE.ANY})} />
+        <Button
+          title="Last week"
+          isActive={year.type === YEARS_TYPE.LAST_WEEK}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_WEEK})}
+        />
+        <Button
+          title="Last month"
+          isActive={year.type === YEARS_TYPE.LAST_MONTH}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_MONTH})}
+        />
+        <Button
+          title="Last 3 months"
+          isActive={year.type === YEARS_TYPE.LAST_3_MONTH}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_3_MONTH})}
+        />
+        <Button
+          title="Last year"
+          isActive={year.type === YEARS_TYPE.LAST_YEAR}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_YEAR})}
+        />
+        <Button
+          title="Last 2 year"
+          isActive={year.type === YEARS_TYPE.LAST_2_YEARS}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_2_YEARS})}
+        />
+        <Button
+          title="Last 5 year"
+          isActive={year.type === YEARS_TYPE.LAST_5_YEARS}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_5_YEARS})}
+        />
+        <Button
+          title="Last 10 year"
+          isActive={year.type === YEARS_TYPE.LAST_10_YEARS}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_10_YEARS})}
+        />
+        <Button
+          title="Last 25 year"
+          isActive={year.type === YEARS_TYPE.LAST_25_YEARS}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_25_YEARS})}
+        />
+        <Button
+          title="Last 50 year"
+          isActive={year.type === YEARS_TYPE.LAST_50_YEARS}
+          onPress={() => setYear({type: YEARS_TYPE.LAST_50_YEARS})}
+        />
         <View style={styles.SliderContainer}>
-          <MultiSlider
-            sliderLength={WIDTH - 40}
-            values={[0, 10]}
-            min={0}
-            max={10}
-            step={1}
-            allowOverlap
-            snapped
-          />
+          <MultiSlider sliderLength={WIDTH - 40} values={[0, 10]} min={0} max={10} step={1} allowOverlap snapped />
           <View style={{height: 20}} />
           <View style={styles.row}>
-            <TextInput
-              style={styles.textInputStyle}
-              placeholder="from"
-              textAlign="center"
-            />
+            <TextInput style={styles.textInputStyle} placeholder="from" textAlign="center" />
             <View style={{width: 20}} />
-            <TextInput
-              style={styles.textInputStyle}
-              placeholder="to"
-              textAlign="center"
-            />
+            <TextInput style={styles.textInputStyle} placeholder="to" textAlign="center" />
           </View>
         </View>
       </ScrollView>
@@ -59,10 +80,8 @@ export default function Year(props) {
 }
 
 const Button = ({title, isActive, onPress}) => (
-  <TouchableOpacity style={[styles.butContainer, isActive && styles.butActive]}>
-    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
-      {title}
-    </Text>
+  <TouchableOpacity style={[styles.butContainer, isActive && styles.butActive]} onPress={onPress}>
+    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>{title}</Text>
   </TouchableOpacity>
 );
 

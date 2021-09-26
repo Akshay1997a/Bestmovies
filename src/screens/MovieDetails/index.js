@@ -26,11 +26,7 @@ import Orientation from 'react-native-orientation';
 import Inocons from 'react-native-vector-icons/Ionicons';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterTypes';
 import {FILTER_TYPES} from '../Movies';
-import Header, {
-  HEADER_HEIGHT,
-  TOTAL_HEADER_HEIGHT,
-  useCollapsibleHeaderHOC,
-} from '../../components/Header';
+import Header, {HEADER_HEIGHT, TOTAL_HEADER_HEIGHT, useCollapsibleHeaderHOC} from '../../components/Header';
 import Movies from '../Movies';
 import Loader from '../../components/Loader';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -44,6 +40,39 @@ import RatingComponent from '../../svgs/RatingComponent';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
+
+export const PROVIDER_DATA = [
+  {
+    id: '1',
+    name: 'Free',
+    subName: '4k',
+    image: require('../../../assets/Providers/netflix_ic.png'),
+  },
+  {
+    id: '2',
+    name: 'Free',
+    subName: '(ads)',
+    image: require('../../../assets/Providers/prime_ic.png'),
+  },
+  {
+    id: '3',
+    name: '$4.99',
+    subName: '',
+    image: require('../../../assets/Providers/Hulu_ic.png'),
+  },
+  {
+    id: '4',
+    name: '$5.99',
+    subName: '',
+    image: require('../../../assets/Providers/apple_ic.png'),
+  },
+  {
+    id: '4',
+    name: 'Subs.',
+    subName: '$6.99/m',
+    image: require('../../../assets/Providers/disny_ic.png'),
+  },
+].flatMap((i) => [i, i, i]);
 
 const DATA = [
   {
@@ -83,6 +112,8 @@ class MovieDetails extends Component {
     super(props);
     console.log('MoviesDetails', props);
     this.offset = 0;
+    this.scrollviewRef = React.createRef();
+    this.flatlistRef = React.createRef();
     this.state = {
       modalVisible: false,
       likeModal: false,
@@ -97,6 +128,8 @@ class MovieDetails extends Component {
     Orientation.lockToPortrait();
     this.scrollY = new Animated.Value(0);
     this.toggleHeader = this.toggleHeader.bind(this);
+    this.renderProviderComponent = this.renderProviderComponent.bind(this);
+    console.log(PROVIDER_DATA);
   }
 
   toggleHeader(flag) {
@@ -118,9 +151,7 @@ class MovieDetails extends Component {
   }
 
   rendeDirector = (data, index) => (
-    <TouchableOpacity
-      key={index.toString()}
-      style={{...styles.directorContainer}}>
+    <TouchableOpacity key={index.toString()} style={{...styles.directorContainer}}>
       <Image style={styles.directorImage} source={data.image} />
       <View style={{flexWrap: 'wrap'}}>
         <Text numberOfLines={2} style={styles.directorName}>
@@ -133,12 +164,7 @@ class MovieDetails extends Component {
   renderSimilarItem = (data) => {
     <View style={{borderRadius: 12, width: 150, margin: 10}}>
       <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
-        <Icon
-          name="bookmark"
-          size={40}
-          color="#232323"
-          style={{position: 'absolute', top: -10, left: 100}}
-        />
+        <Icon name="bookmark" size={40} color="#232323" style={{position: 'absolute', top: -10, left: 100}} />
       </TouchableOpacity>
       <Image
         source={data.image}
@@ -168,6 +194,27 @@ class MovieDetails extends Component {
       this.setState({isLoaded: true});
     });
   }
+
+  renderProviderComponent = (data) => {
+    return (
+      <View style={{width: window / 5 - 4}}>
+        <TouchableOpacity style={{borderRadius: 25, padding: 2}}>
+          <View
+            style={{
+              // position: 'relative',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <View>
+              <Image keyExtractor={data.id} style={{height: 44, width: 66, borderRadius: 10}} source={data.image} />
+            </View>
+            <Text style={styles.sortbyButText}>{data.name}</Text>
+            <Text style={styles.sortbyButText}>{data.subName}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   moviewPoster = (data) => {
     let {viewStyle} = this.props;
@@ -203,9 +250,7 @@ class MovieDetails extends Component {
           }),
         }}>
         <View style={{justifyContent: 'center'}}>
-          <TouchableOpacity
-            onPress={() => alert('heekk')}
-            style={{elevation: 1}}>
+          <TouchableOpacity onPress={() => alert('heekk')} style={{elevation: 1}}>
             <View
               style={{
                 position: 'absolute',
@@ -251,10 +296,7 @@ class MovieDetails extends Component {
               flexWrap: 'wrap',
               left: window / 6,
             }}>
-            <Text
-              allowFontScaling={true}
-              numberOfLines={2}
-              style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
+            <Text allowFontScaling={true} numberOfLines={2} style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
               {data.name}
             </Text>
           </View>
@@ -262,18 +304,13 @@ class MovieDetails extends Component {
         <View style={{flexDirection: 'row', padding: 10}}>
           <View style={{flex: 5}}>
             <Text style={styles.textFont}>Parasite</Text>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <Text style={[styles.textSecondary]}>
-                Parasite(Original title)
-              </Text>
-            )}
+            {viewStyle === VIEW_STYLE.FULL_VIEW && <Text style={[styles.textSecondary]}>Parasite(Original title)</Text>}
             <View style={{height: 10}} />
             <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecondary}>
-                  2016 - US - 17{' '}
-                  <AntDesign name="like1" color="#35B736" size={18} />
+                  2016 - US - 17 <AntDesign name="like1" color="#35B736" size={18} />
                 </Text>
               </View>
             )}
@@ -288,56 +325,25 @@ class MovieDetails extends Component {
             style={{
               flex: 1,
               justifyContent: 'space-evenly',
-              alignItems: 'flex-end',
             }}>
             {viewStyle === VIEW_STYLE.FULL_VIEW && (
               <TouchableOpacity onPress={onShare}>
-                <Icon
-                  name="reply"
-                  size={24}
-                  color="#232323"
-                  style={{transform: [{rotateY: '180deg'}]}}
-                />
+                <Icon name="reply" size={24} color="#232323" style={{transform: [{rotateY: '180deg'}]}} />
               </TouchableOpacity>
             )}
-
-            <View
-              style={{
-                backgroundColor: 'black',
-                height: viewStyle === VIEW_STYLE.FULL_VIEW ? 30 : 20,
-                width: viewStyle === VIEW_STYLE.FULL_VIEW ? 50 : 40,
-                borderRadius: 1000,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: 18, fontWeight: '700', color: 'white'}}>
-                9.1
-              </Text>
-            </View>
-            {/* <RatingComponent
-              rating={'9.2'}
-              width={50}
-              height={30}
-              textStyle={{
-                fontSize: 22,
-                fontWeight: '700',
-                color: 'white',
-                fontFamily: 'VAG Rounded Next Regular',
-              }}
-            /> */}
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+            <View style={{alignItems: 'center'}}>
+              <RatingComponent size="lg" rating={'9.2'} />
               <Text
                 style={{
                   fontSize: 14.67,
                   fontFamily: 'VAG Rounded Next Bold',
-                  marginLeft: 17,
                   ...(Platform.OS === 'ios' && {
                     fontWeight: '700',
                   }),
                 }}>
                 Best
               </Text>
-            )}
+            </View>
           </View>
         </View>
         {viewStyle === VIEW_STYLE.FULL_VIEW && (
@@ -345,10 +351,9 @@ class MovieDetails extends Component {
             <View>
               <Text style={styles.textFont}>Plot</Text>
               <Text style={styles.textDesc}>
-                Greed and class discrimination threaten the newly formed
-                symbiotic relationship between the wealthy Park family and the
-                destitute Kim clan. Their adventures unfurl in three stories
-                that ingeniously trip back and forth in time.
+                Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park
+                family and the destitute Kim clan. Their adventures unfurl in three stories that ingeniously trip back
+                and forth in time.
               </Text>
             </View>
             <View style={{marginTop: 11}}>
@@ -446,43 +451,24 @@ class MovieDetails extends Component {
                   <Text style={styles.ratingText}>9.2</Text>
                 </View>
               </View>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
+              <Text style={styles.textSecondary}>Won 2 oscars including best director</Text>
+              <Text style={styles.textSecondary}>Won 2 oscars including best director</Text>
             </View>
             {/* For the watch now flatlist */}
-            <View style={{height: window / 2, marginTop: 25}}>
+            <View style={{marginTop: 25}}>
               <Text style={styles.textFont}>Watch now</Text>
-              <ScrollView
-                horizontal={true}
-                nestedScrollEnabled={true}
-                contentContainerStyle={{flex: 1}}>
-                {DATA.map((item, index) => this.rendeDirector(item, index))}
-              </ScrollView>
+              <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                {PROVIDER_DATA.map((item, index) => this.renderProviderComponent(item))}
+              </View>
             </View>
             <View style={{marginTop: 25}}>
               <Text style={styles.textFont}>Images</Text>
               <Text />
               <View style={{alignItems: 'center'}}>
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
+                <Image source={require('../../../assets/poster1.jpg')} style={styles.images} />
+                <Image source={require('../../../assets/poster1.jpg')} style={styles.images} />
+                <Image source={require('../../../assets/poster1.jpg')} style={styles.images} />
+                <Image source={require('../../../assets/poster1.jpg')} style={styles.images} />
               </View>
             </View>
           </View>
@@ -511,19 +497,12 @@ class MovieDetails extends Component {
               zIndex: 100,
             }}>
             <View style={styles.shadowView} />
-            <Image
-              source={require('../../../assets/Icons/hand_ic.png')}
-              style={{width: 102, height: 102}}
-            />
+            <Image source={require('../../../assets/Icons/hand_ic.png')} style={{width: 102, height: 102}} />
             <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
         </Modal>
-        <Modal
-          visible={this.state.modalVisible}
-          animationType="slide"
-          transparent={true}>
-          <TouchableWithoutFeedback
-            onPress={() => this.setState({modalVisible: false})}>
+        <Modal visible={this.state.modalVisible} animationType="slide" transparent={true}>
+          <TouchableWithoutFeedback onPress={() => this.setState({modalVisible: false})}>
             <View style={[styles.shadowView]} />
           </TouchableWithoutFeedback>
           <View
@@ -531,71 +510,55 @@ class MovieDetails extends Component {
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
               height: 250,
-              borderRadius: 10,
+              borderRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
               elevation: 10,
             }}>
-            <Text
-              style={{
-                fontSize: 22,
-                color: '#FF3300',
-                fontWeight: '700',
-                padding: 5,
-              }}>
-              Sort By
-            </Text>
+            <Text style={styles.soryByHead}>Sort By</Text>
             <TouchableOpacity
-              style={[
-                styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
-                  styles.filterSelected,
-              ]}
-              onPress={() =>
-                this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
-              }>
-              <Text style={styles.modalText}>Rating</Text>
+              style={[styles.filterBut, selectedFilter === FILTER_TYPES.FILTER_BY_RATING && styles.filterSelected]}
+              onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)}>
+              <Text
+                style={selectedFilter === FILTER_TYPES.FILTER_BY_RATING ? styles.modalTextSelected : styles.modalText}>
+                Rating
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
-              style={[
-                styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
-                  styles.filterSelected,
-              ]}
+              style={[styles.filterBut, selectedFilter === FILTER_TYPES.FILTER_BY_MATCH && styles.filterSelected]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
-              <Text style={styles.modalText}>Match</Text>
+              <Text
+                style={selectedFilter === FILTER_TYPES.FILTER_BY_MATCH ? styles.modalTextSelected : styles.modalText}>
+                Match
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
               style={[
                 styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
-                  styles.filterSelected,
+                selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE && styles.filterSelected,
               ]}
-              onPress={() =>
-                this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
-              }>
-              <Text style={styles.modalText}>Friends'Like</Text>
+              onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)}>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE ? styles.modalTextSelected : styles.modalText
+                }>
+                Friends'Like
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
-              style={[
-                styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
-                  styles.filterSelected,
-              ]}
-              onPress={() =>
-                this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
-              }>
-              <Text style={styles.modalText}>Popular</Text>
+              style={[styles.filterBut, selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR && styles.filterSelected]}
+              onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)}>
+              <Text
+                style={selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR ? styles.modalTextSelected : styles.modalText}>
+                Popular
+              </Text>
             </TouchableOpacity>
           </View>
         </Modal>
-        <Modal
-          visible={this.state.likeModal}
-          transparent={true}
-          animationType="slide">
+        <Modal visible={this.state.likeModal} transparent={true} animationType="slide">
           <View
             style={{
               backgroundColor: '#f7f7f5',
@@ -603,26 +566,20 @@ class MovieDetails extends Component {
               height: 500,
               top: screen - 300,
             }}>
-            <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
-              Sort By
-            </Text>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>Sort By</Text>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
@@ -631,10 +588,7 @@ class MovieDetails extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <Modal
-          visible={this.state.shearModal}
-          transparent={true}
-          animationType="slide">
+        <Modal visible={this.state.shearModal} transparent={true} animationType="slide">
           <View
             style={{
               backgroundColor: '#f7f7f5',
@@ -650,39 +604,33 @@ class MovieDetails extends Component {
                 padding: 10,
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
-                Recommend title
-              </Text>
+              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>Recommend title</Text>
               <Icon name="share" size={25} style={{marginLeft: 20}} />
             </View>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.setState({shearModal: false})}>
+            <TouchableOpacity onPress={() => this.setState({shearModal: false})}>
               <Text>Close Model</Text>
             </TouchableOpacity>
           </View>
         </Modal>
         <SafeAreaView style={{flex: 1}}>
           <Animated.ScrollView
+            ref={this.scrollviewRef}
             onScroll={Animated.event(
               [
                 {
@@ -712,13 +660,8 @@ class MovieDetails extends Component {
                   paddingHorizontal: 10,
                 }}>
                 <View style={{flex: 3, flexDirection: 'row'}}>
-                  <TouchableOpacity
-                    onPress={() => this.props.navigation.goBack()}>
-                    <FontAwesome5Icon
-                      name="angle-left"
-                      size={23}
-                      style={{marginRight: 10}}
-                    />
+                  <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                    <FontAwesome5Icon name="angle-left" size={23} style={{marginRight: 10}} />
                   </TouchableOpacity>
                   <Text style={styles.resultText}>Rating of best movies</Text>
                 </View>
@@ -737,6 +680,7 @@ class MovieDetails extends Component {
               </View>
               <View style={{flex: 1}}>
                 <FlatList
+                  ref={this.flatlistRef}
                   scrollEnabled={this.state.parentScroll}
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
@@ -746,11 +690,15 @@ class MovieDetails extends Component {
                   // ItemSeparatorComponent={() => <View style={{width: 10}} />}
                   // nestedScrollEnabled={true}
                   pagingEnabled={true}
+                  onMomentumScrollEnd={(e) => {
+                    console.log('ref', this.flatlistRef);
+                    console.log('ref', this.scrollviewRef);
+                    this.scrollviewRef.current.scrollTo(0);
+                  }}
                 />
               </View>
             </View>
-            <View
-              style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
+            <View style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
               <Text style={styles.textFont}>Similer title</Text>
               <View style={{flex: 1, alignItems: 'center'}}>
                 <CardView />
@@ -790,8 +738,22 @@ const styles = StyleSheet.create({
     height: 1,
   },
   modalText: {
-    fontSize: 18,
     padding: 10,
+    fontFamily: 'VAG Rounded Next Regular',
+    color: '#000',
+    fontSize: 20,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
+  },
+  modalTextSelected: {
+    padding: 10,
+    fontFamily: 'VAG Rounded Next Bold',
+    color: '#fff',
+    fontSize: 20,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   shadow: {
     borderColor: 'red',
@@ -898,7 +860,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: 'gray',
-    opacity: 0.2,
+    opacity: 0.1,
   },
   filterBut: {
     width: '90%',
@@ -931,6 +893,15 @@ const styles = StyleSheet.create({
     color: '#000',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
+    }),
+  },
+  soryByHead: {
+    padding: 5,
+    fontFamily: 'VAG Rounded Next Bold',
+    fontSize: 22,
+    color: '#ff3300',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
     }),
   },
 });

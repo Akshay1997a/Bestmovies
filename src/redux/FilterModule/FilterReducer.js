@@ -6,15 +6,32 @@ import {
   UPDATE_COUNTRIES,
   UPDATE_SORT_BY,
   CLEAR_FILTERS,
+  UPDATE_PROVIDERS,
+  UPDATE_YEAR,
+  YEARS_TYPE,
+  UPDATE_LANGUAGES,
+  UPDATE_WATCHED,
+  UPDATE_PRIVIOUSLY_BROWSED,
 } from './FilterTypes';
 
 export const FilterInitialState = {
   viewStyle: VIEW_STYLE.GRID_VIEW,
   sortBy: SORT_BY_FILTER.RATING,
-  providers: [],
-  year: [],
+  providerConfig: {
+    selectedProviders: [],
+    freeStreamingServiceWithAd: false,
+    rentStreamingService: false,
+    localMovieTheaters: false,
+  },
+  year: {
+    type: YEARS_TYPE.ANY,
+    from: null,
+    to: null,
+  },
   countries: [],
   languages: [],
+  watched: false,
+  previouslyBrowsed: false,
 };
 
 export default function FilterReducer(state = FilterInitialState, action) {
@@ -26,6 +43,17 @@ export default function FilterReducer(state = FilterInitialState, action) {
         ...action.payload,
       };
 
+    case UPDATE_WATCHED:
+      return {
+        ...state,
+        watched: action.payload,
+      };
+
+    case UPDATE_PRIVIOUSLY_BROWSED:
+      return {
+        ...state,
+        previouslyBrowsed: action.payload,
+      };
     case CHANGE_VIEW:
       return {
         ...state,
@@ -46,6 +74,24 @@ export default function FilterReducer(state = FilterInitialState, action) {
 
     case CLEAR_FILTERS:
       return FilterInitialState;
+
+    case UPDATE_PROVIDERS:
+      return {
+        ...state,
+        providerConfig: action.payload,
+      };
+
+    case UPDATE_YEAR:
+      return {
+        ...state,
+        year: action.payload,
+      };
+
+    case UPDATE_LANGUAGES:
+      return {
+        ...state,
+        languages: action.payload,
+      };
 
     default:
       return state;

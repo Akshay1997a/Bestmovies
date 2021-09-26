@@ -8,10 +8,7 @@ import About from '../screens/About';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Header, {HEADER_HEIGHT, HEADER_TYPE} from '../components/Header';
 import {Animated, StyleSheet, Dimensions, Platform} from 'react-native';
-import {
-  AnimationContext,
-  useAnimationProvider,
-} from '../Providers/CollapsibleHeaderProvider';
+import {AnimationContext, useAnimationProvider} from '../Providers/CollapsibleHeaderProvider';
 import Search from '../screens/Search';
 
 const HEIGHT = Dimensions.get('screen').height;
@@ -55,14 +52,10 @@ export function TopBarMainNavigator(props) {
         tabStyle: {padding: 0},
       }}>
       <Tab.Screen name={'Movies'} children={MoviesStack} />
-      <Tab.Screen
-        name={'TVShow'}
-        component={MoviesStack}
-        options={{title: 'TV shows'}}
-      />
+      <Tab.Screen name={'TVShow'} component={MoviesStack} options={{title: 'TV shows'}} />
       <Tab.Screen name={'Shorts'} component={MoviesStack} />
-      <Tab.Screen name={'Directors'} component={Directors} />
-      <Tab.Screen name={'Actors'} component={Directors} />
+      <Tab.Screen name={'Directors'} component={MoviesStack} />
+      <Tab.Screen name={'Actors'} component={MoviesStack} />
     </Tab.Navigator>
   );
 }
@@ -73,13 +66,7 @@ export function TopBarSearchNavigator(props) {
     <Tab.Navigator
       initialRouteName="Title"
       swipeEnabled={false}
-      tabBar={(props) => (
-        <Header
-          {...props}
-          headerType={HEADER_TYPE.SEARCH_BAR}
-          isTabBarVisible={true}
-        />
-      )}
+      tabBar={(props) => <Header {...props} headerType={HEADER_TYPE.SEARCH_BAR} isTabBarVisible={true} />}
       tabBarOptions={{
         indicatorStyle: {backgroundColor: '#ff000'},
         activeTintColor: '#ff000',

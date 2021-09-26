@@ -1,14 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  StatusBar,
-  Image,
-  Modal,
-} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet, TouchableOpacity, StatusBar, Image, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
 import User from 'react-native-vector-icons/FontAwesome5';
@@ -67,16 +58,8 @@ export class Menu extends Component {
           initialParams={{type: 'SHORTS'}}
           options={{title: 'Shorts', tabBarLabel: 'Shorts'}}
         />
-        <Tab.Screen
-          name="Directors"
-          component={Directors}
-          options={{title: 'Directors', tabBarLabel: 'Directors'}}
-        />
-        <Tab.Screen
-          name="Actors"
-          component={Actors}
-          options={{title: 'Actors', tabBarLabel: 'Actors'}}
-        />
+        <Tab.Screen name="Directors" component={Movies} options={{title: 'Directors', tabBarLabel: 'Directors'}} />
+        <Tab.Screen name="Actors" component={Movies} options={{title: 'Actors', tabBarLabel: 'Actors'}} />
       </Tab.Navigator>
     );
   }
@@ -96,22 +79,16 @@ export class Menu extends Component {
             height: 60,
             padding: 10,
           }}>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Menu')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Menu')}>
             <Image
               source={require('../../../assets/Icons/BMicon.png')}
               style={{width: 150, height: 60, resizeMode: 'center'}}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Filter')}>
-            <Image
-              source={require('../../../assets/Icons/filter_ic.png')}
-              style={{width: 25, height: 25}}
-            />
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Filter')}>
+            <Image source={require('../../../assets/Icons/filter_ic.png')} style={{width: 25, height: 25}} />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Search')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Search')}>
             <Icon name="ios-search" size={25} color="#232323" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -121,8 +98,7 @@ export class Menu extends Component {
             }}>
             <User name="user" size={25} color="#232323" />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('MenusList')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('MenusList')}>
             <Icons name="dots-three-vertical" size={25} color="#232323" />
           </TouchableOpacity>
         </View>
