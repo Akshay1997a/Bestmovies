@@ -101,9 +101,7 @@ export class Provider extends Component {
     } else {
       updateProviderConfig({
         ...providerConfig,
-        selectedProviders: [...providerConfig.selectedProviders].filter(
-          (i) => i !== id,
-        ),
+        selectedProviders: [...providerConfig.selectedProviders].filter((i) => i !== id),
       });
     }
   }
@@ -113,9 +111,7 @@ export class Provider extends Component {
     console.log(selectedProviders);
     return (
       <View style={{width: window / 5 - 2}}>
-        <TouchableOpacity
-          style={{borderRadius: 25, padding: 2}}
-          onPress={() => this.togalItem(data.id)}>
+        <TouchableOpacity style={{borderRadius: 25, padding: 2}} onPress={() => this.togalItem(data.id)}>
           <View
             style={{
               position: 'relative',
@@ -123,11 +119,7 @@ export class Provider extends Component {
               alignItems: 'center',
             }}>
             <View style={{flex: 5}}>
-              <Image
-                keyExtractor={data.id}
-                style={{height: 44, width: 66, borderRadius: 10}}
-                source={data.image}
-              />
+              <Image keyExtractor={data.id} style={{height: 44, width: 66, borderRadius: 10}} source={data.image} />
             </View>
             <Text
               style={{
@@ -185,64 +177,29 @@ export class Provider extends Component {
             padding: 10,
           }}>
           <TouchableOpacity
-            style={[
-              styles.butContainer,
-              selectedMenu === MENUS.ALL ? styles.butActive : {},
-            ]}
+            style={[styles.butContainer, selectedMenu === MENUS.ALL ? styles.butActive : {}]}
             onPress={() => this.setState({selectedMenu: MENUS.ALL})}>
-            <Text
-              style={[
-                styles.butText,
-                selectedMenu === MENUS.ALL ? styles.activeButText : {},
-              ]}>
-              All
-            </Text>
+            <Text style={[styles.butText, selectedMenu === MENUS.ALL ? styles.activeButText : {}]}>All</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[
-              styles.butContainer,
-              selectedMenu === MENUS.MY_PROVIDES ? styles.butActive : {},
-            ]}
+            style={[styles.butContainer, selectedMenu === MENUS.MY_PROVIDES ? styles.butActive : {}]}
             onPress={() => this.setState({selectedMenu: MENUS.MY_PROVIDES})}>
-            <Text
-              style={[
-                styles.butText,
-                selectedMenu === MENUS.MY_PROVIDES ? styles.activeButText : {},
-              ]}>
+            <Text style={[styles.butText, selectedMenu === MENUS.MY_PROVIDES ? styles.activeButText : {}]}>
               My Provider
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[
-              styles.butContainer,
-              selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.butActive : {},
-            ]}
-            onPress={() =>
-              this.setState({selectedMenu: MENUS.SAVE_AS_PROVIDER})
-            }>
-            <Text
-              style={[
-                styles.butText,
-                selectedMenu === MENUS.SAVE_AS_PROVIDER
-                  ? styles.activeButText
-                  : {},
-              ]}>
+            style={[styles.butContainer, selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.butActive : {}]}
+            onPress={() => this.setState({selectedMenu: MENUS.SAVE_AS_PROVIDER})}>
+            <Text style={[styles.butText, selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.activeButText : {}]}>
               Save as
             </Text>
-            <Text
-              style={[
-                styles.butText,
-                selectedMenu === MENUS.SAVE_AS_PROVIDER
-                  ? styles.activeButText
-                  : {},
-              ]}>
+            <Text style={[styles.butText, selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.activeButText : {}]}>
               MY Provider
             </Text>
           </TouchableOpacity>
         </View>
-        <ScrollView
-          nestedScrollEnabled={true}
-          showsVerticalScrollIndicator={false}>
+        <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 5}}>
               <Text style={{fontSize: 15, fontWeight: '700', margin: 10}}>
@@ -254,21 +211,12 @@ export class Provider extends Component {
             <FlatList
               showsVerticalScrollIndicator={true}
               ItemSeparatorComponent={
-                Platform.OS !== 'android' &&
-                (({highlighted}) => (
-                  <View style={[highlighted && {marginLeft: 0}]} />
-                ))
+                Platform.OS !== 'android' && (({highlighted}) => <View style={[highlighted && {marginLeft: 0}]} />)
               }
               data={
-                selectedMenu === MENUS.ALL
-                  ? DATA
-                  : DATA.filter((i) =>
-                      providerConfig.selectedProviders.includes(i.id),
-                    )
+                selectedMenu === MENUS.ALL ? DATA : DATA.filter((i) => providerConfig.selectedProviders.includes(i.id))
               }
-              renderItem={({item, index}) =>
-                this.renderItemComponent({...item})
-              }
+              renderItem={({item, index}) => this.renderItemComponent({...item})}
               keyExtractor={(item) => item.id.toString()}
               numColumns={numColumns}
               contentContainerStyle={{
@@ -291,9 +239,7 @@ export class Provider extends Component {
               }
             />
             <View style={{width: 10}} />
-            <Text style={styles.filterText}>
-              Free streaming services with ads
-            </Text>
+            <Text style={styles.filterText}>Free streaming services with ads</Text>
           </View>
           <View style={styles.finterItem}>
             <Switch
@@ -373,6 +319,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   filterContainer: {
+    height: 250,
     paddingHorizontal: 10,
     paddingVertical: 20,
   },

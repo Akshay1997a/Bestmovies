@@ -23,10 +23,7 @@ import Inocons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
 import Orientation from 'react-native-orientation';
 import {VIEW_STYLE} from '../../redux/FilterModule/FilterTypes';
-import {
-  TOTAL_HEADER_HEIGHT,
-  useCollapsibleHeaderHOC,
-} from '../../components/Header';
+import {TOTAL_HEADER_HEIGHT, useCollapsibleHeaderHOC} from '../../components/Header';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
 
@@ -115,12 +112,7 @@ export class Movies extends Component {
   renderSimilarItem = (data) => {
     <View style={{borderRadius: 12, width: 150, margin: 10}}>
       <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
-        <Icon
-          name="bookmark"
-          size={40}
-          color="#232323"
-          style={{position: 'absolute', top: -10, left: 100}}
-        />
+        <Icon name="bookmark" size={40} color="#232323" style={{position: 'absolute', top: -10, left: 100}} />
       </TouchableOpacity>
       <Image
         source={data.image}
@@ -186,9 +178,7 @@ export class Movies extends Component {
             shadowRadius: 3.84,
           }),
         }}>
-        <TouchableOpacity
-          disabled={viewStyle === VIEW_STYLE.FULL_VIEW}
-          onPress={goToMovieDetails}>
+        <TouchableOpacity disabled={viewStyle === VIEW_STYLE.FULL_VIEW} onPress={goToMovieDetails}>
           <View>
             <View style={{justifyContent: 'center'}}>
               <TouchableOpacity style={{elevation: 1}}>
@@ -205,26 +195,25 @@ export class Movies extends Component {
                   <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
                 </View>
               </TouchableOpacity>
-              {!this.state.isIntroTipVisible &&
-                viewStyle === VIEW_STYLE.FULL_VIEW && (
-                  <TouchableOpacity
-                    style={{
-                      elevation: 1,
-                      position: 'absolute',
-                      top: 200,
-                      left: window / 2 - 30,
-                      zIndex: 1000,
-                    }}
-                    onPress={playVideo}>
-                    <Icons name="play-circle" size={50} color="white" />
-                  </TouchableOpacity>
-                )}
+              {!this.state.isIntroTipVisible && viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <TouchableOpacity
+                  style={{
+                    elevation: 1,
+                    position: 'absolute',
+                    top: 200,
+                    left: window / 2 - 30,
+                    zIndex: 1000,
+                  }}
+                  onPress={playVideo}>
+                  <Icons name="play-circle" size={50} color="white" />
+                </TouchableOpacity>
+              )}
               <Image
                 style={
                   viewStyle === VIEW_STYLE.FULL_VIEW
                     ? {height: 450, width: window - 20, borderRadius: 8}
                     : {
-                        height: 250,
+                        height: 235,
                         width: window / 2 - 15,
                         borderTopRightRadius: 8,
                         borderTopLeftRadius: 8,
@@ -253,9 +242,7 @@ export class Movies extends Component {
             <View style={{paddingTop: 5, paddingHorizontal: 5}}>
               <Text style={styles.textFont}>Parasite</Text>
               {viewStyle === VIEW_STYLE.FULL_VIEW && (
-                <Text style={[styles.textSecondary, styles.italic]}>
-                  Parasite(Original title)
-                </Text>
+                <Text style={[styles.textSecondary, styles.italic]}>Parasite(Original title)</Text>
               )}
             </View>
             <View
@@ -272,8 +259,7 @@ export class Movies extends Component {
                     justifyContent: 'space-between',
                   }}>
                   <Text style={[styles.textSecondary]}>
-                    2016 - US - 17{' '}
-                    <AntDesign name="like1" color="#35B736" size={13} />
+                    2016 - US - 17 <AntDesign name="like1" color="#35B736" size={13} />
                   </Text>
                   <RatingComponent rating={9.2} />
                 </View>
@@ -345,20 +331,16 @@ export class Movies extends Component {
                 <Text style={styles.textFont}>Director </Text>
                 <Text style={styles.textFont}>Cast</Text>
               </View>
-              <ScrollView
-                horizontal={true}
-                nestedScrollEnabled={true}
-                contentContainerStyle={{flex: 1}}>
+              <ScrollView horizontal={true} nestedScrollEnabled={true} contentContainerStyle={{flex: 1}}>
                 {DATA.map((item) => this.rendeDirector(item))}
               </ScrollView>
             </View>
             <View>
               <Text style={styles.textFont}>Lorem Ipsum</Text>
               <Text>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                scrambled it to make a type specimen book
               </Text>
             </View>
             {/* For the Rating */}
@@ -417,12 +399,8 @@ export class Movies extends Component {
                   </View>
                 </View>
               </View>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
+              <Text style={styles.textSecondary}>Won 2 oscars including best director</Text>
+              <Text style={styles.textSecondary}>Won 2 oscars including best director</Text>
             </View>
             {/* For the watch now flatlist */}
             <View style={{height: window / 2, marginTop: 25}}>
@@ -484,10 +462,7 @@ export class Movies extends Component {
 
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <Modal
-          visible={viewStyle === VIEW_STYLE.FULL_VIEW && isIntroTipVisible}
-          transparent
-          animationType="fade">
+        <Modal visible={viewStyle === VIEW_STYLE.FULL_VIEW && isIntroTipVisible} transparent animationType="fade">
           <View
             style={{
               flex: 1,
@@ -496,19 +471,12 @@ export class Movies extends Component {
               zIndex: 100,
             }}>
             <View style={styles.shadowView} />
-            <Image
-              source={require('../../../assets/Icons/hand_ic.png')}
-              style={{width: 102, height: 102}}
-            />
+            <Image source={require('../../../assets/Icons/hand_ic.png')} style={{width: 102, height: 102}} />
             <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
         </Modal>
-        <Modal
-          visible={this.state.modalVisible}
-          transparent={true}
-          animationType="slide">
-          <TouchableWithoutFeedback
-            onPress={() => this.setState({modalVisible: false})}>
+        <Modal visible={this.state.modalVisible} transparent={true} animationType="slide">
+          <TouchableWithoutFeedback onPress={() => this.setState({modalVisible: false})}>
             <View style={[styles.shadowView]} />
           </TouchableWithoutFeedback>
           <View
@@ -523,37 +491,19 @@ export class Movies extends Component {
             }}>
             <Text style={styles.soryByHead}>Sort By</Text>
             <TouchableOpacity
-              style={[
-                styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
-                  styles.filterSelected,
-              ]}
-              onPress={() =>
-                this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
-              }>
+              style={[styles.filterBut, selectedFilter === FILTER_TYPES.FILTER_BY_RATING && styles.filterSelected]}
+              onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)}>
               <Text
-                style={
-                  selectedFilter === FILTER_TYPES.FILTER_BY_RATING
-                    ? styles.modalTextSelected
-                    : styles.modalText
-                }>
+                style={selectedFilter === FILTER_TYPES.FILTER_BY_RATING ? styles.modalTextSelected : styles.modalText}>
                 Rating
               </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
-              style={[
-                styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
-                  styles.filterSelected,
-              ]}
+              style={[styles.filterBut, selectedFilter === FILTER_TYPES.FILTER_BY_MATCH && styles.filterSelected]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
               <Text
-                style={
-                  selectedFilter === FILTER_TYPES.FILTER_BY_MATCH
-                    ? styles.modalTextSelected
-                    : styles.modalText
-                }>
+                style={selectedFilter === FILTER_TYPES.FILTER_BY_MATCH ? styles.modalTextSelected : styles.modalText}>
                 Match
               </Text>
             </TouchableOpacity>
@@ -561,46 +511,28 @@ export class Movies extends Component {
             <TouchableOpacity
               style={[
                 styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
-                  styles.filterSelected,
+                selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE && styles.filterSelected,
               ]}
-              onPress={() =>
-                this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
-              }>
+              onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)}>
               <Text
                 style={
-                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE
-                    ? styles.modalTextSelected
-                    : styles.modalText
+                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE ? styles.modalTextSelected : styles.modalText
                 }>
                 Friends'Like
               </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
-              style={[
-                styles.filterBut,
-                selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
-                  styles.filterSelected,
-              ]}
-              onPress={() =>
-                this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
-              }>
+              style={[styles.filterBut, selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR && styles.filterSelected]}
+              onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)}>
               <Text
-                style={
-                  selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR
-                    ? styles.modalTextSelected
-                    : styles.modalText
-                }>
+                style={selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR ? styles.modalTextSelected : styles.modalText}>
                 Popular
               </Text>
             </TouchableOpacity>
           </View>
         </Modal>
-        <Modal
-          visible={this.state.likeModal}
-          transparent={true}
-          animationType="slide">
+        <Modal visible={this.state.likeModal} transparent={true} animationType="slide">
           <View
             style={{
               backgroundColor: '#f7f7f5',
@@ -608,26 +540,20 @@ export class Movies extends Component {
               height: 500,
               top: screen - 300,
             }}>
-            <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
-              Sort By
-            </Text>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>Sort By</Text>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
@@ -636,10 +562,7 @@ export class Movies extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <Modal
-          visible={this.state.shearModal}
-          transparent={true}
-          animationType="slide">
+        <Modal visible={this.state.shearModal} transparent={true} animationType="slide">
           <View
             style={{
               backgroundColor: '#f7f7f5',
@@ -655,33 +578,26 @@ export class Movies extends Component {
                 padding: 10,
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
-                Recommend title
-              </Text>
+              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>Recommend title</Text>
               <Icon name="share" size={25} style={{marginLeft: 20}} />
             </View>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.setState({shearModal: false})}>
+            <TouchableOpacity onPress={() => this.setState({shearModal: false})}>
               <Text>Close Model</Text>
             </TouchableOpacity>
           </View>
@@ -701,9 +617,7 @@ export class Movies extends Component {
                     flexDirection: 'row',
                   }}>
                   <View style={{flex: 3}}>
-                    <Text style={styles.resultText}>
-                      Ranking of best movies
-                    </Text>
+                    <Text style={styles.resultText}>Ranking of best movies</Text>
                   </View>
                   <TouchableOpacity
                     style={{

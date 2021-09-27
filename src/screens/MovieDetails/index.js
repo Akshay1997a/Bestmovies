@@ -801,7 +801,7 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#000',
-    fontFamily: 'VGA Rouonded Next',
+    fontFamily: 'VAG Rouonded Next Regular',
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
