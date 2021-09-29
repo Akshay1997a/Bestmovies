@@ -98,10 +98,9 @@ export class RenderMobile extends Component {
               ))
             }
             data={
-              this.state.countryData
-              // filtereddCountries.length > 0
-              //   ? filtereddCountries
-              //   : COUNTRIES_LIST
+              filtereddCountries.length > 0
+                ? filtereddCountries
+                : COUNTRIES_LIST
             }
             renderItem={({item, index}) => {
               return (

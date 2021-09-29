@@ -1,4 +1,4 @@
-import {flatMap} from 'lodash';
+import {flatMap, update} from 'lodash';
 import React, {Component} from 'react';
 import {
   Text,
@@ -20,8 +20,11 @@ import HeaderModal from '../../../components/HeaderModal';
 import Switch from '../../../components/Switch';
 import {withTranslation} from 'react-i18next';
 import primary_regular_font from '../../../helper/fonts';
+import {connect} from 'react-redux';
+import {updateProviders} from '../../../redux/FilterModule/FilterActions';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
-const DATA = [
+export const DATA = [
   {
     id: '1',
     name: 'Netflix',
@@ -47,11 +50,19 @@ const DATA = [
     name: 'Disny+',
     image: require('../../../../assets/Providers/disny_ic.png'),
   },
-];
-
+]
+  .flatMap((i) => [i, i, i, i, i, i])
+  .map((item, index) => {
+    return {...item, id: index};
+  });
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 const numColumns = 5;
+const MENUS = {
+  ALL: 'ALL',
+  MY_PROVIDES: 'MY_PROVIDES',
+  SAVE_AS_PROVIDER: 'SAVE_AS_PROVIDER',
+};
 
 export class RenderMobile extends Component {
   constructor(props) {
@@ -61,7 +72,11 @@ export class RenderMobile extends Component {
       window,
       screen,
       selectedCountry: null,
+      selectedMenu: MENUS.ALL,
     };
+
+    this.togalItem = this.togalItem.bind(this);
+    console.log(DATA);
   }
 
   componentDidMount() {
@@ -72,35 +87,71 @@ export class RenderMobile extends Component {
 
   navigateToCountries() {
     const {navigation} = this.props;
-    navigation.navigate('CountryFilter');
+    navigation.navigate('Country');
   }
 
-  renderItemComponent = (data) => (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        flexWrap: 'wrap',
-      }}>
-      <TouchableOpacity style={{borderRadius: 25, padding: 2}}>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <View style={{flex: 5}}>
-            <Image
-              keyExtractor={data.id}
-              style={{height: 60, width: 60, borderRadius: 10}}
-              source={data.image}
-            />
+  togalItem(id) {
+    const {updateProviderConfig} = this.props;
+    const {providerConfig} = this.props;
+    if (!providerConfig.selectedProviders.includes(id)) {
+      updateProviderConfig({
+        ...providerConfig,
+        selectedProviders: [...providerConfig.selectedProviders, id],
+      });
+    } else {
+      updateProviderConfig({
+        ...providerConfig,
+        selectedProviders: [...providerConfig.selectedProviders].filter(
+          (i) => i !== id,
+        ),
+      });
+    }
+  }
+
+  renderItemComponent = (data) => {
+    const selectedProviders = this.props.providerConfig.selectedProviders || [];
+    console.log(selectedProviders);
+    return (
+      <View style={{width: window / 5 - 2}}>
+        <TouchableOpacity
+          style={{borderRadius: 25, padding: 2}}
+          onPress={() => this.togalItem(data.id)}>
+          <View
+            style={{
+              position: 'relative',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <View style={{flex: 5}}>
+              <Image
+                keyExtractor={data.id}
+                style={{height: 44, width: 66, borderRadius: 10}}
+                source={data.image}
+              />
+            </View>
+            <Text
+              style={{
+                textAlign: 'center',
+                color: selectedProviders.includes(data.id) ? '#FF3300' : '#000',
+              }}>
+              {data.name}
+            </Text>
+            {selectedProviders.includes(data.id) && (
+              <View style={styles.checkContainer}>
+                <FontAwesome5Icon name="check" color="#fff" size={20} />
+              </View>
+            )}
           </View>
-          <Text style={{textAlign: 'center'}}>{data.name}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-  );
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   render() {
     let {t} = this.props;
-    const {selectedCountry} = this.state;
+    const {selectedCountry, selectedMenu} = this.state;
+    const {providerConfig} = this.props;
+    const {updateProviderConfig} = this.props;
     return (
       <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
         <HeaderModal title={t('texts.id_144')} {...this.props} />
@@ -135,14 +186,51 @@ export class RenderMobile extends Component {
             justifyContent: 'space-between',
             padding: 10,
           }}>
-          <TouchableOpacity style={[styles.butContainer, styles.butActive]}>
-            <Text style={[styles.butText, styles.activeButText]}>All</Text>
+          <TouchableOpacity
+            style={[
+              styles.butContainer,
+              selectedMenu === MENUS.ALL ? styles.butActive : {},
+            ]}
+            onPress={() => this.setState({selectedMenu: MENUS.ALL})}>
+            <Text
+              style={[
+                styles.butText,
+                selectedMenu === MENUS.ALL ? styles.activeButText : {},
+              ]}>
+              All
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.butContainer}>
-            <Text style={styles.butText}>{t('texts.id_147')}</Text>
+          <TouchableOpacity
+            style={[
+              styles.butContainer,
+              selectedMenu === MENUS.MY_PROVIDES ? styles.butActive : {},
+            ]}
+            onPress={() => this.setState({selectedMenu: MENUS.MY_PROVIDES})}>
+            <Text
+              style={[
+                styles.butText,
+                selectedMenu === MENUS.MY_PROVIDES ? styles.activeButText : {},
+              ]}>
+              {t('texts.id_147')}
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.butContainer}>
-            <Text style={styles.butText}>{t('texts.id_148')}</Text>
+          <TouchableOpacity
+            style={[
+              styles.butContainer,
+              selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.butActive : {},
+            ]}
+            onPress={() =>
+              this.setState({selectedMenu: MENUS.SAVE_AS_PROVIDER})
+            }>
+            <Text
+              style={[
+                styles.butText,
+                selectedMenu === MENUS.SAVE_AS_PROVIDER
+                  ? styles.activeButText
+                  : {},
+              ]}>
+              {t('texts.id_148')}
+            </Text>
             {/* <Text style={styles.butText}>MY Provider</Text> */}
           </TouchableOpacity>
         </View>
@@ -152,7 +240,7 @@ export class RenderMobile extends Component {
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 5}}>
               <Text style={{fontSize: 15, fontWeight: '700', margin: 10}}>
-                {t('texts.id_156')}: 1
+                {t('texts.id_156')}: {providerConfig.selectedProviders.length}
               </Text>
             </View>
           </View>
@@ -165,36 +253,66 @@ export class RenderMobile extends Component {
                   <View style={[highlighted && {marginLeft: 0}]} />
                 ))
               }
-              data={DATA.flatMap((i) => [i, i, i, i, i, i, i, i, i])}
-              renderItem={({item}) => this.renderItemComponent(item)}
+              data={
+                selectedMenu === MENUS.ALL
+                  ? DATA
+                  : DATA.filter((i) =>
+                      providerConfig.selectedProviders.includes(i.id),
+                    )
+              }
+              renderItem={({item, index}) =>
+                this.renderItemComponent({...item})
+              }
               keyExtractor={(item) => item.id.toString()}
               numColumns={numColumns}
+              contentContainerStyle={{
+                paddingHorizontal: 5,
+              }}
             />
           </ScrollView>
         </ScrollView>
         <View style={styles.filterContainer}>
           <View style={styles.finterItem}>
             <Switch
-              value={true}
+              value={providerConfig.freeStreamingServiceWithAd}
               thumbColor={'#fff'}
               trackColor={{true: '#ff3300', false: '#EFEFEF'}}
+              onValueChange={(value) =>
+                updateProviderConfig({
+                  ...providerConfig,
+                  freeStreamingServiceWithAd: value,
+                })
+              }
             />
             <View style={{width: 10}} />
             <Text style={styles.filterText}>{t('texts.id_150')}</Text>
           </View>
           <View style={styles.finterItem}>
             <Switch
-              value={true}
+              value={providerConfig.rentStreamingService}
               thumbColor={'#fff'}
               trackColor={{true: '#ff3300', false: '#EFEFEF'}}
+              onValueChange={(value) =>
+                updateProviderConfig({
+                  ...providerConfig,
+                  rentStreamingService: value,
+                })
+              }
             />
             <View style={{width: 10}} />
             <Text style={styles.filterText}>{t('texts.id_152')}</Text>
           </View>
           <View style={styles.finterItem}>
             <Switch
+              value={providerConfig.localMovieTheaters}
               thumbColor={'#fff'}
               trackColor={{true: '#ff3300', false: '#EFEFEF'}}
+              onValueChange={(value) =>
+                updateProviderConfig({
+                  ...providerConfig,
+                  localMovieTheaters: value,
+                })
+              }
             />
             <View style={{width: 10}} />
             <Text style={styles.filterText}>{t('texts.id_154')}</Text>
@@ -205,7 +323,23 @@ export class RenderMobile extends Component {
   }
 }
 
-export default withTranslation()(RenderMobile);
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    providerConfig: state.filterConfig.providerConfig,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateProviderConfig: (data) => dispatch(updateProviders(data)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withTranslation()(RenderMobile));
 
 const styles = StyleSheet.create({
   container: {
@@ -235,6 +369,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   filterContainer: {
+    height: 250,
     paddingHorizontal: 10,
     paddingVertical: 20,
   },
@@ -250,5 +385,16 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
+  },
+  checkContainer: {
+    position: 'absolute',
+    right: 0,
+    bottom: 18,
+    width: 28,
+    height: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 1000,
+    backgroundColor: '#FF3300',
   },
 });

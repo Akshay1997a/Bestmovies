@@ -4,6 +4,11 @@ import {
   UPDATE_COUNTRIES,
   UPDATE_SORT_BY,
   CLEAR_FILTERS,
+  UPDATE_PROVIDERS,
+  UPDATE_YEAR,
+  UPDATE_LANGUAGES,
+  UPDATE_WATCHED,
+  UPDATE_PRIVIOUSLY_BROWSED,
 } from './FilterTypes';
 
 export function modifyConfig(data) {
@@ -37,5 +42,40 @@ export function updateSortByAction(val) {
 export function clearFiltersAction() {
   return {
     type: CLEAR_FILTERS,
+  };
+}
+
+export function updateProviders(data) {
+  return {
+    type: UPDATE_PROVIDERS,
+    payload: data,
+  };
+}
+
+export function updateYear({type, from = null, to = null}) {
+  return {
+    type: UPDATE_YEAR,
+    payload: {type, from, to},
+  };
+}
+
+export function updateLanguages(data) {
+  return {
+    type: UPDATE_LANGUAGES,
+    payload: data,
+  };
+}
+
+export function updateWatchedValue(data) {
+  return {
+    type: UPDATE_WATCHED,
+    payload: data,
+  };
+}
+
+export function updatePreviouslyWatchedValue(data) {
+  return {
+    type: UPDATE_PRIVIOUSLY_BROWSED,
+    payload: data,
   };
 }
