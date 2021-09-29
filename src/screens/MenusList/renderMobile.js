@@ -15,6 +15,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import HeaderModal from '../../components/HeaderModal';
 import {APP_PLAYSTORE_URL} from '../../config/urls';
 // import { SafeAreaView } from 'react-native-safe-area-context';
+import primary_regular_font from '../../helper/fonts';
 
 export default function RenderMobile(props) {
   const {replace, navigate} = props.navigation;
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
   },
   PrimaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
   },
   PrimaryTileSubTitleStyle: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 18,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
   },
   IconTileTitleStyle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   },
   SecondaryTileTitleStyle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

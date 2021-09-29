@@ -13,6 +13,7 @@ import {
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import primary_regular_font from '../../helper/fonts';
 
 const DATA = [
   {
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 15,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

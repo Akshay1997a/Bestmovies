@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Dimensions,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,6 +12,7 @@ import {
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HeaderModal from '../../../components/HeaderModal';
 import {useTranslation} from 'react-i18next';
+import primary_regular_font from '../../../helper/fonts';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

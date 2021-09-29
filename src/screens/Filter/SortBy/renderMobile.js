@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  Platform,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import HeaderModal from '../../../components/HeaderModal';
 import {updateSortByAction} from '../../../redux/FilterModule/FilterActions';
 import {SORT_BY_FILTER} from '../../../redux/FilterModule/FilterTypes';
+import primary_regular_font from '../../../helper/fonts';
 
 const {height} = Dimensions.get('screen');
 
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

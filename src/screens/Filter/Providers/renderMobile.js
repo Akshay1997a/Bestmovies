@@ -11,6 +11,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {COUNTRIES_LIST} from '../../../config/CountriesList';
@@ -18,6 +19,7 @@ import Svg, {SvgFromUri as SVGImage, Rect} from 'react-native-svg';
 import HeaderModal from '../../../components/HeaderModal';
 import Switch from '../../../components/Switch';
 import {withTranslation} from 'react-i18next';
+import primary_regular_font from '../../../helper/fonts';
 
 const DATA = [
   {
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
   },
   butText: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 16,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -242,7 +244,7 @@ const styles = StyleSheet.create({
   },
   filterText: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

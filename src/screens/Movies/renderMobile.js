@@ -33,6 +33,7 @@ import {bindActionCreators} from 'redux';
 import {getTranslateFile} from '../../network/requests';
 import {runTimeTranslations} from '../../i18n';
 import {withTranslation} from 'react-i18next';
+import primary_regular_font from '../../helper/fonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -761,7 +762,7 @@ export default withTranslation()(
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -786,7 +787,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 14,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -831,7 +832,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -840,7 +841,7 @@ const styles = StyleSheet.create({
   },
   sortbyButText: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

@@ -24,6 +24,7 @@ import {SORT_BY_FILTER} from '../../redux/FilterModule/FilterTypes';
 // import {SafeAreaView} from 'react-native-safe-area-context'
 import {StatusBarContext} from '../../../App';
 import {withTranslation} from 'react-i18next';
+import primary_regular_font from '../../helper/fonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -303,7 +304,7 @@ export default withTranslation()(
 const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 18,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -312,7 +313,7 @@ const styles = StyleSheet.create({
   },
   textSecond: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

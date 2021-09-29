@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Svg, {G, Ellipse, Defs, ClipPath} from 'react-native-svg';
+import primary_regular_font, {isAndroid} from '../helper/fonts';
 
 function EllipseComponent(props) {
   return (
@@ -53,8 +54,10 @@ const styles = StyleSheet.create({
   ratingText: {
     color: '#fff',
     position: 'absolute',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 14,
-    fontWeight: '700',
+    ...(!isAndroid() && {
+      fontWeight: '700',
+    }),
   },
 });

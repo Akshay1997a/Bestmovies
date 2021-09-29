@@ -42,6 +42,7 @@ import SVGTriangleTop from '../../svgs/TriangleTop';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
 import {withTranslation} from 'react-i18next';
+import primary_regular_font from '../../helper/fonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -330,7 +331,7 @@ class RenderMobile extends Component {
               <Text
                 style={{
                   fontSize: 14.67,
-                  fontFamily: 'VAG Rounded Next',
+                  fontFamily: primary_regular_font.primary_bold_font,
                   marginLeft: 17,
                   ...(Platform.OS === 'ios' && {
                     fontWeight: '700',
@@ -782,7 +783,7 @@ export default connect(mapStateToProps, null)(EnhanchedComponent);
 const styles = StyleSheet.create({
   textFont: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 17,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -807,7 +808,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 16,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -843,7 +844,7 @@ const styles = StyleSheet.create({
   },
   directorName: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -852,7 +853,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -861,7 +862,7 @@ const styles = StyleSheet.create({
   },
   sortbyButText: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -916,7 +917,7 @@ const styles = StyleSheet.create({
   },
   ratingText: {
     color: '#FFFFFF',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 22,
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -930,7 +931,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   textDesc: {
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 16,
     color: '#000',
     ...(Platform.OS === 'ios' && {
