@@ -27,6 +27,7 @@ import {runTimeTranslations} from '../../i18n';
 import {getLanguageList, getTranslateFile} from '../../network/requests';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const COUNTRY = [
   {id: 0, name: 'United States'},
@@ -60,7 +61,7 @@ const isAndroid = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    marginLeft: isAndroid() ? 10 : 160,
+    marginLeft: isAndroid() ? 10 : 150,
     borderLeftWidth: 1,
     borderLeftColor: colors.borderColor,
   },
@@ -138,32 +139,34 @@ const TVCountryLanguage = (props) => {
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
-              <Pressable
-                onPress={() => onPressHandle(item)}
-                //  onBlur={onBlur()}
-                onFocus={() => onFocus(item.id)}
-                //   onFocus={()=> setFocus(item.id)}
-                style={
-                  props.focus === 'countryLang' && item.id == focus
-                    ? styles.focusBackWrap
-                    : //   { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
-                      {}
-                }>
-                <Text
-                  style={{
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 16 : 30,
-                    fontWeight: '400',
-                    padding: isAndroid() ? 2 : 8,
-                    paddingHorizontal: 15,
-                    color:
-                      props.focus === 'countryLang' && item.id == focus
-                        ? colors.white
-                        : colors.black,
-                  }}>
-                  {item.name}
-                </Text>
-              </Pressable>
+              <View style={[{width: WIDTH * 0.12, marginLeft: 10}]}>
+                <Pressable
+                  onPress={() => onPressHandle(item)}
+                  //  onBlur={onBlur()}
+                  onFocus={() => onFocus(item.id)}
+                  //   onFocus={()=> setFocus(item.id)}
+                  style={
+                    props.focus === 'countryLang' && item.id == focus
+                      ? styles.focusBackWrap
+                      : //   { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
+                        {}
+                  }>
+                  <Text
+                    style={{
+                      fontFamily: primary_regular_font.primary_regular_font,
+                      fontSize: isAndroid() ? 16 : 30,
+                      fontWeight: '400',
+                      padding: isAndroid() ? 2 : 8,
+                      paddingHorizontal: 15,
+                      color:
+                        props.focus === 'countryLang' && item.id == focus
+                          ? colors.white
+                          : colors.black,
+                    }}>
+                    {item.name}
+                  </Text>
+                </Pressable>
+              </View>
             );
           })}
         </View>

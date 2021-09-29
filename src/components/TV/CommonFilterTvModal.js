@@ -14,6 +14,7 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
   {id: 0, name: 'Quality'},
@@ -130,11 +131,13 @@ const CommonFilterTvModal = (props) => {
             <Image source={AppImages.back_bk} style={styles.highlightFocused} />
           </Pressable>
           <Text
+            numberOfLines={1}
             style={{
               fontFamily: primary_regular_font.primary_regular_font,
               fontSize: isAndroid() ? 17 : 34,
               fontWeight: '700',
               textAlign: 'center',
+              maxWidth: WIDTH * 0.2,
             }}>
             {props?.title}
           </Text>

@@ -13,6 +13,7 @@ import {
   Image,
   ScrollView,
   Platform,
+  Dimensions,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import TVToggle from '../TV/TVToggle';
@@ -25,6 +26,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import transConstants from '../../helper/transConstants';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const ICON_SIZE = 24;
 let [
@@ -105,11 +107,11 @@ const DATA = [
     title: 'texts.id_99',
     details: 'texts.id_101',
   },
-  {
-    key: LIKEDBY,
-    title: 'texts.id_160',
-    details: '--',
-  },
+  // {
+  //   key: LIKEDBY,
+  //   title: 'texts.id_160',
+  //   details: '--',
+  // },
   {
     key: STRREAMING,
     title: 'texts.id_144',
@@ -348,28 +350,46 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             {isScroll
               ? BACK_DATA.map((item, index) => {
                   return (
-                    <Pressable
-                      key={item.key}
-                      onFocus={() => onFocus(item.key)}
-                      onPress={() => onPressClick(item)}
-                      tvParallaxProperties={{magnification: 1.1}}
-                      // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
-                    >
-                      {item.key === 'BackArrow' ? (
-                        <BackArrow item={item} />
-                      ) : (
-                        <View style={{marginLeft: 20, flexDirection: 'row'}}>
-                          <View style={{marginRight: 90}}>
-                            <View
-                              style={
-                                focus == item.key
-                                  ? styles.itemWrapperSelected
-                                  : styles.itemWrapper
-                              }>
-                              {item.key === INCLUDES ? (
-                                <View style={{flexDirection: 'row'}}>
-                                  <TVToggle />
+                    <View
+                      style={[
+                        {
+                          width: item.key === 'BackArrow' ? 60 : WIDTH * 0.135,
+                        },
+                      ]}>
+                      <Pressable
+                        key={item.key}
+                        onFocus={() => onFocus(item.key)}
+                        onPress={() => onPressClick(item)}
+                        tvParallaxProperties={{magnification: 1.1}}
+                        // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
+                      >
+                        {item.key === 'BackArrow' ? (
+                          <BackArrow item={item} />
+                        ) : (
+                          <View style={{marginLeft: 20, flexDirection: 'row'}}>
+                            <View style={{marginRight: 90}}>
+                              <View
+                                style={
+                                  focus == item.key
+                                    ? styles.itemWrapperSelected
+                                    : styles.itemWrapper
+                                }>
+                                {item.key === INCLUDES ? (
+                                  <View style={{flexDirection: 'row'}}>
+                                    <TVToggle />
+                                    <Text
+                                      numberOfLines={1}
+                                      style={
+                                        focus == item.key
+                                          ? styles.focusTextTitle
+                                          : styles.textTitle
+                                      }>
+                                      {t(item.title)}
+                                    </Text>
+                                  </View>
+                                ) : (
                                   <Text
+                                    numberOfLines={1}
                                     style={
                                       focus == item.key
                                         ? styles.focusTextTitle
@@ -377,123 +397,140 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                     }>
                                     {t(item.title)}
                                   </Text>
+                                )}
+                              </View>
+                              {item.key === INCLUDES ? (
+                                <View style={{flexDirection: 'row'}}>
+                                  <TVToggle />
+                                  <Text
+                                    numberOfLines={1}
+                                    style={
+                                      focus == item.key
+                                        ? styles.focusTextTitle
+                                        : styles.textTitle
+                                    }>
+                                    {t(item.details)}
+                                  </Text>
                                 </View>
                               ) : (
-                                <Text
-                                  style={
-                                    focus == item.key
-                                      ? styles.focusTextTitle
-                                      : styles.textTitle
-                                  }>
-                                  {t(item.title)}
+                                <Text numberOfLines={1} style={styles.text}>
+                                  {t(item.details)}
                                 </Text>
                               )}
                             </View>
-                            {item.key === INCLUDES ? (
-                              <View style={{flexDirection: 'row'}}>
-                                <TVToggle />
-                                <Text
-                                  style={
-                                    focus == item.key
-                                      ? styles.focusTextTitle
-                                      : styles.textTitle
-                                  }>
-                                  {t(item.details)}
-                                </Text>
-                              </View>
-                            ) : (
-                              <Text numberOfLines={1} style={styles.text}>
-                                {t(item.details)}
-                              </Text>
-                            )}
-                          </View>
-                          {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
+                            {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
               <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
             </View> */}
-                          <View>
-                            {item.title === ' Clear filters' ? (
-                              <View style={{marginRight: 80}}></View>
-                            ) : (
-                              // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
-                              //     borderColor:'red',
-                              //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
-                              <View style={styles.verticleLine}></View>
-                            )}
+                            <View>
+                              {item.title === ' Clear filters' ? (
+                                <View style={{marginRight: 80}}></View>
+                              ) : (
+                                // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
+                                //     borderColor:'red',
+                                //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
+                                <View style={styles.verticleLine}></View>
+                              )}
+                            </View>
                           </View>
-                        </View>
-                      )}
-                    </Pressable>
+                        )}
+                      </Pressable>
+                    </View>
                   );
                 })
               : DATA.map((item, index) => {
                   return (
-                    <Pressable
-                      key={item.key}
-                      onFocus={() => onFocus(item.key)}
-                      onPress={() => onPressClick(item)}
-                      tvParallaxProperties={{magnification: 1.1}}
-                      // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
-                    >
-                      {item.key === 'Arrow' ? (
-                        <View
-                          style={
-                            focus == item.key
-                              ? styles.itemWrapperSelected
-                              : styles.itemWrapper
-                          }>
-                          <Image
+                    <View
+                      style={[
+                        {
+                          width: item.key === 'Arrow' ? 60 : WIDTH * 0.135,
+                        },
+                      ]}>
+                      <Pressable
+                        key={item.key}
+                        onFocus={() => onFocus(item.key)}
+                        onPress={() => onPressClick(item)}
+                        tvParallaxProperties={{magnification: 1.1}}
+                        style={[{flexGrow: 1, justifyContent: 'center'}]}
+                        // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
+                      >
+                        {item.key === 'Arrow' ? (
+                          <View
+                            style={[
+                              focus == item.key
+                                ? styles.itemWrapperSelected
+                                : styles.itemWrapper,
+                              {},
+                            ]}>
+                            <Image
+                              style={{
+                                width: StyleConfig.resWidth(30),
+                                borderColor: 'red',
+                                height: StyleConfig.resHeight(30),
+                              }}
+                              source={AppImages.arrow_right}
+                            />
+                          </View>
+                        ) : (
+                          <View
                             style={{
-                              width: StyleConfig.resWidth(30),
-                              borderColor: 'red',
-                              height: StyleConfig.resHeight(30),
-                            }}
-                            source={AppImages.arrow_right}
-                          />
-                        </View>
-                      ) : (
-                        <View style={{marginLeft: 20, flexDirection: 'row'}}>
-                          <View style={{marginRight: isAndroid() ? 25 : 75}}>
+                              // marginLeft: 20,
+                              flex: 1,
+                              // paddingHorizontal: 20,
+                              alignItems: 'center',
+                              flexDirection: 'row',
+                            }}>
                             <View
-                              style={
-                                props.focus === 'top' && focus == item.key
-                                  ? styles.itemWrapperSelected
-                                  : styles.itemWrapper
-
-                                //     props.focus === 90 ?
-                                //     styles.itemWrapper :
-                                //   focus == item.key
-                                // ? styles.itemWrapperSelected : styles.itemWrapper
-                              }>
-                              <Text
+                              style={{
+                                // marginRight: isAndroid() ? 25 : 75,
+                                flex: 1,
+                                justifyContent: 'center',
+                                marginHorizontal: 25,
+                              }}>
+                              <View
                                 style={
-                                  (props.focus === 'top') & (focus == item.key)
-                                    ? styles.focusTextTitle
-                                    : item.selected
-                                    ? //  props.topSelected == item.key ?
-                                      styles.focusText
-                                    : styles.textTitle
+                                  [
+                                    props.focus === 'top' && focus == item.key
+                                      ? styles.itemWrapperSelected
+                                      : styles.itemWrapper,
+                                  ]
+                                  //     props.focus === 90 ?
+                                  //     styles.itemWrapper :
+                                  //   focus == item.key
+                                  // ? styles.itemWrapperSelected : styles.itemWrapper
                                 }>
-                                {t(item.title)}
+                                <Text
+                                  numberOfLines={1}
+                                  style={
+                                    (props.focus === 'top') &
+                                    (focus == item.key)
+                                      ? styles.focusTextTitle
+                                      : item.selected
+                                      ? //  props.topSelected == item.key ?
+                                        styles.focusText
+                                      : styles.textTitle
+                                  }>
+                                  {t(item.title)}
+                                </Text>
+                              </View>
+                              <Text numberOfLines={1} style={styles.text}>
+                                {t(item.details)}
                               </Text>
                             </View>
-                            <Text numberOfLines={1} style={styles.text}>
-                              {t(item.details)}
-                            </Text>
-                          </View>
-                          {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
+                            {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
               <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
             </View> */}
-                          <View>
-                            {item.title === 'Price' ? null : (
-                              // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
-                              //     borderColor:'red',
-                              //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
-                              <View style={styles.verticleLine}></View>
-                            )}
+                            <View>
+                              {item.title === 'Price' ? null : (
+                                // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
+                                //     borderColor:'red',
+                                //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
+                                <View style={styles.verticleLine}></View>
+                              )}
+                            </View>
                           </View>
-                        </View>
-                      )}
-                    </Pressable>
+                        )}
+                      </Pressable>
+                    </View>
                   );
                 })}
           </View>
@@ -516,6 +553,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   container: {
+    // backgroundColor: 'red',
     flex: 1,
     backgroundColor: colors.lightGrey,
     height: isAndroid() ? 40 : 90,
@@ -533,18 +571,20 @@ const styles = StyleSheet.create({
     // marginRight:-80,
   },
   itemWrapper: {
-    // marginRight:-80,
+    // marginRight: -80,
   },
   text: {
     fontSize: isAndroid() ? 12 : 24,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '400',
+    textAlign: 'left',
   },
   focusText: {
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '900',
     fontSize: isAndroid() ? 12 : 24,
     color: colors.tomatoRed,
+    textAlign: 'left',
     // width:   250
   },
   textTitle: {
@@ -552,11 +592,13 @@ const styles = StyleSheet.create({
     fontSize: isAndroid() ? 12 : 24,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '700',
+    textAlign: 'left',
   },
   focusTextTitle: {
     fontSize: isAndroid() ? 12 : 24,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '700',
     color: colors.white,
+    textAlign: 'left',
   },
 });

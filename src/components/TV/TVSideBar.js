@@ -13,6 +13,7 @@ import TVCountryLanguage from '../TV/TVCountryLanguage';
 import primary_regular_font from '../../helper/fonts';
 import Const from '../../helper/constants';
 import {useTranslation} from 'react-i18next';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const ICON_SIZE = 24;
 let [
@@ -150,40 +151,53 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
             </View> : */}
 
       {/* props.headerSelected == MENU ? */}
-      <View style={{flexDirection: 'row', marginLeft: 10}}>
-        <View style={styles.container}>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginLeft: 30,
+        }}>
+        <View style={[styles.container]}>
           {MENU_DATA.map((item, index) => {
             return (
-              <Pressable
-                key={item.key}
-                onFocus={() => onFocus(item.key)}
-                onPress={() => onPressHandle(item.key)}
-                tvParallaxProperties={{magnification: 1.1}}
-                style={
-                  props.focus === 'menu' && focus == item.key
-                    ? styles.itemWrapperSelected
-                    : styles.itemWrapper
-                }>
-                <Text
-                  style={
+              <View
+                key={index}
+                style={[{width: WIDTH * 0.18, marginRight: 30}]}>
+                <Pressable
+                  key={item.key}
+                  onFocus={() => {
+                    onFocus(item.key);
+                  }}
+                  onPress={() => onPressHandle(item.key)}
+                  tvParallaxProperties={{magnification: 1.1}}
+                  style={[
                     props.focus === 'menu' && focus == item.key
-                      ? styles.focusText
-                      : selected == item.key
-                      ? styles.selectedText
-                      : styles.text
+                      ? styles.itemWrapperSelected
+                      : styles.itemWrapper,
+                    {},
+                  ]}>
+                  <Text
+                    numberOfLines={1}
+                    style={
+                      props.focus === 'menu' && focus == item.key
+                        ? styles.focusText
+                        : selected == item.key
+                        ? styles.selectedText
+                        : styles.text
 
-                    //  styles.focusTextTitle :
-                    //   styles.text
-                  }>
-                  {t(item.title)}
-                </Text>
-                {/* <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>'hi'</Text> */}
-              </Pressable>
+                      //  styles.focusTextTitle :
+                      //   styles.text
+                    }>
+                    {t(item.title)}
+                  </Text>
+                  {/* <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>'hi'</Text> */}
+                </Pressable>
+              </View>
             );
           })}
         </View>
+
         {key == COUNTRY_LANGUAGE && (
-          <View hasTVPreferredFocus={true}>
+          <View style={[{}]} hasTVPreferredFocus={true}>
             <TVCountryLanguage {...props}></TVCountryLanguage>
             {/* <FlatList 
                 data={COLLABORATE_DATA}
@@ -267,11 +281,16 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         {key == ABOUT_US && (
           <View hasTVPreferredFocus={true}>
             <FlatList
+              contentContainerStyle={[{}]}
               data={Const.ABOUT_US}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable
+                    style={{
+                      flexDirection: 'row',
+                      marginRight: WIDTH * 0.21,
+                    }}>
                     <>
                       {item.type == 'image' ? (
                         <Image
@@ -281,13 +300,16 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                         />
                       ) : (
                         <Text
-                          style={
+                          style={[
                             item.type == 'title'
                               ? styles.aboutUsTitle
                               : item.type == 'subtitle'
                               ? styles.aboutUsSubTitle
-                              : styles.aboutUsDetail
-                          }>
+                              : styles.aboutUsDetail,
+                            {
+                              flexWrap: 'wrap',
+                            },
+                          ]}>
                           {item.data}
                         </Text>
                       )}
@@ -500,12 +522,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
 
     // padding:16,
-    paddingRight: 21,
+    // paddingRight: 21,
   },
   itemWrapperSelected: {
-    paddingHorizontal: isAndroid() ? 0 : 12,
+    // paddingHorizontal: isAndroid() ? 0 : 12,
     paddingVertical: isAndroid() ? 0 : 6,
-    marginHorizontal: isAndroid() ? 0 : 6,
+    // marginHorizontal: isAndroid() ? 0 : 6,
     backgroundColor: colors.tomatoRed,
     borderRadius: 30,
     // minWidth:60,
@@ -514,9 +536,9 @@ const styles = StyleSheet.create({
     // alignItems:'center'
   },
   itemWrapper: {
-    paddingHorizontal: isAndroid() ? 0 : 12,
+    // paddingHorizontal: isAndroid() ? 0 : 12,
     paddingVertical: isAndroid() ? 0 : 6,
-    marginHorizontal: isAndroid() ? 0 : 6,
+    // marginHorizontal: isAndroid() ? 0 : 6,
     marginVertical: 5,
   },
   text: {
@@ -535,6 +557,7 @@ const styles = StyleSheet.create({
     fontSize: isAndroid() ? 16 : 26,
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
+    paddingLeft: 10,
   },
   textTitle: {
     fontSize: isAndroid() ? 16 : 26,
@@ -565,7 +588,7 @@ const styles = StyleSheet.create({
     lineHeight: 62,
     color: colors.tomatoRed,
     marginTop: 30,
-    width: StyleConfig.width - StyleConfig.resWidth(250),
+    // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
   },
   aboutUsSubTitle: {
@@ -574,7 +597,7 @@ const styles = StyleSheet.create({
     lineHeight: 42,
     color: colors.black33,
     marginVertical: 8,
-    width: StyleConfig.width - StyleConfig.resWidth(250),
+    // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
   },
   aboutUsDetail: {
@@ -583,7 +606,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     color: colors.black33,
     marginVertical: 8,
-    width: StyleConfig.width - StyleConfig.resWidth(250),
+    // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
   },
 });

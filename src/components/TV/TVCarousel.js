@@ -23,6 +23,7 @@ import StyleConfig from '../../helper/StyleConfig';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import strings from '../../helper/strings';
 import AppImages from '../../assets';
+import {useTranslation} from 'react-i18next';
 
 // import {
 //   View,
@@ -75,6 +76,7 @@ const {width: screenWidth, height} = Dimensions.get('window');
 
 const MyCarousel = ({item, posts, ...props}) => {
   // console.log('props',props);
+  const {t} = useTranslation();
 
   const [focus, setFocus] = useState(0);
   const onFocus = useCallback(() => {
@@ -190,7 +192,9 @@ const MyCarousel = ({item, posts, ...props}) => {
         />
         <View style={{flexDirection: 'row'}}>
           <View style={{marginTop: isAndroid() ? 6 : 16}}>
-            <Text style={styles.director}>Director:</Text>
+            <Text numberOfLines={1} style={styles.director}>
+              {t('professions.code_df')}:
+            </Text>
             <View style={{flexDirection: 'row'}}>
               <TVCast item={item} {...props} image={item.director_image} />
             </View>
@@ -200,7 +204,9 @@ const MyCarousel = ({item, posts, ...props}) => {
               marginTop: isAndroid() ? 6 : 16,
               marginLeft: isAndroid() ? 10 : 30,
             }}>
-            <Text style={styles.cast}>Cast:</Text>
+            <Text numberOfLines={1} style={styles.cast}>
+              {t('texts.id_14')}:
+            </Text>
             <View style={{flexDirection: 'row'}}>
               {item.actors_image.map((obj, ind) => (
                 <TVCast item={item} {...props} image={obj} />
@@ -211,7 +217,9 @@ const MyCarousel = ({item, posts, ...props}) => {
 
         <View style={{flexDirection: 'row'}}>
           <View style={{marginTop: isAndroid() ? 0 : 0}}>
-            <Text style={styles.similar_titles}>{strings.similar_titles}</Text>
+            <Text numberOfLines={1} style={styles.similar_titles}>
+              {t('texts.id_230')}
+            </Text>
             <View style={{flexDirection: 'row'}}>
               <FlatList
                 hasTVPreferredFocus={true}
@@ -266,6 +274,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     fontWeight: '700',
     color: colors.black,
+    maxWidth: 400,
   },
   director: {
     fontFamily: primary_regular_font.primary_regular_font,
@@ -280,6 +289,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     fontWeight: '700',
     color: colors.black,
+    maxWidth: 300,
   },
   title: {
     fontSize: 40,

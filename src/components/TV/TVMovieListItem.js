@@ -151,6 +151,7 @@ const TVCardDetail = ({item, ...props}) => {
           <View style={{flexDirection: 'row', marginLeft: 10}}>
             <View>
               <Text
+                numberOfLines={1}
                 style={[
                   {
                     width: isAndroid() ? 150 : 300,
@@ -206,7 +207,7 @@ const TVCardDetail = ({item, ...props}) => {
                       color: 'black',
                       fontWeight: '400',
                     },
-                  ]}>{`${DATA.match} match`}</Text>
+                  ]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
                 <View
                   style={{
                     paddingTop: 3,
@@ -216,12 +217,15 @@ const TVCardDetail = ({item, ...props}) => {
                     borderRadius: 100,
                     transform: [{scaleX: 1.5}],
                     backgroundColor: item.DATA.color,
+                    justifyContent: 'center',
                   }}>
                   <Text
                     style={{
                       color: colors.white,
                       fontWeight: '700',
                       fontSize: StyleConfig.resHeight(20),
+                      textAlign: 'center',
+                      alignSelf: 'center',
                       //  fontStyle : primary_regular_font.primary_regular_font
                     }}>
                     {item.DATA.rating}

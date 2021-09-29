@@ -45,6 +45,7 @@ import {getTranslateFile} from '../../network/requests';
 import transConstants from '../../helper/transConstants';
 import {useTranslation} from 'react-i18next';
 import {runTimeTranslations} from '../../i18n';
+import {WIDTH} from '../../helper/globalFunctions';
 let [
   NONE,
   SEARCH,
@@ -245,7 +246,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       {/* <ScrollView> */}
       <View
         hasTVPreferredFocus={true}
-        style={{flexDirection: 'column', backgroundColor: colors.white}}>
+        style={{
+          flexDirection: 'column',
+          backgroundColor: colors.white,
+        }}>
         <TVTopBar
           topSelected={topSelected}
           selected={showSelected == SORT_BY}
@@ -351,7 +355,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   backgroundColor: colors.white,
                   marginHorizontal: 10,
                 }}>
-                <Text style={styles.ranking}>{t('texts.id_78')}</Text>
+                <Text numberOfLines={1} style={styles.ranking}>
+                  {t('texts.id_78')}
+                </Text>
                 <Text style={styles.result}> 12,348 results </Text>
               </View>
               <FlatList
@@ -391,7 +397,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   backgroundColor: colors.white,
                   marginHorizontal: 10,
                 }}>
-                <Text style={styles.ranking}>{t('texts.id_78')}</Text>
+                <Text numberOfLines={1} style={styles.ranking}>
+                  {t('texts.id_78')}
+                </Text>
                 <Text style={styles.result}> 12,348 results </Text>
               </View>
               <FlatList
@@ -814,6 +822,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: isAndroid() ? 15 : 30,
     fontWeight: isAndroid() ? 'bold' : '700',
+    maxWidth: WIDTH * 0.3,
   },
   result: {
     fontFamily: 'VAGRoundedNext-light',

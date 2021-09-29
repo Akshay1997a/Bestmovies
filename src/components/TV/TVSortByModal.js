@@ -16,6 +16,7 @@ import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
   {id: 0, name: 'texts.id_101'},
@@ -58,7 +59,7 @@ const TVSortByModal = (props, key) => {
     // props.visible = true;
 
     //   props.onclose();
-    setSelected(val);
+    setSelected(val.id);
   };
 
   // useEffect(() => {
@@ -88,14 +89,16 @@ const TVSortByModal = (props, key) => {
               onFocus={() => setFocus(item.id)}
               style={item.id == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
+                numberOfLines={1}
                 style={{
+                  maxWidth: WIDTH * 0.22,
                   fontFamily: primary_regular_font.primary_regular_font,
                   fontSize: isAndroid() ? 15 : 30,
                   fontWeight: '400',
                   color:
                     item.id == focus
                       ? colors.white
-                      : item.selected
+                      : item.id == selected
                       ? colors.tomatoRed
                       : colors.black,
                 }}>

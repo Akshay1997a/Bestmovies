@@ -1,3 +1,5 @@
+import {Dimensions} from 'react-native';
+
 export const logOnConsole = (...arg) => {
   if (__DEV__) console.log(arg);
 };
@@ -5,6 +7,9 @@ export const logOnConsole = (...arg) => {
 export const isNotEmpty = (data) => {
   return data !== null && data !== undefined && data !== '';
 };
+
+export const WIDTH = Dimensions.get('window').width;
+export const HEIGHT = Dimensions.get('window').height;
 
 export const createReducer = (initialState, handlers) => {
   return function reducer(state = initialState, action) {

@@ -16,6 +16,7 @@ import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
   {id: 0, name: 'New'},
@@ -87,7 +88,9 @@ const TVReleaseModal = (props) => {
               onFocus={() => setFocus(item.id)}
               style={item.id == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
+                numberOfLines={1}
                 style={{
+                  maxWidth: WIDTH * 0.25,
                   fontFamily: primary_regular_font.primary_regular_font,
                   fontSize: isAndroid() ? 15 : 30,
                   fontWeight: '400',

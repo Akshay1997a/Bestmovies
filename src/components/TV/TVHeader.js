@@ -12,6 +12,7 @@ import AppImages from 'src/assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const ICON_SIZE = 24;
 let [
@@ -60,8 +61,8 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         // {height: headerHeight == 0 ? StyleConfig.headerHeight + 10 : headerHeight},
       ]}>
       <Image
-        source={AppImages.BestMoviesBanner}
-        resizeMode={'center'}
+        source={AppImages.BestMovieLogo}
+        resizeMode={'contain'}
         style={styles.bannerIcon}
       />
       <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
@@ -84,7 +85,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             source={AppImages.icSearch}
           />
         </Pressable>
-        <Pressable
+        {/* <Pressable
           onFocus={() => onFocus(MY_LIST)}
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
@@ -106,15 +107,18 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             }>
             {t('texts.id_15')}
           </Text>
-        </Pressable>
+        </Pressable> */}
         <Pressable
           onFocus={() => onFocus(MOVIES)}
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' && focus == MOVIES
-              ? styles.itemWrapperSelected
-              : styles.itemWrapper
+            [
+              props.focus === 'header' && focus == MOVIES
+                ? styles.itemWrapperSelected
+                : styles.itemWrapper,
+              {maxWidth: WIDTH * 0.12},
+            ]
             // styles.itemWrapperSelected :
             // styles.itemWrapper
             // focus == MOVIES ?
@@ -122,6 +126,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             //  : styles.itemWrapper
           }>
           <Text
+            numberOfLines={1}
             style={
               props.focus === 'header' && focus == MOVIES
                 ? styles.focusText
@@ -138,9 +143,12 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' && focus == TV_SHOW
-              ? styles.itemWrapperSelected
-              : styles.itemWrapper
+            [
+              props.focus === 'header' && focus == TV_SHOW
+                ? styles.itemWrapperSelected
+                : styles.itemWrapper,
+              {maxWidth: WIDTH * 0.12},
+            ]
             // props.focus === 90 ?
             // styles.itemWrapper :
             // focus == TV_SHOW ?
@@ -151,6 +159,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             // ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
+            numberOfLines={1}
             style={
               props.focus === 'header' && focus == TV_SHOW
                 ? styles.focusText
@@ -178,9 +187,12 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            props.focus === 'header' && focus == SHORTS
-              ? styles.itemWrapperSelected
-              : styles.itemWrapper
+            [
+              props.focus === 'header' && focus == SHORTS
+                ? styles.itemWrapperSelected
+                : styles.itemWrapper,
+              {maxWidth: WIDTH * 0.12},
+            ]
             // props.focus === 90 ?
             // styles.itemWrapper :
             // focus == SHORTS ?
@@ -190,6 +202,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             // focus == SHORTS ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
+            numberOfLines={1}
             style={
               props.focus === 'header' && focus == SHORTS
                 ? styles.focusText
@@ -216,18 +229,14 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => onLocalChangeSelected()}
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
-          style={
+          style={[
             props.focus === 'header' && focus == DIRECTOR
               ? styles.itemWrapperSelected
-              : styles.itemWrapper
-            // props.focus === 90 ?
-            // styles.itemWrapper :
-            // focus == DIRECTOR ?
-            //  styles.itemWrapperSelected
-            //  : styles.itemWrapper
-            // focus == DIRECTOR ? styles.itemWrapperSelected : styles.itemWrapper
-          }>
+              : styles.itemWrapper,
+            {maxWidth: WIDTH * 0.12},
+          ]}>
           <Text
+            numberOfLines={1}
             style={
               props.focus === 'header' && focus == DIRECTOR
                 ? styles.focusText
@@ -254,34 +263,18 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => onLocalChangeSelected()}
           onPress={() => alert('Test')}
           tvParallaxProperties={{magnification: 1.1}}
-          style={
+          style={[
             props.focus === 'header' && focus == ACTOR
               ? styles.itemWrapperSelected
-              : styles.itemWrapper
-            // props.focus === 90 ||  props.focus === 100  ?
-            // styles.itemWrapper :
-            // focus == ACTOR ?
-            //  styles.itemWrapperSelected
-            //  : styles.itemWrapper
-            // focus == ACTOR ? styles.itemWrapperSelected : styles.itemWrapper
-          }>
+              : styles.itemWrapper,
+            {maxWidth: WIDTH * 0.12},
+          ]}>
           <Text
+            numberOfLines={1}
             style={
               props.focus === 'header' && focus == ACTOR
                 ? styles.focusText
                 : styles.text
-              // props.focus === 90 ||  props.focus === 100  ?
-              // styles.text :
-              // focus == ACTOR
-              //   ? styles.focusText
-              //   : selected == ACTOR
-              //   ? styles.selectedText
-              //   : styles.text
-              // focus == ACTOR
-              //   ? styles.focusText
-              //   : selected == ACTOR
-              //   ? styles.selectedText
-              //   : styles.text
             }>
             {t('texts.id_11')}
           </Text>
@@ -347,7 +340,7 @@ const styles = StyleSheet.create({
   },
   bannerIcon: {
     width: isAndroid() ? 110 : 210,
-    height: isAndroid() ? 110 / 2 : 210 / 2,
+    height: isAndroid() ? 110 / 2 : 170 / 2,
   },
   itemWrapperSelected: {
     justifyContent: 'center',
