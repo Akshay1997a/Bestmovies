@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import {StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
@@ -45,7 +46,6 @@ const styles = StyleSheet.create({
   highlight: {
     borderColor: '#1d3557',
     borderRadius: 20,
-    borderColor: 'green',
   },
   highlightFocused: {
     borderWidth: 5,

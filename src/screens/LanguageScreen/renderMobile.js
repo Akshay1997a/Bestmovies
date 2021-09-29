@@ -16,6 +16,7 @@ import {runTimeTranslations} from '../../i18n';
 import {getTranslateFile} from '../../network/requests';
 import i18n from 'i18next';
 import Loader from '../../components/Loader';
+import primary_regular_font from '../../helper/fonts';
 
 // import {Button} from '../Country';
 
@@ -545,7 +546,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

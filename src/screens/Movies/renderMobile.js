@@ -33,6 +33,7 @@ import {bindActionCreators} from 'redux';
 import {getTranslateFile} from '../../network/requests';
 import {runTimeTranslations} from '../../i18n';
 import {withTranslation} from 'react-i18next';
+import primary_regular_font from '../../helper/fonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -240,7 +241,7 @@ export class RenderMobile extends Component {
                   viewStyle === VIEW_STYLE.FULL_VIEW
                     ? {height: 450, width: window - 20, borderRadius: 8}
                     : {
-                        height: 250,
+                        height: 235,
                         width: window / 2 - 15,
                         borderTopRightRadius: 8,
                         borderTopLeftRadius: 8,
@@ -532,20 +533,12 @@ export class RenderMobile extends Component {
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
               height: 250,
-              borderRadius: 10,
+              borderRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
               elevation: 10,
             }}>
-            <Text
-              style={{
-                fontSize: 22,
-                color: '#FF3300',
-                fontWeight: '700',
-                padding: 5,
-              }}>
-              {t('texts.id_99')}
-            </Text>
+            <Text style={styles.soryByHead}>{t('texts.id_99')}</Text>
             <TouchableOpacity
               style={[
                 styles.filterBut,
@@ -555,7 +548,14 @@ export class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
-              <Text style={styles.modalText}>{t('texts.id_101')}</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_RATING
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                {t('texts.id_101')}
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -565,7 +565,14 @@ export class RenderMobile extends Component {
                   styles.filterSelected,
               ]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
-              <Text style={styles.modalText}>{t('texts.id_103')}</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_MATCH
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                {t('texts.id_103')}
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -577,7 +584,14 @@ export class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
-              <Text style={styles.modalText}>{t('texts.id_105')}</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                {t('texts.id_105')}
+              </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
             <TouchableOpacity
@@ -589,7 +603,14 @@ export class RenderMobile extends Component {
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
               }>
-              <Text style={styles.modalText}>{t('texts.id_107')}</Text>
+              <Text
+                style={
+                  selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR
+                    ? styles.modalTextSelected
+                    : styles.modalText
+                }>
+                {t('texts.id_107')}
+              </Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -761,7 +782,7 @@ export default withTranslation()(
 const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -773,8 +794,22 @@ const styles = StyleSheet.create({
     height: 1,
   },
   modalText: {
-    fontSize: 18,
     padding: 10,
+    fontFamily: 'VAG Rounded Next Regular',
+    color: '#000',
+    fontSize: 20,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
+  },
+  modalTextSelected: {
+    padding: 10,
+    fontFamily: 'VAG Rounded Next Bold',
+    color: '#fff',
+    fontSize: 20,
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   shadow: {
     borderColor: 'red',
@@ -786,7 +821,7 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 14,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -831,7 +866,7 @@ const styles = StyleSheet.create({
   },
   resultText: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -840,7 +875,7 @@ const styles = StyleSheet.create({
   },
   sortbyButText: {
     color: '#000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 14,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
@@ -881,10 +916,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: 'gray',
-    opacity: 0.2,
+    opacity: 0.1,
   },
   filterBut: {
-    width: '90%',
+    width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -895,5 +930,14 @@ const styles = StyleSheet.create({
   },
   filterSelectedText: {
     color: '#fff',
+  },
+  soryByHead: {
+    padding: 5,
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: 22,
+    color: '#ff3300',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
 });

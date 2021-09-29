@@ -17,6 +17,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
 import FA5 from 'react-native-vector-icons/FontAwesome5';
+import FA from 'react-native-vector-icons/FontAwesome';
 import {useAnimationProvider} from '../Providers/CollapsibleHeaderProvider';
 import {SearchTitle} from './SearchBar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -30,7 +31,6 @@ export const TAB_BAR_HEIGHT = 40;
 export const TOTAL_HEADER_HEIGHT = HEADER_HEIGHT + TAB_BAR_HEIGHT;
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
-
 export const HEADER_TYPE = {
   DEFAULT: 'DEFAULT',
   SEARCH_BAR: 'SEARCH_BAR',
@@ -100,6 +100,7 @@ const DefaultHeader = ({navigate}) => {
           style={{width: 130, height: 83, resizeMode: 'center'}}
         />
       </TouchableOpacity>
+      <View style={{height: 50}} />
       <TouchableOpacity onPress={() => navigate('Filter')}>
         <View style={{position: 'relative'}}>
           <Image
@@ -113,7 +114,7 @@ const DefaultHeader = ({navigate}) => {
         <Icon name="ios-search" size={25} color="#232323" />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigate('Profile')}>
-        <FA5 name="user" size={25} color="#232323" />
+        <FA name="user" size={25} color="#232323" />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigate('MenusList')}>
         <Icons name="dots-three-vertical" size={25} color="#232323" />

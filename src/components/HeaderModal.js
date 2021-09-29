@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import primary_regular_font from '../helper/fonts';
 
 export default function HeaderModal(props) {
   const inset = useSafeAreaInsets();
@@ -38,12 +39,14 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#FF3300',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 22,
     fontStyle: 'normal',
-    fontWeight: '700',
     marginHorizontal: 70,
     textAlign: 'center',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
   closeBut: {
     position: 'absolute',

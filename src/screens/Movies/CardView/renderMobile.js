@@ -9,9 +9,11 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
+  Platform,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Entypo';
-// import {SafeAreaView} from 'react-native-safe-area-context'
+import Inocons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import RatingComponent from '../../../svgs/RatingComponent';
 
 const DATA = [
   {
@@ -59,70 +61,104 @@ export class RenderMobile extends Component {
       screen,
     };
   }
-  renderItemComponent = (data) => (
-    <View style={styles.cardContainer}>
-      <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
-        <Icon
-          name="bookmark"
-          size={40}
-          color="green"
-          style={{position: 'absolute', top: -4, left: 30}}
-        />
-      </TouchableOpacity>
-      <Image
-        source={data.image}
+  renderItemComponent = (data) => {
+    // const {navigate} = this.props.navigation;
+    // const goToMovieDetails = () => {
+    //   navigate('MovieDetails');
+    // };
+    return (
+      <View
         style={{
-          width: window / 2.2,
-          height: 250,
-          resizeMode: 'cover',
-          borderTopRightRadius: 12,
-          borderTopLeftRadius: 12,
-        }}
-      />
-      <View style={{width: window / 2.1, padding: 10}}>
-        <Text style={styles.textFont}>Portrait of a leady of fire</Text>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          flex: 0,
+          justifyContent: 'center',
+          borderRadius: 8,
+          overflow: 'hidden',
+          borderWidth: 1,
+          borderColor: '#fff',
+          backgroundColor: '#fff',
+          elevation: 5,
+          shadowOffset: {width: 0, height: 2},
+          shadowOpacity: 0.25,
+          shadowColor: '#000',
+          shadowRadius: 3.84,
+        }}>
+        <TouchableOpacity>
           <View>
-            <Text style={styles.textSecondary}>Action, Thriller</Text>
-            <Text numberOfLines={1} style={styles.textSecondary}>
-              US - 2016
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={(styles.textSecondary, {color: '#000'})}>
-              2.99 € - 78% Match
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'space-evenly',
-              alignItems: 'center',
-            }}>
+            <View style={{justifyContent: 'center'}}>
+              <TouchableOpacity style={{elevation: 1}}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: -10,
+                    right: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 5000,
+                  }}>
+                  <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
+                  <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
+                </View>
+              </TouchableOpacity>
+              <Image
+                style={{
+                  height: 250,
+                  width: window / 2 - 15,
+                  borderTopRightRadius: 8,
+                  borderTopLeftRadius: 8,
+                }}
+                source={data.image}
+              />
+              <View
+                style={{
+                  position: 'absolute',
+                  top: screen / 2.5,
+                  flexWrap: 'wrap',
+                  left: window / 6,
+                }}>
+                <Text
+                  allowFontScaling={true}
+                  numberOfLines={2}
+                  style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
+                  {data.name}
+                </Text>
+              </View>
+            </View>
+            <View style={{paddingTop: 5, paddingHorizontal: 5}}>
+              <Text style={styles.textFont}>Parasite</Text>
+            </View>
             <View
               style={{
-                backgroundColor: '#0466B0',
-                borderWidth: 0,
-                height: 30,
-                width: 50,
-                borderRadius: 1000,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 0,
+                flexDirection: 'row',
+                paddingHorizontal: 5,
+                paddingBottom: 5,
               }}>
-              <Text style={(styles.ratingTitleStyle, {color: '#fff'})}>
-                7.8
-              </Text>
+              <View style={{flex: 1}}>
+                <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={[styles.textSecondary]}>
+                    2016 - US - 17{' '}
+                    <AntDesign name="like1" color="#35B736" size={13} />
+                  </Text>
+                  <RatingComponent rating={9.2} />
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
-    </View>
-  );
+    );
+  };
 
   render() {
     return (
-      <SafeAreaView style={{width: window - 20, marginRight: 10}}>
+      <SafeAreaView style={{width: window - 20}}>
         <FlatList
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
@@ -136,6 +172,10 @@ export class RenderMobile extends Component {
           renderItem={({item}) => this.renderItemComponent(item)}
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
+          columnWrapperStyle={{
+            marginTop: 10,
+            justifyContent: 'space-between',
+          }}
         />
       </SafeAreaView>
     );

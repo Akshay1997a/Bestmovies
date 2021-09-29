@@ -1,7 +1,14 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {StyleSheet, TouchableOpacity, TextInput, View} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  View,
+  Platform,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import primary_regular_font from '../helper/fonts';
 
 export default function SearchBar(props) {
   return (
@@ -60,8 +67,10 @@ const styles = StyleSheet.create({
   inputStyle: {
     flex: 1,
     color: '#999999',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 20,
-    fontWeight: '400',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
   },
 });

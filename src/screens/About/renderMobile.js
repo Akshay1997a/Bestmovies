@@ -14,6 +14,7 @@ import Header, {
 } from '../../components/Header';
 import Loader from '../../components/Loader';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import primary_regular_font from '../../helper/fonts';
 
 export default function RenderMobile() {
   const [isLoaded, setLoaded] = useState(false);
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
   heading: {
     color: '#333333',
     fontSize: 18.67,
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '500',
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
   },
   heading2: {
     color: '#333333',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 16,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

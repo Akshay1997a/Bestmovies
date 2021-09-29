@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import SearchBar from '../../../components/SearchBar';
 import {COUNTRIES_LIST} from '../../../config/CountriesList';
@@ -16,6 +17,7 @@ import {connect} from 'react-redux';
 import {withTranslation} from 'react-i18next';
 import i18next from 'i18next';
 import {isNotEmpty} from '../../../helper/globalFunctions';
+import primary_regular_font from '../../../helper/fonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -116,12 +118,16 @@ export class RenderMobile extends Component {
                 <View style={[highlighted && {marginLeft: 0}]} />
               ))
             }
-            data={this.state.countryData}
+            data={
+              filtereddCountries.length > 0
+                ? filtereddCountries
+                : COUNTRIES_LIST
+            }
             renderItem={({item, index}) => {
               return (
                 <Button
-                  title={item?.[1]}
-                  isActive={selectedCountries.includes(item?.[1])}
+                  title={item.name}
+                  isActive={selectedCountries.includes(item.name)}
                   onPress={(name) => this.selectUnselectCountry(name)}
                 />
               );
@@ -175,7 +181,7 @@ const styles = StyleSheet.create({
   },
   butTitle: {
     color: '#000000',
-    fontFamily: 'VAG Rounded Next',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: 20,
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {

@@ -7,13 +7,16 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import About from '../screens/About';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Header, {HEADER_HEIGHT, HEADER_TYPE} from '../components/Header';
-import {Animated, StyleSheet, Dimensions} from 'react-native';
+import {Animated, StyleSheet, Dimensions, Platform} from 'react-native';
 import {
   AnimationContext,
   useAnimationProvider,
 } from '../Providers/CollapsibleHeaderProvider';
 import Search from '../screens/Search';
 import {useTranslation} from 'react-i18next';
+import primary_regular_font from '../helper/fonts';
+
+const isAndroid = () => Platform.OS === 'android';
 
 const HEIGHT = Dimensions.get('screen').height;
 export const TopBarContext = React.createContext(null);
@@ -47,10 +50,12 @@ export function TopBarMainNavigator(props) {
         activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
         labelStyle: {
-          fontWeight: '700',
           fontSize: 14,
           color: '#000',
-          fontFamily: 'vag rounded next',
+          fontFamily: primary_regular_font.primary_regular_font,
+          ...(!isAndroid() && {
+            fontWeight: '400',
+          }),
         },
         tabStyle: {padding: 0},
       }}>
@@ -61,8 +66,8 @@ export function TopBarMainNavigator(props) {
         options={{title: 'TV shows'}}
       />
       <Tab.Screen name={t('texts.id_6')} component={MoviesStack} />
-      <Tab.Screen name={t('texts.id_8')} component={Directors} />
-      <Tab.Screen name={t('texts.id_11')} component={Directors} />
+      <Tab.Screen name={t('texts.id_8')} component={MoviesStack} />
+      <Tab.Screen name={t('texts.id_11')} component={MoviesStack} />
     </Tab.Navigator>
   );
 }
@@ -89,9 +94,9 @@ export function TopBarSearchNavigator(props) {
         labelStyle: {
           fontSize: 14,
           color: '#000',
-          fontFamily: 'VAG Rounded Next',
-          ...(Platform.OS === 'ios' && {
-            fontWeight: '700',
+          fontFamily: primary_regular_font.primary_regular_font,
+          ...(!isAndroid() && {
+            fontWeight: '400',
           }),
         },
         tabStyle: {padding: 0},
@@ -117,10 +122,12 @@ export function TopBarSecondaryNavigator(props) {
         activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
         labelStyle: {
-          fontWeight: '700',
           fontSize: 14,
           color: '#000',
-          fontFamily: 'VAG Rounded Next',
+          fontFamily: primary_regular_font.primary_regular_font,
+          ...(!isAndroid() && {
+            fontWeight: '400',
+          }),
         },
         tabStyle: {padding: 0},
       }}>
