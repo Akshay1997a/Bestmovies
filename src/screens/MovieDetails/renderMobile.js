@@ -255,282 +255,341 @@ class RenderMobile extends Component {
     };
 
     return (
-      <View
-        style={{
-          flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
-          justifyContent: 'center',
-          borderRadius: 15,
-          ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
-            borderWidth: 1,
-            borderColor: '#fff',
-            backgroundColor: '#fff',
-            elevation: 5,
-          }),
+      <Animated.ScrollView
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: this.props.scrollContext,
+                },
+              },
+            },
+          ],
+          {useNativeDriver: true}, // Add this line
+        )}
+        horizontal={false}
+        scrollEventThrottle={16}
+        automaticallyAdjustContentInsets={true}
+        bounces={false}
+        contentContainerStyle={{
+          // padding: 10,
+          paddingTop: TOTAL_HEADER_HEIGHT,
         }}>
-        <View style={{justifyContent: 'center'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10,
+            paddingHorizontal: 10,
+          }}>
+          <View style={{flex: 3, flexDirection: 'row'}}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+              <FontAwesome5Icon
+                name="angle-left"
+                size={23}
+                style={{marginRight: 10}}
+              />
+            </TouchableOpacity>
+            <Text style={styles.resultText}>Rating of best movies</Text>
+          </View>
           <TouchableOpacity
-            onPress={() => alert('heekk')}
-            style={{elevation: 1}}>
+            style={{
+              alignItems: 'flex-end',
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              this.setState({modalVisible: true});
+            }}>
+            <Text style={styles.sortbyButText}>Rating</Text>
+            <Icon name="chevron-down" size={20} color="#232323" />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
+            justifyContent: 'center',
+            borderRadius: 15,
+            ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
+              borderWidth: 1,
+              borderColor: '#fff',
+              backgroundColor: '#fff',
+              elevation: 5,
+            }),
+          }}>
+          <View style={{justifyContent: 'center'}}>
+            <TouchableOpacity
+              onPress={() => alert('heekk')}
+              style={{elevation: 1}}>
+              <View
+                style={{
+                  position: 'absolute',
+                  top: -10,
+                  right: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
+                <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
+              </View>
+            </TouchableOpacity>
+            {!this.state.isIntroTipVisible &&
+              viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <TouchableOpacity
+                  style={{
+                    elevation: 1,
+                    position: 'absolute',
+                    top: 200,
+                    left: window / 2 - 30,
+                    zIndex: 1000,
+                  }}
+                  onPress={playVideo}>
+                  <Icons name="play-circle" size={50} color="white" />
+                </TouchableOpacity>
+              )}
+            <Image
+              style={
+                viewStyle === VIEW_STYLE.FULL_VIEW
+                  ? {height: 495, width: window}
+                  : {
+                      height: 250,
+                    }
+              }
+              source={data.image}
+              onLoadEnd={() => {
+                this.showTip();
+              }}
+            />
             <View
               style={{
                 position: 'absolute',
-                top: -10,
-                right: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
+                top: screen / 2.5,
+                flexWrap: 'wrap',
+                left: window / 6,
               }}>
-              <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
-              <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
-            </View>
-          </TouchableOpacity>
-          {!this.state.isIntroTipVisible && viewStyle === VIEW_STYLE.FULL_VIEW && (
-            <TouchableOpacity
-              style={{
-                elevation: 1,
-                position: 'absolute',
-                top: 200,
-                left: window / 2 - 30,
-                zIndex: 1000,
-              }}
-              onPress={playVideo}>
-              <Icons name="play-circle" size={50} color="white" />
-            </TouchableOpacity>
-          )}
-          <Image
-            style={
-              viewStyle === VIEW_STYLE.FULL_VIEW
-                ? {height: 495, width: window}
-                : {
-                    height: 250,
-                  }
-            }
-            source={data.image}
-            onLoadEnd={() => {
-              this.showTip();
-            }}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              top: screen / 2.5,
-              flexWrap: 'wrap',
-              left: window / 6,
-            }}>
-            <Text
-              allowFontScaling={true}
-              numberOfLines={2}
-              style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
-              {data.name}
-            </Text>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row', padding: 10}}>
-          <View style={{flex: 5}}>
-            <Text style={styles.textFont}>Parasite</Text>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <Text style={[styles.textSecondary]}>
-                Parasite(Original title)
+              <Text
+                allowFontScaling={true}
+                numberOfLines={2}
+                style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
+                {data.name}
               </Text>
-            )}
-            <View style={{height: 10}} />
-            <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+            </View>
+          </View>
+          <View style={{flexDirection: 'row', padding: 10}}>
+            <View style={{flex: 5}}>
+              <Text style={styles.textFont}>Parasite</Text>
+              {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <Text style={[styles.textSecondary]}>
+                  Parasite(Original title)
+                </Text>
+              )}
+              <View style={{height: 10}} />
+              <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
+              {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.textSecondary}>
+                    2016 - US - 17{' '}
+                    <AntDesign name="like1" color="#35B736" size={18} />
+                  </Text>
+                </View>
+              )}
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecondary}>
-                  2016 - US - 17{' '}
-                  <AntDesign name="like1" color="#35B736" size={18} />
+                <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
+                <TouchableOpacity>
+                  <Icon name="heart-outlined" size={20} color="#232323" />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'space-evenly',
+                alignItems: 'flex-end',
+              }}>
+              {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <TouchableOpacity onPress={onShare}>
+                  <Icon
+                    name="reply"
+                    size={24}
+                    color="#232323"
+                    style={{transform: [{rotateY: '180deg'}]}}
+                  />
+                </TouchableOpacity>
+              )}
+
+              <View
+                style={{
+                  alignItems: 'center',
+                }}>
+                <RatingComponent size="lg" rating={'9.2'} />
+                <Text
+                  style={{
+                    fontSize: 14.67,
+                    fontFamily: primary_regular_font.primary_bold_font,
+                    ...(Platform.OS === 'ios' && {
+                      fontWeight: '700',
+                    }),
+                  }}>
+                  Best
                 </Text>
               </View>
-            )}
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
-              <TouchableOpacity>
-                <Icon name="heart-outlined" size={20} color="#232323" />
-              </TouchableOpacity>
             </View>
           </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'space-evenly',
-              alignItems: 'flex-end',
-            }}>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <TouchableOpacity onPress={onShare}>
-                <Icon
-                  name="reply"
-                  size={24}
-                  color="#232323"
-                  style={{transform: [{rotateY: '180deg'}]}}
-                />
-              </TouchableOpacity>
-            )}
-
-            <View
-              style={{
-                alignItems: 'center',
-              }}>
-              <RatingComponent size="lg" rating={'9.2'} />
-              <Text
-                style={{
-                  fontSize: 14.67,
-                  fontFamily: primary_regular_font.primary_bold_font,
-                  ...(Platform.OS === 'ios' && {
-                    fontWeight: '700',
-                  }),
-                }}>
-                Best
-              </Text>
+          {viewStyle === VIEW_STYLE.FULL_VIEW && (
+            <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
+              <View>
+                <Text style={styles.textFont}>Plot</Text>
+                <Text style={styles.textDesc}>
+                  Greed and class discrimination threaten the newly formed
+                  symbiotic relationship between the wealthy Park family and the
+                  destitute Kim clan. Their adventures unfurl in three stories
+                  that ingeniously trip back and forth in time.
+                </Text>
+              </View>
+              <View style={{marginTop: 11}}>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.textFont}>Director </Text>
+                  <Text style={styles.textFont}>Cast</Text>
+                </View>
+                <ScrollView
+                  horizontal={true}
+                  nestedScrollEnabled={true}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={{height: 152}}>
+                  {DATA.map((item, index) => this.rendeDirector(item, index))}
+                </ScrollView>
+              </View>
+              {/* For the Rating */}
+              <View style={{marginTop: 11}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={styles.textFont}>Rating</Text>
+                </View>
+                <View
+                  style={{
+                    borderWidth: 2,
+                    borderColor: '#4183E2',
+                    borderRadius: 10,
+                    flexDirection: 'row',
+                    backgroundColor: '#EAF2FF',
+                    overflow: 'hidden',
+                  }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      padding: 6,
+                      borderRightWidth: 2,
+                      borderColor: '#4183E2',
+                    }}>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Awards</Text>
+                        <Text style={styles.textSecondary}>9.3</Text>
+                      </View>
+                    </View>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Critics</Text>
+                        <Text style={styles.textSecondary}>9.5</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{flex: 1, padding: 6}}>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Audience</Text>
+                        <Text style={styles.textSecondary}>9.0</Text>
+                      </View>
+                    </View>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Box-Office</Text>
+                        <Text style={styles.textSecondary}>8.1</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{justifyContent: 'space-between'}}>
+                    <SVGTriangleTop />
+                    <SVGTriangleBottom />
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.4,
+                      backgroundColor: '#4183E2',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={styles.ratingText}>9.2</Text>
+                  </View>
+                </View>
+                <Text style={styles.textSecondary}>
+                  Won 2 oscars including best director
+                </Text>
+                <Text style={styles.textSecondary}>
+                  Won 2 oscars including best director
+                </Text>
+              </View>
+              {/* For the watch now flatlist */}
+              <View style={{marginTop: 25}}>
+                <Text style={styles.textFont}>Watch now</Text>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {PROVIDER_DATA.map((item, index) =>
+                    this.renderProviderComponent(item),
+                  )}
+                </View>
+              </View>
+              <View style={{marginTop: 25}}>
+                <Text style={styles.textFont}>Images</Text>
+                <Text />
+                <View style={{alignItems: 'center'}}>
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                </View>
+              </View>
             </View>
+          )}
+        </View>
+        <View style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
+          <Text style={styles.textFont}>Similer title</Text>
+          <View style={{flex: 1, alignItems: 'center'}}>
+            <CardView />
           </View>
         </View>
-        {viewStyle === VIEW_STYLE.FULL_VIEW && (
-          <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
-            <View>
-              <Text style={styles.textFont}>Plot</Text>
-              <Text style={styles.textDesc}>
-                Greed and class discrimination threaten the newly formed
-                symbiotic relationship between the wealthy Park family and the
-                destitute Kim clan. Their adventures unfurl in three stories
-                that ingeniously trip back and forth in time.
-              </Text>
-            </View>
-            <View style={{marginTop: 11}}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textFont}>Director </Text>
-                <Text style={styles.textFont}>Cast</Text>
-              </View>
-              <ScrollView
-                horizontal={true}
-                nestedScrollEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{height: 152}}>
-                {DATA.map((item, index) => this.rendeDirector(item, index))}
-              </ScrollView>
-            </View>
-            {/* For the Rating */}
-            <View style={{marginTop: 11}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={styles.textFont}>Rating</Text>
-              </View>
-              <View
-                style={{
-                  borderWidth: 2,
-                  borderColor: '#4183E2',
-                  borderRadius: 10,
-                  flexDirection: 'row',
-                  backgroundColor: '#EAF2FF',
-                  overflow: 'hidden',
-                }}>
-                <View
-                  style={{
-                    flex: 1,
-                    padding: 6,
-                    borderRightWidth: 2,
-                    borderColor: '#4183E2',
-                  }}>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Awards</Text>
-                      <Text style={styles.textSecondary}>9.3</Text>
-                    </View>
-                  </View>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Critics</Text>
-                      <Text style={styles.textSecondary}>9.5</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={{flex: 1, padding: 6}}>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Audience</Text>
-                      <Text style={styles.textSecondary}>9.0</Text>
-                    </View>
-                  </View>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Box-Office</Text>
-                      <Text style={styles.textSecondary}>8.1</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={{justifyContent: 'space-between'}}>
-                  <SVGTriangleTop />
-                  <SVGTriangleBottom />
-                </View>
-                <View
-                  style={{
-                    flex: 0.4,
-                    backgroundColor: '#4183E2',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={styles.ratingText}>9.2</Text>
-                </View>
-              </View>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
-            </View>
-            {/* For the watch now flatlist */}
-            <View style={{marginTop: 25}}>
-              <Text style={styles.textFont}>Watch now</Text>
-              <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                {PROVIDER_DATA.map((item, index) =>
-                  this.renderProviderComponent(item),
-                )}
-              </View>
-            </View>
-            <View style={{marginTop: 25}}>
-              <Text style={styles.textFont}>Images</Text>
-              <Text />
-              <View style={{alignItems: 'center'}}>
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-              </View>
-            </View>
-          </View>
-        )}
-      </View>
+      </Animated.ScrollView>
     );
   };
   render() {
@@ -574,7 +633,7 @@ class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: 250,
+              height: 280,
               borderRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
@@ -746,81 +805,24 @@ class RenderMobile extends Component {
           </View>
         </Modal>
         <SafeAreaView style={{flex: 1}}>
-          <Animated.ScrollView
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: {
-                    contentOffset: {
-                      y: this.props.scrollContext,
-                    },
-                  },
-                },
-              ],
-              {useNativeDriver: true}, // Add this line
-            )}
-            horizontal={false}
-            scrollEventThrottle={16}
-            automaticallyAdjustContentInsets={true}
-            bounces={false}
-            contentContainerStyle={{
-              // padding: 10,
-              paddingTop: TOTAL_HEADER_HEIGHT,
-            }}>
-            <View style={{flex: 1, marginTop: 5}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginBottom: 10,
-                  paddingHorizontal: 10,
-                }}>
-                <View style={{flex: 3, flexDirection: 'row'}}>
-                  <TouchableOpacity
-                    onPress={() => this.props.navigation.goBack()}>
-                    <FontAwesome5Icon
-                      name="angle-left"
-                      size={23}
-                      style={{marginRight: 10}}
-                    />
-                  </TouchableOpacity>
-                  <Text style={styles.resultText}>Rating of best movies</Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    alignItems: 'flex-end',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}
-                  onPress={() => {
-                    this.setState({modalVisible: true});
-                  }}>
-                  <Text style={styles.sortbyButText}>Rating</Text>
-                  <Icon name="chevron-down" size={20} color="#232323" />
-                </TouchableOpacity>
-              </View>
-              <View style={{flex: 1}}>
-                <FlatList
-                  scrollEnabled={this.state.parentScroll}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}
-                  data={DATA}
-                  renderItem={({item}) => this.moviewPoster(item)}
-                  keyExtractor={(item) => item.id}
-                  // ItemSeparatorComponent={() => <View style={{width: 10}} />}
-                  // nestedScrollEnabled={true}
-                  pagingEnabled={true}
-                />
-              </View>
+          <View style={{flex: 1, marginTop: 5}}>
+            <View style={{flex: 1}}>
+              <FlatList
+                scrollEnabled={this.state.parentScroll}
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                data={DATA}
+                renderItem={({item}) => this.moviewPoster(item)}
+                keyExtractor={(item) => item.id}
+                // ItemSeparatorComponent={() => <View style={{width: 10}} />}
+                // nestedScrollEnabled={true}
+                pagingEnabled={true}
+                onMomentumScrollEnd={() => {
+                  this.props.reset();
+                }}
+              />
             </View>
-            <View
-              style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
-              <Text style={styles.textFont}>Similer title</Text>
-              <View style={{flex: 1, alignItems: 'center'}}>
-                <CardView />
-              </View>
-            </View>
-          </Animated.ScrollView>
+          </View>
         </SafeAreaView>
       </View>
     );

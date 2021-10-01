@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   Platform,
@@ -21,10 +21,79 @@ const WIDTH = Dimensions.get('window').width;
 
 export default function RenderMobile(props) {
   let {t} = useTranslation();
+  const [from, setFrom] = useState();
+  const [to, setTo] = useState();
   const year = useSelector((state) => state.filterConfig.year);
   const dispatch = useDispatch();
 
   const setYear = ({type, from, to}) => dispatch(updateYear({type, from, to}));
+
+  const getFromDate = () => {
+    let toDate = new Date();
+    let fromDate;
+    if (year.type === YEARS_TYPE.LAST_WEEK) {
+      fromDate = new Date(
+        toDate.getFullYear(),
+        toDate.getMonth(),
+        toDate.getDate() - 7,
+      );
+    } else if (year.type === YEARS_TYPE.LAST_MONTH) {
+      fromDate = new Date(
+        toDate.getFullYear(),
+        toDate.getMonth() - 1,
+        toDate.getDate(),
+      );
+    } else if (year.type === YEARS_TYPE.LAST_3_MONTH) {
+      fromDate = new Date(
+        toDate.getFullYear(),
+        toDate.getMonth() - 3,
+        toDate.getDate(),
+      );
+    } else if (year.type === YEARS_TYPE.LAST_YEAR) {
+      fromDate = new Date(
+        toDate.getFullYear() - 1,
+        toDate.getMonth(),
+        toDate.getDate(),
+      );
+    } else if (year.type === YEARS_TYPE.LAST_2_YEARS) {
+      fromDate = new Date(
+        toDate.getFullYear() - 2,
+        toDate.getMonth(),
+        toDate.getDate(),
+      );
+    } else if (year.type === YEARS_TYPE.LAST_5_YEARS) {
+      fromDate = new Date(
+        toDate.getFullYear() - 5,
+        toDate.getMonth(),
+        toDate.getDate(),
+      );
+    } else if (year.type === YEARS_TYPE.LAST_10_YEARS) {
+      fromDate = new Date(
+        toDate.getFullYear() - 10,
+        toDate.getMonth(),
+        toDate.getDate(),
+      );
+    } else if (year.type === YEARS_TYPE.LAST_25_YEARS) {
+      fromDate = new Date(
+        toDate.getFullYear() - 25,
+        toDate.getMonth(),
+        toDate.getDate(),
+      );
+    } else if (year.type === YEARS_TYPE.LAST_50_YEARS) {
+      fromDate = new Date(
+        toDate.getFullYear() - 50,
+        toDate.getMonth(),
+        toDate.getDate(),
+      );
+    } else {
+      fromDate = new Date(
+        toDate.getFullYear() - 50,
+        toDate.getMonth(),
+        toDate.getDate(),
+      );
+    }
+    return fromDate;
+  };
 
   return (
     <View style={styles.container}>
@@ -38,7 +107,11 @@ export default function RenderMobile(props) {
         <Button
           title="Last week"
           isActive={year.type === YEARS_TYPE.LAST_WEEK}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_WEEK})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_WEEK});
+            setFrom(new Date());
+            setTo(new Date());
+          }}
         />
         <Button
           title={t('texts.id_118')}
@@ -84,11 +157,17 @@ export default function RenderMobile(props) {
           <MultiSlider
             sliderLength={WIDTH - 40}
             values={[0, 10]}
-            min={0}
-            max={10}
+            min={1}
+            max={9}
             step={1}
             allowOverlap
             snapped
+            markerStyle={{backgroundColor: '#CCCCCC', width: 25, height: 25}}
+            trackStyle={{backgroundColor: '#CCCCCC'}}
+            selectedStyle={{
+              backgroundColor: '#CCCCCC',
+              height: 3,
+            }}
           />
           <View style={{height: 20}} />
           <View style={styles.row}>
@@ -96,12 +175,14 @@ export default function RenderMobile(props) {
               style={styles.textInputStyle}
               placeholder="from"
               textAlign="center"
+              value={getFromDate().toDateString()}
             />
             <View style={{width: 20}} />
             <TextInput
               style={styles.textInputStyle}
               placeholder="to"
               textAlign="center"
+              value={new Date().toDateString()}
             />
           </View>
         </View>

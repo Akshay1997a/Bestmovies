@@ -105,8 +105,8 @@ export class RenderMobile extends Component {
             renderItem={({item, index}) => {
               return (
                 <Button
-                  title={item?.[1]}
-                  isActive={selectedCountries.includes(item?.[1])}
+                  title={item?.name}
+                  isActive={selectedCountries.includes(item?.name)}
                   onPress={(name) => this.selectUnselectCountry(name)}
                 />
               );

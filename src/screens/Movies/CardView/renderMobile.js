@@ -72,7 +72,6 @@ export class RenderMobile extends Component {
           flex: 0,
           justifyContent: 'center',
           borderRadius: 8,
-          overflow: 'hidden',
           borderWidth: 1,
           borderColor: '#fff',
           backgroundColor: '#fff',

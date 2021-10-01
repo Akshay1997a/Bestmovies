@@ -191,7 +191,6 @@ export class RenderMobile extends Component {
           flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
           justifyContent: 'center',
           borderRadius: 8,
-          overflow: 'hidden',
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
             borderColor: '#fff',
@@ -532,7 +531,7 @@ export class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: 250,
+              height: 280,
               borderRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,

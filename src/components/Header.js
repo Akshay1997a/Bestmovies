@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Platform,
   Dimensions,
+  Easing,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -236,7 +237,8 @@ export function useCollapsibleHeader() {
   const reset = () => {
     Animated.timing(scrollY, {
       toValue: 0,
-      duration: 200,
+      duration: 100,
+      easing: Easing.linear,
       useNativeDriver: true,
     }).start();
   };
@@ -260,7 +262,7 @@ export function useCollapsibleHeader() {
 
 export function useCollapsibleHeaderHOC(WrappedComponent) {
   return (props) => {
-    const {onScrollY} = useCollapsibleHeader();
+    const {onScrollY, reset} = useCollapsibleHeader();
     const scrollContext = useAnimationProvider();
 
     return (
@@ -268,6 +270,7 @@ export function useCollapsibleHeaderHOC(WrappedComponent) {
         {...props}
         onScrollY={onScrollY}
         scrollContext={scrollContext}
+        reset={reset}
       />
     );
   };
