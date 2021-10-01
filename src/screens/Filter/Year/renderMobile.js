@@ -21,14 +21,14 @@ const WIDTH = Dimensions.get('window').width;
 
 export default function RenderMobile(props) {
   let {t} = useTranslation();
-  const [from, setFrom] = useState();
-  const [to, setTo] = useState();
+  const [from, setFrom] = useState(new Date());
+  const [to, setTo] = useState(new Date());
   const year = useSelector((state) => state.filterConfig.year);
   const dispatch = useDispatch();
 
   const setYear = ({type, from, to}) => dispatch(updateYear({type, from, to}));
 
-  const getFromDate = () => {
+  const setFromDate = () => {
     let toDate = new Date();
     let fromDate;
     if (year.type === YEARS_TYPE.LAST_WEEK) {
@@ -92,7 +92,7 @@ export default function RenderMobile(props) {
         toDate.getDate(),
       );
     }
-    return fromDate;
+    setFrom(fromDate);
   };
 
   return (
@@ -102,63 +102,89 @@ export default function RenderMobile(props) {
         <Button
           title={t('texts.id_172')}
           isActive={year.type === YEARS_TYPE.ANY}
-          onPress={() => setYear({type: YEARS_TYPE.ANY})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.ANY});
+            setFromDate();
+          }}
         />
         <Button
           title="Last week"
           isActive={year.type === YEARS_TYPE.LAST_WEEK}
           onPress={() => {
             setYear({type: YEARS_TYPE.LAST_WEEK});
-            setFrom(new Date());
-            setTo(new Date());
+            setFromDate();
           }}
         />
         <Button
           title={t('texts.id_118')}
           isActive={year.type === YEARS_TYPE.LAST_MONTH}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_MONTH})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_MONTH});
+            setFromDate();
+          }}
         />
         <Button
           title={t('texts.id_119')}
           isActive={year.type === YEARS_TYPE.LAST_3_MONTH}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_3_MONTH})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_3_MONTH});
+            setFromDate();
+          }}
         />
         <Button
           title={t('texts.id_121')}
           isActive={year.type === YEARS_TYPE.LAST_YEAR}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_YEAR})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_YEAR});
+            setFromDate();
+          }}
         />
         <Button
           title={t('texts.id_122')}
           isActive={year.type === YEARS_TYPE.LAST_2_YEARS}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_2_YEARS})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_2_YEARS});
+            setFromDate();
+          }}
         />
         <Button
           title={t('texts.id_123')}
           isActive={year.type === YEARS_TYPE.LAST_5_YEARS}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_5_YEARS})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_5_YEARS});
+            setFromDate();
+          }}
         />
         <Button
           title={t('texts.id_124')}
           isActive={year.type === YEARS_TYPE.LAST_10_YEARS}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_10_YEARS})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_10_YEARS});
+            setFromDate();
+          }}
         />
         <Button
           title={t('texts.id_125')}
           isActive={year.type === YEARS_TYPE.LAST_25_YEARS}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_25_YEARS})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_25_YEARS});
+            setFromDate();
+          }}
         />
         <Button
           title={t('texts.id_126')}
           isActive={year.type === YEARS_TYPE.LAST_50_YEARS}
-          onPress={() => setYear({type: YEARS_TYPE.LAST_50_YEARS})}
+          onPress={() => {
+            setYear({type: YEARS_TYPE.LAST_50_YEARS});
+            setFromDate();
+          }}
         />
         <View style={styles.SliderContainer}>
           <MultiSlider
             sliderLength={WIDTH - 40}
-            values={[0, 10]}
-            min={1}
-            max={9}
+            values={[1950, new Date().getFullYear()]}
+            min={1950}
+            max={new Date().getFullYear()}
             step={1}
             allowOverlap
             snapped
@@ -168,6 +194,10 @@ export default function RenderMobile(props) {
               backgroundColor: '#CCCCCC',
               height: 3,
             }}
+            onValuesChange={(values) => {
+              setFrom(new Date(values[0], from.getMonth(), from.getDate()));
+              setTo(new Date(values[1], to.getMonth(), to.getDate()));
+            }}
           />
           <View style={{height: 20}} />
           <View style={styles.row}>
@@ -175,14 +205,14 @@ export default function RenderMobile(props) {
               style={styles.textInputStyle}
               placeholder="from"
               textAlign="center"
-              value={getFromDate().toDateString()}
+              value={from.toDateString()}
             />
             <View style={{width: 20}} />
             <TextInput
               style={styles.textInputStyle}
               placeholder="to"
               textAlign="center"
-              value={new Date().toDateString()}
+              value={to.toDateString()}
             />
           </View>
         </View>
