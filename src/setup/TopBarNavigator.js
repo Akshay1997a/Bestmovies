@@ -111,6 +111,7 @@ export function TopBarSearchNavigator(props) {
 export function TopBarSecondaryNavigator(props) {
   console.log(props);
   const Tab = createMaterialTopTabNavigator();
+
   return (
     <Tab.Navigator
       initialRouteName="About"

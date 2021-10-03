@@ -1043,7 +1043,6 @@ const TVCountryModal = (props) => {
     let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
     let countryTemp = countryData?.translation?.countries_listed;
-    // console.log('CountryDataaa', Object.entries(countryTemp));
     countryTemp && setCountryList(countryTemp);
   });
 

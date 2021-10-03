@@ -3,6 +3,7 @@ import React, {
   useCallback,
   forwardRef,
   useImperativeHandle,
+  useEffect,
 } from 'react';
 import {
   View,
@@ -24,7 +25,11 @@ import {useTranslation} from 'react-i18next';
 import {useFocusEffect} from '@react-navigation/core';
 import i18next from 'i18next';
 import {runTimeTranslations} from '../../i18n';
-import {getLanguageList, getTranslateFile} from '../../network/requests';
+import {
+  getLanguageData,
+  getLanguageList,
+  getTranslateFile,
+} from '../../network/requests';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {WIDTH} from '../../helper/globalFunctions';
@@ -110,6 +115,21 @@ const TVCountryLanguage = (props) => {
     );
   };
 
+  useEffect(() => {
+    props.getLanguageData((res) => {
+      console.log('responseeeeee90909090', res);
+    });
+  }, []);
+
+  const countryPress = (code) => {
+    let data = {
+      cd: code?.toLowerCase(),
+    };
+    props.getLanguageList(data, (res) => {
+      console.log('responseeeeee', res);
+    });
+  };
+
   const onPressHandle = async (item) => {
     setCountryClick(true);
 
@@ -182,13 +202,12 @@ const TVCountryLanguage = (props) => {
                 let [temp, code] = item[0].split('_');
                 return (
                   <Pressable
-                    onPress={() => getLanguageList(code)}
+                    onPress={() => countryPress(code)}
                     onFocus={() => onFocus(code)}
-                    // onFocus={() => setFocus(code)}
+                    onFocus={() => setFocus(code)}
                     style={
-                      props.focus === code && code == focus
-                        ? styles.focusBackWrap
-                        : styles.backWrap
+                      // props.focus === 'code' &&
+                      code == focus ? styles.focusBackWrap : styles.backWrap
                     }>
                     <Text
                       style={{
@@ -217,6 +236,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       getTranslateFile,
       getLanguageList,
+      getLanguageData,
     },
     dispatch,
   );

@@ -16,12 +16,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
+import {WIDTH} from '../../helper/globalFunctions';
 
 const items = [
-  {
-    name: 'Trailer',
-    image: AppImages.play,
-  },
+  // {
+  //   name: 'Trailer',
+  //   image: AppImages.play,
+  // },
   {
     name: 'Free',
     image: AppImages.netflix,
@@ -37,6 +38,22 @@ const items = [
   {
     name: 'Ads',
     image: AppImages.youtube,
+  },
+  {
+    name: 'Free',
+    image: AppImages.amazon,
+  },
+  {
+    name: 'Free',
+    image: AppImages.hbo,
+  },
+  {
+    name: 'Ads',
+    image: AppImages.youtube,
+  },
+  {
+    name: 'Free',
+    image: AppImages.amazon,
   },
   {
     name: '$5,99',
@@ -97,7 +114,7 @@ const TVPosterCard = ({item, ...props}) => {
         <View style={styles.viewContainer}>
           <ImageBackground
             style={styles.container}
-            resizeMode={'stretch'}
+            // resizeMode={'stretch'}
             source={{uri: item.thumbnail}}>
             <View
               style={[
@@ -139,11 +156,6 @@ const TVPosterCard = ({item, ...props}) => {
             </View>
           </ImageBackground>
         </View>
-        {/* <View> */}
-        {/* <Text>HI</Text>
-                <Text>HI</Text>
-                 <Text>HI</Text> */}
-        {/* </View> */}
 
         <View style={{marginLeft: isAndroid() ? 27 : 40}}>
           <Text numberOfLines={2} style={styles.titleText}>
@@ -156,11 +168,12 @@ const TVPosterCard = ({item, ...props}) => {
                 fontSize: isAndroid() ? 17 : 26,
                 fontWeight: '400',
                 color: 'white',
+                marginTop: -15,
               },
             ]}>
             Name of original title if foreign
           </Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginTop: 20}}>
             <Text
               style={[
                 {
@@ -172,19 +185,9 @@ const TVPosterCard = ({item, ...props}) => {
               ]}>
               Crime, Drama ,Thriller - 2019 - 154 min -18+
             </Text>
-            <View style={{marginStart: 400}}>
-              <Text
-                style={[
-                  {
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 26,
-                    fontWeight: '400',
-                    color: 'white',
-                  },
-                ]}>
-                78% match - 12
-              </Text>
-            </View>
+            {/* <View style={{marginStart: 385}}>
+              
+            </View> */}
           </View>
 
           <View style={{flexDirection: 'row'}}>
@@ -193,7 +196,7 @@ const TVPosterCard = ({item, ...props}) => {
                 <Text
                   style={{
                     fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 37,
+                    fontSize: isAndroid() ? 17 : 27,
                     fontWeight: '700',
                     color: colors.white,
                   }}>
@@ -214,24 +217,44 @@ const TVPosterCard = ({item, ...props}) => {
                 </Text>
               </View>
 
-              <View style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  maxWidth: WIDTH * 0.388,
+                }}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    maxWidth: 140,
+                    fontFamily: primary_regular_font.primary_regular_font,
+                    fontSize: isAndroid() ? 17 : 27,
+                    fontWeight: '700',
+                    color: colors.white,
+                  }}>
+                  {t('texts.id_14')}
+                </Text>
                 <Text
                   numberOfLines={1}
                   style={{
                     maxWidth: 180,
                     fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 37,
+                    fontSize: isAndroid() ? 17 : 27,
                     fontWeight: '700',
                     color: colors.white,
                   }}>
-                  {t('texts.id_14')}:
+                  :
                 </Text>
                 <Text
+                  numberOfLines={1}
                   style={{
                     fontFamily: primary_regular_font.primary_regular_font,
                     fontSize: isAndroid() ? 16 : 26,
                     fontWeight: '400',
                     color: colors.white,
+
+                    minWidth: WIDTH * 0.29,
+                    // maxWidth: WIDTH * 0.3,
                   }}>
                   {' '}
                   Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy
@@ -240,61 +263,57 @@ const TVPosterCard = ({item, ...props}) => {
             </View>
             <View
               style={{
-                flexDirection: 'row',
+                // flexDirection: 'row',
                 marginTop: StyleConfig.resHeight(20),
               }}>
-              {/* <View style={{alignItems:'center', justifyContent:'center'}}>
-                        <View style={styles.ratingWrap}>
-                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center', color:colors.white,fontWeight:'700', fontSize:14, lineHeight:16}}>7.9</Text>
-                        </View>
-                        <Text  style={[styles.greatText]} >Great</Text>
-                    </View> */}
-
-              {/* <View>
-                        </View> */}
+              <Text
+                style={[
+                  {
+                    marginStart: 120,
+                    fontFamily: primary_regular_font.primary_regular_font,
+                    fontSize: isAndroid() ? 17 : 26,
+                    fontWeight: '400',
+                    color: 'white',
+                  },
+                ]}>
+                78% match - 12
+              </Text>
               <View
                 style={{
-                  marginStart: 100,
-                  borderWidth: 1,
-                  borderRadius: 4,
+                  marginStart: 120,
+                  borderWidth: 3,
+                  borderRadius: 15,
                   marginLeft: StyleConfig.resWidth(32),
                   borderColor: colors.white,
+                  paddingHorizontal: 10,
                 }}>
                 <View style={{flexDirection: 'row'}}>
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_210')}:
+                    {t('texts.id_210')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
                   <View
                     style={{width: 1, backgroundColor: colors.white}}></View>
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_212')}:
+                    {t('texts.id_212')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
                 </View>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', marginTop: -8}}>
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_211')}:
+                    {t('texts.id_211')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
                   <View
                     style={{width: 1, backgroundColor: colors.white}}></View>
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_213')}:
+                    {t('texts.id_213')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
                 </View>
               </View>
             </View>
           </View>
-
-          {/* <View style={styles.spaceVertical} /> */}
-          {/* <Text style={styles.movieTypeText}>Crime, Drama -<Text style={styles.movieValueText}> US - 2019 - 154 min - Ages 18+</Text></Text> */}
-          {/* <Text style={styles.movieTypeText}>2.99 € - 23     - 78% match - Recommend  <Icon name={"share"} type={"fontawesome"} style={{fontSize:20,}} /> </Text> */}
-          {/* <View style={styles.spaceVertical} /> */}
-          {/* <Text style={styles.movieTypeText}>Director: <Text style={styles.movieValueText}>Todd Phillips</Text></Text> */}
-          {/* <Text style={styles.movieTypeText}>Cast: <Text style={styles.movieValueText}>Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy</Text></Text> */}
-          {/* <View style={styles.spaceVertical} /> */}
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.detailsText}>
               In Gotham City, mentally troubled comedian Arthur Fleck is
@@ -303,19 +322,24 @@ const TVPosterCard = ({item, ...props}) => {
               him into a dangerous downward spiral of revolution and bloody
               crime
             </Text>
-            <View style={{marginLeft: StyleConfig.resWidth(20)}}>
+            <View style={{marginLeft: WIDTH * 0.05}}>
               <Text style={styles.commentText}>
-                Won 2 oscars including best director
+                {
+                  'Won 2 oscars including best director\nWon 1 G. Globe including best movie'
+                }
               </Text>
-              <Text style={styles.commentText}>
-                Won 1 G. Globe including best movie
-              </Text>
+              <Text style={styles.commentText}></Text>
             </View>
           </View>
 
           {/* <Text style={styles.movieTypeText}>Watch:</Text> */}
           <ScrollView horizontal contentContainerStyle={[{flexGrow: 1}]}>
-            <View style={{flexDirection: 'row', flex: 1}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                flex: 1,
+                alignItems: 'flex-end',
+              }}>
               {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
 
               {items.map((obj, ind) => (
@@ -346,7 +370,7 @@ const styles = StyleSheet.create({
   viewContainer: {
     marginLeft: StyleConfig.resWidth(20),
     marginTop: StyleConfig.resHeight(20),
-    borderRadius: StyleConfig.resHeight(20),
+    borderRadius: StyleConfig.resHeight(30),
     // backgroundColor:'rgba(255,255,255,0.9)',
     shadowColor: 'black',
     shadowOpacity: 0.9,
@@ -354,9 +378,9 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   container: {
-    flex: 1,
-    width: StyleConfig.width * 0.2,
-    height: StyleConfig.width * 0.3,
+    // flex: 1,
+    width: WIDTH * 0.19,
+    height: WIDTH * 0.28,
   },
   detailViewContainer: {
     flexDirection: 'row',
@@ -366,7 +390,7 @@ const styles = StyleSheet.create({
     // height: StyleConfig.height*0.4,
     // marginLeft:StyleConfig.resWidth(20),
     marginTop: StyleConfig.resHeight(24),
-    marginRight: StyleConfig.resWidth(12),
+    // marginRight: StyleConfig.resWidth(12),
     padding: StyleConfig.resHeight(12),
     // paddingLeft:StyleConfig.resWidth(40)
   },
@@ -396,9 +420,11 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   commentText: {
-    fontSize: StyleConfig.resHeight(20),
+    fontSize: 26,
     paddingVertical: StyleConfig.resWidth(2),
     color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
   },
   movieTypeText: {
     fontSize: StyleConfig.resHeight(20),
@@ -414,9 +440,10 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   detailsText: {
-    width: (StyleConfig.width - 130) / 2,
+    width: WIDTH * 0.4,
     fontSize: StyleConfig.resHeight(26),
     marginTop: 4,
+    marginBottom: 20,
     color: colors.white,
     fontWeight: '400',
     fontFamily: primary_regular_font.primary_regular_font,

@@ -42,6 +42,9 @@ const TVGenreModal = (props) => {
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState([]);
+  const [toggleValue, setToggle] = useState(false);
+  const [toggleBackgrpund, setToggleBackgrpund] = useState(false);
+
   const onPressClick = (val) => {
     val.selected = true;
     console.log('onPressClick TVCountryModal***', val);
@@ -70,7 +73,19 @@ const TVGenreModal = (props) => {
       titleId={'genres'}>
       <ScrollView>
         <View style={{marginStart: 10, flexDirection: 'row'}}>
-          <ToggleSwitch size="small" disabled isOn={true} />
+          <Pressable
+            onPress={() => setToggle(!toggleValue)}
+            onFocus={() => setToggleBackgrpund(true)}
+            onBlur={() => {
+              setToggleBackgrpund(false);
+            }}
+            style={toggleBackgrpund ? styles.focusBackWrap : styles.backWrap}>
+            <ToggleSwitch
+              size="small"
+              isOn={toggleValue}
+              onToggle={() => setToggle(!toggleValue)}
+            />
+          </Pressable>
           <Text
             numberOfLines={1}
             style={{

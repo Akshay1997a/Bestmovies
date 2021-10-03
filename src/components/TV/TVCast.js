@@ -17,6 +17,7 @@ import FontFamily from '../../../src/helper/fonts';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
+import {WIDTH} from '../../helper/globalFunctions';
 
 let DATA = {
   feedback: 'Top',
@@ -54,8 +55,6 @@ const TVCast = ({item, ...props}) => {
         onFocus={onFocus}
         onBlur={onBlur}
         key={item.id}
-        // style={({pressed, focused}) => focused ? styles.highlightFocused : styles.notHighlightFocused}
-
         tvParallaxProperties={{magnification: 1.001}}
         onPress={() => {
           setFocus(false);
@@ -109,7 +108,7 @@ const TVCast = ({item, ...props}) => {
 
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    width: isAndroid() ? 143 : 300,
+                    width: isAndroid() ? 143 : WIDTH / 6.8,
                   }}>
                   <Text
                     style={[
@@ -128,7 +127,7 @@ const TVCast = ({item, ...props}) => {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    width: isAndroid() ? 140 : 300,
+                    width: isAndroid() ? 140 : WIDTH / 6.8,
                   }}>
                   <Text
                     style={[
@@ -212,7 +211,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: StyleConfig.resHeight(20),
-    marginHorizontal: StyleConfig.resWidth(10),
+    marginHorizontal: StyleConfig.resWidth(15),
     // borderRadius:StyleConfig.resHeight(20),
     // borderWidth:1,
     // borderColor:'black'
@@ -263,7 +262,7 @@ const styles = StyleSheet.create({
     flexBasis: itemWidth + 30,
     height: StyleConfig.width * 0.37,
     marginTop: StyleConfig.resHeight(25),
-    marginHorizontal: StyleConfig.resWidth(10),
+    // marginHorizontal: StyleConfig.resWidth(10),
     borderRadius: 20,
     overflow: 'hidden',
   },
@@ -278,8 +277,8 @@ const styles = StyleSheet.create({
   },
   notHighlightFocused: {
     borderRadius: StyleConfig.resHeight(20),
-    width: isAndroid() ? 150 : 320,
-    height: isAndroid() ? 200 : StyleConfig.width * 0.25,
+    width: isAndroid() ? 150 : WIDTH / 6.8,
+    height: isAndroid() ? 200 : WIDTH * 0.22,
     paddingTop: 1,
     overflow: 'hidden',
   },

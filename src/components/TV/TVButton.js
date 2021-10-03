@@ -6,9 +6,10 @@ import primary_regular_font from '../../helper/fonts';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
-const TVButton = ({text, bgColor, selected}) => {
+const TVButton = ({text, bgColor, selected, textColor, disabled = false}) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={{
         // backgroundColor: bgColor,
         borderRadius: 20,
@@ -31,7 +32,10 @@ const TVButton = ({text, bgColor, selected}) => {
           alignSelf: 'center',
         }}>
         <Text
-          style={[selected == 1 || 2 || 3 ? styles.focusText : styles.text]}>
+          style={[
+            selected == 1 || 2 || 3 ? styles.focusText : styles.text,
+            {color: textColor},
+          ]}>
           {text}
         </Text>
       </View>

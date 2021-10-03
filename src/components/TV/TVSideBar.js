@@ -166,6 +166,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                   key={item.key}
                   onFocus={() => {
                     onFocus(item.key);
+                    onPressHandle(item.key);
                   }}
                   onPress={() => onPressHandle(item.key)}
                   tvParallaxProperties={{magnification: 1.1}}
@@ -210,7 +211,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == MOBILE_APP && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={Const.MOBILE_APP}
               keyExtractor={(item, index) => `item${index}`}
@@ -244,7 +245,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == INVITE_FRIEND && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={Const.INVITE}
               keyExtractor={(item, index) => `item${index}`}
@@ -279,7 +280,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         )}
 
         {key == ABOUT_US && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               contentContainerStyle={[{}]}
               data={Const.ABOUT_US}
@@ -321,7 +322,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == ADVERTISE && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={ADVERTISE}
               keyExtractor={(item, index) => `item${index}`}
@@ -355,7 +356,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == COLLABORATE && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={COLLABORATE_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -389,7 +390,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == JOBS && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={JOBS_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -423,7 +424,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == TERMS_OF_USE && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={TERMS_OF_USE_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -457,7 +458,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == PRIVACY_POLICY && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={PRIVACY_POLICY_DATA}
               keyExtractor={(item, index) => `item${index}`}

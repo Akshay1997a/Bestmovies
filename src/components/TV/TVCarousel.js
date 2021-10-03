@@ -24,6 +24,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import strings from '../../helper/strings';
 import AppImages from '../../assets';
 import {useTranslation} from 'react-i18next';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 
 // import {
 //   View,
@@ -114,23 +115,24 @@ const MyCarousel = ({item, posts, ...props}) => {
       </View>
     );
   };
-  const bottomRenderItem = ({item, index}, parallaxProps) => {
+  const bottomRenderItem = (
+    // item,
+    // index,
+    {item, index},
+  ) => {
+    console.log('item daaaaaaa', item);
     return (
-      <View style={styles.secondItem}>
-        <Image
-          source={{uri: item.illustration}}
-          // containerStyle={styles.imageContainer}
-          style={styles.bottomImage}></Image>
-        {/* <Text style={styles.title} numberOfLines={2}>
-          {item.title}
-        </Text> */}
-        {/* <TVPosterCard item={item} {...props} /> */}
-      </View>
+      // <View style={styles.secondItem}>
+      <Image
+        source={{uri: item.illustration}}
+        // containerStyle={styles.imageContainer}
+        style={[styles.bottomImage, {width: WIDTH / 4, height: 400}]}></Image>
+      // </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {}]}>
       <ScrollView>
         <TouchableOpacity onPress={goForward}>
           {/* <Text>go to next slide</Text> */}
@@ -141,13 +143,14 @@ const MyCarousel = ({item, posts, ...props}) => {
           autoplayDelay={4000}
           autoplay={true}
           ref={carouselRef}
-          sliderWidth={screenWidth}
-          sliderHeight={screenWidth}
+          sliderWidth={WIDTH}
+          sliderHeight={HEIGHT}
           itemWidth={screenWidth}
           data={entries}
           renderItem={renderItem}
           // hasParallaxImages={true}
         />
+
         <View style={[styles.item, {position: 'absolute', zIndex: 1}]}>
           <Pressable
             onFocus={onFocus}
@@ -170,27 +173,38 @@ const MyCarousel = ({item, posts, ...props}) => {
           <View
             style={[
               styles.item,
-              {position: 'absolute', top: isAndroid() ? 160 : 450},
+              {
+                // position: 'absolute',
+                // top: isAndroid() ? 160 : 450,
+                // bottom: 0,
+                marginTop: HEIGHT * 0.36,
+              },
             ]}>
             <TVPosterCard item={item} {...props} />
           </View>
         </View>
-
-        <Carousel
-          //  vertical={3}
-          loop={true}
-          autoplayDelay={4000}
-          // autoplay={true}
-          ref={carouselRef}
-          sliderWidth={screenWidth}
-          // sliderHeight={100}
-          itemWidth={isAndroid() ? 190 : 400}
-          itemHeight={110}
-          data={entries}
-          renderItem={bottomRenderItem}
-          // hasParallaxImages={true}
-        />
-        <View style={{flexDirection: 'row'}}>
+        <View style={{marginTop: 0, flex: 1}}>
+          {/* <Carousel
+            //  vertical={3}
+            loop={true}
+            // autoplayDelay={400}
+            // autoplay={true}
+            ref={carouselRef}
+            sliderWidth={WIDTH}
+            // sliderHeight={100}
+            itemWidth={isAndroid() ? 190 : 360}
+            // itemHeight={110}
+            data={entries}
+            renderItem={bottomRenderItem}
+            // hasParallaxImages={true}
+          /> */}
+          <FlatList
+            contentContainerStyle={[{flex: 1, flexDirection: 'row'}]}
+            data={entries}
+            renderItem={bottomRenderItem}
+          />
+        </View>
+        <View style={{flexDirection: 'row', paddingLeft: 10}}>
           <View style={{marginTop: isAndroid() ? 6 : 16}}>
             <Text numberOfLines={1} style={styles.director}>
               {t('professions.code_df')}:
@@ -215,7 +229,7 @@ const MyCarousel = ({item, posts, ...props}) => {
           </View>
         </View>
 
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', paddingLeft: 10}}>
           <View style={{marginTop: isAndroid() ? 0 : 0}}>
             <Text numberOfLines={1} style={styles.similar_titles}>
               {t('texts.id_230')}
@@ -299,8 +313,10 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   item: {
-    width: screenWidth,
-    height: isAndroid() ? screenWidth - 500 : 1000,
+    width: WIDTH,
+    height: HEIGHT,
+    // backgroundColor: 'red',
+    // isAndroid() ? screenWidth - 500 : 1000,
   },
   secondItem: {
     // marginTop:40,
@@ -323,18 +339,24 @@ const styles = StyleSheet.create({
     height: 400,
   },
   notfocusbackWrap: {
+    marginLeft: 25,
+    marginTop: 25,
     paddingHorizontal: StyleConfig.resWidth(8),
     paddingVertical: StyleConfig.resHeight(4),
     // margin: 4,
     // marginLeft:10,
   },
   focusBackWrap: {
-    width: 100,
+    marginLeft: 25,
+    marginTop: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 35,
     backgroundColor: colors.tomatoRed,
     // paddingHorizontal: isAndroid() ? 0: StyleConfig.resWidth(8),
     // paddingVertical:  isAndroid() ? 0:StyleConfig.resHeight(4),
     // margin: isAndroid() ? 0:4,
-    borderRadius: 10,
+    // borderRadius: 10,
 
     // marginLeft:10,
   },

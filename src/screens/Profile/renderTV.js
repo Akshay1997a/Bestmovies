@@ -13,6 +13,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function RenderTV(props) {
   const [mode, setMode] = useState('LOGIN');
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>

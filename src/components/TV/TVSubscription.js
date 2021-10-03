@@ -161,7 +161,9 @@ const TVSubscriptionRender = (props) => {
         <Pressable
           onBlur={() => setFocus(false)}
           onPress={() => onPressClick(props.item)}
-          onFocus={() => setFocus(props.item.id)}
+          onFocus={() => {
+            props?.onFocus(), setFocus(props.item.id);
+          }}
           style={
             props.item.id == focus
               ? {borderRadius: 10, backgroundColor: colors.tomatoRed}
@@ -219,10 +221,10 @@ const TVSubscriptionRender = (props) => {
 };
 
 const TVSubscription = (props) => {
-  const onPressClick = (val) => {
-    let data = items[val.id];
-    val.selected = true;
-    props.action(props.items);
+  const onPressClick = (index) => {
+    // let data = items[val.id];
+    // val.selected = !val.selected;
+    props.action(index);
 
     // for (const element of items) {
     //     if(element.id == val.id){
@@ -243,9 +245,17 @@ const TVSubscription = (props) => {
       //    keyExtractor={(item, index) => `item${index}`}
       numColumns={5}
       data={props.items}
-      renderItem={({item}) => (
-        <TVSubscriptionRender item={item} type="movie" action={onPressClick} />
-      )}
+      renderItem={({item, index}) => {
+        console.log('indexxxxxxxx', index);
+        return (
+          <TVSubscriptionRender
+            item={item}
+            type="movie"
+            onFocus={props?.onFocus}
+            action={() => onPressClick(index)}
+          />
+        );
+      }}
     />
   );
 };

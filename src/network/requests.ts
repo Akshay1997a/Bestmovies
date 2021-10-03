@@ -53,6 +53,30 @@ export const getLanguageList = (
 };
 
 
+export const getLanguageData = (
+	succesCallback: Function,
+	errorCallback: Function,
+) => {
+
+	return (dispatch: Function) =>
+		commonApiWrapper(
+            dispatch,
+			endPoints.languageData,
+			apiConstants.get_request_type,
+			apiConstants.raw_data_type,
+			null,
+			null,
+			null,
+			(response: any, dispatch: any) => {
+				if (succesCallback) {
+					succesCallback(response);
+				}
+			},
+			(err) => errorCallback(err),
+		);
+};
+
+
 const commonApiWrapper = (dispatch, url: string, apiRequestType: String, contentType: String, path: string, requestData: any, params: any, successCallback: Function, errorCallback: Function,) => {
         showLoader(true, dispatch);
         if (isNotEmpty(path))

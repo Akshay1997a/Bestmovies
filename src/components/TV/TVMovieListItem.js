@@ -20,6 +20,7 @@ import primary_regular_font from '../../helper/fonts';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
+import {WIDTH} from '../../helper/globalFunctions';
 
 let DATA = {
   name: 'Todd Phillips',
@@ -45,7 +46,7 @@ const TVCardDetail = ({item, ...props}) => {
 
   const onFocus = useCallback(() => {
     // console.log('OnFocus TVCardDetail***',props);
-    // props.reduxSetCurrFocus('list')
+    props?.reduxSetCurrFocus?.('list');
     setFocus(0);
     setIsFocus(true);
   }, [0]);
@@ -190,7 +191,6 @@ const TVCardDetail = ({item, ...props}) => {
                         <Text style={styles.rating}>{item.DATA.rating}</Text>
                   </View>
                
-
                 </View>
                */}
               <View
@@ -351,7 +351,7 @@ const styles = StyleSheet.create({
     borderWidth: isAndroid()
       ? StyleConfig.resWidth(10)
       : StyleConfig.resWidth(10),
-    height: isAndroid() ? StyleConfig.width * 0.28 : StyleConfig.width * 0.3,
+    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.28,
     borderColor: colors.tomatoRed,
     overflow: 'hidden',
     padding: 1,
@@ -362,7 +362,8 @@ const styles = StyleSheet.create({
   notHighlightFocused: {
     borderRadius: StyleConfig.resHeight(20),
     width: isAndroid() ? 180 : 360,
-    height: isAndroid() ? StyleConfig.width * 0.28 : StyleConfig.width * 0.3,
+    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
+    // StyleConfig.width * 0.3,
     paddingTop: 1,
     overflow: 'hidden',
   },
