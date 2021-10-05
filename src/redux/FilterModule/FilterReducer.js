@@ -25,8 +25,8 @@ export const FilterInitialState = {
   },
   year: {
     type: YEARS_TYPE.ANY,
-    from: null,
-    to: null,
+    from: new Date(1950, new Date().getMonth(), new Date().getDate()),
+    to: new Date(),
   },
   countries: [],
   languages: [],
