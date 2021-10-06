@@ -214,6 +214,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
 
   const BackArrow = forwardRef(({item}, ref) => {
     // console.log('keu',item);
+
     return (
       <View>
         {item.key == INCLUDES ? null : (

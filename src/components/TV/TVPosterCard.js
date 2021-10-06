@@ -115,7 +115,7 @@ const TVPosterCard = ({item, ...props}) => {
           <ImageBackground
             style={styles.container}
             // resizeMode={'stretch'}
-            source={{uri: item.thumbnail}}>
+            source={AppImages[item.thumbnail]}>
             <View
               style={[
                 {
