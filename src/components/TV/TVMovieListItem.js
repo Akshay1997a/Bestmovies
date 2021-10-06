@@ -128,22 +128,38 @@ const TVCardDetail = ({item, ...props}) => {
                     </View>
                   </View>
                 ) : (
-                  <View
-                    style={[
-                      {
-                        flexDirection: 'row',
-                        flex: 0.2,
-                        justifyContent: 'flex-end',
-                        marginTop: -5,
-                        marginEnd: 20,
-                      },
-                    ]}>
+                  <View style={[{alignItems: 'center', marginTop: -25}]}>
                     <Icon
                       name={'bookmark'}
-                      size={isAndroid() ? 25 : 50}
-                      color={'green'}
+                      
+                      size={isAndroid() ? 50 : 100}
+                      color={'blue'}
+                      style={[{borderWidth:1,width:50,height:50}]}
+                      
+                    />
+                    <Icon
+                      name={'plus'}
+                      size={isAndroid() ? 10 : 50}
+                      color={'white'}
+                      style={[{position: 'absolute', top: 30}]}
                     />
                   </View>
+                  // <View
+                  //   style={[
+                  //     {
+                  //       flexDirection: 'row',
+                  //       flex: 0.2,
+                  //       justifyContent: 'flex-end',
+                  //       marginTop: -5,
+                  //       marginEnd: 20,
+                  //     },
+                  //   ]}>
+                  //   <Icon
+                  //     name={'bookmark'}
+                  //     size={isAndroid() ? 25 : 50}
+                  //     color={'green'}
+                  //   />
+                  // </View>
                 )}
               </ImageBackground>
             </View>
@@ -178,26 +194,26 @@ const TVCardDetail = ({item, ...props}) => {
                     fontWeight: '400',
                   },
                 ]}>
-                {DATA.type}
+                {item.DATA.type}
               </Text>
               {/* <View style={{flexDirection:'row'}}>
                   <View>
                           <Text style={[{
                             fontFamily:primary_regular_font.primary_regular_font,
-                            fontSize: isAndroid() ? StyleConfig.resHeight(26) :StyleConfig.resHeight(26), 
+                            fontSize: isAndroid() ? StyleConfig.resHeight(26) :StyleConfig.resHeight(26),
                             color:'black', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
                   </View>
                   <View style={{flexDirection:'row',borderWidth:1}}>
                         <Text style={styles.rating}>{item.DATA.rating}</Text>
                   </View>
-               
+
                 </View>
                */}
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  width: isAndroid() ? 150 : 333,
+                  width: isAndroid() ? 160 : 333,
                 }}>
                 <Text
                   style={[
@@ -207,7 +223,12 @@ const TVCardDetail = ({item, ...props}) => {
                       color: 'black',
                       fontWeight: '400',
                     },
-                  ]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
+                  ]}>{`${item.DATA.bornYear} ${item.DATA.country}`}</Text>
+                <Icon
+                  name={'thumbs-up'}
+                  size={isAndroid() ? 15 : 35}
+                  color={'green'}
+                />
                 <View
                   style={{
                     paddingTop: 3,
@@ -238,9 +259,9 @@ const TVCardDetail = ({item, ...props}) => {
                   justifyContent: 'space-between',
                   width:
                     isAndroid() && item.DATA.feedback == 'OK'
-                      ? 150
+                      ? 160
                       : isAndroid()
-                      ? 155
+                      ? 165
                       : !isAndroid() && item.DATA.feedback == 'OK'
                       ? 330
                       : 340,
@@ -253,7 +274,7 @@ const TVCardDetail = ({item, ...props}) => {
                       color: 'black',
                       fontWeight: '400',
                     },
-                  ]}>{`${DATA.match} match`}</Text>
+                  ]}>{`${item.DATA.match} match`}</Text>
                 <Text style={styles.feedback}>{item.DATA.feedback}</Text>
               </View>
 
@@ -360,7 +381,10 @@ const styles = StyleSheet.create({
     // paddingHorizontal:2
   },
   notHighlightFocused: {
-    borderRadius: StyleConfig.resHeight(20),
+    borderWidth: isAndroid()
+      ? StyleConfig.resWidth(1)
+      : StyleConfig.resWidth(0),
+    borderRadius: StyleConfig.resHeight(30),
     width: isAndroid() ? 180 : 360,
     height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
     // StyleConfig.width * 0.3,
