@@ -89,62 +89,61 @@ const TVCardDetail = ({item, ...props}) => {
                 source={AppImages[item.thumbnail]}
                 style={{width: '100%', height: '100%', borderRadius: 15}}>
                 {item.title === 'Joker' ? (
-                  <View style={styles.thumb}>
-                    <Icon
-                      name={'thumbs-down'}
-                      size={isAndroid() ? 15 : 35}
-                      color={'white'}
-                    />
-                    <View style={styles.circleShape}>
-                      <Text
-                        style={{
-                          fontFamily: primary_regular_font.primary_regular_font,
-                          fontWeight: isAndroid() ? 'bold' : '400',
-                          textAlign: 'center',
-                          fontSize: isAndroid() ? 8 : 15,
-                          color: 'white',
-                        }}>
-                        OK
-                      </Text>
-                    </View>
-                    <View style={styles.circleShape}>
-                      <Icon
-                        name={'thumbs-up'}
-                        size={isAndroid() ? 10 : 20}
-                        color={'white'}
-                      />
-                    </View>
-                    <View style={styles.circleShape}>
-                      <Icon
-                        name={'plus'}
-                        size={isAndroid() ? 10 : 20}
-                        color={'white'}
-                      />
-                    </View>
-                    <View style={styles.circleShape}>
-                      <Icon
-                        name={'share'}
-                        size={isAndroid() ? 10 : 20}
-                        color={'white'}
-                      />
-                    </View>
-                  </View>
+                  <View />
                 ) : (
+                  // <View style={styles.thumb}>
+                  //   <Icon
+                  //     name={'thumbs-down'}
+                  //     size={isAndroid() ? 15 : 35}
+                  //     color={'white'}
+                  //   />
+                  //   <View style={styles.circleShape}>
+                  //     <Text
+                  //       style={{
+                  //         fontFamily: primary_regular_font.primary_regular_font,
+                  //         fontWeight: isAndroid() ? 'bold' : '400',
+                  //         textAlign: 'center',
+                  //         fontSize: isAndroid() ? 8 : 15,
+                  //         color: 'white',
+                  //       }}>
+                  //       OK
+                  //     </Text>
+                  //   </View>
+                  //   <View style={styles.circleShape}>
+                  //     <Icon
+                  //       name={'thumbs-up'}
+                  //       size={isAndroid() ? 10 : 20}
+                  //       color={'white'}
+                  //     />
+                  //   </View>
+                  //   <View style={styles.circleShape}>
+                  //     <Icon
+                  //       name={'plus'}
+                  //       size={isAndroid() ? 10 : 20}
+                  //       color={'white'}
+                  //     />
+                  //   </View>
+                  //   <View style={styles.circleShape}>
+                  //     <Icon
+                  //       name={'share'}
+                  //       size={isAndroid() ? 10 : 20}
+                  //       color={'white'}
+                  //     />
+                  //   </View>
+                  // </View>
                   <View style={[{alignItems: 'center', marginTop: -25}]}>
-                    <Icon
+                    {/* <Icon
                       name={'bookmark'}
-                      
                       size={isAndroid() ? 50 : 100}
                       color={'blue'}
-                      style={[{borderWidth:1,width:50,height:50}]}
-                      
+                      style={[{borderWidth: 1, width: 50, height: 50}]}
                     />
                     <Icon
                       name={'plus'}
                       size={isAndroid() ? 10 : 50}
                       color={'white'}
                       style={[{position: 'absolute', top: 30}]}
-                    />
+                    /> */}
                   </View>
                   // <View
                   //   style={[
