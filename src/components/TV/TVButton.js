@@ -32,6 +32,7 @@ const TVButton = ({text, bgColor, selected, textColor, disabled = false}) => {
           alignSelf: 'center',
         }}>
         <Text
+          numberOfLines={2}
           style={[
             selected == 1 || 2 || 3 ? styles.focusText : styles.text,
             {color: textColor},

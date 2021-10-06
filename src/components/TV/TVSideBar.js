@@ -227,14 +227,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                         />
                       ) : (
                         <Text
-                          style={
+                          numberOfLines={
+                            (item.type == 'title' || item.type == 'subtitle') &&
+                            1
+                          }
+                          style={[
                             item.type == 'title'
                               ? styles.aboutUsTitle
                               : item.type == 'subtitle'
                               ? styles.aboutUsSubTitle
-                              : styles.aboutUsDetail
-                          }>
-                          {item.data}
+                              : styles.aboutUsDetail,
+                          ]}>
+                          {t(item.data)}
                         </Text>
                       )}
                     </>
@@ -261,6 +265,10 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                         />
                       ) : (
                         <Text
+                          numberOfLines={
+                            (item.type == 'title' || item.type == 'subtitle') &&
+                            1
+                          }
                           style={
                             item.type == 'title'
                               ? styles.aboutUsTitle
@@ -268,7 +276,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                               ? styles.aboutUsSubTitle
                               : styles.aboutUsDetail
                           }>
-                          {item.data}
+                          {t(item.data)}
                         </Text>
                       )}
                     </>
@@ -589,6 +597,7 @@ const styles = StyleSheet.create({
     lineHeight: 62,
     color: colors.tomatoRed,
     marginTop: 30,
+    maxWidth: 500,
     // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
   },
@@ -596,6 +605,7 @@ const styles = StyleSheet.create({
     fontSize: isAndroid() ? 18 : 32,
     fontWeight: '700',
     lineHeight: 42,
+    maxWidth: 500,
     color: colors.black33,
     marginVertical: 8,
     // width: StyleConfig.width - StyleConfig.resWidth(250),

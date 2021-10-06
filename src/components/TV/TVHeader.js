@@ -65,8 +65,14 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         resizeMode={'contain'}
         style={styles.bannerIcon}
       />
-      <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
-        <View style={{flex: 1}} />
+      <View
+        style={{
+          flexDirection: 'row',
+          flex: 1,
+          alignItems: 'center',
+          marginLeft: 100,
+        }}>
+        {/* <View style={{flex: 1}} /> */}
         <Pressable
           onFocus={() => onFocus(SEARCH)}
           onPress={() => onLocalChangeSelected()}
@@ -117,7 +123,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               props.focus === 'header' && focus == MOVIES
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.12},
+              {maxWidth: WIDTH * 0.1},
             ]
             // styles.itemWrapperSelected :
             // styles.itemWrapper
@@ -147,7 +153,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               props.focus === 'header' && focus == TV_SHOW
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.12},
+              {maxWidth: WIDTH * 0.1},
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -191,7 +197,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               props.focus === 'header' && focus == SHORTS
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.12},
+              {maxWidth: WIDTH * 0.1},
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -224,7 +230,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           </Text>
         </Pressable>
 
-        <Pressable
+        {/* <Pressable
           onFocus={() => onFocus(DIRECTOR)}
           onPress={() => onLocalChangeSelected()}
           onPress={() => alert('Test')}
@@ -233,7 +239,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             props.focus === 'header' && focus == DIRECTOR
               ? styles.itemWrapperSelected
               : styles.itemWrapper,
-            {maxWidth: WIDTH * 0.12},
+            {maxWidth: WIDTH * 0.1},
           ]}>
           <Text
             numberOfLines={1}
@@ -267,7 +273,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             props.focus === 'header' && focus == ACTOR
               ? styles.itemWrapperSelected
               : styles.itemWrapper,
-            {maxWidth: WIDTH * 0.12},
+            {maxWidth: WIDTH * 0.1},
           ]}>
           <Text
             numberOfLines={1}
@@ -278,7 +284,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             }>
             {t('texts.id_11')}
           </Text>
-        </Pressable>
+        </Pressable> */}
 
         <View style={{flex: 2}} />
 

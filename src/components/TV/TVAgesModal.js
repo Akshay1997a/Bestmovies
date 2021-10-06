@@ -15,6 +15,7 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
 });
 
 const TVAgesModal = (props) => {
+  const {t} = useTranslation();
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState([]);
@@ -73,7 +75,7 @@ const TVAgesModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.ages}>
+      title={t('texts.id_141')}>
       <ScrollView>
         {data.map((item, index) => {
           return (

@@ -36,33 +36,65 @@ const styles = StyleSheet.create({
   },
 });
 
+const DATA = [
+  'genres.code_ac',
+  'genres.code_ad',
+  'genres.code_an',
+  'genres.code_bi',
+  'genres.code_co',
+  'genres.code_cr',
+  'genres.code_do',
+  'genres.code_dr',
+  'genres.code_fa',
+  'genres.code_fi',
+  'genres.code_fn',
+  'genres.code_ga',
+  'genres.code_hi',
+  'genres.code_ho',
+  'genres.code_ml',
+  'genres.code_mu',
+  'genres.code_my',
+  'genres.code_ne',
+  'genres.code_re',
+  'genres.code_ro',
+  'genres.code_sc',
+  'genres.code_sh',
+  'genres.code_sp',
+  'genres.code_ta',
+  'genres.code_th',
+  'genres.code_wa',
+  'genres.code_we',
+  'genres.code_xx',
+];
+
 const TVGenreModal = (props) => {
   const {t} = useTranslation();
 
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(DATA);
+  const [selectedGenres, setSelectedGenres] = useState([]);
   const [toggleValue, setToggle] = useState(false);
   const [toggleBackgrpund, setToggleBackgrpund] = useState(false);
 
   const onPressClick = (val) => {
-    val.selected = true;
-    console.log('onPressClick TVCountryModal***', val);
-    props.action(props.keySort);
-    //   props.onclose();
-    setSelected(val);
-  };
-  useEffect(() => {
-    async function fetchData() {
-      fetch('https://60cde54091cc8e00178dc16b.mockapi.io/generes')
-        .then((res) => res.json())
-        .then((resJson) => {
-          setData(resJson);
-        })
-        .catch((e) => console.log(e));
+    // val.selected = true;
+    if (selectedGenres.includes(val)) {
+      let array = [...selectedGenres]; // make a separate copy of the array
+      var index = array.indexOf(val);
+      if (index !== -1) {
+        array.splice(index, 1);
+        setSelectedGenres(array);
+      }
+    } else {
+      setSelectedGenres([...selectedGenres, val]);
     }
-    fetchData();
-  }, []);
+
+    console.log('onPressClick TVCountryModal***', val);
+    // props.action(props.keySort);
+    //   props.onclose();
+    // setSelected(val);
+  };
 
   return (
     <CommonFilterTvModal
@@ -103,8 +135,8 @@ const TVGenreModal = (props) => {
           return (
             <Pressable
               onPress={() => onPressClick(item)}
-              onFocus={() => setFocus(item.id)}
-              style={item.id == focus ? styles.focusBackWrap : styles.backWrap}>
+              onFocus={() => setFocus(index)}
+              style={index == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
                 numberOfLines={1}
                 style={{
@@ -113,13 +145,13 @@ const TVGenreModal = (props) => {
                   fontSize: isAndroid() ? 15 : 30,
                   fontWeight: '400',
                   color:
-                    item.id == focus
+                    index == focus
                       ? colors.white
-                      : item.selected
+                      : selectedGenres.includes(item)
                       ? colors.tomatoRed
                       : colors.black,
                 }}>
-                {item.generes}
+                {t(item)}
               </Text>
               {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8,paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text> */}
               {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text> */}

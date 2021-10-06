@@ -116,7 +116,7 @@ const DATA = [
     key: STRREAMING,
     title: 'texts.id_144',
     // "details": "Netflix, Amazon \nPrime, HBO Max,\nApple TV+, free,\nrent/buy, theaters"
-    details: '6, Free, Rent/Buy,...',
+    details: 'texts.id_152',
   },
   {
     key: RELEASE,
@@ -157,12 +157,12 @@ const BACK_DATA = [
   {
     key: 'BackArrow',
     title: 'texts.id_158',
-    details: 'Any',
+    details: 'texts.id_172',
   },
   {
     key: RELEASE,
     title: 'texts.id_114',
-    details: 'Last 2 years',
+    details: 'texts.id_122',
   },
   {
     key: GENRE,
@@ -171,8 +171,8 @@ const BACK_DATA = [
   },
   {
     key: COUNTRY,
-    title: strings.country,
-    details: 'Any',
+    title: 'texts.id_176',
+    details: 'texts.id_172',
   },
   {
     key: AGES,

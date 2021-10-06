@@ -24,35 +24,35 @@ const items = [
   //   image: AppImages.play,
   // },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.netflix,
   },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.amazon,
   },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.hbo,
   },
   {
-    name: 'Ads',
+    name: 'texts.id_224',
     image: AppImages.youtube,
   },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.amazon,
   },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.hbo,
   },
   {
-    name: 'Ads',
+    name: 'texts.id_224',
     image: AppImages.youtube,
   },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.amazon,
   },
   {
@@ -348,7 +348,9 @@ const TVPosterCard = ({item, ...props}) => {
                   key={`${obj}-${ind}`}
                   style={{margin: 4}}>
                   <Image style={styles.watchImage} source={obj.image} />
-                  <Text style={styles.watchText}>{obj.name}</Text>
+                  <Text numberOfLines={1} style={styles.watchText}>
+                    {t(obj.name)}
+                  </Text>
                   {/* <Text style={styles.watchText}>/month</Text> */}
                 </TouchableOpacity>
               ))}
@@ -483,6 +485,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     color: colors.white,
     textAlign: 'center',
+    maxWidth: 110,
   },
   greatText: {
     fontSize: 22,

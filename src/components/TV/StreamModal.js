@@ -25,6 +25,7 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
+import {useTranslation} from 'react-i18next';
 // import ToggleSwitch from "toggle-switch-react-native";
 const isAndroid = () => {
   return Platform.OS == 'android';
@@ -332,6 +333,7 @@ const itemsAny = [
 ];
 
 const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
+  const {t} = useTranslation();
   const [selected, setSelected] = useState(-1);
   const [country, setCountry] = useState('US');
   const [data, setData] = useState(items);
@@ -343,6 +345,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   const onFocus = useCallback(() => {
     console.log('onFocus');
     setFocus(true);
+    setFocusHeader(false);
     //   onFocusedItem(item)
   });
 
@@ -448,6 +451,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           }}>
           <View>
             <Pressable
+              onFocus={() => setFocusHeader(false)}
               onPress={props.onclose}
               style={({pressed, hovered, focused}) =>
                 focused ? styles.focusBackWrap : styles.backWrap
@@ -466,12 +470,14 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
 
           <View style={{flex: 0.8, marginStart: isAndroid() ? 10 : 30}}>
             <Text
+              numberOfLines={1}
               style={{
+                maxWidth: 250,
                 fontFamily: primary_regular_font.primary_regular_font,
                 fontSize: isAndroid() ? 17 : 34,
                 fontWeight: '700',
               }}>
-              {strings.streaming_service}
+              {t('texts.id_144')}
             </Text>
           </View>
           <View style={{flex: 0.3}}>
@@ -482,8 +488,13 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               style={focus ? styles.itemWrapperSelected : styles.itemWrapper}
               hasTVPreferredFocus={true}>
               <View style={{flexDirection: 'row'}}>
-                <Text style={focus ? styles.focusText : styles.text}>
-                  Country:{' '}
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    focus ? styles.focusText : styles.text,
+                    {maxWidth: 200},
+                  ]}>
+                  {t('texts.id_28')}:{' '}
                 </Text>
                 <Image
                   source={AppImages.flag}
@@ -521,7 +532,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
             }>
             <TVButton
               textColor={isSubscriptionSelected() ? '#999999' : 'black'}
-              text={'Any'}
+              text={t('texts.id_172')}
               bgColor={colors.lightGrey}
             />
           </Pressable>
@@ -534,7 +545,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 ? styles.focusButton
                 : styles.notfocusButton
             }>
-            <TVButton text={'My providers'} bgColor={colors.lightGrey} />
+            <TVButton text={t('texts.id_147')} bgColor={colors.lightGrey} />
           </Pressable>
 
           <Pressable
@@ -553,7 +564,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
             <TVButton
               textColor={isSubscriptionSelected() ? 'black' : '#999999'}
               selected={selected}
-              text={'Save as\n my providers '}
+              text={t('texts.id_148')}
               bgColor={colors.lightGrey}
             />
           </Pressable>
@@ -561,7 +572,9 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View>
             <Text
+              numberOfLines={1}
               style={{
+                maxWidth: 400,
                 justifyContent: 'flex-end',
                 marginStart: isAndroid() ? 30 : 60,
                 fontSize: isAndroid() ? 15 : 30,
@@ -569,7 +582,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 fontWeight: '400',
                 paddingVertical: isAndroid() ? 5 : 5,
               }}>
-              Subscriptions: 3
+              {t('texts.id_156')}: 3
             </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
@@ -584,7 +597,9 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               TV platform:
             </Text>
             <Text
+              numberOfLines={1}
               style={{
+                maxWidth: 400,
                 marginEnd: isAndroid() ? 20 : 60,
                 fontSize: isAndroid() ? 15 : 30,
                 fontFamily: primary_regular_font.primary_regular_font,
@@ -592,7 +607,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 paddingVertical: isAndroid() ? 5 : 5,
               }}>
               {' '}
-              Amzon fire TV, Google TV
+              {t('texts.id_25')}
             </Text>
           </View>
         </View>
@@ -636,14 +651,16 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
             )}
           </Pressable>
           <Text
+            numberOfLines={1}
             style={{
+              maxWidth: 500,
               marginHorizontal: 10,
               fontFamily: primary_regular_font.primary_regular_font,
               fontSize: isAndroid() ? 15 : 30,
               fontWeight: '400',
               color: colors.black,
             }}>
-            Free Streaming services with ads
+            {t('texts.id_150')}
           </Text>
         </View>
         <View style={{paddingHorizontal: 20, flexDirection: 'row'}}>
@@ -664,14 +681,16 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
             )}
           </Pressable>
           <Text
+            numberOfLines={1}
             style={{
+              maxWidth: 500,
               marginHorizontal: 10,
               fontFamily: primary_regular_font.primary_regular_font,
               fontSize: isAndroid() ? 15 : 30,
               fontWeight: '400',
               color: colors.black,
             }}>
-            Rent / buy streaming services
+            {t('texts.id_152')}
           </Text>
         </View>
         <View style={{paddingHorizontal: 20, flexDirection: 'row'}}>
@@ -694,14 +713,16 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           </Pressable>
           {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
           <Text
+            numberOfLines={1}
             style={{
+              maxWidth: 500,
               marginHorizontal: 10,
               fontFamily: primary_regular_font.primary_regular_font,
               fontSize: isAndroid() ? 15 : 30,
               fontWeight: '400',
               color: colors.black,
             }}>
-            Local movie theaters
+            {t('texts.id_154')}
           </Text>
         </View>
 

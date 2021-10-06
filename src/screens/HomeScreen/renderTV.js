@@ -243,7 +243,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
           }
         }}
       />
-      {/* <ScrollView> */}
       <View
         hasTVPreferredFocus={true}
         style={{
@@ -358,7 +357,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 <Text numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
                 </Text>
-                <Text style={styles.result}> 12,348 results </Text>
+                <Text numberOfLines={1} style={styles.result}>
+                  {' '}
+                  12,348 {t('texts.id_91')}{' '}
+                </Text>
               </View>
               <FlatList
                 hasTVPreferredFocus={true}
@@ -400,7 +402,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 <Text numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
                 </Text>
-                <Text style={styles.result}> 12,348 results </Text>
+                <Text numberOfLines={1} style={styles.result}>
+                  {' '}
+                  12,348 {t('texts.id_91')}{' '}
+                </Text>
               </View>
               <FlatList
                 hasTVPreferredFocus={true}
@@ -829,6 +834,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontSize: isAndroid() ? 15 : 30,
     fontWeight: isAndroid() ? '400' : '400',
+    maxWidth: 300,
   },
   container: {
     backgroundColor: colors.black,

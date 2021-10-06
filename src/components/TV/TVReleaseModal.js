@@ -78,7 +78,7 @@ const TVReleaseModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.release}
+      title={t('texts.id_114')}
       titleId={'release_year'}>
       <ScrollView>
         {data.map((item, index) => {

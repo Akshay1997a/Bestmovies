@@ -14,7 +14,7 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
   {id: 0, name: 'Quality'},
@@ -108,6 +108,7 @@ const CommonFilterTvModal = (props) => {
       <View
         style={{
           minWidth: isAndroid() ? 250 : 500,
+          maxHeight: HEIGHT * 0.9,
           backgroundColor: colors.white,
           maxHeight: heightLayout(props.title),
           borderRadius: 10,

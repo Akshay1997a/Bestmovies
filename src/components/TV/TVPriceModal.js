@@ -19,7 +19,7 @@ import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
-  {id: 0, name: 'Any'},
+  {id: 0, name: 'texts.id_172'},
   {id: 1, name: 'texts.id_159'},
   {id: 2, name: '< $1'},
   {id: 3, name: '< $2'},
@@ -72,7 +72,7 @@ const TVPriceModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={strings.price}
+      title={t('texts.id_158')}
       titleId={'price'}>
       <ScrollView>
         {data.map((item, index) => {
