@@ -65,9 +65,14 @@ const TVCast = ({item, ...props}) => {
           <View hasTVPreferredFocus={false}>
             <View style={styles.notHighlightFocused}>
               <ImageBackground
-                source={{
-                  uri: props?.type == 'movie' ? item.thumbnail : props.image,
-                }}
+                source={
+                  props?.type == 'movie'
+                    ? AppImages[item.thumbnail]
+                    : AppImages[props.image]
+                  // {
+                  //     uri: props.image,
+                  //   }
+                }
                 style={{
                   width: '100%',
                   height: '100%',

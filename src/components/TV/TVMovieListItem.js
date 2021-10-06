@@ -62,6 +62,8 @@ const TVCardDetail = ({item, ...props}) => {
       // console.log('focus TVMovieList ');
     });
   }, []);
+
+  console.log('item.thumbnail', item.thumbnail);
   return (
     <View>
       <Pressable
@@ -84,7 +86,7 @@ const TVCardDetail = ({item, ...props}) => {
                 isFocus ? styles.highlightFocused : styles.notHighlightFocused
               }>
               <ImageBackground
-                source={{uri: item.thumbnail}}
+                source={AppImages[item.thumbnail]}
                 style={{width: '100%', height: '100%', borderRadius: 15}}>
                 {item.title === 'Joker' ? (
                   <View style={styles.thumb}>
