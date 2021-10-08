@@ -102,9 +102,10 @@ const TVCardDetail = ({item, ...props}) => {
             </View>
           </View>
           {/* //Bottom View */}
-          <View style={{flexDirection: 'row', marginLeft: 10}}>
+          <View>
             <View>
               <Text
+                ellipsizeMode="tail"
                 numberOfLines={1}
                 style={[
                   {
@@ -118,29 +119,35 @@ const TVCardDetail = ({item, ...props}) => {
                 ]}>
                 {item.title}
               </Text>
-              <View style={{flexDirection: 'row'}}>
-                <View>
-                  <Text
-                    numberOfLines={1}
-                    style={[
-                      {
-                        width: WIDTH * 0.15,
-                        fontFamily: primary_regular_font.primary_regular_font,
-                        fontSize: StyleConfig.resHeight(24),
-                        color: props?.selected == 1 ? 'black' : 'black',
-                        fontWeight: '400',
-                      },
-                    ]}>{`${item.DATA.bornYear} ${t(item.DATA.country)}`}</Text>
-                </View>
-                {/* <View style={styles.ovalShapeView}>
-                <Text style={styles.rating}>{item.DATA.rating}</Text>
-
-                    </View> */}
-              </View>
-              {/* <View style={{flexDirection:'row'}}>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? 'black' : 'white', fontWeight:'400'}]}>{`${DATA.match} match`}</Text>
-                      <Text style={[{fontFamily:primary_regular_font.primary_regular_font,marginLeft:55 ,fontSize:StyleConfig.resHeight(24), color:props?.selected == 1 ? item.DATA.color : 'white', fontWeight:'700'}]}>{item.DATA.feedback}</Text>
-                </View> */}
+            </View>
+            <View style={styles.match}>
+              <Text style={styles.bornYear}>{`${t('types.code_m')}${
+                item.DATA.release
+              }`}</Text>
+              {/* <Icon
+                  name={'thumbs-up'}
+                  size={isAndroid() ? 15 : 35}
+                  color={'#35b736'}
+                /> */}
+              {/* <View
+                style={{
+                  justifyContent: 'center',
+                  width: isAndroid() ? 20 : 50,
+                  height: isAndroid() ? 20 : 45,
+                  backgroundColor: item.DATA.color,
+                  borderRadius: 50,
+                  transform: [{scaleX: 2}],
+                }}>
+                <Text
+                  style={{
+                    position: 'absolute',
+                    left: 3,
+                    color: colors.white,
+                    fontSize: StyleConfig.resHeight(20),
+                  }}>
+                  {item.DATA.rating}
+                </Text>
+              </View> */}
             </View>
           </View>
         </View>
@@ -156,6 +163,17 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  bornYear: {
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(26),
+    color: 'black',
+    fontWeight: '400',
+  },
+  match: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: isAndroid() ? 140 : 333,
+  },
   container: {
     marginVertical: StyleConfig.resHeight(10),
     marginHorizontal: StyleConfig.resWidth(10),
@@ -227,10 +245,15 @@ const styles = StyleSheet.create({
     paddingTop: 1,
   },
   notHighlightFocused: {
+    borderWidth: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resWidth(0),
     // borderColor: 'green',
 
     // borderWidth: StyleConfig.resWidth(5),
-    borderRadius: StyleConfig.resHeight(20),
+    borderRadius: isAndroid()
+      ? StyleConfig.resHeight(20)
+      : StyleConfig.resHeight(30),
     // marginTop:50,
     width: isAndroid() ? 160 : 325,
 

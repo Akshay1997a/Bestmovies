@@ -288,7 +288,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
 
         <View style={{flex: 2}} />
 
-        <Pressable
+        {/* <Pressable
           onFocus={() => onFocus(PROFILE)}
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
@@ -305,7 +305,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             }>
             John
           </Text>
-        </Pressable>
+        </Pressable> */}
 
         <Pressable
           onFocus={() => onFocus(MENU)}
@@ -341,6 +341,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: 'row',
     marginVertical: 5,
+    
+    marginStart: isAndroid() ? 20 : 10,
+
     // marginEnd:100
     // marginRight:10
   },

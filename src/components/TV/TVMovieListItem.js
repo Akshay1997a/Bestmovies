@@ -168,39 +168,15 @@ const TVCardDetail = ({item, ...props}) => {
             </View>
           </View>
           {/* //Bottom View */}
-          <View style={{flexDirection: 'row', marginLeft: 10}}>
+          <View style={{flexDirection: 'row', marginStart: 5}}>
             <View>
-              <Text
-                numberOfLines={1}
-                style={[
-                  {
-                    width: isAndroid() ? 150 : 300,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    marginVertical: 5,
-                    fontSize: isAndroid()
-                      ? StyleConfig.resHeight(26)
-                      : StyleConfig.resHeight(26),
-                    fontWeight: '700',
-                    color: 'black',
-                  },
-                ]}>
+              <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
                 {item.title}
               </Text>
-              <Text
-                numberOfLines={1}
-                style={[
-                  {
-                    width: WIDTH * 0.17,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid()
-                      ? StyleConfig.resHeight(20)
-                      : StyleConfig.resHeight(24),
-                    color: 'black',
-                    fontWeight: '400',
-                  },
-                ]}>
-                {`${t('texts.id_129')}`}
+              <Text numberOfLines={1} style={styles.type}>
+                {t('texts.id_129')}
               </Text>
+              {/* {`${t('texts.id_129')}`} */}
               {/* <View style={{flexDirection:'row'}}>
                   <View>
                           <Text style={[{
@@ -214,59 +190,46 @@ const TVCardDetail = ({item, ...props}) => {
 
                 </View>
                */}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: isAndroid() ? 160 : 333,
-                }}>
-                <Text
-                  numberOfLines={1}
-                  style={[
-                    {
-                      width: WIDTH * 0.12,
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: StyleConfig.resHeight(26),
-                      color: 'black',
-                      fontWeight: '400',
-                    },
-                  ]}>{`${item.DATA.bornYear} ${t(item.DATA.country)}`}</Text>
-                <Icon
+              <View style={styles.match}>
+                <Text numberOfLines={1} style={styles.bornYear}>{`${
+                  item.DATA.bornYear
+                } ${t(item.DATA.country)}`}</Text>
+                {/* <Icon
                   name={'thumbs-up'}
                   size={isAndroid() ? 15 : 35}
-                  color={'green'}
-                />
-                <View
+                  color={'#35b736'}
+                /> */}
+                {/* <View
                   style={{
-                    paddingTop: 3,
-                    alignItems: 'center',
+                    justifyContent: 'center',
                     width: isAndroid() ? 20 : 50,
                     height: isAndroid() ? 20 : 45,
-                    borderRadius: 100,
-                    transform: [{scaleX: 1.5}],
                     backgroundColor: item.DATA.color,
-                    justifyContent: 'center',
+                    borderRadius: 50,
+                    transform: [{scaleX: 2}],
                   }}>
                   <Text
                     style={{
+                      position: 'absolute',
+                      left: 3,
                       color: colors.white,
-                      fontWeight: '700',
                       fontSize: StyleConfig.resHeight(20),
-                      textAlign: 'center',
-                      alignSelf: 'center',
-                      //  fontStyle : primary_regular_font.primary_regular_font
                     }}>
                     {item.DATA.rating}
                   </Text>
-                </View>
+                </View> */}
               </View>
-              <View
+              {/* <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   width:
-                    isAndroid() && item.DATA.feedback == 'OK'
-                      ? 160
+                    isAndroid() && item.DATA.feedback == 'Best'
+                      ? 163
+                      : isAndroid() && item.DATA.feedback == 'Excellent'
+                      ? 174
+                      : isAndroid() && item.DATA.feedback == 'OK'
+                      ? 158
                       : isAndroid()
                       ? 165
                       : !isAndroid() && item.DATA.feedback == 'OK'
@@ -289,9 +252,18 @@ const TVCardDetail = ({item, ...props}) => {
                   {t(item.DATA.feedback)}
                 </Text>
               </View>
-
-              {/* <View style={{alignContent:'center',justifyContent:'center'}}>
-                          </View> */}
+                  ]}>{`${item.DATA.match} match`}</Text>
+                <Text
+                  style={{
+                    fontFamily: primary_regular_font.primary_regular_font,
+                    fontSize: StyleConfig.resHeight(26),
+                    color: item.DATA.color,
+                    fontWeight: '700',
+                  }}>
+                  {item.DATA.feedback}
+                </Text>
+              </View> */}
+              {/* >>>>>>> 98e1c9ad323a0eb23565f6642c52abbd4b77db82 */}
             </View>
           </View>
         </View>
@@ -307,6 +279,43 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  feedback: {
+    fontSize: StyleConfig.resHeight(26),
+    color: 'black',
+    fontWeight: '400',
+  },
+  rating: {},
+  bornYear: {
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(26),
+    color: 'black',
+    fontWeight: '400',
+  },
+  match: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: isAndroid() ? 158 : 333,
+  },
+  type: {
+    // fontFamily: primary_regular_font.primary_light_font,
+    width: isAndroid() ? 158 : 333,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid()
+      ? StyleConfig.resHeight(24)
+      : StyleConfig.resHeight(24),
+    color: 'black',
+    fontWeight: '400',
+  },
+  title: {
+    width: isAndroid() ? 150 : 300,
+    fontFamily: primary_regular_font.primary_regular_font,
+    marginVertical: 5,
+    fontSize: isAndroid()
+      ? StyleConfig.resHeight(26)
+      : StyleConfig.resHeight(26),
+    fontWeight: isAndroid() ? 'bold' : '700',
+    color: 'black',
+  },
   feedback: {
     fontFamily: primary_regular_font.primary_regular_font,
     // marginLeft: isAndroid() ? 40 : 55 ,
@@ -380,7 +389,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   highlightFocused: {
-    borderRadius: StyleConfig.resHeight(30),
+    borderRadius: isAndroid()
+      ? StyleConfig.resHeight(20)
+      : StyleConfig.resHeight(30),
+
     width: isAndroid() ? 180 : 360,
     borderWidth: isAndroid()
       ? StyleConfig.resWidth(10)
@@ -397,7 +409,9 @@ const styles = StyleSheet.create({
     borderWidth: isAndroid()
       ? StyleConfig.resWidth(1)
       : StyleConfig.resWidth(0),
-    borderRadius: StyleConfig.resHeight(30),
+    borderRadius: isAndroid()
+      ? StyleConfig.resHeight(20)
+      : StyleConfig.resHeight(30),
     width: isAndroid() ? 180 : 360,
     height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
     // StyleConfig.width * 0.3,

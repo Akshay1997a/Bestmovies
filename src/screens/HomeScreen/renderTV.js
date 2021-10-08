@@ -229,9 +229,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   }
   // console.log({selected, ADVERTISE_DATA})
   return (
-    <View style={{backgroundColor: colors.white}}>
+    <View style={{backgroundColor: colors.white,}}>
       <TVHeader
-        style={{height: 500}}
+        style={{height: 400}}
         {...props}
         ref={header}
         selected={selected}
@@ -363,6 +363,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 </Text>
               </View>
               <FlatList
+             
                 hasTVPreferredFocus={true}
                 //  contentContainerStyle={{paddingBottom:50}}
                 keyExtractor={(item, index) => `item${index}`}
@@ -408,6 +409,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 </Text>
               </View>
               <FlatList
+               style={{marginStart:10}}
                 hasTVPreferredFocus={true}
                 contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
@@ -824,6 +826,7 @@ const styles = StyleSheet.create({
     fontWeight: isAndroid() ? '400' : '400',
   },
   ranking: {
+    marginStart: 10,
     color: colors.black,
     fontSize: isAndroid() ? 15 : 30,
     fontWeight: isAndroid() ? 'bold' : '700',

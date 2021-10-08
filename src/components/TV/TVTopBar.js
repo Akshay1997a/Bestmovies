@@ -354,7 +354,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                     <View
                       style={[
                         {
-                          width: item.key === 'BackArrow' ? 60 : WIDTH * 0.135,
+                          width: item.key === 'BackArrow' ? 60 : WIDTH * 0.18,
                         },
                       ]}>
                       <Pressable
@@ -424,12 +424,12 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             </View> */}
                             <View>
                               {item.title === ' Clear filters' ? (
-                                <View style={{marginRight: 80}}></View>
+                                <View style={{marginRight: 80}} />
                               ) : (
                                 // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
                                 //     borderColor:'red',
                                 //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
-                                <View style={styles.verticleLine}></View>
+                                <View style={styles.verticleLine} />
                               )}
                             </View>
                           </View>
@@ -440,12 +440,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                 })
               : DATA.map((item, index) => {
                   return (
-                    <View
-                      style={[
-                        {
-                          width: item.key === 'Arrow' ? 60 : WIDTH * 0.135,
-                        },
-                      ]}>
+                    <View>
                       <Pressable
                         key={item.key}
                         onFocus={() => onFocus(item.key)}
@@ -475,17 +470,19 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                           <View
                             style={{
                               // marginLeft: 20,
-                              flex: 1,
+                              // flex: 1,
                               // paddingHorizontal: 20,
                               alignItems: 'center',
                               flexDirection: 'row',
                             }}>
                             <View
                               style={{
+                                width:WIDTH/8,
                                 // marginRight: isAndroid() ? 25 : 75,
                                 flex: 1,
                                 justifyContent: 'center',
-                                marginHorizontal: 25,
+                                marginStart: 10,
+                                // marginEnd: 28,
                               }}>
                               <View
                                 style={
@@ -521,11 +518,11 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
             </View> */}
                             <View>
-                              {item.title === 'Price' ? null : (
+                            {t(item.title) === 'Price' ? null : (
                                 // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
                                 //     borderColor:'red',
                                 //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
-                                <View style={styles.verticleLine}></View>
+                                <View style={styles.verticleLine} />
                               )}
                             </View>
                           </View>
@@ -555,15 +552,15 @@ const styles = StyleSheet.create({
   },
   container: {
     // backgroundColor: 'red',
-    flex: 1,
     backgroundColor: colors.lightGrey,
-    height: isAndroid() ? 40 : 90,
+    height: isAndroid() ? 50 : 90,
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderColor: 'red',
     borderRadius: 10,
-    marginStart: 10,
+    marginStart: isAndroid() ? 20 : 10,
+    marginRight: 400,
   },
   itemWrapperSelected: {
     backgroundColor: colors.tomatoRed,
@@ -575,7 +572,7 @@ const styles = StyleSheet.create({
     // marginRight: -80,
   },
   text: {
-    fontSize: isAndroid() ? 12 : 24,
+    fontSize: isAndroid() ? 14 : 24,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '400',
     textAlign: 'left',
@@ -590,7 +587,7 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     color: colors.black,
-    fontSize: isAndroid() ? 12 : 24,
+    fontSize: isAndroid() ? 14 : 24,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '700',
     textAlign: 'left',
