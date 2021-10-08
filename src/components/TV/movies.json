@@ -11,16 +11,15 @@
         "data": {
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
-
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "5.7",
-            "feedback": "OK",
+            "feedback": "texts.id_186",
             "color": "#efcc00"
           },
           "approved_at_utc": null,
@@ -187,12 +186,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Sci-Fi",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "Best",
+            "feedback": "texts.id_182",
             "color": "#000000"
           },
           "approved_at_utc": null,
@@ -445,12 +444,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Sci-Fi",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "6.8",
-            "feedback": "Good",
+            "feedback": "texts.id_185",
             "color": "green"
           },
           "approved_at_utc": null,
@@ -694,12 +693,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "8.5",
-            "feedback": "Good",
+            "feedback": "texts.id_185",
             "color": "gray"
           },
           "approved_at_utc": null,
@@ -851,12 +850,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "8.5",
-            "feedback": "Good",
+            "feedback": "texts.id_185",
             "color": "#6495ED"
           },
           "approved_at_utc": null,
@@ -1013,12 +1012,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "6.5",
-            "feedback": "Best",
+            "feedback": "texts.id_182",
             "color": "gray"
           },
           "approved_at_utc": null,
@@ -1175,12 +1174,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "Best",
+            "feedback": "texts.id_182",
             "color": "gray"
           },
           "approved_at_utc": null,
@@ -1343,12 +1342,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "Best",
+            "feedback": "texts.id_182",
             "color": "gray"
           },
           "approved_at_utc": null,
@@ -1676,12 +1675,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "Best",
+            "feedback": "texts.id_182",
             "color": "gray"
           },
           "approved_at_utc": null,
@@ -1848,12 +1847,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "Best",
+            "feedback": "texts.id_182",
             "color": "gray"
           },
           "approved_at_utc": null,
@@ -2020,12 +2019,12 @@
           "DATA": {
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
-            "country": "United States",
+            "country": "countries.code_US",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "Best",
+            "feedback": "texts.id_182",
             "color": "gray"
           },
           "approved_at_utc": null,
