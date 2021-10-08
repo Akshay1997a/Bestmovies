@@ -13,6 +13,7 @@
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
 
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
             "country": "United States",
@@ -185,6 +186,7 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
             "type": "Drama, Sci-Fi",
             "country": "United States",
@@ -443,6 +445,7 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
             "type": "Drama, Sci-Fi",
             "country": "United States",
@@ -451,7 +454,7 @@
             "follower": "5.7",
             "rating": "6.8",
             "feedback": "Good",
-            "color": "green"
+            "color": "#35b736"
           },
           "approved_at_utc": null,
           "subreddit": "pic",
@@ -692,15 +695,16 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
-            "type": "Drama, Adventura",
+            "type": "Drama, Sci-Fi",
             "country": "United States",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "8.5",
-            "feedback": "Good",
-            "color": "gray"
+            "feedback": "Excellent",
+            "color": "#868686"
           },
           "approved_at_utc": null,
           "subreddit": "pic",
@@ -710,7 +714,7 @@
           "mod_reason_title": null,
           "gilded": 0,
           "clicked": false,
-          "title": "Once upon a time",
+          "title": "Once upon a time in Hollywood",
           "link_flair_richtext": [],
           "subreddit_name_prefixed": "r/pic",
           "hidden": false,
@@ -849,14 +853,15 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
-            "type": "Drama, Adventura",
+            "type": "Drama, Sci-Fi",
             "country": "United States",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
-            "rating": "8.5",
-            "feedback": "Good",
+            "rating": "7.9",
+            "feedback": "Great",
             "color": "#6495ED"
           },
           "approved_at_utc": null,
@@ -867,7 +872,7 @@
           "mod_reason_title": null,
           "gilded": 0,
           "clicked": false,
-          "title": "Harbin Opera House",
+          "title": "Apollo 11",
           "link_flair_richtext": [],
           "subreddit_name_prefixed": "r/pic",
           "hidden": false,
@@ -1011,15 +1016,16 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
             "country": "United States",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
-            "rating": "6.5",
-            "feedback": "Best",
-            "color": "gray"
+            "rating": "5.7",
+            "feedback": "OK",
+            "color": "#eac602"
           },
           "approved_at_utc": null,
           "subreddit": "pic",
@@ -1173,15 +1179,16 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
-            "type": "Drama, Adventura",
+            "type": "Drama, Sci-Fi",
             "country": "United States",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
             "feedback": "Best",
-            "color": "gray"
+            "color": "black"
           },
           "approved_at_utc": null,
           "subreddit": "pic",
@@ -1191,7 +1198,7 @@
           "mod_reason_title": null,
           "gilded": 0,
           "clicked": false,
-          "title": "Turtle house, Kuala Lumpur",
+          "title": "Parasite",
           "link_flair_richtext": [],
           "subreddit_name_prefixed": "r/pic",
           "hidden": false,
@@ -1341,15 +1348,16 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
             "country": "United States",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
-            "rating": "9.2",
-            "feedback": "Best",
-            "color": "gray"
+            "rating": "6.8",
+            "feedback": "Good",
+            "color": "#35b736"
           },
           "approved_at_utc": null,
           "subreddit": "pic",
@@ -1359,7 +1367,7 @@
           "mod_reason_title": null,
           "gilded": 0,
           "clicked": false,
-          "title": "Tree growing in an abandoned silo",
+          "title": "Mariage Story",
           "link_flair_richtext": [],
           "subreddit_name_prefixed": "r/pic",
           "hidden": false,
@@ -1675,14 +1683,15 @@
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
             "name": "Todd Phillips",
+            "release":"Movie - 2018",
             "type": "Drama, Adventura",
             "country": "United States",
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
-            "rating": "9.2",
-            "feedback": "Best",
-            "color": "gray"
+            "rating": "8.5",
+            "feedback": "Excellent",
+            "color": "#868686"
           },
           "approved_at_utc": null,
           "subreddit": "pic",
@@ -1692,7 +1701,7 @@
           "mod_reason_title": null,
           "gilded": 0,
           "clicked": false,
-          "title": "A Cloud being sliced by a Plane",
+          "title": "Once upon a time in Hollywood",
           "link_flair_richtext": [],
           "subreddit_name_prefixed": "r/pic",
           "hidden": false,
@@ -1846,6 +1855,7 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
             "country": "United States",
@@ -2018,6 +2028,7 @@
           "director_image": "director",
           "actors_image": ["cast1", "cast2", "cast3", "cast4", "cast5"],
           "DATA": {
+            "release":"Movie - 2018",
             "name": "Todd Phillips",
             "type": "Drama, Adventura",
             "country": "United States",

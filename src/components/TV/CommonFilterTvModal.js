@@ -107,10 +107,13 @@ const CommonFilterTvModal = (props) => {
     <BaseModal visible={props?.visible} oncloseModal={props.oncloseModal}>
       <View
         style={{
-          minWidth: isAndroid() ? 250 : 500,
-          maxHeight: HEIGHT * 0.9,
+          minWidth: isAndroid() && props.title == 'Sort by' ? 400 : 500,
+          maxHeight:
+            isAndroid() && props.title == 'Sort by'
+              ? HEIGHT * 0.2
+              : HEIGHT * 0.9,
           backgroundColor: colors.white,
-          maxHeight: heightLayout(props.title),
+          // maxHeight: heightLayout(props.title),
           borderRadius: 10,
           paddingVertical: 10,
           paddingStart: 5,

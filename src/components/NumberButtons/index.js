@@ -44,10 +44,10 @@ const TVKeyboard = ({...props}) => {
                           : styles.pressable
                       }
                       onPress={() => _handleOnPress(item, subIndex)}>
-                      {typeof subItem == 'string' && (
+                      {typeof subItem === 'string' && (
                         <Text style={styles.txtDefault}>{subItem}</Text>
                       )}
-                      {typeof subItem == 'number' &&
+                      {typeof subItem === 'number' &&
                         subItem == AppImages.back_bk && (
                           <View>
                             <Image
@@ -63,7 +63,7 @@ const TVKeyboard = ({...props}) => {
                             />
                           </View>
                         )}
-                      {typeof subItem == 'number' &&
+                      {typeof subItem === 'number' &&
                         subItem == AppImages.next_bk && (
                           <View style={styles.symbolButton}>
                             <Image
@@ -80,7 +80,7 @@ const TVKeyboard = ({...props}) => {
                           </View>
                         )}
 
-                      {typeof subItem == 'number' &&
+                      {typeof subItem === 'number' &&
                         subItem == AppImages.space && (
                           <View style={styles.symbolButton}>
                             <Image
@@ -103,7 +103,7 @@ const TVKeyboard = ({...props}) => {
                           />
                         </View>
                       )}
-                      {typeof subItem == 'number' &&
+                      {typeof subItem === 'number' &&
                         subItem == AppImages.delete_all && (
                           <View style={styles.symbolButton}>
                             <Image
@@ -122,34 +122,6 @@ const TVKeyboard = ({...props}) => {
             </View>
           );
         })}
-        {/* <Pressable
-        style={({focused})=> 
-        focused ? styles.pressableFocused : styles.pressable}
-        >
-
-        <View style={{flexDirection:'row',}} >
-              <View style={{backgroundColor:colors.lightGrey,margin:5 ,width: StyleConfig.resWidth(75),
-                    height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                    <Image style={styles.deleteButton} source={AppImages.back_bk} />
-              </View>
-              <View style={{backgroundColor:colors.lightGrey,marginLeft:2,marginTop:5 ,marginRight:5,width: StyleConfig.resWidth(75),
-                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                    <Image style={styles.deleteButton} source={AppImages.next_bk} />
-              </View>
-              <View style={{backgroundColor:colors.lightGrey,marginLeft:1,marginTop:5 ,width: StyleConfig.resWidth(160),
-                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                    <Image style={styles.deleteButton} source={AppImages.space} />
-              </View>
-              <View style={{backgroundColor:colors.lightGrey,margin:5 ,width: StyleConfig.resWidth(80),
-                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                    <Image style={styles.deleteButton} source={AppImages.delete} />
-              </View>
-              <View style={{backgroundColor:colors.lightGrey,marginLeft:1,marginTop:5 ,width: StyleConfig.resWidth(75),
-                      height: StyleConfig.resHeight(50),justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                    <Image style={styles.deleteButton} source={AppImages.delete_all} />
-              </View>
-        </View>
-        </Pressable> */}
       </View>
       <Text style={{fontSize: isAndroid() ? 18 : 40, marginTop: 10}}>
         {' '}
@@ -157,63 +129,5 @@ const TVKeyboard = ({...props}) => {
       </Text>
     </View>
   );
-  //         return (
-  //           <View hasTVPreferredFocus={true}  style={styles.container}>
-  //      <Pressable
-  //      style={({ pressed, hovered, focused }) => focused ? [styles.container,{backgroundColor:'red'}] : styles.container}
-  //       style={ styles.container}
-  //      onFocus={onFocus}
-  //      onBlur={onBlur}
-  //      >
-
-  //             {
-
-  //                     props.buttons.map((row, index) => (
-  //                       <View style={styles.contRow}>
-  //                         {
-  //                                 row.map((col,index) => (
-  //                                   <Pressable
-  //                                   style={({ pressed, hovered, focused }) => focused ? [styles.contButton,{backgroundColor:'red'}] : styles.contButton}>
-  //                                   <Text style={styles.txtDefault}>{col}</Text>
-  //                                   </Pressable>
-  //                                 ))
-  //                             }
-  //                       </View>
-
-  //                     ))
-  //                 }
-  //                 <View style={
-  //                   styles.contRow
-  //                 }>
-
-  //                             <View style={styles.symbolButton}>
-  //                                  <Image style={{ width: StyleConfig.resWidth(10),
-  //                                     height: StyleConfig.resHeight(20),}} source={AppImages.next_bk} />
-  //                             </View>
-  //                             <View style={styles.symbolButton}>
-  //                             <Image style={{ width: StyleConfig.resWidth(10),
-  //                             height: StyleConfig.resHeight(20),}} source={AppImages.next_bk} />
-  //                             </View>
-
-  //                             <View style={styles.spaceButton}>
-  //                             <Image style={{ width: StyleConfig.resWidth(60),
-  //                             height: StyleConfig.resHeight(20),}} source={AppImages.space} />
-  //                             </View>
-
-  //                             <View style={styles.deleteButton}>
-  //                             <Image style={{ width: StyleConfig.resWidth(40),
-  //                               height: StyleConfig.resHeight(30),}} source={AppImages.delete} />
-  //                             </View>
-  //                             <View style={styles.deleteAllButton}>
-  //                             <Image style={{ width: StyleConfig.resWidth(30),
-  //                               height: StyleConfig.resHeight(40),}} source={AppImages.delete_all} />
-  //                             </View>
-
-  //                             </View>
-
-  //        </Pressable>
-  // </View>
-
-  //         );
 };
 export default TVKeyboard;
