@@ -167,11 +167,13 @@ class Filter extends React.Component {
               <Text style={providerTextStyle}>{t('texts.id_144')} (US)</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
-                  {DATA.filter((i) =>
-                    providerConfig.selectedProviders.includes(i.id),
-                  )
-                    .map((i) => i.name)
-                    .join(', ')}
+                  {providerConfig.selectedProviders.length
+                    ? DATA.filter((i) =>
+                        providerConfig.selectedProviders.includes(i.id),
+                      )
+                        .map((i) => i.name)
+                        .join(', ')
+                    : 'Any'}
                 </Text>
               </View>
             </View>

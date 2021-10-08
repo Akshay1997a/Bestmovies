@@ -12,6 +12,9 @@ import Loader from './src/components/Loader';
 
 export const StatusBarContext = React.createContext();
 
+// console.log = function () {};
+console.group = function () {};
+
 enableScreens(true);
 // React Native App
 export default function App(props) {

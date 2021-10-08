@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Platform,
+  StatusBar,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -500,6 +501,7 @@ export class RenderMobile extends Component {
     let {t} = this.props;
     return (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
+        <StatusBar backgroundColor="transparent" translucent={true} />
         <Modal
           visible={viewStyle === VIEW_STYLE.FULL_VIEW && isIntroTipVisible}
           transparent

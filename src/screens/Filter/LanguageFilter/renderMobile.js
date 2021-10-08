@@ -460,7 +460,7 @@ class RenderMobile extends Component {
       let newLanguageList = selectedLanguages.filter((val) => val !== name);
       updateLanguage(newLanguageList);
     } else {
-      updateLanguage([...selectedLanguages, name]);
+      updateLanguage([name]);
     }
     console.log(selectedLanguages, name);
   }
