@@ -12,6 +12,7 @@ export default function StatusBar(props) {
       <RNStatusBar
         barStyle="dark-content"
         backgroundColor={props.backgroundColor}
+        translucent={true}
       />
     );
   } else {
