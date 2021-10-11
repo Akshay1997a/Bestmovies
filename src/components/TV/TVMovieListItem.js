@@ -21,6 +21,7 @@ import primary_regular_font from '../../helper/fonts';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import {WIDTH} from '../../helper/globalFunctions';
+import {useTranslation} from 'react-i18next';
 
 let DATA = {
   name: 'Todd Phillips',
@@ -32,6 +33,7 @@ let DATA = {
 };
 
 const TVCardDetail = ({item, ...props}) => {
+  const {t} = useTranslation();
   console.log('item', item);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
@@ -171,7 +173,10 @@ const TVCardDetail = ({item, ...props}) => {
               <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
                 {item.title}
               </Text>
-              <Text style={styles.type}>{item.DATA.type}</Text>
+              <Text numberOfLines={1} style={styles.type}>
+                {t('texts.id_129')}
+              </Text>
+              {/* {`${t('texts.id_129')}`} */}
               {/* <View style={{flexDirection:'row'}}>
                   <View>
                           <Text style={[{
@@ -186,10 +191,9 @@ const TVCardDetail = ({item, ...props}) => {
                 </View>
                */}
               <View style={styles.match}>
-                <Text
-                  style={
-                    styles.bornYear
-                  }>{`${item.DATA.bornYear} ${item.DATA.country}`}</Text>
+                <Text numberOfLines={1} style={styles.bornYear}>{`${
+                  item.DATA.bornYear
+                } ${t(item.DATA.country)}`}</Text>
                 {/* <Icon
                   name={'thumbs-up'}
                   size={isAndroid() ? 15 : 35}
@@ -233,12 +237,21 @@ const TVCardDetail = ({item, ...props}) => {
                       : 340,
                 }}>
                 <Text
+                  numberOfLines={1}
                   style={[
                     {
+                      width: WIDTH * 0.14,
+                      // fontFamily:primary_regular_font.primary_regular_font,
                       fontSize: StyleConfig.resHeight(26),
                       color: 'black',
                       fontWeight: '400',
                     },
+                  ]}>{`${item.DATA.match} ${t('texts.id_104')}`}</Text>
+
+                <Text numberOfLines={1} style={styles.feedback}>
+                  {t(item.DATA.feedback)}
+                </Text>
+              </View>
                   ]}>{`${item.DATA.match} match`}</Text>
                 <Text
                   style={{
@@ -250,8 +263,7 @@ const TVCardDetail = ({item, ...props}) => {
                   {item.DATA.feedback}
                 </Text>
               </View> */}
-
-             
+              {/* >>>>>>> 98e1c9ad323a0eb23565f6642c52abbd4b77db82 */}
             </View>
           </View>
         </View>
@@ -286,7 +298,7 @@ const styles = StyleSheet.create({
   },
   type: {
     // fontFamily: primary_regular_font.primary_light_font,
-
+    width: isAndroid() ? 158 : 333,
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: isAndroid()
       ? StyleConfig.resHeight(24)
@@ -309,6 +321,7 @@ const styles = StyleSheet.create({
     // marginLeft: isAndroid() ? 40 : 55 ,
     fontSize: StyleConfig.resHeight(26),
     color: colors.black,
+    width: WIDTH * 0.06,
     fontWeight: '700',
   },
   ok: {

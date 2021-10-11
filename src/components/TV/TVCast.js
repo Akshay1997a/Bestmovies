@@ -18,22 +18,25 @@ import FontFamily from '../../../src/helper/fonts';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import {WIDTH} from '../../helper/globalFunctions';
+import {useTranslation} from 'react-i18next';
 
 let DATA = {
-  feedback: 'Top',
+  feedback: 'texts.id_214',
   rating: '128',
   name: 'Todd Phillips',
-  type: 'Drama, Adventura',
-  country: 'United States',
-  dob: 'Born 1927',
+  type: 'texts.id_129',
+  country: 'countries.code_US',
+  dob: '1927',
   bornYear: '2019 -',
   match: '78% match - 12 ',
   follower: '5.7',
-  designation: 'Actor',
+  designation: 'texts.id_12',
 };
 
 const TVCast = ({item, ...props}) => {
   console.log('type', props?.selected);
+
+  const {t} = useTranslation();
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -48,6 +51,7 @@ const TVCast = ({item, ...props}) => {
     setFocus(-1);
     setIsFocus(false);
   }, []);
+
   return (
     <View>
       <Pressable
@@ -97,15 +101,17 @@ const TVCast = ({item, ...props}) => {
             <View style={{flexDirection: 'row'}}>
               <View>
                 <Text
+                  numberOfLines={1}
                   style={[
                     {
+                      width: WIDTH * 0.14,
                       fontSize: StyleConfig.resHeight(30),
                       color: props?.selected == 1 ? 'black' : 'black',
                       fontFamily: primary_regular_font.primary_regular_font,
                       fontWeight: '400',
                     },
                   ]}>
-                  {DATA.designation}
+                  {t(DATA.designation)}
                 </Text>
                 <View
                   style={{
@@ -116,17 +122,21 @@ const TVCast = ({item, ...props}) => {
                     width: isAndroid() ? 143 : WIDTH / 6.8,
                   }}>
                   <Text
+                    numberOfLines={1}
                     style={[
                       {
+                        width: WIDTH * 0.11,
                         // fontFamily:primary_regular_font.primary_regular_font,
                         fontSize: StyleConfig.resHeight(30),
                         color: 'black',
                         fontWeight: '400',
                       },
                     ]}>
-                    {DATA.country}
+                    {t(DATA.country)}
                   </Text>
-                  <Text style={styles.feedback}>{DATA.feedback}</Text>
+                  <Text numberOfLines={1} style={styles.feedback}>
+                    {t(DATA.feedback)}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -135,15 +145,17 @@ const TVCast = ({item, ...props}) => {
                     width: isAndroid() ? 140 : WIDTH / 6.8,
                   }}>
                   <Text
+                    numberOfLines={1}
                     style={[
                       {
                         fontFamily: primary_regular_font.primary_regular_font,
                         fontSize: StyleConfig.resHeight(30),
                         color: 'black',
                         fontWeight: '400',
+                        width: WIDTH * 0.09,
                       },
                     ]}>
-                    {DATA.dob}
+                    {`${t('texts.id_215')} ${DATA.dob}`}
                   </Text>
                   <View
                     style={{
@@ -212,6 +224,7 @@ const styles = StyleSheet.create({
     // marginLeft: isAndroid() ? 40 : 55 ,
     fontSize: StyleConfig.resHeight(26),
     color: colors.black,
+    width: WIDTH * 0.04,
     fontWeight: '400',
   },
   container: {

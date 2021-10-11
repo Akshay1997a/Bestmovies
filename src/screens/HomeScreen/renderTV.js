@@ -438,7 +438,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
         {selected == TV_SHOW && (
           <View style={[{flex: 1}]} hasTVPreferredFocus={true}>
-            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
               style={{height: StyleConfig.resHeight(900)}}>
