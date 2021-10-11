@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
@@ -14,6 +15,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Platform,
+  StatusBar,
 } from 'react-native';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
@@ -34,6 +36,7 @@ import {getTranslateFile} from '../../network/requests';
 import {runTimeTranslations} from '../../i18n';
 import {withTranslation} from 'react-i18next';
 import primary_regular_font from '../../helper/fonts';
+import {fontScale, heightScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -143,7 +146,7 @@ export class RenderMobile extends Component {
         source={data.image}
         style={{
           width: 150,
-          height: 200,
+          height: heightScale(200),
           resizeMode: 'cover',
           borderRadius: 12,
           marginBottom: 10,
@@ -196,7 +199,7 @@ export class RenderMobile extends Component {
             borderColor: '#fff',
             backgroundColor: '#fff',
             elevation: 5,
-            shadowOffset: {width: 0, height: 2},
+            shadowOffset: {width: 0, height: heightScale(2)},
             shadowOpacity: 0.25,
             shadowColor: '#000',
             shadowRadius: 3.84,
@@ -238,9 +241,13 @@ export class RenderMobile extends Component {
               <Image
                 style={
                   viewStyle === VIEW_STYLE.FULL_VIEW
-                    ? {height: 450, width: window - 20, borderRadius: 8}
+                    ? {
+                        height: heightScale(450),
+                        width: window - 20,
+                        borderRadius: 8,
+                      }
                     : {
-                        height: 235,
+                        height: heightScale(235),
                         width: window / 2 - 15,
                         borderTopRightRadius: 8,
                         borderTopLeftRadius: 8,
@@ -261,7 +268,11 @@ export class RenderMobile extends Component {
                 <Text
                   allowFontScaling={true}
                   numberOfLines={2}
-                  style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
+                  style={{
+                    fontSize: fontScale(50),
+                    color: 'white',
+                    fontWeight: '700',
+                  }}>
                   {data.name}
                 </Text>
               </View>
@@ -340,13 +351,13 @@ export class RenderMobile extends Component {
                     alignItems: 'center',
                   }}>
                   <Text
-                    style={{fontSize: 18, fontWeight: '700', color: 'white'}}>
+                    style={{fontSize: fontScale(18), fontWeight: '700', color: 'white'}}>
                     9.1
                   </Text>
                 </View>
                 {viewStyle === VIEW_STYLE.FULL_VIEW && (
                   <Text
-                    style={{fontWeight: '700', fontSize: 20, marginLeft: 17}}>
+                    style={{fontWeight: '700', fontSize: fontScale(20), marginLeft: 17}}>
                     Best
                   </Text>
                 )}
@@ -455,7 +466,7 @@ export class RenderMobile extends Component {
                   source={require('../../../assets/poster1.jpg')}
                   style={{
                     width: window - 20,
-                    height: 300,
+                    height: heightScale(300),
                     resizeMode: 'cover',
                     marginBottom: 10,
                   }}
@@ -464,7 +475,7 @@ export class RenderMobile extends Component {
                   source={require('../../../assets/poster1.jpg')}
                   style={{
                     width: window - 20,
-                    height: 300,
+                    height: heightScale(300),
                     resizeMode: 'cover',
                     marginBottom: 10,
                   }}
@@ -473,7 +484,7 @@ export class RenderMobile extends Component {
                   source={require('../../../assets/poster1.jpg')}
                   style={{
                     width: window - 20,
-                    height: 300,
+                    height: heightScale(300),
                     resizeMode: 'cover',
                     marginBottom: 10,
                   }}
@@ -482,7 +493,7 @@ export class RenderMobile extends Component {
                   source={require('../../../assets/poster1.jpg')}
                   style={{
                     width: window - 20,
-                    height: 300,
+                    height: heightScale(300),
                     resizeMode: 'cover',
                     marginBottom: 10,
                   }}
@@ -514,7 +525,7 @@ export class RenderMobile extends Component {
             <View style={styles.shadowView} />
             <Image
               source={require('../../../assets/Icons/hand_ic.png')}
-              style={{width: 102, height: 102}}
+              style={{width: 102, height: heightScale(102)}}
             />
             <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
@@ -531,7 +542,7 @@ export class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: 280,
+              height: heightScale(280),
               borderRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
@@ -621,10 +632,11 @@ export class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               alignItems: 'center',
-              height: 500,
+              height: heightScale(500),
               top: screen - 300,
             }}>
-            <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
+            <Text
+              style={{fontSize: fontScale(18), fontWeight: '700', padding: 5}}>
               Sort By
             </Text>
             <TouchableOpacity
@@ -660,7 +672,7 @@ export class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               alignItems: 'center',
-              height: 500,
+              height: heightScale(500),
               top: screen - 500,
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
@@ -671,7 +683,12 @@ export class RenderMobile extends Component {
                 padding: 10,
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
+              <Text
+                style={{
+                  fontSize: fontScale(18),
+                  fontWeight: '700',
+                  padding: 5,
+                }}>
                 Recommend title
               </Text>
               <Icon name="share" size={25} style={{marginLeft: 20}} />
@@ -782,7 +799,7 @@ const styles = StyleSheet.create({
   textFont: {
     color: '#333333',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 14,
+    fontSize: fontScale(14),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -790,13 +807,13 @@ const styles = StyleSheet.create({
   },
   seprater: {
     backgroundColor: 'red',
-    height: 1,
+    height: heightScale(1),
   },
   modalText: {
     padding: 10,
     fontFamily: 'VAG Rounded Next Regular',
     color: '#000',
-    fontSize: 20,
+    fontSize: fontScale(20),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
@@ -805,7 +822,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'VAG Rounded Next Bold',
     color: '#fff',
-    fontSize: 20,
+    fontSize: fontScale(20),
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
@@ -821,7 +838,7 @@ const styles = StyleSheet.create({
   textSecondary: {
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 14,
+    fontSize: fontScale(14),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
@@ -835,7 +852,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   posterImageContainer: {justifyContent: 'center', marginVertical: 5},
-  posterImage: {height: 450, width: window - 20, borderRadius: 12},
+  posterImage: {height: heightScale(450), width: window - 20, borderRadius: 12},
   posterDescContainer: {flexDirection: 'row', padding: 5},
   directorContainer: {
     width: window / 4,
@@ -857,7 +874,7 @@ const styles = StyleSheet.create({
   directorName: {
     color: '#333333',
     fontFamily: 'Helvetica Neue',
-    fontSize: 12,
+    fontSize: fontScale(12),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -866,7 +883,7 @@ const styles = StyleSheet.create({
   resultText: {
     color: '#000',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 16,
+    fontSize: fontScale(16),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -875,7 +892,7 @@ const styles = StyleSheet.create({
   sortbyButText: {
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 14,
+    fontSize: fontScale(14),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -897,7 +914,7 @@ const styles = StyleSheet.create({
   swipTitle: {
     color: '#FFFFFF',
     fontFamily: 'Helvetica Neue',
-    fontSize: 22,
+    fontSize: fontScale(22),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -913,7 +930,7 @@ const styles = StyleSheet.create({
   },
   vDivider: {
     width: '100%',
-    height: 1,
+    height: heightScale(1),
     backgroundColor: 'gray',
     opacity: 0.1,
   },
@@ -933,7 +950,7 @@ const styles = StyleSheet.create({
   soryByHead: {
     padding: 5,
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 22,
+    fontSize: fontScale(22),
     color: '#ff3300',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',

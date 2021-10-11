@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {flatMap, update} from 'lodash';
 import React, {Component} from 'react';
 import {
@@ -93,6 +94,7 @@ export class RenderMobile extends Component {
 
   togalItem(id) {
     const {selectedProviders} = this.state;
+    const {providerConfig} = this.props;
     if (!selectedProviders.includes(id)) {
       this.setState({
         selectedProviders: [...selectedProviders, id],
@@ -104,9 +106,29 @@ export class RenderMobile extends Component {
     }
   }
 
+  saveAsMyProvider() {
+    const {updateProviderConfig, providerConfig} = this.props;
+    const {selectedProviders} = this.state;
+    updateProviderConfig({
+      ...providerConfig,
+      selectedProviders: [
+        ...providerConfig.selectedProviders,
+        ...selectedProviders,
+      ],
+    });
+    this.setState({
+      selectedMenu: MENUS.MY_PROVIDES,
+      selectedProviders: [],
+    });
+  }
+
   renderItemComponent = (data) => {
     const {selectedProviders} = this.state;
-    console.log(selectedProviders);
+    const {providerConfig} = this.props;
+    let activeProviders = [
+      ...selectedProviders,
+      ...providerConfig.selectedProviders,
+    ];
     return (
       <View style={{width: window / 5 - 2}}>
         <TouchableOpacity
@@ -128,11 +150,11 @@ export class RenderMobile extends Component {
             <Text
               style={{
                 textAlign: 'center',
-                color: selectedProviders.includes(data.id) ? '#FF3300' : '#000',
+                color: activeProviders.includes(data.id) ? '#FF3300' : '#000',
               }}>
               {data.name}
             </Text>
-            {selectedProviders.includes(data.id) && (
+            {activeProviders.includes(data.id) && (
               <View style={styles.checkContainer}>
                 <FontAwesome5Icon name="check" color="#fff" size={20} />
               </View>
@@ -185,13 +207,23 @@ export class RenderMobile extends Component {
           <TouchableOpacity
             style={[
               styles.butContainer,
-              selectedMenu === MENUS.ALL ? styles.butActive : {},
+              providerConfig.selectedProviders.length === 0
+                ? styles.butActive
+                : {},
             ]}
-            onPress={() => this.setState({selectedMenu: MENUS.ALL})}>
+            onPress={() => {
+              updateProviderConfig({
+                ...providerConfig,
+                selectedProviders: [],
+              });
+              this.setState({selectedMenu: MENUS.ALL, selectedProviders: []});
+            }}>
             <Text
               style={[
                 styles.butText,
-                selectedMenu === MENUS.ALL ? styles.activeButText : {},
+                providerConfig.selectedProviders.length === 0
+                  ? styles.activeButText
+                  : {},
               ]}>
               All
             </Text>
@@ -199,13 +231,17 @@ export class RenderMobile extends Component {
           <TouchableOpacity
             style={[
               styles.butContainer,
-              selectedMenu === MENUS.MY_PROVIDES ? styles.butActive : {},
+              providerConfig.selectedProviders.length !== 0
+                ? styles.butActive
+                : {},
             ]}
             onPress={() => this.setState({selectedMenu: MENUS.MY_PROVIDES})}>
             <Text
               style={[
                 styles.butText,
-                selectedMenu === MENUS.MY_PROVIDES ? styles.activeButText : {},
+                providerConfig.selectedProviders.length !== 0
+                  ? styles.activeButText
+                  : {},
               ]}>
               {t('texts.id_147')}
             </Text>
@@ -216,18 +252,7 @@ export class RenderMobile extends Component {
               styles.butContainer,
               selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.butActive : {},
             ]}
-            onPress={() => {
-              const {updateProviderConfig, providerConfig} = this.props;
-              const {selectedProviders} = this.state;
-              updateProviderConfig({
-                ...providerConfig,
-                selectedProviders: [
-                  ...providerConfig.selectedProviders,
-                  ...selectedProviders,
-                ],
-              });
-              this.setState({selectedProviders: []});
-            }}>
+            onPress={() => this.saveAsMyProvider()}>
             <Text
               style={[
                 styles.butText,
@@ -258,13 +283,7 @@ export class RenderMobile extends Component {
                   <View style={[highlighted && {marginLeft: 0}]} />
                 ))
               }
-              data={
-                selectedMenu === MENUS.ALL
-                  ? DATA
-                  : DATA.filter((i) =>
-                      providerConfig.selectedProviders.includes(i.id),
-                    )
-              }
+              data={DATA}
               renderItem={({item, index}) =>
                 this.renderItemComponent({...item})
               }

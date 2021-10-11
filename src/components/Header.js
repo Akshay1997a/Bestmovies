@@ -14,6 +14,7 @@ import {
   Platform,
   Dimensions,
   Easing,
+  StatusBar as RNStatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -25,11 +26,14 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {FilterInitialState} from '../redux/FilterModule/FilterReducer';
 import StatusBar from './StatusBar';
+import {heightScale, widthScale} from '../helper/ResponsiveFonts';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const HEADER_HEIGHT = 60;
 export const TAB_BAR_HEIGHT = 40;
-export const TOTAL_HEADER_HEIGHT = HEADER_HEIGHT + TAB_BAR_HEIGHT;
+export const STATUS_BAR_HEIGHT = RNStatusBar.currentHeight;
+export const TOTAL_HEADER_HEIGHT =
+  HEADER_HEIGHT + TAB_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
 export const HEADER_TYPE = {
@@ -52,7 +56,7 @@ export default function Header(props) {
 
   return (
     <>
-      <StatusBar backgroundColor="#fff" />
+      <StatusBar backgroundColor="transparent" />
       <Animated.View
         style={[
           styles.headerContainer,
@@ -98,9 +102,16 @@ const DefaultHeader = ({navigate}) => {
       <TouchableOpacity onPress={() => navigate('Menu')}>
         <Image
           source={require('../../assets/Icons/BMicon.png')}
-          style={{width: 130, height: 83, resizeMode: 'center'}}
+          style={{
+            width: widthScale(130),
+            height: heightScale(83),
+            resizeMode: 'contain',
+            position: 'absolute',
+            top: heightScale(-60),
+          }}
         />
       </TouchableOpacity>
+      <View style={{width: widthScale(130)}} />
       <View style={{height: 50}} />
       <TouchableOpacity onPress={() => navigate('Filter')}>
         <View style={{position: 'relative'}}>

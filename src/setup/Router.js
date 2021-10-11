@@ -20,7 +20,7 @@ import Profile from '../screens/Profile';
 import YoutubePlayer from '../components/YoutubePlayer';
 import {StyleSheet, View, Platform} from 'react-native';
 import MenusList from '../screens/MenusList';
-import Header from '../components/Header';
+import Header, {STATUS_BAR_HEIGHT} from '../components/Header';
 import {
   TopBarMainNavigator,
   TopBarSearchNavigator,
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
   },
   ModalContainer: {
     height: '100%',
-    marginTop: Platform.OS === 'android' ? 10 : 48,
+    marginTop: Platform.OS === 'android' ? STATUS_BAR_HEIGHT : 48,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     backgroundColor: '#fff',
