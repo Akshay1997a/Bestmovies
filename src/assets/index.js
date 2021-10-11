@@ -20,6 +20,7 @@ export default {
   cast1: require('./appImages/cast4.png'),
   cast1: require('./appImages/cast5.png'),
 
+  sideBarBackground: require('./appImages/sideBarBackground.png'),
   icSearch: require('./appImages/search.png'),
   icMenu: require('./appImages/menu.png'),
   icBackArrow: require('./appImages/arrow_back.png'),

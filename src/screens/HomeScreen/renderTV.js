@@ -229,7 +229,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   }
   // console.log({selected, ADVERTISE_DATA})
   return (
-    <View style={{backgroundColor: colors.white,}}>
+    <View style={{backgroundColor: colors.white}}>
       <TVHeader
         style={{height: 400}}
         {...props}
@@ -363,7 +363,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 </Text>
               </View>
               <FlatList
-             
                 hasTVPreferredFocus={true}
                 //  contentContainerStyle={{paddingBottom:50}}
                 keyExtractor={(item, index) => `item${index}`}
@@ -409,7 +408,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 </Text>
               </View>
               <FlatList
-               style={{marginStart:10}}
+                style={{marginStart: 10}}
                 hasTVPreferredFocus={true}
                 contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
@@ -430,23 +429,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
         {selected == TV_SHOW && (
           <View style={[{flex: 1}]} hasTVPreferredFocus={true}>
-            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
               style={{height: StyleConfig.resHeight(900)}}>
-              {/* <FlatList 
-                  hasTVPreferredFocus={true}
-                  data={posts}
-                  numColumns={5}
-                  contentContainerStyle={{paddingBottom:50}}
-                  keyExtractor={(item, index) => `item${index}`}
-                  renderItem = {({item}) => (
-                    <TVMovieListItem
-                      item={item} 
-                      onFocusedItem={(item)=> setSelectedItem(item)}
-                      {...props} />
-                  )}
-                />  */}
               <FlatList
                 hasTVPreferredFocus={true}
                 contentContainerStyle={{paddingBottom: 50}}

@@ -92,12 +92,11 @@ Nullam nec tortor lacus. Morbi augue tortor, volutpat eu facilisis ut, feugiat a
       id: 4,
       type: 'detail',
       data: `Download & use the mobile app from your mobile's Google Play or Apple Stores:
-
-            - Optimized user experience
-            - Swipe titles
-            - Get notifications
-            - Share lists & ratings with friends
-            - Browse anytime, anywhere
+- Optimized user experience
+- Swipe titles
+- Get notifications
+- Share lists & ratings with friends
+- Browse anytime, anywhere
 
 
 
@@ -139,11 +138,10 @@ Nullam nec tortor lacus. Morbi augue tortor, volutpat eu facilisis ut, feugiat a
       id: 4,
       type: 'detail',
       data: `Use your facebook's friend list or add friends directly to:
-
-            - See their liked movies, ratings & viewings
-            - Share your ratings
-            - Send them recommendations
-            - Get notifications when they like a new title
+- See their liked movies, ratings & viewings
+- Share your ratings
+- Send them recommendations
+- Get notifications when they like a new title
 
 
 

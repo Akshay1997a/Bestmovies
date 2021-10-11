@@ -72,15 +72,13 @@ const styles = StyleSheet.create({
   },
   backWrap: {
     paddingHorizontal: StyleConfig.resWidth(8),
-    // paddingVertical:   isAndroid() ? 0: StyleConfig.resHeight(2),
     margin: 4,
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
     paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    // paddingVertical:  isAndroid() ? 0 :StyleConfig.resHeight(2),
-    margin: isAndroid() ? 0 : 4,
     borderRadius: 10,
+    margin: 4,
   },
 });
 
@@ -132,50 +130,46 @@ const TVCountryLanguage = (props) => {
 
   const onPressHandle = async (item) => {
     setCountryClick(true);
-
     if (item?.code) {
-      //   await AsyncStorage.setItem('langType', item?.code);
       i18n.changeLanguage(item?.code);
       changeLanguage();
     }
-    // console.log('key',val);
-    // setFocus(val);
   };
 
   const onFocus = useCallback((val) => {
     props.reduxSetCurrFocus('countryLang');
     setFocus(val);
   });
+
   const onBlur = useCallback(() => {
     console.log('onBlur');
 
     setFocus(false);
   }, []);
 
-  console.log('countryList', countryList);
   return (
     <ScrollView>
       <View style={{flexDirection: 'row', minHeight: 1000}}>
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
-              <View style={[{width: WIDTH * 0.12, marginLeft: 10}]}>
+              <View style={[{width: WIDTH * 0.14, marginLeft: 10}]}>
                 <Pressable
                   onPress={() => onPressHandle(item)}
-                  //  onBlur={onBlur()}
                   onFocus={() => onFocus(item.id)}
-                  //   onFocus={()=> setFocus(item.id)}
                   style={
                     props.focus === 'countryLang' && item.id == focus
                       ? styles.focusBackWrap
-                      : //   { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
-                        {}
+                      : {}
                   }>
                   <Text
                     style={{
                       fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: isAndroid() ? 16 : 30,
-                      fontWeight: '400',
+                      fontSize: isAndroid() ? 16 : 28,
+                      fontWeight:
+                        props.focus === 'countryLang' && item.id == focus
+                          ? '700'
+                          : '400',
                       padding: isAndroid() ? 2 : 8,
                       paddingHorizontal: 15,
                       color:
@@ -194,6 +188,7 @@ const TVCountryLanguage = (props) => {
           <View
             style={{
               marginLeft: isAndroid() ? 100 : 160,
+              paddingLeft: 15,
               borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
@@ -212,12 +207,9 @@ const TVCountryLanguage = (props) => {
                     <Text
                       style={{
                         fontFamily: primary_regular_font.primary_regular_font,
-                        fontSize: isAndroid() ? 16 : 30,
-                        fontWeight: '400',
-                        color:
-                          props.focus === code && item.id == focus
-                            ? colors.white
-                            : colors.black,
+                        fontSize: isAndroid() ? 16 : 28,
+                        fontWeight: code == focus ? '700' : '400',
+                        color: code == focus ? colors.white : colors.black,
                       }}>
                       {item[1]}
                     </Text>
