@@ -186,11 +186,11 @@ const BACK_DATA = [
     details: 'texts.id_172',
   },
 
-  {
-    key: INCLUDES,
-    title: 'texts.id_170',
-    details: 'texts.id_171',
-  },
+  // {
+  //   key: INCLUDES,
+  //   title: 'texts.id_170',
+  //   details: 'texts.id_171',
+  // },
   {
     key: PROVIDERS,
     title: 'texts.id_111',
@@ -224,7 +224,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper
             }>
-            <Icon name={'chevron-left'} size={40} color={'gray'} style={[{}]} />
+            <Icon name={'chevron-left'} size={20} color={'gray'} style={[{}]} />
           </View>
         )}
       </View>
@@ -352,23 +352,28 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               ? BACK_DATA.map((item, index) => {
                   return (
                     <View
-                      style={[
-                        {
-                          width: item.key === 'BackArrow' ? 60 : WIDTH * 0.18,
-                        },
-                      ]}>
+                    // style={[
+                    //   {
+                    //     width: item.key === 'BackArrow' ? 60 : WIDTH * 0.18,
+                    //   },
+                    // ]}
+                    >
                       <Pressable
                         key={item.key}
                         onFocus={() => onFocus(item.key)}
                         onPress={() => onPressClick(item)}
-                        tvParallaxProperties={{magnification: 1.1}}
-                        // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
-                      >
+                        tvParallaxProperties={{magnification: 1.1}}>
                         {item.key === 'BackArrow' ? (
                           <BackArrow item={item} />
                         ) : (
-                          <View style={{marginLeft: 20, flexDirection: 'row'}}>
-                            <View style={{marginRight: 90}}>
+                          <View style={{marginLeft: 10, flexDirection: 'row'}}>
+                            <View
+                              style={{
+                                width: WIDTH / 7.5,
+                                flex: 1,
+                                justifyContent: 'center',
+                                marginStart: 10,
+                              }}>
                               <View
                                 style={
                                   focus == item.key
@@ -392,10 +397,19 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                   <Text
                                     numberOfLines={1}
                                     style={
-                                      focus == item.key
+                                      (props.focus === 'top') &
+                                      (focus == item.key)
                                         ? styles.focusTextTitle
+                                        : item.selected
+                                        ? styles.focusText
                                         : styles.textTitle
-                                    }>
+                                    }
+                                    // style={
+                                    //   focus == item.key
+                                    //     ? styles.focusTextTitle
+                                    //     : styles.textTitle
+                                    // }
+                                    >
                                     {t(item.title)}
                                   </Text>
                                 )}
@@ -419,16 +433,11 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                 </Text>
                               )}
                             </View>
-                            {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
-              <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
-            </View> */}
+
                             <View>
-                              {item.title === ' Clear filters' ? (
-                                <View style={{marginRight: 80}} />
+                              {t(item.title) === 'Clear filters' ? (
+                                <View />
                               ) : (
-                                // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
-                                //     borderColor:'red',
-                                //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
                                 <View style={styles.verticleLine} />
                               )}
                             </View>
@@ -452,7 +461,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                         {item.key === 'Arrow' ? (
                           <View
                             style={[
-                              focus == item.key
+                              props.focus === 'top' && focus == item.key
                                 ? styles.itemWrapperSelected
                                 : styles.itemWrapper,
                               {},
@@ -469,33 +478,22 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                         ) : (
                           <View
                             style={{
-                              // marginLeft: 20,
-                              // flex: 1,
-                              // paddingHorizontal: 20,
                               alignItems: 'center',
                               flexDirection: 'row',
                             }}>
                             <View
                               style={{
-                                width:WIDTH/8,
-                                // marginRight: isAndroid() ? 25 : 75,
+                                width: WIDTH / 8,
                                 flex: 1,
                                 justifyContent: 'center',
                                 marginStart: 10,
-                                // marginEnd: 28,
                               }}>
                               <View
-                                style={
-                                  [
-                                    props.focus === 'top' && focus == item.key
-                                      ? styles.itemWrapperSelected
-                                      : styles.itemWrapper,
-                                  ]
-                                  //     props.focus === 90 ?
-                                  //     styles.itemWrapper :
-                                  //   focus == item.key
-                                  // ? styles.itemWrapperSelected : styles.itemWrapper
-                                }>
+                                style={[
+                                  props.focus === 'top' && focus == item.key
+                                    ? styles.itemWrapperSelected
+                                    : styles.itemWrapper,
+                                ]}>
                                 <Text
                                   numberOfLines={1}
                                   style={
@@ -503,8 +501,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                     (focus == item.key)
                                       ? styles.focusTextTitle
                                       : item.selected
-                                      ? //  props.topSelected == item.key ?
-                                        styles.focusText
+                                      ? styles.focusText
                                       : styles.textTitle
                                   }>
                                   {t(item.title)}
@@ -514,14 +511,9 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                 {t(item.details)}
                               </Text>
                             </View>
-                            {/* <View style={{marginLeft:20,flexDirection:'row',borderWidth:1}}>
-              <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
-            </View> */}
+
                             <View>
-                            {t(item.title) === 'Price' ? null : (
-                                // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
-                                //     borderColor:'red',
-                                //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />
+                              {t(item.title) === 'Price' ? null : (
                                 <View style={styles.verticleLine} />
                               )}
                             </View>

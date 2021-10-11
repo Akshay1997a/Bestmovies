@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
   title: {
     width: isAndroid() ? 150 : 300,
     fontFamily: primary_regular_font.primary_regular_font,
-    marginVertical: 5,
+    marginTop:  StyleConfig.resHeight(10),
     fontSize: isAndroid()
       ? StyleConfig.resHeight(26)
       : StyleConfig.resHeight(26),

@@ -22,17 +22,49 @@ const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
+  whiteStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.white,
+  },
+  blackStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.black,
+  },
+  tomatoStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.tomatoRed,
+  },
   backWrap: {
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(0)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
-    borderRadius: 10,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
+    borderRadius: StyleConfig.resWidth(10),
   },
 });
 
@@ -103,8 +135,9 @@ const TVGenreModal = (props) => {
       onclose={props?.onclose}
       title={t('texts.id_127')}
       titleId={'genres'}>
-      <ScrollView>
-        <View style={{marginStart: 10, flexDirection: 'row'}}>
+      <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
+        <View
+          style={{marginStart: StyleConfig.resWidth(10), flexDirection: 'row'}}>
           <Pressable
             onPress={() => setToggle(!toggleValue)}
             onFocus={() => setToggleBackgrpund(true)}
@@ -121,6 +154,7 @@ const TVGenreModal = (props) => {
           <Text
             numberOfLines={1}
             style={{
+              alignSelf: 'center',
               maxWidth: WIDTH * 0.25,
               marginHorizontal: 10,
               fontFamily: primary_regular_font.primary_regular_font,
@@ -139,10 +173,22 @@ const TVGenreModal = (props) => {
               style={index == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
                 numberOfLines={1}
+                style={
+                  index == focus
+                    ? styles.whiteStyle
+                    : selectedGenres.includes(item)
+                    ? styles.tomatoStyle
+                    : styles.blackStyle
+                }>
+                {/* <Text
+                numberOfLines={1}
                 style={{
-                  maxWidth: WIDTH * 0.25,
+                  paddingStart: StyleConfig.resWidth(20),
+                  maxWidth: WIDTH * StyleConfig.resWidth(0.22),
                   fontFamily: primary_regular_font.primary_regular_font,
-                  fontSize: isAndroid() ? 15 : 30,
+                  fontSize: isAndroid()
+                    ? StyleConfig.resWidth(30)
+                    : StyleConfig.resWidth(30),
                   fontWeight: '400',
                   color:
                     index == focus
@@ -150,7 +196,7 @@ const TVGenreModal = (props) => {
                       : selectedGenres.includes(item)
                       ? colors.tomatoRed
                       : colors.black,
-                }}>
+                }}> */}
                 {t(item)}
               </Text>
               {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize:30,fontWeight:'400', padding:8,paddingHorizontal:15, color: item.id == focus ? colors.white : colors.black}}>{item.generes}</Text> */}

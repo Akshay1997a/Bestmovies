@@ -122,7 +122,6 @@ const TVSubscriptionRender = (props) => {
     //   onFocusedItem(item)
   });
   const onPressClick = (val) => {
-    console.log('onPressClick TVSubscriptionRender***', val);
     props.action(val);
   };
 
@@ -222,31 +221,15 @@ const TVSubscriptionRender = (props) => {
 
 const TVSubscription = (props) => {
   const onPressClick = (index) => {
-    // let data = items[val.id];
-    // val.selected = !val.selected;
     props.action(index);
-
-    // for (const element of items) {
-    //     if(element.id == val.id){
-    //         if(element.selected){
-    //             element.selected = false;
-    //         }else{
-    //             element.selected = true
-    //         }
-    //         console.log('element***',element);
-    //     }
-    // }
   };
 
   return (
     <FlatList
       hasTVPreferredFocus={true}
-      //    contentContainerStyle={{paddingBottom:50}}
-      //    keyExtractor={(item, index) => `item${index}`}
       numColumns={5}
       data={props.items}
       renderItem={({item, index}) => {
-        console.log('indexxxxxxxx', index);
         return (
           <TVSubscriptionRender
             item={item}
@@ -323,11 +306,15 @@ const styles = StyleSheet.create({
 
     marginLeft: 10,
     width: isAndroid() ? 100 : 150,
+
   },
 
   selectedText: {
+    borderWidth: 1,
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 14 : StyleConfig.resHeight(26),
+    fontSize: isAndroid()
+      ? StyleConfig.resHeight(26)
+      : StyleConfig.resHeight(26),
     fontWeight: '700',
     // borderWidth:1,
     // marginTop:4,

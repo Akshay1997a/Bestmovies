@@ -35,7 +35,7 @@ i18next
 export default i18next;
 
 export const runTimeTranslations = (runTimeData, lng = 'en') => {
-  console.log('data gets from api heree', runTimeData);
+  // console.log('data gets from api heree', runTimeData);
   i18next.addResourceBundle(lng, 'translation', runTimeData, true, true);
   i18next.changeLanguage(lng);
 };

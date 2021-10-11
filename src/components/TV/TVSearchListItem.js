@@ -101,19 +101,7 @@ const TVCardDetail = ({item, ...props}) => {
           {/* //Bottom View */}
           <View>
             <View>
-              <Text
-                ellipsizeMode="tail"
-                numberOfLines={1}
-                style={[
-                  {
-                    width: isAndroid() ? 90 : 300,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    marginVertical: 5,
-                    fontSize: StyleConfig.resHeight(24),
-                    fontWeight: '700',
-                    color: props?.selected == 1 ? 'black' : 'black',
-                  },
-                ]}>
+              <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
                 {item.title}
               </Text>
             </View>
@@ -158,6 +146,14 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    width: isAndroid() ? StyleConfig.resHeight(300) : StyleConfig.resHeight(300),
+    fontFamily: primary_regular_font.primary_regular_font,
+    marginTop: StyleConfig.resHeight(10),
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '700',
+    color: 'black',
+  },
   bornYear: {
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resHeight(26),

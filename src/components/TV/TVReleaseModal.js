@@ -37,26 +37,58 @@ const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
+  whiteStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.white,
+  },
+  blackStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.black,
+  },
+  tomatoStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.tomatoRed,
+  },
   deleteAllButton: {
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 20,
+    fontSize: StyleConfig.resWidth(20),
     alignSelf: 'center',
-    backgroundColor: '#e5e5e5',
+    backgroundColor: colors.gray,
     paddingHorizontal: StyleConfig.resWidth(100),
-    paddingVertical:5,
-    borderRadius: 10,
+    paddingVertical: StyleConfig.resWidth(10),
+    borderRadius: StyleConfig.resWidth(10),
   },
   backWrap: {
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 2 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(0)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
-    borderRadius: 10,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
+    borderRadius: StyleConfig.resWidth(10),
   },
 });
 
@@ -70,12 +102,8 @@ const TVReleaseModal = (props) => {
   const [data, setData] = useState(DATA);
   const onPressClick = (val) => {
     val.selected = true;
-    console.log('onPressClick dadada***', val);
     props.action(props.keySort);
-    // props.visible = true;
-
-    //   props.onclose();
-    setSelected(val);
+    setSelected(val.id);
   };
   const onPressClickFrom = (val) => {
     console.log('onPressClick dadadadaa***KKKK', val);
@@ -106,7 +134,7 @@ const TVReleaseModal = (props) => {
       title={t('texts.id_114')}
       titleId={'release_year'}>
       <ScrollView>
-        <View style={{marginStart:10}}>
+        <View style={{margin: StyleConfig.resWidth(15)}}>
           <View>
             {data.map((item, index) => {
               return (
@@ -118,25 +146,20 @@ const TVReleaseModal = (props) => {
                   }>
                   <Text
                     numberOfLines={1}
-                    style={{
-                      maxWidth: WIDTH * 0.25,
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: isAndroid() ? 15 : 30,
-                      fontWeight: '400',
-                      color:
-                        item.id == focus
-                          ? colors.white
-                          : item.selected
-                          ? colors.tomatoRed
-                          : colors.black,
-                    }}>
+                    style={
+                      item.id == focus
+                        ? styles.whiteStyle
+                        : item.id == selected
+                        ? styles.tomatoStyle
+                        : styles.blackStyle
+                    }>
                     {t(item.name)}
                   </Text>
                 </Pressable>
               );
             })}
           </View>
-          <View style={{flexDirection: 'row',marginTop:10}}>
+          <View style={{flexDirection: 'row', marginTop: 10}}>
             <TouchableOpacity
               onPress={() => onPressClickFrom('item')}
               style={{flex: 0.5, alignItems: 'center'}}>

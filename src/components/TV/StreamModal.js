@@ -26,6 +26,7 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 // import ToggleSwitch from "toggle-switch-react-native";
 const isAndroid = () => {
   return Platform.OS == 'android';
@@ -50,87 +51,52 @@ let [
   MENU,
 ] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-const items23 = [
-  {
-    id: 1,
-    name: 'Netflix',
-    image: AppImages.netflix,
-  },
-  {id: 2, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 3, name: 'HBO', image: AppImages.hbo},
-  {id: 4, name: 'Hulu', image: AppImages.hulu},
-  {id: 5, name: 'Disney+', image: AppImages.disnep},
-  {id: 6, name: 'Apple TV+', image: AppImages.appleTv},
-  {
-    id: 7,
-    name: 'Netflix',
-    image: AppImages.netflix,
-  },
-  {id: 8, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 9, name: 'HBO', image: AppImages.hbo},
-  {id: 10, name: 'Hulu', image: AppImages.hulu},
-  {id: 11, name: 'Disney+', image: AppImages.disnep},
-  {id: 12, name: 'Apple TV+', image: AppImages.appleTv},
-  {
-    id: 13,
-    name: 'Netflix',
-    image: AppImages.netflix,
-  },
-  {id: 14, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 15, name: 'HBO', image: AppImages.hbo},
-  {id: 16, name: 'Hulu', image: AppImages.hulu},
-  {id: 17, name: 'Disney+', image: AppImages.disnep},
-  {id: 18, name: 'Apple TV+', image: AppImages.appleTv},
-  {
-    id: 18,
-    name: 'Netflix',
-    image: AppImages.netflix,
-  },
-  {id: 19, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 20, name: 'HBO', image: AppImages.hbo},
-  {id: 21, name: 'Hulu', image: AppImages.hulu},
-  {id: 22, name: 'Disney+', image: AppImages.disnep},
-  {id: 23, name: 'Apple TV+', image: AppImages.appleTv},
-  {id: 24, name: 'Apple TV+', image: AppImages.appleTv},
-  {id: 25, name: 'Apple TV+', image: AppImages.appleTv},
-];
-const items2 = [
-  {
-    id: 6,
-    name: 'Netflix',
-    image: AppImages.netflix,
-  },
-  {id: 8, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 9, name: 'HBO', image: AppImages.hbo},
-  {id: 10, name: 'Hulu', image: AppImages.hulu},
-  {id: 11, name: 'Disney+', image: AppImages.disnep},
-  {id: 12, name: 'Apple TV+', image: AppImages.appleTv},
-];
-const items3 = [
-  {
-    id: 13,
-    name: 'Netflix',
-    image: AppImages.netflix,
-  },
-  {id: 14, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 15, name: 'HBO', image: AppImages.hbo},
-  {id: 16, name: 'Hulu', image: AppImages.hulu},
-  {id: 17, name: 'Disney+', image: AppImages.disnep},
-  {id: 18, name: 'Apple TV+', image: AppImages.appleTv},
-];
-const items4 = [
-  {
-    id: 18,
-    name: 'Netflix',
-    image: AppImages.netflix,
-  },
-  {id: 19, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 21, name: 'HBO', image: AppImages.hbo},
-  {id: 22, name: 'Hulu', image: AppImages.hulu},
-  {id: 25, name: 'Disney+', image: AppImages.disnep},
-  {id: 26, name: 'Apple TV+', image: AppImages.appleTv},
-];
 const styles = StyleSheet.create({
+  tvToggle1: {
+    maxWidth: 500,
+    marginHorizontal: 10,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 15 : 30,
+    fontWeight: '400',
+    color: colors.black,
+  },
+  tvToggle: {
+    paddingTop: isAndroid() ? 2 : 20,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+  },
+  download: {
+    maxWidth: 400,
+    marginEnd: isAndroid() ? 20 : 60,
+    fontSize: isAndroid() ? 15 : 30,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '400',
+    paddingVertical: isAndroid() ? 5 : 5,
+  },
+  tvPlatform: {
+    marginStart: isAndroid() ? 20 : 60,
+    fontSize: isAndroid() ? 15 : 30,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '700',
+    paddingVertical: isAndroid() ? 5 : 5,
+  },
+  sbscriptionText: {
+    maxWidth: 400,
+    justifyContent: 'flex-end',
+    marginStart: isAndroid() ? 30 : 60,
+    fontSize: isAndroid() ? 15 : 30,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '400',
+    paddingVertical: isAndroid() ? 5 : 5,
+  },
+  imageStyle: {
+    maxWidth: 500,
+    marginHorizontal: 10,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? 15 : 30,
+    fontWeight: '400',
+    color: colors.black,
+  },
   notfocusbackWrap: {
     paddingHorizontal: StyleConfig.resWidth(8),
     paddingVertical: StyleConfig.resHeight(4),
@@ -273,64 +239,6 @@ const items = [
   {id: 34, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
   {id: 35, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
 ];
-const itemsAny = [
-  {
-    id: 1,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: true,
-  },
-  {id: 2, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 3, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 4, name: 'Hulu', image: AppImages.hulu, selected: true},
-  {id: 5, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 6, name: 'Apple TV+', image: AppImages.appleTv, selected: true},
-  {
-    id: 7,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 8, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 9, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 10, name: 'Hulu', image: AppImages.hulu, selected: false},
-  {id: 11, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 12, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 13,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 14, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 15, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 16, name: 'Hulu', image: AppImages.hulu, selected: false},
-  {id: 17, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 18, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 18,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 19, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 20, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 21, name: 'Hulu', image: AppImages.hulu, selected: false},
-  {id: 22, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 23, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 24, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 25, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 26, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 27, name: 'Hulu', image: AppImages.hulu, selected: false},
-  {id: 28, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 29, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 30, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 31, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 32, name: 'Hulu', image: AppImages.hulu, selected: false},
-  {id: 33, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 34, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 35, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-];
 
 const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   const {t} = useTranslation();
@@ -430,18 +338,18 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
       <View
         style={
           isAndroid()
-            ? {backgroundColor: 'white', height: 570, width: 850, marginTop: 50}
+            ? {
+                backgroundColor: 'white',
+                height: HEIGHT,
+                width: WIDTH - 50,
+                marginTop: StyleConfig.resHeight(50),
+              }
             : {
                 width: 1400,
                 backgroundColor: 'white',
                 borderRadius: 30,
-                //   paddingTop: 30,
-                //   marginTop:30,
-                //   marginRight:150
               }
         }>
-        {/* <View style={{flex:1,flexDirection:'row'}}> */}
-
         <View
           style={{
             marginBottom: isAndroid() ? 0 : 12,
@@ -571,41 +479,13 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View>
-            <Text
-              numberOfLines={1}
-              style={{
-                maxWidth: 400,
-                justifyContent: 'flex-end',
-                marginStart: isAndroid() ? 30 : 60,
-                fontSize: isAndroid() ? 15 : 30,
-                fontFamily: primary_regular_font.primary_regular_font,
-                fontWeight: '400',
-                paddingVertical: isAndroid() ? 5 : 5,
-              }}>
+            <Text numberOfLines={1} style={styles.sbscriptionText}>
               {t('texts.id_156')}: 3
             </Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text
-              style={{
-                marginStart: isAndroid() ? 20 : 60,
-                fontSize: isAndroid() ? 15 : 30,
-                fontFamily: primary_regular_font.primary_regular_font,
-                fontWeight: '700',
-                paddingVertical: isAndroid() ? 5 : 5,
-              }}>
-              TV platform:
-            </Text>
-            <Text
-              numberOfLines={1}
-              style={{
-                maxWidth: 400,
-                marginEnd: isAndroid() ? 20 : 60,
-                fontSize: isAndroid() ? 15 : 30,
-                fontFamily: primary_regular_font.primary_regular_font,
-                fontWeight: '400',
-                paddingVertical: isAndroid() ? 5 : 5,
-              }}>
+            <Text style={styles.tvPlatform}>TV platform:</Text>
+            <Text numberOfLines={1} style={styles.download}>
               {' '}
               {t('texts.id_25')}
             </Text>
@@ -628,12 +508,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           </ScrollView>
         </View>
 
-        <View
-          style={{
-            paddingTop: isAndroid() ? 2 : 20,
-            paddingHorizontal: 20,
-            flexDirection: 'row',
-          }}>
+        <View style={styles.tvToggle}>
           <Pressable
             style={({pressed, hovered, focused}) =>
               focused ? styles.focustoggle : styles.notfocusbackWrap
@@ -650,16 +525,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               />
             )}
           </Pressable>
-          <Text
-            numberOfLines={1}
-            style={{
-              maxWidth: 500,
-              marginHorizontal: 10,
-              fontFamily: primary_regular_font.primary_regular_font,
-              fontSize: isAndroid() ? 15 : 30,
-              fontWeight: '400',
-              color: colors.black,
-            }}>
+          <Text numberOfLines={1} style={styles.tvToggle1}>
             {t('texts.id_150')}
           </Text>
         </View>
@@ -680,16 +546,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               />
             )}
           </Pressable>
-          <Text
-            numberOfLines={1}
-            style={{
-              maxWidth: 500,
-              marginHorizontal: 10,
-              fontFamily: primary_regular_font.primary_regular_font,
-              fontSize: isAndroid() ? 15 : 30,
-              fontWeight: '400',
-              color: colors.black,
-            }}>
+          <Text numberOfLines={1} style={styles.tvToggle1}>
             {t('texts.id_152')}
           </Text>
         </View>
@@ -712,29 +569,10 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
             )}
           </Pressable>
           {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
-          <Text
-            numberOfLines={1}
-            style={{
-              maxWidth: 500,
-              marginHorizontal: 10,
-              fontFamily: primary_regular_font.primary_regular_font,
-              fontSize: isAndroid() ? 15 : 30,
-              fontWeight: '400',
-              color: colors.black,
-            }}>
+          <Text numberOfLines={1} style={styles.imageStyle}>
             {t('texts.id_154')}
           </Text>
         </View>
-
-        {/* <View style={{flexDirection:'row', justifyContent:'space-between', alignItems: 'center', marginBottom:12, marginLeft:10}}>
-                  <Pressable onPress={props.onclose} style={({ pressed, hovered, focused }) => focused ? styles.focusBackWrap : styles.backWrap }>
-                      <Image style={{ width: StyleConfig.resWidth(20),
-                          height: StyleConfig.resHeight(20),}} source={AppImages.icBackArrow} />
-                  </Pressable>
-                  <Text style={{fontFamily:primary_regular_font.primary_regular_font ,fontSize:34, fontWeight:'700', textAlign:'center'}}>{props?.title}</Text>
-                  <View style={{width: StyleConfig.resWidth(36), margin:4}} />
-              </View>
-              {props?.children} */}
       </View>
       <TVCountryModal
         action={onPressClick}

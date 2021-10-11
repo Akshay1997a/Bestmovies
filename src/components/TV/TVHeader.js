@@ -33,7 +33,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
 
   const headerHeight = useHeaderHeight();
   const [focus, setFocus] = useState(NONE);
-  console.log('props TVHeader', props);
+  // console.log('props TVHeader', props);
 
   const onFocus = useCallback((val) => {
     props.reduxSetCurrFocus('header');
@@ -78,11 +78,13 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            focus == SEARCH ? styles.itemWrapperSelected : styles.itemWrapper
+            props.focus === 'header' && focus == SEARCH
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper
           }>
           <Image
             style={
-              focus == SEARCH
+              props.focus === 'header' && focus == SEARCH
                 ? styles.headerIconFocus
                 : selected == SEARCH
                 ? styles.headerIconSelected
@@ -341,7 +343,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: 'row',
     marginVertical: 5,
-    
+
     marginStart: isAndroid() ? 20 : 10,
 
     // marginEnd:100
@@ -370,13 +372,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: isAndroid() ? 18 : 32,
+    fontSize: isAndroid() ? 16 : 32,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '400',
     color: colors.black,
   },
   focusText: {
-    fontSize: isAndroid() ? 18 : 32,
+    fontSize: isAndroid() ? 16 : 32,
     fontWeight: '700',
     color: colors.white,
   },

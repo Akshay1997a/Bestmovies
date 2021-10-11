@@ -21,8 +21,8 @@ import {WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
   {id: 0, name: 'texts.id_101'},
-  // {id: 1, name: 'texts.id_103'},
-  // {id: 2, name: 'texts.id_105'},
+  {id: 1, name: 'texts.id_103'},
+  {id: 2, name: 'texts.id_105'},
   {id: 3, name: 'texts.id_107'},
 ];
 
@@ -30,17 +30,49 @@ const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
+  whiteStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.white,
+  },
+  blackStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.black,
+  },
+  tomatoStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.tomatoRed,
+  },
   backWrap: {
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 2 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(0)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 2 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
-    borderRadius: 10,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
+    borderRadius: StyleConfig.resWidth(10),
   },
 });
 
@@ -75,7 +107,7 @@ const TVSortByModal = (props, key) => {
       title={t('texts.id_99')}
       titleId={'sort_by'}>
       <ScrollView>
-        <View style={{marginStart: 10}}>
+        <View style={{margin: StyleConfig.resWidth(15)}}>
           {data.map((item, index) => {
             return (
               <Pressable
@@ -86,18 +118,13 @@ const TVSortByModal = (props, key) => {
                 }>
                 <Text
                   numberOfLines={1}
-                  style={{
-                    maxWidth: WIDTH * 0.22,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 15 : 30,
-                    fontWeight: '400',
-                    color:
-                      item.id == focus
-                        ? colors.white
-                        : item.id == selected
-                        ? colors.tomatoRed
-                        : colors.black,
-                  }}>
+                  style={
+                    item.id == focus
+                      ? styles.whiteStyle
+                      : item.id == selected
+                      ? styles.tomatoStyle
+                      : styles.blackStyle
+                  }>
                   {t(item.name)}
                 </Text>
               </Pressable>

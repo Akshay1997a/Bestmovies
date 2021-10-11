@@ -137,7 +137,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   // const [text, setText] = useState('sadad');
   const [text, onChangeText] = React.useState(null);
   let _tvEventHandler;
-  console.log('onChangeSelected', selected);
+  // console.log('onChangeSelected', selected);
 
   // const _enableTVEventHandler =()=> {
   //   this._tvEventHandler = new TVEventHandler();
@@ -207,15 +207,21 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
   const onPressClick = (val) => {
     setTopSelected(val);
-    console.debug(' onPressClick value>>>>>', val);
+    // console.debug(' onPressClick value>>>>>', val);
   };
+
   function _handleEvent(value) {
-    console.debug('value>>>>>', value);
+    console.debug('value)))))00000', value);
     let data = '';
     if (value == 33) {
       data = text.slice(0, -1);
-    } else if (value == 28) {
-      //
+    } else if (value == 29) {
+      let str = text;
+      str = str.substring(0, str.length - 1);
+      data = str;
+    } else if (value == 30) {
+      data = text;
+      data = '';
     } else if (value == 12) {
       data = text == null ? value : text + '\n';
     } else if (value == 13) {
@@ -229,7 +235,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   }
   // console.log({selected, ADVERTISE_DATA})
   return (
-    <View style={{backgroundColor: colors.white,}}>
+    <View style={{backgroundColor: colors.white}}>
       <TVHeader
         style={{height: 400}}
         {...props}
@@ -261,7 +267,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
           }}
         />
 
-        {/* { selected != SEARCH && 
+        {/* { selected != SEARCH &&
           <TVTopBar ref={sidebar} headerSelected={selected} hasTVPreferredFocus={true} {...props}  onChangeSelected={(val)=> setShowSelected(val) }/>
           } */}
         {selected == SEARCH && (
@@ -275,7 +281,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
               }}>
               {/* <View style={{flexDirection:'row',marginBottom:10}} >
                   <View style={styles.title}>
-                    
+
                         <Text style={styles.titleText}>Title</Text>
                   </View>
                   <View style={styles.artist}>
@@ -292,7 +298,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   <View style={{flex: 0.1, alignSelf: 'center'}}>
                     <Image style={styles.search} source={AppImages.icSearch} />
                   </View>
-                  {/* <TextInput 
+                  {/* <TextInput
                       placeholder={strings.search}
                       placeholderTextColor={colors.black}
                       keyboardType={strings.email_address}
@@ -301,7 +307,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                     /> */}
                   <TextInput
                     onSelectionChange={(event) =>
-                      console.log(event.nativeEvent.selection)
+                      console.log(
+                        'onSelectionChange',
+                        event.nativeEvent.selection,
+                      )
                     }
                     placeholderTextColor={colors.black}
                     placeholder={t('texts.id_20')}
@@ -363,7 +372,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 </Text>
               </View>
               <FlatList
-             
                 hasTVPreferredFocus={true}
                 //  contentContainerStyle={{paddingBottom:50}}
                 keyExtractor={(item, index) => `item${index}`}
@@ -409,7 +417,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                 </Text>
               </View>
               <FlatList
-               style={{marginStart:10}}
+                style={{marginStart: 10}}
                 hasTVPreferredFocus={true}
                 contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
@@ -434,7 +442,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
             <View
               hasTVPreferredFocus={true}
               style={{height: StyleConfig.resHeight(900)}}>
-              {/* <FlatList 
+              {/* <FlatList
                   hasTVPreferredFocus={true}
                   data={posts}
                   numColumns={5}
@@ -442,7 +450,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   keyExtractor={(item, index) => `item${index}`}
                   renderItem = {({item}) => (
                     <TVMovieListItem
-                      item={item} 
+                      item={item}
                       onFocusedItem={(item)=> setSelectedItem(item)}
                       {...props} />
                   )}
@@ -480,12 +488,12 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
           <View hasTVPreferredFocus={true}>
             <Text>dadsdsd</Text>
             {/* <TVSideBar onChangeSelected={(val)=> setShowSelected(val) }/> */}
-            {/* <FlatList 
+            {/* <FlatList
                 data={Const.ABOUT_US}
                 keyExtractor={(item, index) => `item${index}`}
                 renderItem={({item})=>{
-                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} /> 
-                  : 
+                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} />
+                  :
                   <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
                 }}
               /> */}
@@ -669,7 +677,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
         {selected == PROFILE && showSelected == ACCOUNT && (
           <View hasTVPreferredFocus={true}>
-            <View style={{flex: 1, backgroundColor: 'red'}}></View>
+            <View style={{flex: 1, backgroundColor: 'red'}} />
           </View>
         )}
       </View>

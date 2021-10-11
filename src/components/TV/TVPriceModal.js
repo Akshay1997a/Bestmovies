@@ -36,17 +36,49 @@ const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
+  whiteStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.white,
+  },
+  blackStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.black,
+  },
+  tomatoStyle: {
+    paddingStart: StyleConfig.resWidth(20),
+    maxWidth: WIDTH * StyleConfig.resWidth(0.22),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid() ? StyleConfig.resWidth(30) : StyleConfig.resWidth(30),
+    fontWeight: '400',
+    color: colors.tomatoRed,
+  },
   backWrap: {
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(0)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
-    paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
-    margin: isAndroid() ? 0 : 4,
-    borderRadius: 10,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
+    borderRadius: StyleConfig.resWidth(10),
   },
 });
 
@@ -59,12 +91,8 @@ const TVPriceModal = (props) => {
 
   const onPressClick = (val) => {
     val.selected = true;
-    console.log('onPressClick TVAgesModal***', val);
     props.action(props.keySort);
-    // props.visible = true;
-
-    //   props.onclose();
-    setSelected(val);
+    setSelected(val.id);
   };
 
   return (
@@ -74,7 +102,7 @@ const TVPriceModal = (props) => {
       onclose={props?.onclose}
       title={t('texts.id_158')}
       titleId={'price'}>
-      <ScrollView>
+      <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
         {data.map((item, index) => {
           return (
             <Pressable
@@ -83,18 +111,13 @@ const TVPriceModal = (props) => {
               style={item.id == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
                 numberOfLines={1}
-                style={{
-                  maxWidth: WIDTH * 0.25,
-                  fontFamily: primary_regular_font.primary_regular_font,
-                  fontSize: isAndroid() ? 15 : 30,
-                  fontWeight: '400',
-                  color:
-                    item.id == focus
-                      ? colors.white
-                      : item.selected
-                      ? colors.tomatoRed
-                      : colors.black,
-                }}>
+                style={
+                  item.id == focus
+                    ? styles.whiteStyle
+                    : item.id == selected
+                    ? styles.tomatoStyle
+                    : styles.blackStyle
+                }>
                 {t(item.name)}
               </Text>
             </Pressable>
