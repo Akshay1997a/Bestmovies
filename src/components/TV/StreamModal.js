@@ -18,7 +18,7 @@ import BaseModal from './BaseModal';
 import TVButton from './TVButton';
 import ToggleSwitch from 'toggle-switch-react-native';
 import TVSubscription from '../TV/TVSubscription';
-import TVCountryModal from '../../components/TV/TVCountryModal';
+import TVYourCountryModal from '../../components/TV/TVYourCountriModal';
 import TVToggleButton from '../../components/TV/TVToggleButton';
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig';
@@ -574,7 +574,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           </Text>
         </View>
       </View>
-      <TVCountryModal
+      <TVYourCountryModal
         action={onPressClick}
         visible={showSelected == true}
         oncloseModal={() => oncloseModal(false)}

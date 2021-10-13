@@ -34,9 +34,9 @@ const TVKeyboard = ({...props}) => {
   };
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={{marginTop: 15}}>
+      {/* <TouchableOpacity style={{marginTop: 15}}>
         <Text style={styles.year}>Year</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <View hasTVPreferredFocus={true}>
         {props.buttons.map((item, index) => {
@@ -48,7 +48,8 @@ const TVKeyboard = ({...props}) => {
                   flexDirection: 'row',
                   //   borderWidth: 1,
                   justifyContent: 'center',
-                }}>
+                }}
+                >
                 {item.map((subItem, subIndex) => {
                   return (
                     <Pressable
@@ -165,19 +166,23 @@ const styles = StyleSheet.create({
   },
   pressableFocused: {
     // padding: isAndroid() ? 12 : 20,
-    borderRadius: 10,
-    flex: 1,
+    borderWidth: StyleConfig.resWidth(3),
+    padding: StyleConfig.resWidth(10),
+    borderRadius: StyleConfig.resWidth(10),
+    flex: 0.3,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
     borderColor: 'white',
     backgroundColor: colors.tomatoRed,
+   
   },
   pressable: {
-    borderWidth: 3,
-    padding: isAndroid() ? 10 : 20,
-    borderRadius: 10,
-    flex: 0.2,
+    borderWidth: StyleConfig.resWidth(3),
+    paddingVertical: StyleConfig.resWidth(20),
+    paddingHorizontal: StyleConfig.resWidth(10),
+
+    borderRadius: StyleConfig.resWidth(10),
+    flex: 0.3,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'white',
@@ -188,8 +193,8 @@ const styles = StyleSheet.create({
     color: '#868686',
     alignContent: 'center',
     // width: 150,
-    paddingVertical: isAndroid() ? 10 : 20,
-    paddingHorizontal: 70,
+    // paddingVertical: isAndroid() ? 10 : 20,
+    // paddingHorizontal: 70,
     borderRadius: 10,
     alignSelf: 'center',
     backgroundColor: '#e5e5e5',

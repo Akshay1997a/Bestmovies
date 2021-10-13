@@ -70,7 +70,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           flexDirection: 'row',
           flex: 1,
           alignItems: 'center',
-          marginLeft: 100,
+          marginLeft: isAndroid () ? StyleConfig.resWidth(100) :100,
         }}>
         {/* <View style={{flex: 1}} /> */}
         <Pressable
@@ -344,14 +344,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 5,
 
-    marginStart: isAndroid() ? 20 : 10,
+    marginStart: isAndroid()
+      ? StyleConfig.resWidth(20)
+      : StyleConfig.resWidth(10),
 
     // marginEnd:100
     // marginRight:10
   },
   bannerIcon: {
-    width: isAndroid() ? 110 : 210,
-    height: isAndroid() ? 110 / 2 : 170 / 2,
+    width: StyleConfig.resWidth(210),
+    height: StyleConfig.resWidth(170) / 2,
   },
   itemWrapperSelected: {
     justifyContent: 'center',
@@ -372,21 +374,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: isAndroid() ? 16 : 32,
+    fontSize: StyleConfig.resWidth(32),
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
     color: colors.black,
   },
   focusText: {
-    fontSize: isAndroid() ? 16 : 32,
+    fontSize: StyleConfig.resWidth(32),
+    fontFamily: primary_regular_font.primary_bold_font,
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: colors.white,
   },
   selectedText: {
-    fontSize: isAndroid() ? 18 : 32,
+    fontSize: StyleConfig.resWidth(32),
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: colors.tomatoRed,
-    fontFamily: primary_regular_font.primary_regular_font,
+    fontFamily: primary_regular_font.primary_bold_font,
   },
   headerIcon: {
     width: StyleConfig.resWidth(40),

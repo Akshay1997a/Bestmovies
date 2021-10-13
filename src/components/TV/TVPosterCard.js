@@ -12,12 +12,45 @@ import {
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig';
 import {useHeaderHeight} from '@react-navigation/stack';
+import SVGTriangleBottom from '../../svgs/TriangleBottom';
+import SVGTriangleTop from '../../svgs/TriangleTop';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
-
+export const PROVIDER_DATA = [
+  {
+    id: '1',
+    name: 'Free',
+    subName: '4k',
+    image: require('../../../assets/Providers/netflix_ic.png'),
+  },
+  {
+    id: '2',
+    name: 'Free',
+    subName: '(ads)',
+    image: require('../../../assets/Providers/prime_ic.png'),
+  },
+  {
+    id: '3',
+    name: '$4.99',
+    subName: '',
+    image: require('../../../assets/Providers/Hulu_ic.png'),
+  },
+  {
+    id: '4',
+    name: '$5.99',
+    subName: '',
+    image: require('../../../assets/Providers/apple_ic.png'),
+  },
+  {
+    id: '4',
+    name: 'Subs.',
+    subName: '$6.99/m',
+    image: require('../../../assets/Providers/disny_ic.png'),
+  },
+].flatMap((i) => [i, i]);
 const items = [
   // {
   //   name: 'Trailer',
@@ -90,6 +123,31 @@ const TVPosterCard = ({item, ...props}) => {
 
   const headerHeight = useHeaderHeight();
   const [selected, setSelected] = useState(-1);
+
+  const renderProviderComponent = (data) => {
+    return (
+      <View style={{width: window / 5 - 4}}>
+        <TouchableOpacity style={{borderRadius: 25, padding: 2}}>
+          <View
+            style={{
+              // position: 'relative',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <View>
+              <Image
+                keyExtractor={data.id}
+                style={{height: 44, width: 66, borderRadius: 10}}
+                source={data.image}
+              />
+            </View>
+            <Text style={styles.sortbyButText}>{data.name}</Text>
+            <Text style={styles.sortbyButText}>{data.subName}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  };
   return (
     <View style={{flexDirection: 'row'}}>
       {/* <View style={styles.viewContainer}>
@@ -111,12 +169,12 @@ const TVPosterCard = ({item, ...props}) => {
             </ImageBackground>
             </View> */}
       <View style={styles.detailViewContainer}>
-        <View style={styles.viewContainer}>
+        <View style={styles.notHighlightFocused}>
           <ImageBackground
-            style={styles.container}
+            style={{width: '100%', height: '100%', borderRadius: 15}}
             // resizeMode={'stretch'}
             source={AppImages[item.thumbnail]}>
-            <View
+            {/* <View
               style={[
                 {
                   flex: 1,
@@ -153,133 +211,81 @@ const TVPosterCard = ({item, ...props}) => {
                   style={[{position: 'absolute', top: 28}]}
                 />
               </View>
-            </View>
+            </View> */}
           </ImageBackground>
         </View>
 
-        <View style={{marginLeft: isAndroid() ? 27 : 40}}>
+        <View
+          style={{
+            marginLeft: isAndroid()
+              ? StyleConfig.resWidth(27)
+              : StyleConfig.resWidth(40),
+          }}>
           <Text numberOfLines={2} style={styles.titleText}>
             {item?.title}
           </Text>
-          <Text
-            style={[
-              {
-                fontFamily: primary_regular_font.primary_regular_font,
-                fontSize: isAndroid() ? 17 : 26,
-                fontWeight: '400',
-                color: 'white',
-                marginTop: -15,
-              },
-            ]}>
+          <Text style={styles.textSecondary}>
             Name of original title if foreign
           </Text>
-          <View style={{flexDirection: 'row', marginTop: 20}}>
-            <Text
-              numberOfLines={1}
-              style={[
-                {
-                  width: WIDTH * 0.4,
-                  fontFamily: primary_regular_font.primary_regular_font,
-                  fontSize: isAndroid() ? 17 : 26,
-                  fontWeight: '400',
-                  color: 'white',
-                },
-              ]}>
+          {/* <View
+            style={{
+              flexDirection: 'row',
+              marginTop: StyleConfig.resHeight(20),
+            }}>
+            <Text numberOfLines={1} style={styles.textSecondary}>
               {`${t('texts.id_134')} - 2019 - 154 min -18+`}
             </Text>
-            {/* <View style={{marginStart: 385}}>
-              
-            </View> */}
-          </View>
 
+          </View> */}
           <View style={{flexDirection: 'row'}}>
-            <View>
+            <View
+              style={{
+                maxWidth: WIDTH / 2,
+                // borderWidth: 1,
+                // borderColor: 'red',
+                marginTop: StyleConfig.resHeight(20),
+              }}>
+              <Text numberOfLines={1} style={styles.textSecondary}>
+                {`${t('texts.id_134')} - 2019 - 154 min -18+`}
+              </Text>
+              {/* <View> */}
               <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 27,
-                    fontWeight: '700',
-                    color: colors.white,
-                  }}>
+                <Text style={styles.headTextSecondary}>
                   {t('professions.code_df')}:
                 </Text>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    justifyContent: 'center',
-                    alignSelf: 'center',
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 16 : 26,
-                    fontWeight: '400',
-                    color: colors.white,
-                  }}>
-                  {' '}
-                  Todd Phillips
-                </Text>
+                <Text style={styles.textSecondary}> Todd Phillips</Text>
               </View>
 
               <View
                 style={{
                   flexDirection: 'row',
-                  alignItems: 'center',
-                  maxWidth: WIDTH * 0.388,
                 }}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    maxWidth: 140,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 27,
-                    fontWeight: '700',
-                    color: colors.white,
-                  }}>
+                <Text numberOfLines={1} style={styles.headTextSecondary}>
                   {t('texts.id_14')}
                 </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    maxWidth: 180,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 27,
-                    fontWeight: '700',
-                    color: colors.white,
-                  }}>
+                <Text numberOfLines={1} style={styles.textSecondary}>
                   :
                 </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 16 : 26,
-                    fontWeight: '400',
-                    color: colors.white,
-
-                    minWidth: WIDTH * 0.29,
-                    // maxWidth: WIDTH * 0.3,
-                  }}>
+                <Text numberOfLines={1} style={styles.textSecondary}>
                   {' '}
                   Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy
                 </Text>
               </View>
-            </View>
-            <View
+              <Text style={styles.detailsText}>
+                In Gotham City, mentally troubled comedian Arthur Fleck is
+                disregarded and mistreated by society. He then embarks on a
+                downward spiral of revolution and bloody crime. This path brings
+                him into a dangerous downward spiral of revolution and bloody
+                crime
+              </Text>
+              {/* </View> */}
+              {/* <View
               style={{
-                // flexDirection: 'row',
                 marginTop: StyleConfig.resHeight(20),
               }}>
               <Text
                 numberOfLines={1}
-                style={[
-                  {
-                    width: WIDTH * 0.3,
-                    marginStart: 120,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 26,
-                    fontWeight: '400',
-                    color: 'white',
-                  },
-                ]}>
+                style={styles.textSecondary}>
                 {`78% ${t('texts.id_104')} - 12`}
               </Text>
               <View
@@ -296,8 +302,7 @@ const TVPosterCard = ({item, ...props}) => {
                     {t('texts.id_210')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
-                  <View
-                    style={{width: 1, backgroundColor: colors.white}}></View>
+                  <View style={{width: 1, backgroundColor: colors.white}} />
                   <Text numberOfLines={1} style={styles.typeText}>
                     {t('texts.id_212')}
                   </Text>
@@ -308,17 +313,127 @@ const TVPosterCard = ({item, ...props}) => {
                     {t('texts.id_211')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
-                  <View
-                    style={{width: 1, backgroundColor: colors.white}}></View>
+                  <View style={{width: 1, backgroundColor: colors.white}} />
                   <Text numberOfLines={1} style={styles.typeText}>
                     {t('texts.id_213')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
                 </View>
               </View>
+            </View> */}
+            </View>
+
+            <View
+              style={{
+                width: StyleConfig.resWidth(WIDTH - 300),
+                marginTop: StyleConfig.resHeight(20),
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  // justifyContent: 'space-between',
+                }}>
+                <Text numberOfLines={1} style={styles.textSecondary}>
+                  {`78% ${t('texts.id_104')} - 12`}
+                </Text>
+                <Icon
+                  name={'thumbs-up'}
+                  size={
+                    isAndroid()
+                      ? StyleConfig.resWidth(15)
+                      : StyleConfig.resWidth(35)
+                  }
+                  color={'#35b736'}
+                />
+              </View>
+              <View
+                style={{
+                  borderWidth: 2,
+                  borderColor: colors.white,
+                  borderRadius: 10,
+                  flexDirection: 'row',
+                  // backgroundColor: '#EAF2FF',
+                  overflow: 'hidden',
+                }}>
+                <View
+                  style={{
+                    flex: 1,
+                    padding: 6,
+                    borderRightWidth: 2,
+                    borderColor: colors.white,
+                  }}>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Awards</Text>
+                      <Text style={styles.textSecondary}>9.3</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Critics</Text>
+                      <Text style={styles.textSecondary}>9.5</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={{flex: 1, padding: 6}}>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Audience</Text>
+                      <Text style={styles.textSecondary}>9.0</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Box-Office</Text>
+                      <Text style={styles.textSecondary}>8.1</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={{justifyContent: 'space-between'}}>
+                  <SVGTriangleTop />
+                  <SVGTriangleBottom />
+                </View>
+                <View
+                  style={{
+                    flex: 0.4,
+                    backgroundColor: '#4183E2',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={styles.ratingText}>8.2</Text>
+                  {/* <Text style={styles.ratingText}></Text> */}
+                </View>
+              </View>
+              <Text style={styles.textSecondary}>
+                Won 2 oscars including best director
+              </Text>
+              <Text style={styles.textSecondary}>
+                Nominated to 12 Sundance awards include best director
+              </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
+
+          {/* <View
+            style={{
+              flexDirection: 'row',
+              marginTop: StyleConfig.resHeight(20),
+            }}>
             <Text style={styles.detailsText}>
               In Gotham City, mentally troubled comedian Arthur Fleck is
               disregarded and mistreated by society. He then embarks on a
@@ -332,9 +447,9 @@ const TVPosterCard = ({item, ...props}) => {
                   'Won 2 oscars including best director\nWon 1 G. Globe including best movie'
                 }
               </Text>
-              <Text style={styles.commentText}></Text>
+              <Text style={styles.commentText} />
             </View>
-          </View>
+          </View> */}
 
           {/* <Text style={styles.movieTypeText}>Watch:</Text> */}
           <ScrollView horizontal contentContainerStyle={[{flexGrow: 1}]}>
@@ -342,22 +457,69 @@ const TVPosterCard = ({item, ...props}) => {
               style={{
                 flexDirection: 'row',
                 flex: 1,
-                alignItems: 'flex-end',
+                // alignItems: 'flex-end',
+                // borderWidth: 1,
               }}>
               {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
-
-              {items.map((obj, ind) => (
+              <View
+                style={
+                  {
+                    // position: 'relative',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                  }
+                }>
+                <Image
+                  style={{
+                    height: StyleConfig.resHeight(66),
+                    width: StyleConfig.resWidth(66),
+                    borderRadius: StyleConfig.resWidth(10),
+                    marginTop: StyleConfig.resHeight(10),
+                    marginRight: StyleConfig.resHeight(10),
+                  }}
+                  source={AppImages.play}
+                />
+                <Text style={styles.sortbyButText}>Trailor</Text>
+              </View>
+              {PROVIDER_DATA.map((obj, ind) => (
                 <TouchableOpacity
                   onPress={() => alert('To be implemented')}
                   key={`${obj}-${ind}`}
                   style={{margin: 4}}>
-                  <Image style={styles.watchImage} source={obj.image} />
+                  {/* <Image style={styles.watchImage} source={obj.image} />
                   <Text numberOfLines={1} style={styles.watchText}>
                     {t(obj.name)}
-                  </Text>
-                  {/* <Text style={styles.watchText}>/month</Text> */}
+                  </Text> */}
+                  <View
+                    style={{
+                      // position: 'relative',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <View style={{marginBottom: StyleConfig.resHeight(10)}}>
+                      <Image
+                        keyExtractor={obj.id}
+                        style={{
+                          height: StyleConfig.resHeight(66),
+                          width: StyleConfig.resWidth(88),
+                          borderRadius: StyleConfig.resWidth(10),
+                        }}
+                        source={obj.image}
+                      />
+                    </View>
+                    <Text style={styles.sortbyButText}>{obj.name}</Text>
+                    <Text style={styles.sortbyButText}>{obj.subName}</Text>
+                  </View>
                 </TouchableOpacity>
               ))}
+              {/* <View style={{marginTop: 25}}>
+                <Text style={styles.textFont}>Watch now</Text>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {PROVIDER_DATA.map((item, index) =>
+                    renderProviderComponent(item),
+                  )}
+                </View>
+              </View> */}
             </View>
           </ScrollView>
         </View>
@@ -373,20 +535,49 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  sortbyButText: {
+    color: colors.white,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '400',
+    fontSize: StyleConfig.resWidth(24),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  notHighlightFocused: {
+    borderWidth: isAndroid()
+      ? StyleConfig.resWidth(1)
+      : StyleConfig.resWidth(0),
+    borderRadius: isAndroid()
+      ? StyleConfig.resHeight(20)
+      : StyleConfig.resHeight(30),
+    width: isAndroid() ? 180 : 360,
+    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
+    // StyleConfig.width * 0.3,
+    paddingTop: 1,
+    overflow: 'hidden',
+  },
   viewContainer: {
     marginLeft: StyleConfig.resWidth(20),
     marginTop: StyleConfig.resHeight(20),
     borderRadius: StyleConfig.resHeight(30),
     // backgroundColor:'rgba(255,255,255,0.9)',
-    shadowColor: 'black',
-    shadowOpacity: 0.9,
-    overflow: 'hidden',
-    elevation: 10,
+    // shadowColor: 'black',
+    // shadowOpacity: 0.9,
+    // overflow: 'hidden',
+    // elevation: 10,
   },
   container: {
+    // marginLeft: StyleConfig.resWidth(20),
+    // marginTop: StyleConfig.resHeight(20),
+    // borderRadius: StyleConfig.resHeight(30),
+    // borderWidth:1,
+    // borderColor:'red',
     // flex: 1,
     width: WIDTH * 0.19,
-    height: WIDTH * 0.28,
+    height: WIDTH * 0.3,
   },
   detailViewContainer: {
     flexDirection: 'row',
@@ -398,12 +589,42 @@ const styles = StyleSheet.create({
     marginTop: StyleConfig.resHeight(24),
     // marginRight: StyleConfig.resWidth(12),
     padding: StyleConfig.resHeight(12),
-    // paddingLeft:StyleConfig.resWidth(40)
+    paddingLeft:StyleConfig.resWidth(30)
+  },
+  textSecondary: {
+    // borderWidth: 1,
+    color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(26),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  headTextSecondary: {
+    color: colors.white,
+    fontWeight: '700',
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: StyleConfig.resHeight(26),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   titleText: {
-    fontSize: StyleConfig.resHeight(60),
+    // padding:10,
+    // borderWidth: 1,
+    fontSize: StyleConfig.resWidth(60),
     fontWeight: '700',
-    fontFamily: primary_regular_font.primary_regular_font,
+    fontFamily: primary_regular_font.primary_bold_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     // textShadowColor: 'rgba(255, 255, 255, 0.75)',
     // textShadowOffset: {width: -2, height: 2},
     // textShadowRadius: 10,
@@ -448,7 +669,7 @@ const styles = StyleSheet.create({
   detailsText: {
     width: WIDTH * 0.4,
     fontSize: StyleConfig.resHeight(26),
-    marginTop: 4,
+    marginTop: 20,
     marginBottom: 20,
     color: colors.white,
     fontWeight: '400',
@@ -460,7 +681,6 @@ const styles = StyleSheet.create({
     width: StyleConfig.resWidth(34),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.blue_color,
     borderRadius: 50,
     transform: [{scaleX: 2}],
   },
@@ -484,12 +704,18 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   watchText: {
-    fontSize: StyleConfig.resHeight(18),
-    fontWeight: '500',
-    marginTop: 4,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resWidth(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+    marginTop: StyleConfig.resHeight(4),
     color: colors.white,
     textAlign: 'center',
-    maxWidth: 110,
+    // maxWidth: 110,
   },
   greatText: {
     fontSize: 22,

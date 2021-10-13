@@ -65,20 +65,71 @@ const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
+  text: {
+    color: colors.black,
+    fontSize: StyleConfig.resWidth(28),
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_light_font,
+      },
+    }),
+  },
+  focusText: {
+    fontSize: StyleConfig.resWidth(28),
+    color: colors.white,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    // paddingLeft: 10,
+  },
   container: {
     marginLeft: isAndroid() ? 10 : 150,
     borderLeftWidth: 1,
     borderLeftColor: colors.borderColor,
   },
   backWrap: {
-    paddingHorizontal: StyleConfig.resWidth(8),
-    margin: 4,
+    paddingHorizontal: StyleConfig.resWidth(20),
+    // padding: StyleConfig.resWidth(10),
+
+    paddingVertical: StyleConfig.resWidth(15),
+
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
-    paddingHorizontal: isAndroid() ? 0 : StyleConfig.resWidth(8),
+    paddingHorizontal: StyleConfig.resWidth(20),
     borderRadius: 10,
-    margin: 4,
+    // margin: 4,
+  },
+  listbackWrap: {
+    paddingHorizontal: StyleConfig.resWidth(10),
+    paddingVertical: StyleConfig.resWidth(2),
+      // // paddingHorizontal: isAndroid()
+      //   ? StyleConfig.resWidth(0)
+      //   : StyleConfig.resWidth(8),
+      // paddingVertical: isAndroid()
+      //   ? StyleConfig.resWidth(2)
+      //   : StyleConfig.resHeight(4),
+      margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
+
+    // margin: 4,
+  },
+  listfocusBackWrap: {
+    backgroundColor: colors.tomatoRed,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(8)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+      paddingStart: StyleConfig.resHeight(15),
+    // margin: isAndroid() ? StyleConfig.resWidth(10) : StyleConfig.resWidth(4),
+    borderRadius: StyleConfig.resWidth(10),
   },
 });
 
@@ -149,34 +200,25 @@ const TVCountryLanguage = (props) => {
 
   return (
     <ScrollView>
-      <View style={{flexDirection: 'row', minHeight: 1000}}>
+      <View style={{flexDirection: 'row'}}>
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
-              <View style={[{width: WIDTH * 0.14, marginLeft: 10}]}>
+              <View style={[{width: WIDTH * 0.28}]}>
                 <Pressable
                   onPress={() => onPressHandle(item)}
                   onFocus={() => onFocus(item.id)}
                   style={
                     props.focus === 'countryLang' && item.id == focus
                       ? styles.focusBackWrap
-                      : {}
+                      : styles.backWrap
                   }>
                   <Text
-                    style={{
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: isAndroid() ? 16 : 28,
-                      fontWeight:
-                        props.focus === 'countryLang' && item.id == focus
-                          ? '700'
-                          : '400',
-                      padding: isAndroid() ? 2 : 8,
-                      paddingHorizontal: 15,
-                      color:
-                        props.focus === 'countryLang' && item.id == focus
-                          ? colors.white
-                          : colors.black,
-                    }}>
+                    style={
+                      props.focus === 'countryLang' && item.id == focus
+                        ? styles.focusText
+                        : styles.text
+                    }>
                     {item.name}
                   </Text>
                 </Pressable>
@@ -187,8 +229,8 @@ const TVCountryLanguage = (props) => {
         {isCountryClick ? (
           <View
             style={{
-              marginLeft: isAndroid() ? 100 : 160,
-              paddingLeft: 15,
+              // marginLeft: isAndroid() ? 100 : 160,
+              paddingLeft: StyleConfig.resWidth(10),
               borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
@@ -199,18 +241,14 @@ const TVCountryLanguage = (props) => {
                   <Pressable
                     onPress={() => countryPress(code)}
                     onFocus={() => onFocus(code)}
-                    onFocus={() => setFocus(code)}
                     style={
                       // props.focus === 'code' &&
-                      code == focus ? styles.focusBackWrap : styles.backWrap
+                      code == focus
+                        ? styles.listfocusBackWrap
+                        : styles.listbackWrap
                     }>
                     <Text
-                      style={{
-                        fontFamily: primary_regular_font.primary_regular_font,
-                        fontSize: isAndroid() ? 16 : 28,
-                        fontWeight: code == focus ? '700' : '400',
-                        color: code == focus ? colors.white : colors.black,
-                      }}>
+                      style={code == focus ? styles.focusText : styles.text}>
                       {item[1]}
                     </Text>
                   </Pressable>

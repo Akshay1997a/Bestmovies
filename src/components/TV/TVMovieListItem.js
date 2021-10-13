@@ -9,14 +9,17 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import Inocons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import RatingComponent from '../../svgs/TVRatingComponent';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from 'src/helper/colors';
 const {width, height} = Dimensions.get('window');
-import StyleConfig from 'src/helper/StyleConfig';
 import primary_regular_font from '../../helper/fonts';
+import StyleConfig from '../../helper/StyleConfig';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
@@ -168,14 +171,45 @@ const TVCardDetail = ({item, ...props}) => {
             </View>
           </View>
           {/* //Bottom View */}
-          <View style={{flexDirection: 'row', marginStart: 5}}>
+          <View>
             <View>
               <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
                 {item.title}
               </Text>
-              <Text numberOfLines={1} style={styles.type}>
+              <Text style={styles.typeSecondary}>{t('texts.id_129')}</Text>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingEnd: StyleConfig.resWidth(10),
+                  // paddingBottom: 5,
+                }}>
+                <View style={{flex: 1}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text style={[styles.textSecondary]}>
+                      {`${item.DATA.bornYear} ${t(item.DATA.country)}`}
+                      <AntDesign name="like1" color="#35B736" size={13} />
+                    </Text>
+                    <RatingComponent
+                      rating={item.DATA.rating}
+                      color={item.DATA.color}
+                    />
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text
+                      style={
+                        styles.textSecondary
+                      }>{`${item.DATA.match} match`}</Text>
+                  </View>
+                </View>
+              </View>
+              {/* <Text numberOfLines={1} style={styles.type}>
                 {t('texts.id_129')}
-              </Text>
+              </Text> */}
               {/* {`${t('texts.id_129')}`} */}
               {/* <View style={{flexDirection:'row'}}>
                   <View>
@@ -190,16 +224,16 @@ const TVCardDetail = ({item, ...props}) => {
 
                 </View>
                */}
-              <View style={styles.match}>
+              {/* <View style={styles.match}>
                 <Text numberOfLines={1} style={styles.bornYear}>{`${
                   item.DATA.bornYear
-                } ${t(item.DATA.country)}`}</Text>
-                {/* <Icon
+                } ${t(item.DATA.country)}`}</Text> */}
+              {/* <Icon
                   name={'thumbs-up'}
                   size={isAndroid() ? 15 : 35}
                   color={'#35b736'}
                 /> */}
-                {/* <View
+              {/* <View
                   style={{
                     justifyContent: 'center',
                     width: isAndroid() ? 20 : 50,
@@ -218,7 +252,7 @@ const TVCardDetail = ({item, ...props}) => {
                     {item.DATA.rating}
                   </Text>
                 </View> */}
-              </View>
+              {/* </View> */}
               {/* <View
                 style={{
                   flexDirection: 'row',
@@ -279,6 +313,29 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  textSecondary: {
+    // alignSelf:'center',
+    color: colors.black,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  typeSecondary: {
+    color: '#000000',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
   feedback: {
     fontSize: StyleConfig.resHeight(26),
     color: 'black',
@@ -307,23 +364,25 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   title: {
-    width: isAndroid() ? 150 : 300,
+    width: StyleConfig.resWidth(300),
     fontFamily: primary_regular_font.primary_regular_font,
-    marginTop:  StyleConfig.resHeight(10),
-    fontSize: isAndroid()
-      ? StyleConfig.resHeight(26)
-      : StyleConfig.resHeight(26),
-    fontWeight: isAndroid() ? 'bold' : '700',
+    marginTop: StyleConfig.resHeight(10),
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: 'black',
   },
-  feedback: {
-    fontFamily: primary_regular_font.primary_regular_font,
-    // marginLeft: isAndroid() ? 40 : 55 ,
-    fontSize: StyleConfig.resHeight(26),
-    color: colors.black,
-    width: WIDTH * 0.06,
-    fontWeight: '700',
-  },
+  // feedback: {
+  //   fontFamily: primary_regular_font.primary_regular_font,
+  //   fontSize: StyleConfig.resHeight(26),
+  //   color: colors.black,
+  //   width: WIDTH * 0.06,
+  //   fontWeight: '700',
+  // },
   ok: {
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '800',
@@ -341,13 +400,13 @@ const styles = StyleSheet.create({
     paddingRight: isAndroid() ? 30 : 35,
     justifyContent: 'space-between',
   },
-  rating: {
-    fontFamily: primary_regular_font.primary_regular_font,
-    textAlign: 'center',
-    fontWeight: '700',
-    fontSize: isAndroid() ? 10 : 18,
-    color: 'black',
-  },
+  // rating: {
+  //   fontFamily: primary_regular_font.primary_regular_font,
+  //   textAlign: 'center',
+  //   fontWeight: '700',
+  //   fontSize: isAndroid() ? 10 : 18,
+  //   color: 'black',
+  // },
   container: {
     marginVertical: StyleConfig.resHeight(10),
     marginHorizontal: StyleConfig.resWidth(10),

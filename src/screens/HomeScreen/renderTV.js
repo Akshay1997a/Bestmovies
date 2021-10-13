@@ -362,6 +362,8 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   marginVertical: isAndroid() ? 5 : 10,
                   backgroundColor: colors.white,
                   marginHorizontal: 10,
+                  justifyContent:'center',
+                  alignContent:'center'
                 }}>
                 <Text numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
@@ -833,18 +835,27 @@ const styles = StyleSheet.create({
     fontWeight: isAndroid() ? '400' : '400',
   },
   ranking: {
-    marginStart: 10,
+    marginStart: StyleConfig.resWidth(14),
+    fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
-    fontSize: isAndroid() ? 15 : 30,
-    fontWeight: isAndroid() ? 'bold' : '700',
-    maxWidth: WIDTH * 0.3,
+    fontSize: StyleConfig.resWidth(32),
+    fontWeight:  '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   result: {
-    fontFamily: 'VAGRoundedNext-light',
+    fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
-    fontSize: isAndroid() ? 15 : 30,
-    fontWeight: isAndroid() ? '400' : '400',
-    maxWidth: 300,
+    fontSize: StyleConfig.resWidth(32),
+    fontWeight:  '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
   },
   container: {
     backgroundColor: colors.black,

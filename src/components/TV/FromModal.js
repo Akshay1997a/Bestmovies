@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
+  TextInput,
   TouchableOpacity,
 } from 'react-native';
 import From from './From';
@@ -53,6 +54,22 @@ const styles = StyleSheet.create({
     paddingVertical: isAndroid() ? 0 : StyleConfig.resHeight(4),
     margin: isAndroid() ? 0 : 4,
     borderRadius: 10,
+  },
+  textInput: {
+    width: StyleConfig.resWidth(330),
+    height:  StyleConfig.resWidth(80),
+    color: colors.black,
+    backgroundColor: colors.lightGrey,
+    // flex: 0.5,
+    alignSelf: 'center',
+    fontSize: StyleConfig.resWidth(34),
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
   },
 });
 
@@ -122,6 +139,17 @@ const FromModal = (props) => {
       title={'From'}
       titleId={'release_year'}>
       <ScrollView>
+        <TextInput
+          onSelectionChange={(event) =>
+            console.log('onSelectionChange', event.nativeEvent.selection)
+          }
+          
+          placeholderTextColor={colors.black}
+          placeholder={'Year'} 
+          style={styles.textInput}
+          onChangeText={onChangeText}
+          value={text}
+        />
         <From
           //  onFocusedItem={(item)=> setSelectedItem(item)}
           hasTVPreferredFocus={true}

@@ -4,7 +4,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import {View, Pressable, StyleSheet, Text, Image} from 'react-native';
+import {View, Pressable, StyleSheet, Text, Image, Platform} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import colors from '../../helper/colors';
 import strings from '../../helper/strings';
@@ -137,15 +137,13 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       <View
         style={{
           flexDirection: 'row',
-          marginLeft: 30,
-          marginTop: 20,
+          marginLeft: StyleConfig.resWidth(30),
+          marginTop: StyleConfig.resWidth(20),
         }}>
         <View style={[styles.container]}>
           {MENU_DATA.map((item, index) => {
             return (
-              <View
-                key={index}
-                style={[{width: WIDTH * 0.15, marginRight: 30}]}>
+              <View key={index} style={[{width: WIDTH * 0.28}]}>
                 <Pressable
                   key={item.key}
                   onFocus={() => {
@@ -183,7 +181,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
 
         {key == COUNTRY_LANGUAGE && (
           <View style={[{}]} hasTVPreferredFocus={true}>
-            <TVCountryLanguage {...props}></TVCountryLanguage>
+            <TVCountryLanguage {...props} />
           </View>
         )}
         {key == MOBILE_APP && (
@@ -508,37 +506,65 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.black,
-    fontSize: isAndroid() ? 16 : 28,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '400',
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_light_font,
+      },
+    }),
   },
   selectedText: {
-    fontSize: isAndroid() ? 12 : 28,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '700',
     color: colors.tomatoRed,
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   focusText: {
-    fontSize: isAndroid() ? 16 : 28,
+    fontSize: StyleConfig.resWidth(28),
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '700',
-    paddingLeft: 10,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    // paddingLeft: 10,
   },
   textTitle: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   focusTextTitle: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
   },
   textSelected: {
-    fontSize: isAndroid() ? 16 : 27,
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
   },

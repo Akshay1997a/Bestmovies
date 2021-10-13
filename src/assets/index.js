@@ -15,10 +15,10 @@ export default {
 
   director: require('./appImages/director.png'),
   cast1: require('./appImages/cast1.jpg'),
-  cast1: require('./appImages/cast2.png'),
-  cast1: require('./appImages/cast3.jpg'),
-  cast1: require('./appImages/cast4.png'),
-  cast1: require('./appImages/cast5.png'),
+  cast2: require('./appImages/cast2.png'),
+  cast3: require('./appImages/cast3.jpg'),
+  cast4: require('./appImages/cast4.png'),
+  cast5: require('./appImages/cast5.png'),
 
   sideBarBackground: require('./appImages/sideBarBackground.png'),
   icSearch: require('./appImages/search.png'),

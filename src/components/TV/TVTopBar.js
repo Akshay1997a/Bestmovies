@@ -349,13 +349,14 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                         {item.key === 'BackArrow' ? (
                           <BackArrow item={item} />
                         ) : (
-                          <View style={{marginLeft: 10, flexDirection: 'row'}}>
+                          <View style={{flexDirection: 'row'}}>
                             <View
                               style={{
-                                width: WIDTH / 7.5,
+                                width: WIDTH / StyleConfig.resWidth(13.2),
                                 flex: 1,
                                 justifyContent: 'center',
-                                marginStart: 10,
+                                marginHorizontal: StyleConfig.resWidth(5),
+
                               }}>
                               <View
                                 style={
@@ -392,7 +393,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                                     //     ? styles.focusTextTitle
                                     //     : styles.textTitle
                                     // }
-                                    >
+                                  >
                                     {t(item.title)}
                                   </Text>
                                 )}
@@ -466,11 +467,11 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                             }}>
                             <View
                               style={{
-                                width: WIDTH / 8,
+                                width: WIDTH / StyleConfig.resWidth(15.5),
                                 // marginRight: isAndroid() ? 25 : 75,
                                 flex: 1,
                                 justifyContent: 'center',
-                                marginStart: 10,
+                                marginHorizontal: StyleConfig.resWidth(5),
                               }}>
                               <View
                                 style={[
@@ -524,57 +525,87 @@ const isAndroid = () => {
 
 const styles = StyleSheet.create({
   verticleLine: {
-    height: '80%',
+    height: '85%',
     width: 1,
     backgroundColor: '#909090',
     alignSelf: 'center',
   },
   container: {
+    marginStart: StyleConfig.resWidth(30),
+
     // backgroundColor: 'red',
     backgroundColor: colors.lightGrey,
-    height: isAndroid() ? 50 : 90,
+    height: isAndroid() ? StyleConfig.resWidth(95) : StyleConfig.resWidth(90),
     alignContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     borderColor: 'red',
-    borderRadius: 10,
-    marginStart: isAndroid() ? 20 : 10,
-    marginRight: 400,
+    borderRadius: StyleConfig.resWidth(20),
+    marginRight: isAndroid()
+      ? StyleConfig.resWidth(80)
+      : StyleConfig.resWidth(10),
+    // marginRight: StyleConfig.resWidth(400),
   },
   itemWrapperSelected: {
     backgroundColor: colors.tomatoRed,
-    borderRadius: 10,
-    padding: 5,
+    borderRadius: StyleConfig.resWidth(10),
+    paddingVertical: StyleConfig.resWidth(2),
+    paddingHorizontal: StyleConfig.resWidth(10),
+
     // marginRight:-80,
   },
   itemWrapper: {
     // marginRight: -80,
+    paddingVertical: StyleConfig.resWidth(2),
+    paddingHorizontal: StyleConfig.resWidth(10),
   },
   text: {
-    fontSize: isAndroid() ? 14 : 24,
+    marginHorizontal: StyleConfig.resWidth(10),
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+    fontSize: StyleConfig.resWidth(24),
+    color: colors.black,
     textAlign: 'left',
   },
   focusText: {
     fontFamily: primary_regular_font.primary_regular_font,
-    fontWeight: '900',
-    fontSize: isAndroid() ? 12 : 24,
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    fontSize: StyleConfig.resWidth(24),
     color: colors.tomatoRed,
     textAlign: 'left',
     // width:   250
   },
   textTitle: {
     color: colors.black,
-    fontSize: isAndroid() ? 14 : 24,
+    fontSize: StyleConfig.resWidth(24),
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     textAlign: 'left',
   },
   focusTextTitle: {
-    fontSize: isAndroid() ? 12 : 24,
+    fontSize: StyleConfig.resWidth(24),
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: colors.white,
     textAlign: 'left',
   },

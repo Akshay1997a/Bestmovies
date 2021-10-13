@@ -14,7 +14,8 @@ import colors from 'src/helper/colors';
 const {width, height} = Dimensions.get('window');
 import StyleConfig from 'src/helper/StyleConfig';
 import FontFamily from '../../../src/helper/fonts';
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import RatingComponent from '../../svgs/TVRatingComponent';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import {WIDTH} from '../../helper/globalFunctions';
@@ -31,11 +32,12 @@ let DATA = {
   match: '78% match - 12 ',
   follower: '5.7',
   designation: 'texts.id_12',
+  thumbnail: 'cast5',
 };
 
-const TVCast = ({item, ...props}) => {
-  console.log('type', props?.selected);
-
+const TVCast = (props) => {
+  console.log('item0000000dadwdqad', props.item.name);
+  const {item} = props.item;
   const {t} = useTranslation();
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
@@ -58,7 +60,7 @@ const TVCast = ({item, ...props}) => {
         style={styles.container}
         onFocus={onFocus}
         onBlur={onBlur}
-        key={item.id}
+        // key={item.id}
         tvParallaxProperties={{magnification: 1.001}}
         onPress={() => {
           setFocus(false);
@@ -71,7 +73,7 @@ const TVCast = ({item, ...props}) => {
               <ImageBackground
                 source={
                   props?.type == 'movie'
-                    ? AppImages[item.thumbnail]
+                    ? AppImages[props.item.thumbnail]
                     : AppImages[props.image]
                   // {
                   //     uri: props.image,
@@ -81,11 +83,172 @@ const TVCast = ({item, ...props}) => {
                   width: '100%',
                   height: '100%',
                   borderRadius: 15,
-                }}></ImageBackground>
+                }}
+              />
             </View>
           </View>
           {/* //Bottom View */}
-          <View style={{flexDirection: 'column'}}>
+          <View style={{marginStart: StyleConfig.resWidth(5)}}>
+            <View>
+              <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
+                {props.item.name}
+              </Text>
+              <Text style={styles.typeSecondary}>
+                {t(props.item.designation)}
+              </Text>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingEnd: StyleConfig.resWidth(20),
+                  paddingBottom:StyleConfig.resWidth(5),
+                }}>
+                <View style={{flex: 1}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text style={[styles.textSecondary]}>
+                      {t(props.item.country)}
+                      {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
+                    </Text>
+                    <Text style={[styles.textSecondary]}>
+                      Top
+                      {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
+                    </Text>
+                  </View>
+                  {/* <View style={{flexDirection: 'row'}}>
+                    <Text
+                      style={
+                        styles.textSecondary
+                      }>{`${item.DATA.match} match`}</Text>
+                  </View> */}
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingEnd: StyleConfig.resWidth(10),
+                  // paddingBottom: 5,
+                }}>
+                <View style={{flex: 1}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <Text style={[styles.textSecondary]}>
+                      {`${t('texts.id_215')} ${props.item.dob}`}
+                      {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
+                    </Text>
+                    <RatingComponent
+                      rating={props.item.rating}
+                      color={props.item.color}
+                    />
+                  </View>
+                  {/* <View style={{flexDirection: 'row'}}>
+                    <Text
+                      style={
+                        styles.textSecondary
+                      }>{`${item.DATA.match} match`}</Text>
+                  </View> */}
+                </View>
+              </View>
+              {/* <Text numberOfLines={1} style={styles.type}>
+                {t('texts.id_129')}
+              </Text> */}
+              {/* {`${t('texts.id_129')}`} */}
+              {/* <View style={{flexDirection:'row'}}>
+                  <View>
+                          <Text style={[{
+                            fontFamily:primary_regular_font.primary_regular_font,
+                            fontSize: isAndroid() ? StyleConfig.resHeight(26) :StyleConfig.resHeight(26),
+                            color:'black', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
+                  </View>
+                  <View style={{flexDirection:'row',borderWidth:1}}>
+                        <Text style={styles.rating}>{item.DATA.rating}</Text>
+                  </View>
+
+                </View>
+               */}
+              {/* <View style={styles.match}>
+                <Text numberOfLines={1} style={styles.bornYear}>{`${
+                  item.DATA.bornYear
+                } ${t(item.DATA.country)}`}</Text> */}
+              {/* <Icon
+                  name={'thumbs-up'}
+                  size={isAndroid() ? 15 : 35}
+                  color={'#35b736'}
+                /> */}
+              {/* <View
+                  style={{
+                    justifyContent: 'center',
+                    width: isAndroid() ? 20 : 50,
+                    height: isAndroid() ? 20 : 45,
+                    backgroundColor: item.DATA.color,
+                    borderRadius: 50,
+                    transform: [{scaleX: 2}],
+                  }}>
+                  <Text
+                    style={{
+                      position: 'absolute',
+                      left: 3,
+                      color: colors.white,
+                      fontSize: StyleConfig.resHeight(20),
+                    }}>
+                    {item.DATA.rating}
+                  </Text>
+                </View> */}
+              {/* </View> */}
+              {/* <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width:
+                    isAndroid() && item.DATA.feedback == 'Best'
+                      ? 163
+                      : isAndroid() && item.DATA.feedback == 'Excellent'
+                      ? 174
+                      : isAndroid() && item.DATA.feedback == 'OK'
+                      ? 158
+                      : isAndroid()
+                      ? 165
+                      : !isAndroid() && item.DATA.feedback == 'OK'
+                      ? 330
+                      : 340,
+                }}>
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    {
+                      width: WIDTH * 0.14,
+                      // fontFamily:primary_regular_font.primary_regular_font,
+                      fontSize: StyleConfig.resHeight(26),
+                      color: 'black',
+                      fontWeight: '400',
+                    },
+                  ]}>{`${item.DATA.match} ${t('texts.id_104')}`}</Text>
+
+                <Text numberOfLines={1} style={styles.feedback}>
+                  {t(item.DATA.feedback)}
+                </Text>
+              </View>
+                  ]}>{`${item.DATA.match} match`}</Text>
+                <Text
+                  style={{
+                    fontFamily: primary_regular_font.primary_regular_font,
+                    fontSize: StyleConfig.resHeight(26),
+                    color: item.DATA.color,
+                    fontWeight: '700',
+                  }}>
+                  {item.DATA.feedback}
+                </Text>
+              </View> */}
+              {/* >>>>>>> 98e1c9ad323a0eb23565f6642c52abbd4b77db82 */}
+            </View>
+          </View>
+          {/* <View style={{flexDirection: 'column'}}>
             <Text
               style={[
                 {
@@ -126,7 +289,6 @@ const TVCast = ({item, ...props}) => {
                     style={[
                       {
                         width: WIDTH * 0.11,
-                        // fontFamily:primary_regular_font.primary_regular_font,
                         fontSize: StyleConfig.resHeight(30),
                         color: 'black',
                         fontWeight: '400',
@@ -173,39 +335,17 @@ const TVCast = ({item, ...props}) => {
                         color: colors.white,
                         fontWeight: '700',
                         fontSize: StyleConfig.resHeight(20),
-                        //  fontStyle : primary_regular_font.primary_regular_font
                       }}>
                       {DATA.rating}
                     </Text>
                   </View>
                 </View>
 
-                {/* <View style={{flexDirection:'row'}}>
-                            <View>
-                                    <Text
-                                     style={[{
-                                      fontFamily:primary_regular_font.primary_regular_font,
-                                       fontSize:StyleConfig.resHeight(24),
-                                      color:props?.selected == 1 ? 'black' : 'black', 
-                                      fontWeight:'400'}]}>{DATA.country}</Text>
-                            </View>
-                            </View>
-                            <View style={{flexDirection:'row'}}>
-                                <Text style={[
-                                  {
-                                    fontFamily:primary_regular_font.primary_regular_font,
-                                    fontSize:StyleConfig.resHeight(24),
-                                   color:props?.selected == 1 ? 'black' : 'black',
-                                    fontWeight:'400'}]}>{`${DATA.dob} match`}</Text>
-                            </View> */}
-              </View>
-              {/* <View style={styles.ovalShapeView}>
-                        <Text style={styles.top}>Top</Text>
 
-                        <Text style={styles.rating}>{item.DATA.rating}</Text>
-                    </View> */}
+              </View>
+
             </View>
-          </View>
+          </View> */}
         </View>
       </Pressable>
     </View>
@@ -219,6 +359,41 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  typeSecondary: {
+    color: '#000000',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  title: {
+    width: StyleConfig.resWidth(300),
+    fontFamily: primary_regular_font.primary_regular_font,
+    marginTop: StyleConfig.resHeight(10),
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    color: 'black',
+  },
+  titleText: {
+    fontSize: StyleConfig.resWidth(24),
+    fontWeight: '700',
+    fontFamily: primary_regular_font.primary_bold_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    color: colors.black,
+  },
   feedback: {
     fontFamily: primary_regular_font.primary_regular_font,
     // marginLeft: isAndroid() ? 40 : 55 ,
@@ -229,7 +404,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: StyleConfig.resHeight(20),
-    marginHorizontal: StyleConfig.resWidth(15),
+    marginHorizontal: StyleConfig.resWidth(5),
     // borderRadius:StyleConfig.resHeight(20),
     // borderWidth:1,
     // borderColor:'black'
@@ -294,9 +469,15 @@ const styles = StyleSheet.create({
     paddingTop: 1,
   },
   notHighlightFocused: {
-    borderRadius: StyleConfig.resHeight(20),
-    width: isAndroid() ? 150 : WIDTH / 6.8,
-    height: isAndroid() ? 200 : WIDTH * 0.22,
+    borderWidth: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resWidth(0),
+    borderRadius: isAndroid()
+      ? StyleConfig.resHeight(30)
+      : StyleConfig.resHeight(30),
+    width: isAndroid() ?   StyleConfig.resWidth(290) : 360,
+    height: isAndroid() ? StyleConfig.width * 0.22 : WIDTH * 0.27,
+    // StyleConfig.width * 0.3,
     paddingTop: 1,
     overflow: 'hidden',
   },

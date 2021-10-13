@@ -116,6 +116,10 @@ const CommonFilterTvModal = (props) => {
               ? StyleConfig.resWidth(700)
               : props.title == 'Price'
               ? StyleConfig.resWidth(700)
+              : props.title == 'Your country'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'From'
+              ? StyleConfig.resWidth(500)
               : 200,
           maxHeight:
             isAndroid() && props.title == 'Sort by'
@@ -129,6 +133,10 @@ const CommonFilterTvModal = (props) => {
               : props.title == 'Age rating'
               ? HEIGHT * 0.8
               : props.title == 'Price'
+              ? HEIGHT * 0.6
+              : props.title == 'Your country'
+              ? HEIGHT * 0.8
+              : props.title == 'From'
               ? HEIGHT * 0.6
               : 200,
 
@@ -158,11 +166,16 @@ const CommonFilterTvModal = (props) => {
           <Text
             numberOfLines={1}
             style={{
-              fontFamily: primary_regular_font.primary_regular_font,
-              fontSize: isAndroid() ? 17 : 34,
+              fontFamily: primary_regular_font.primary_bold_font,
+              fontSize: StyleConfig.resWidth(34),
               fontWeight: '700',
+              ...Platform.select({
+                android: {
+                  fontFamily: primary_regular_font.primary_light_font,
+                },
+              }),
               textAlign: 'center',
-              maxWidth: WIDTH * 0.2,
+              // maxWidth: WIDTH * 0.2,
             }}>
             {props?.title}
           </Text>
