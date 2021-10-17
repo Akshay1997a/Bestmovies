@@ -10,6 +10,8 @@ import {
   Platform,
 } from 'react-native';
 import colors from 'src/helper/colors';
+import RatingComponent from '../../svgs/TVRatingComponent';
+
 const {width, height} = Dimensions.get('window');
 import StyleConfig from 'src/helper/StyleConfig';
 import primary_regular_font from '../../helper/fonts';
@@ -109,9 +111,22 @@ const TVCardDetail = ({item, ...props}) => {
               </Text>
             </View>
             <View style={styles.match}>
-              <Text style={styles.bornYear}>{`${t('types.code_m')}${
-                item.DATA.release
-              }`}</Text>
+              <View>
+                <Text style={styles.bornYear}>{`${t('types.code_m')}${
+                  item.DATA.release
+                }`}</Text>
+              </View>
+              <View
+                style={{
+                  paddingTop: StyleConfig.resHeight(8),
+                  paddingEnd: StyleConfig.resWidth(5),
+                }}>
+                <RatingComponent
+                  rating={item.DATA.rating}
+                  color={item.DATA.color}
+                />
+              </View>
+
               {/* <Icon
                   name={'thumbs-up'}
                   size={isAndroid() ? 15 : 35}
@@ -152,23 +167,37 @@ const isAndroid = () => {
 
 const styles = StyleSheet.create({
   title: {
-    width: isAndroid() ? StyleConfig.resHeight(300) : StyleConfig.resHeight(300),
+    width: isAndroid()
+      ? StyleConfig.resHeight(300)
+      : StyleConfig.resHeight(300),
     fontFamily: primary_regular_font.primary_regular_font,
-    marginTop: StyleConfig.resHeight(10),
+    // paddingVertical: StyleConfig.resHeight(8),
     fontSize: StyleConfig.resHeight(24),
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: 'black',
   },
   bornYear: {
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: StyleConfig.resHeight(26),
+    fontSize: StyleConfig.resHeight(24),
     color: 'black',
     fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
   },
   match: {
+    //  margin:4,
+    // borderWidth:1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: isAndroid() ? 140 : 333,
+    // width: isAndroid() ? 140 : 333,
   },
   container: {
     marginVertical: StyleConfig.resHeight(10),
@@ -227,35 +256,22 @@ const styles = StyleSheet.create({
   },
   highlightFocused: {
     borderRadius: StyleConfig.resHeight(30),
-    // backgroundColor:'rgba(255,255,255,0.9)',
-    // marginTop:50,
-    width: isAndroid() ? 155 : 310,
+    width: StyleConfig.resWidth(320),
+    height: StyleConfig.width * 0.22,
     borderWidth: StyleConfig.resWidth(10),
-    height: isAndroid() ? StyleConfig.width * 0.2 : StyleConfig.width * 0.22,
-
-    // marginVertical: StyleConfig.resHeight(10),
-    // marginHorizontal: StyleConfig.resWidth(8),
     borderColor: colors.tomatoRed,
     overflow: 'hidden',
-    // paddingHorizontal:1,
     paddingTop: 1,
   },
   notHighlightFocused: {
     borderWidth: isAndroid()
-      ? StyleConfig.resWidth(2)
+      ? StyleConfig.resWidth(1)
       : StyleConfig.resWidth(0),
-    // borderColor: 'green',
-
-    // borderWidth: StyleConfig.resWidth(5),
     borderRadius: isAndroid()
-      ? StyleConfig.resHeight(20)
+      ? StyleConfig.resHeight(10)
       : StyleConfig.resHeight(30),
-    // marginTop:50,
-    width: isAndroid() ? 160 : 325,
-
-    // backgroundColor:'rgba(255,255,255,0.9)',
-    height: isAndroid() ? StyleConfig.width * 0.2 : StyleConfig.width * 0.22,
-    // marginVertical: StyleConfig.resHeight(10),
+    width: StyleConfig.resWidth(320),
+    height: StyleConfig.width * 0.22,
     // marginHorizontal: StyleConfig.resWidth(10),
     // paddingHorizontal:1,
     paddingTop: 1,

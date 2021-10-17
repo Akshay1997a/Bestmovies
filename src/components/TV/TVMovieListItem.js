@@ -181,8 +181,6 @@ const TVCardDetail = ({item, ...props}) => {
               <View
                 style={{
                   flexDirection: 'row',
-                  paddingEnd: StyleConfig.resWidth(10),
-                  // paddingBottom: 5,
                 }}>
                 <View style={{flex: 1}}>
                   <View
@@ -190,114 +188,45 @@ const TVCardDetail = ({item, ...props}) => {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                     }}>
-                    <Text style={[styles.textSecondary]}>
-                      {`${item.DATA.bornYear} ${t(item.DATA.country)}`}
-                      <AntDesign name="like1" color="#35B736" size={13} />
-                    </Text>
-                    <RatingComponent
-                      rating={item.DATA.rating}
-                      color={item.DATA.color}
-                    />
-                  </View>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text
-                      style={
-                        styles.textSecondary
-                      }>{`${item.DATA.match} match`}</Text>
+                    <View>
+                      <Text style={[styles.textSecondary]}>
+                        {`${item.DATA.bornYear} ${t(item.DATA.country)}`}
+                        <AntDesign name="like1" color="#35B736" size={13} />
+                      </Text>
+                      <Text style={[styles.textSecondary]}>
+                        {`${item.DATA.match} match`}
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flex: 0.9,
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <RatingComponent
+                        rating={item.DATA.rating}
+                        color={item.DATA.color}
+                      />
+                      <Text
+                        style={{
+                          color: item.DATA.color,
+                          fontFamily: primary_regular_font.primary_regular_font,
+                          fontSize: StyleConfig.resHeight(24),
+                          fontWeight: '400',
+                          ...Platform.select({
+                            android: {
+                              fontFamily: primary_regular_font.primary_regular_font,
+                            },
+                          }),
+                        }}>
+                        {item.DATA.feedback}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
-              {/* <Text numberOfLines={1} style={styles.type}>
-                {t('texts.id_129')}
-              </Text> */}
-              {/* {`${t('texts.id_129')}`} */}
-              {/* <View style={{flexDirection:'row'}}>
-                  <View>
-                          <Text style={[{
-                            fontFamily:primary_regular_font.primary_regular_font,
-                            fontSize: isAndroid() ? StyleConfig.resHeight(26) :StyleConfig.resHeight(26),
-                            color:'black', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
-                  </View>
-                  <View style={{flexDirection:'row',borderWidth:1}}>
-                        <Text style={styles.rating}>{item.DATA.rating}</Text>
-                  </View>
-
-                </View>
-               */}
-              {/* <View style={styles.match}>
-                <Text numberOfLines={1} style={styles.bornYear}>{`${
-                  item.DATA.bornYear
-                } ${t(item.DATA.country)}`}</Text> */}
-              {/* <Icon
-                  name={'thumbs-up'}
-                  size={isAndroid() ? 15 : 35}
-                  color={'#35b736'}
-                /> */}
-              {/* <View
-                  style={{
-                    justifyContent: 'center',
-                    width: isAndroid() ? 20 : 50,
-                    height: isAndroid() ? 20 : 45,
-                    backgroundColor: item.DATA.color,
-                    borderRadius: 50,
-                    transform: [{scaleX: 2}],
-                  }}>
-                  <Text
-                    style={{
-                      position: 'absolute',
-                      left: 3,
-                      color: colors.white,
-                      fontSize: StyleConfig.resHeight(20),
-                    }}>
-                    {item.DATA.rating}
-                  </Text>
-                </View> */}
-              {/* </View> */}
-              {/* <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width:
-                    isAndroid() && item.DATA.feedback == 'Best'
-                      ? 163
-                      : isAndroid() && item.DATA.feedback == 'Excellent'
-                      ? 174
-                      : isAndroid() && item.DATA.feedback == 'OK'
-                      ? 158
-                      : isAndroid()
-                      ? 165
-                      : !isAndroid() && item.DATA.feedback == 'OK'
-                      ? 330
-                      : 340,
-                }}>
-                <Text
-                  numberOfLines={1}
-                  style={[
-                    {
-                      width: WIDTH * 0.14,
-                      // fontFamily:primary_regular_font.primary_regular_font,
-                      fontSize: StyleConfig.resHeight(26),
-                      color: 'black',
-                      fontWeight: '400',
-                    },
-                  ]}>{`${item.DATA.match} ${t('texts.id_104')}`}</Text>
-
-                <Text numberOfLines={1} style={styles.feedback}>
-                  {t(item.DATA.feedback)}
-                </Text>
-              </View>
-                  ]}>{`${item.DATA.match} match`}</Text>
-                <Text
-                  style={{
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: StyleConfig.resHeight(26),
-                    color: item.DATA.color,
-                    fontWeight: '700',
-                  }}>
-                  {item.DATA.feedback}
-                </Text>
-              </View> */}
-              {/* >>>>>>> 98e1c9ad323a0eb23565f6642c52abbd4b77db82 */}
             </View>
           </View>
         </View>
@@ -316,6 +245,28 @@ const styles = StyleSheet.create({
   textSecondary: {
     // alignSelf:'center',
     color: colors.black,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  dynTextSecondary: {
+    // alignSelf:'center',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  dynTextColor: {
+    // alignSelf:'center',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resHeight(24),
     fontWeight: '400',
@@ -465,9 +416,9 @@ const styles = StyleSheet.create({
     // paddingHorizontal:2
   },
   notHighlightFocused: {
-    borderWidth: isAndroid()
-      ? StyleConfig.resWidth(1)
-      : StyleConfig.resWidth(0),
+    // borderWidth: isAndroid()
+    //   ? StyleConfig.resWidth(1)
+    //   : StyleConfig.resWidth(0),
     borderRadius: isAndroid()
       ? StyleConfig.resHeight(20)
       : StyleConfig.resHeight(30),

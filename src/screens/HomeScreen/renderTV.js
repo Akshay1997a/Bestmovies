@@ -104,24 +104,79 @@ const PRIVACY_POLICY_DATA = Const.ABOUT_US.map((item) =>
 );
 
 const buttons = [
-  ['a', 'b', 'c', 'd', 'e', 'f'],
-
-  ['g', 'h', 'i', 'j', 'k', 'l'],
-
-  ['m', 'n', 'o', 'p', 'q', 'r'],
-
-  ['s', 't', 'u', 'v', 'w', 'x'],
-
-  ['y', 'z', '1', '2', '3', '4'],
-
-  ['5', '6', '7', '8', '9', '0'],
   [
-    AppImages.back_bk,
-    AppImages.next_bk,
-    AppImages.space,
-    AppImages.delete,
-    AppImages.delete_all,
+    {id: 1, value: 'a'},
+    {id: 2, value: 'b'},
+    {id: 3, value: 'c'},
+    {id: 4, value: 'd'},
+    {id: 5, value: 'e'},
+    {id: 6, value: 'f'},
   ],
+  [
+    {id: 7, value: 'g'},
+    {id: 8, value: 'h'},
+    {id: 9, value: 'i'},
+    {id: 10, value: 'j'},
+    {id: 11, value: 'k'},
+    {id: 12, value: 'l'},
+  ],
+  [
+    {id: 13, value: 'm'},
+    {id: 14, value: 'n'},
+    {id: 15, value: 'o'},
+    {id: 16, value: 'p'},
+    {id: 18, value: 'q'},
+    {id: 19, value: 'r'},
+  ],
+  [
+    {id: 20, value: 's'},
+    {id: 21, value: 't'},
+    {id: 22, value: 'u'},
+    {id: 23, value: 'v'},
+    {id: 24, value: 'w'},
+    {id: 25, value: 'x'},
+  ],
+  [
+    {id: 26, value: 'y'},
+    {id: 27, value: 'z'},
+    {id: 28, value: '1'},
+    {id: 29, value: '2'},
+    {id: 30, value: '3'},
+    {id: 31, value: '4'},
+  ],
+  [
+    {id: 33, value: '5'},
+    {id: 34, value: '6'},
+    {id: 35, value: '7'},
+    {id: 36, value: '8'},
+    {id: 37, value: '9'},
+    {id: 38, value: '0'},
+  ],
+  [
+    {id: 39, value: AppImages.back_bk},
+    {id: 40, value: AppImages.next_bk},
+    {id: 41, value: AppImages.space},
+    {id: 42, value: AppImages.delete},
+    {id: 43, value: AppImages.delete_all},
+    
+  ],
+
+  // ['g', 'h', 'i', 'j', 'k', 'l'],
+
+  // ['m', 'n', 'o', 'p', 'q', 'r'],
+
+  // ['s', 't', 'u', 'v', 'w', 'x'],
+
+  // ['y', 'z', '1', '2', '3', '4'],
+
+  // ['5', '6', '7', '8', '9', '0'],
+  // [
+  //   AppImages.back_bk,
+  //   AppImages.next_bk,
+  //   AppImages.space,
+  //   AppImages.delete,
+  //   AppImages.delete_all,
+  // ],
 ];
 const posts_json = MoviesJSON.data.children.map((child) => child.data);
 
@@ -226,7 +281,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       data = text == null ? value : text + '\n';
     } else if (value == 13) {
       data = text.slice(0, -1);
-    } else if (value == 14) {
+    } else if (value == 31) {
       data = null;
     } else {
       data = text == null ? value : text + value;
@@ -338,7 +393,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
               contentContainerStyle={{paddingBottom: 1000}}
               hasTVPreferredFocus={true}
               data={posts_json}
-              numColumns={5}
+              numColumns={4}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => (
                 <TVSearchListItem
@@ -362,8 +417,8 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   marginVertical: isAndroid() ? 5 : 10,
                   backgroundColor: colors.white,
                   marginHorizontal: 10,
-                  justifyContent:'center',
-                  alignContent:'center'
+                  justifyContent: 'center',
+                  alignContent: 'center',
                 }}>
                 <Text numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
@@ -839,7 +894,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
     fontSize: StyleConfig.resWidth(32),
-    fontWeight:  '700',
+    fontWeight: '700',
     ...Platform.select({
       android: {
         fontFamily: primary_regular_font.primary_bold_font,
@@ -850,7 +905,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
     fontSize: StyleConfig.resWidth(32),
-    fontWeight:  '400',
+    fontWeight: '400',
     ...Platform.select({
       android: {
         fontFamily: primary_regular_font.primary_regular_font,

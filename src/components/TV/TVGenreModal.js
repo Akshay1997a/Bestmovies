@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
+
 import {
   View,
   Text,
@@ -108,7 +109,10 @@ const TVGenreModal = (props) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [toggleValue, setToggle] = useState(false);
   const [toggleBackgrpund, setToggleBackgrpund] = useState(false);
-
+  const onBlur = useCallback(() => {
+    // console.log('onBlur  CommonFilterTvModal called***', focus);
+    setFocus(-1);
+  }, []);
   const onPressClick = (val) => {
     // val.selected = true;
     if (selectedGenres.includes(val)) {
@@ -146,8 +150,11 @@ const TVGenreModal = (props) => {
             }}
             style={toggleBackgrpund ? styles.focusBackWrap : styles.backWrap}>
             <ToggleSwitch
+            onColor={'red'}
+
               size="small"
               isOn={toggleValue}
+
               onToggle={() => setToggle(!toggleValue)}
             />
           </Pressable>
@@ -168,6 +175,7 @@ const TVGenreModal = (props) => {
         {data.map((item, index) => {
           return (
             <Pressable
+              onBlur={onBlur}
               onPress={() => onPressClick(item)}
               onFocus={() => setFocus(index)}
               style={index == focus ? styles.focusBackWrap : styles.backWrap}>

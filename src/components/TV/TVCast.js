@@ -147,12 +147,6 @@ const TVCast = (props) => {
                       color={props.item.color}
                     />
                   </View>
-                  {/* <View style={{flexDirection: 'row'}}>
-                    <Text
-                      style={
-                        styles.textSecondary
-                      }>{`${item.DATA.match} match`}</Text>
-                  </View> */}
                 </View>
               </View>
               {/* <Text numberOfLines={1} style={styles.type}>

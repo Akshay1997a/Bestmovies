@@ -16,32 +16,75 @@ export default {
   txtDefault: {
     color: colors.black,
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 18 : 34,
+    fontSize:  StyleConfig.resWidth(40),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
     // fontWeight: 'bold',
   },
-
+  txtDefaultFocus: {
+    color: colors.white,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize:  StyleConfig.resWidth(40),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+    // fontWeight: 'bold',
+  },
+  results: {
+    color: colors.black,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize:  StyleConfig.resWidth(30),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+    // fontWeight: 'bold',
+  },
   contRow: {
     flex: 1,
     flexDirection: 'row',
   },
   pressableFocused: {
-    padding: isAndroid() ? 12 : 20,
-    borderRadius: 10,
+    padding: StyleConfig.resWidth(20),
+   
+    borderRadius:  StyleConfig.resWidth(10),
+
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 3,
     borderColor: 'white',
     backgroundColor: colors.tomatoRed,
   },
   pressable: {
     // borderWidth:1,
-    padding: isAndroid() ? 12  : 20,
-    borderRadius: 10,
+    padding: StyleConfig.resWidth(18),
+    borderRadius:  StyleConfig.resWidth(10),
+
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: isAndroid() ? 1 : 3,
+    borderWidth: StyleConfig.resWidth(3),
+    borderColor: 'white',
+    backgroundColor: '#e5e5e5',
+  },
+  pressableSpace: {
+    borderWidth:1,
+    padding: StyleConfig.resWidth(18),
+    borderRadius:  StyleConfig.resWidth(10),
+
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderWidth: StyleConfig.resWidth(3),
     borderColor: 'white',
     backgroundColor: '#e5e5e5',
   },

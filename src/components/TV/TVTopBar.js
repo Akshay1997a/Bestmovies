@@ -467,7 +467,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                             }}>
                             <View
                               style={{
-                                width: WIDTH / StyleConfig.resWidth(15.5),
+                                width: WIDTH / StyleConfig.resWidth(15.4),
                                 // marginRight: isAndroid() ? 25 : 75,
                                 flex: 1,
                                 justifyContent: 'center',

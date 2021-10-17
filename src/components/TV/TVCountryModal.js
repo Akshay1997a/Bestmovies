@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
+
 import {
   View,
   Text,
@@ -97,6 +98,10 @@ const TVCountryModal = (props) => {
     props.action(val);
     // props.onclose();
   };
+  const onBlur = useCallback(() => {
+    // console.log('onBlur  CommonFilterTvModal called***', focus);
+    setFocus(-1);
+  }, []);
 
   useFocusEffect(() => {
     let lng = i18n.language;
@@ -119,12 +124,13 @@ const TVCountryModal = (props) => {
       onclose={props?.onclose}
       title={t('texts.id_137')}
       titleId={'country_of_origin'}>
-      <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
+      {/* <ScrollView style={{margin: StyleConfig.resWidth(15)}}> */}
         {countryList !== null &&
           Object.entries(countryList).map((item, index) => {
             let [temp, code] = item[0].split('_');
             return (
               <Pressable
+                onBlur={onBlur}
                 onPress={() => onPressClick(item)}
                 onFocus={() => setFocus(code)}
                 style={code == focus ? styles.focusBackWrap : styles.backWrap}>
@@ -159,7 +165,7 @@ const TVCountryModal = (props) => {
               </Pressable>
             );
           })}
-      </ScrollView>
+      {/* </ScrollView> */}
     </CommonFilterTvModal>
   );
 };

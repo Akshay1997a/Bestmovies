@@ -25,13 +25,14 @@ const TVKeyboard = ({...props}) => {
   const _handleOnPress = (value, index) => {
     console.log('value', value);
     console.log('subIndex', index);
-    props.onBtnPress(value[index]);
+    props.onBtnPress(value);
     requestAnimationFrame(() => {});
   };
   return (
     <View style={styles.container}>
       <View hasTVPreferredFocus={true}>
         {props.buttons.map((item, index) => {
+          console.log('ji', item);
           return (
             <View>
               <View key={`key${index}`} style={{flexDirection: 'row'}}>
@@ -39,22 +40,30 @@ const TVKeyboard = ({...props}) => {
                   return (
                     <Pressable
                       key={`subInd${subIndex}`}
-                      style={({focused}) =>
-                        focused
+                      onFocus={() => setFocus(subItem.id)}
+                      onPress={() => _handleOnPress(subItem.value, index)}
+                      style={
+                        focus == subItem.id
                           ? styles.pressableFocused
-                          : subItem == AppImages.back_bk && focused
-                          ? styles.back_bk
+                          : subItem.value == AppImages.space
+                          ? styles.pressableSpace
                           : styles.pressable
-                      }
-                      onPress={() => _handleOnPress(item, subIndex)}>
-                      {typeof subItem === 'string' && (
-                        <Text style={styles.txtDefault}>{subItem}</Text>
+                      }>
+                      {typeof subItem.value === 'string' && (
+                        <Text
+                          style={
+                            focus == subItem.id
+                              ? styles.txtDefaultFocus
+                              : styles.txtDefault
+                          }>
+                          {subItem.value}
+                        </Text>
                       )}
-                      {typeof subItem === 'number' &&
-                        subItem == AppImages.back_bk && (
+                      {typeof subItem.value === 'number' &&
+                        subItem.value == AppImages.back_bk && (
                           <View>
                             <Image
-                              source={subItem}
+                              source={subItem.value}
                               style={{
                                 width: isAndroid()
                                   ? StyleConfig.resWidth(20)
@@ -66,8 +75,8 @@ const TVKeyboard = ({...props}) => {
                             />
                           </View>
                         )}
-                      {typeof subItem === 'number' &&
-                        subItem == AppImages.next_bk && (
+                      {typeof subItem.value === 'number' &&
+                        subItem.value == AppImages.next_bk && (
                           <View style={styles.symbolButton}>
                             <Image
                               style={{
@@ -78,43 +87,43 @@ const TVKeyboard = ({...props}) => {
                                   ? StyleConfig.resHeight(30)
                                   : 30,
                               }}
-                              source={subItem}
+                              source={subItem.value}
                             />
                           </View>
                         )}
 
-                      {typeof subItem === 'number' &&
-                        subItem == AppImages.space && (
+                      {typeof subItem.value === 'number' &&
+                        subItem.value == AppImages.space && (
                           <View style={styles.symbolButton}>
                             <Image
                               style={{
                                 width: StyleConfig.resWidth(60),
                                 height: StyleConfig.resHeight(20),
                               }}
-                              source={subItem}
+                              source={subItem.value}
                             />
                           </View>
                         )}
-                      {subItem == AppImages.delete && (
+                      {subItem.value == AppImages.delete && (
                         <View style={styles.symbolButton}>
                           <Image
                             style={{
                               width: StyleConfig.resWidth(40),
                               height: StyleConfig.resHeight(30),
                             }}
-                            source={subItem}
+                            source={subItem.value}
                           />
                         </View>
                       )}
-                      {typeof subItem === 'number' &&
-                        subItem == AppImages.delete_all && (
+                      {typeof subItem.value === 'number' &&
+                        subItem.value == AppImages.delete_all && (
                           <View style={styles.symbolButton}>
                             <Image
                               style={{
                                 width: StyleConfig.resWidth(30),
                                 height: StyleConfig.resHeight(40),
                               }}
-                              source={subItem}
+                              source={subItem.value}
                             />
                           </View>
                         )}
@@ -128,11 +137,7 @@ const TVKeyboard = ({...props}) => {
       </View>
       <Text
         numberOfLines={1}
-        style={{
-          fontSize: isAndroid() ? 18 : 40,
-          marginTop: 10,
-          width: WIDTH * 0.2,
-        }}>
+        style={styles.results}>
         {' '}
         {`12 ${t('texts.id_91')}`}
       </Text>

@@ -1,4 +1,5 @@
 import React, {useState, useCallback} from 'react';
+
 import {
   View,
   Text,
@@ -179,7 +180,8 @@ const CommonFilterTvModal = (props) => {
             }}>
             {props?.title}
           </Text>
-          <View style={{width: StyleConfig.resWidth(36), margin: 4}} />
+          <View style={{width: StyleConfig.resWidth(36), margin: 4}}
+           />
         </View>
         {props?.children}
       </View>

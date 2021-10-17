@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -86,6 +86,10 @@ const TVSortByModal = (props, key) => {
     props.action(props.keySort);
     setSelected(val.id);
   };
+  const onBlur = useCallback(() => {
+    // console.log('onBlur  CommonFilterTvModal called***', focus);
+    setFocus(-1);
+  }, []);
 
   // useEffect(() => {
 
@@ -111,6 +115,7 @@ const TVSortByModal = (props, key) => {
           {data.map((item, index) => {
             return (
               <Pressable
+                onBlur={onBlur}
                 onPress={() => onPressClick(item)}
                 onFocus={() => setFocus(item.id)}
                 style={

@@ -20,7 +20,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "5.7",
-            "feedback": "texts.id_186",
+            "feedback": "OK",
             "color": "#efcc00"
           },
           "approved_at_utc": null,
@@ -193,7 +193,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "texts.id_182",
+            "feedback": "Best",
             "color": "#000000"
           },
           "approved_at_utc": null,
@@ -452,7 +452,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "6.8",
-            "feedback": "texts.id_185",
+            "feedback": "Good",
             "color": "#35b736"
           },
           "approved_at_utc": null,
@@ -702,7 +702,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "8.5",
-            "feedback": "texts.id_185",
+            "feedback": "Excellent",
             "color": "#868686"
           },
           "approved_at_utc": null,
@@ -860,7 +860,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "8.5",
-            "feedback": "texts.id_185",
+            "feedback": "Great",
             "color": "#6495ED"
           },
           "approved_at_utc": null,
@@ -1023,7 +1023,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "6.5",
-            "feedback": "texts.id_182",
+            "feedback": "OK",
             "color": "#eac602"
           },
           "approved_at_utc": null,
@@ -1186,7 +1186,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "texts.id_182",
+            "feedback": "Best",
             "color": "black"
           },
           "approved_at_utc": null,
@@ -1354,7 +1354,7 @@
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
-            "feedback": "texts.id_182",
+            "feedback": "Good",
             "rating": "6.8",
             "color": "#35b736"
           },
@@ -1688,7 +1688,7 @@
             "bornYear": "2019 -",
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
-            "feedback": "texts.id_182",
+            "feedback": "Best",
             "rating": "8.5",
             "color": "#868686"
           },
@@ -1862,7 +1862,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "texts.id_182",
+            "feedback": "Great",
             "color": "gray"
           },
           "approved_at_utc": null,
@@ -2035,7 +2035,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "texts.id_182",
+            "feedback": "OK",
             "color": "gray"
           },
           "approved_at_utc": null,

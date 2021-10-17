@@ -70,18 +70,19 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           flexDirection: 'row',
           flex: 1,
           alignItems: 'center',
-          marginLeft: isAndroid () ? StyleConfig.resWidth(100) :100,
+          marginLeft: isAndroid() ? StyleConfig.resWidth(30) : 100,
         }}>
         {/* <View style={{flex: 1}} /> */}
         <Pressable
           onFocus={() => onFocus(SEARCH)}
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
-          style={
+          style={[
             props.focus === 'header' && focus == SEARCH
-              ? styles.itemWrapperSelected
-              : styles.itemWrapper
-          }>
+              ? styles.itemWrapperSelectedSearch
+              : styles.itemWrapperSeach,
+            {maxWidth: WIDTH * 0.3},
+          ]}>
           <Image
             style={
               props.focus === 'header' && focus == SEARCH
@@ -125,7 +126,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               props.focus === 'header' && focus == MOVIES
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.1},
+              {maxWidth: WIDTH * 0.3},
             ]
             // styles.itemWrapperSelected :
             // styles.itemWrapper
@@ -155,7 +156,8 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               props.focus === 'header' && focus == TV_SHOW
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.1},
+
+              {maxWidth: WIDTH * 0.3},
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -199,7 +201,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               props.focus === 'header' && focus == SHORTS
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.1},
+              {maxWidth: WIDTH * 0.3},
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -314,7 +316,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={
-            focus == MENU ? styles.itemWrapperSelected : styles.itemWrapper
+            focus == MENU ? styles.itemWrapperSelectedMenu : styles.itemWrapperMenu
           }>
           <Image
             style={
@@ -356,21 +358,70 @@ const styles = StyleSheet.create({
     height: StyleConfig.resWidth(170) / 2,
   },
   itemWrapperSelected: {
+    // borderWidth: 1,
     justifyContent: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    marginHorizontal: 18,
+    paddingHorizontal: StyleConfig.resWidth(60),
+    // paddingVertical: StyleConfig.resHeight(5),
+    // marginHorizontal:  StyleConfig.resWidth(5),
     backgroundColor: colors.tomatoRed,
-    borderRadius: 30,
-    minWidth: 60,
+    borderRadius: StyleConfig.resWidth(10),
+    // minWidth: StyleConfig.resWidth(160),
     alignItems: 'center',
   },
   itemWrapper: {
+    // borderWidth: 1,
     justifyContent: 'center',
-    paddingHorizontal: isAndroid() ? 12 : 20,
-    paddingVertical: 6,
-    marginHorizontal: isAndroid() ? 10 : 20,
-    minWidth: 60,
+    paddingHorizontal: StyleConfig.resWidth(20),
+    // paddingVertical: StyleConfig.resHeight(5),
+    marginHorizontal: StyleConfig.resWidth(18),
+    // backgroundColor: colors.tomatoRed,
+    borderRadius: StyleConfig.resWidth(10),
+    minWidth: StyleConfig.resWidth(100),
+    alignItems: 'center',
+  },
+  itemWrapperMenu: {
+    // borderWidth: 1,
+    justifyContent: 'center',
+    paddingHorizontal: StyleConfig.resWidth(20),
+    // paddingVertical: StyleConfig.resHeight(5),
+    // marginHorizontal: StyleConfig.resWidth(18),
+    // backgroundColor: colors.tomatoRed,
+    borderRadius: StyleConfig.resWidth(10),
+    // minWidth: StyleConfig.resWidth(100),
+    alignItems: 'center',
+  },
+  itemWrapperSelectedSearch: {
+    // borderWidth: 1,
+    justifyContent: 'center',
+    paddingHorizontal: StyleConfig.resWidth(10),
+    paddingVertical: StyleConfig.resHeight(10),
+    backgroundColor: colors.tomatoRed,
+    borderRadius: StyleConfig.resWidth(30),
+    minWidth: StyleConfig.resWidth(10),
+    // minWidth: StyleConfig.resWidth(160),
+    alignItems: 'center',
+  },
+  itemWrapperSelectedMenu: {
+    // borderWidth: 1,
+    marginHorizontal: StyleConfig.resWidth(10),
+    justifyContent: 'center',
+    paddingHorizontal: StyleConfig.resWidth(18),
+    paddingVertical: StyleConfig.resHeight(10),
+    backgroundColor: colors.tomatoRed,
+    borderRadius: StyleConfig.resWidth(10),
+    minWidth: StyleConfig.resWidth(10),
+    // minWidth: StyleConfig.resWidth(160),
+    alignItems: 'center',
+  },
+  itemWrapperSeach: {
+    // borderWidth: 1,
+    justifyContent: 'center',
+    paddingHorizontal: StyleConfig.resWidth(20),
+    // paddingVertical: StyleConfig.resHeight(5),
+    marginHorizontal: StyleConfig.resWidth(18),
+    // backgroundColor: colors.tomatoRed,
+    borderRadius: StyleConfig.resWidth(10),
+    minWidth: StyleConfig.resWidth(100),
     alignItems: 'center',
   },
   text: {
@@ -407,18 +458,18 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_bold_font,
   },
   headerIcon: {
-    width: StyleConfig.resWidth(40),
-    height: StyleConfig.resHeight(40),
+    width: StyleConfig.resWidth(30),
+    height: StyleConfig.resHeight(30),
     tintColor: colors.black,
   },
   headerIconSelected: {
-    width: StyleConfig.resWidth(40),
-    height: StyleConfig.resHeight(40),
+    width: StyleConfig.resWidth(30),
+    height: StyleConfig.resHeight(30),
     tintColor: colors.tomatoRed,
   },
   headerIconFocus: {
-    width: StyleConfig.resWidth(40),
-    height: StyleConfig.resHeight(40),
+    width: StyleConfig.resWidth(30),
+    height: StyleConfig.resHeight(30),
     tintColor: colors.white,
   },
 });

@@ -113,9 +113,9 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
 
   const onFocus = useCallback((val) => {
     console.log('onFocus TVSideBar>>>', val);
-    props.reduxSetCurrFocus('menu');
+    // props.reduxSetCurrFocus('menu');
 
-    setFocus(val);
+    // setFocus(val);
   });
   const onPressHandle = (val) => {
     setKey(val);
@@ -137,7 +137,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       <View
         style={{
           flexDirection: 'row',
-          marginLeft: StyleConfig.resWidth(30),
+          marginLeft: StyleConfig.resWidth(20),
           marginTop: StyleConfig.resWidth(20),
         }}>
         <View style={[styles.container]}>
@@ -153,15 +153,15 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                   onPress={() => onPressHandle(item.key)}
                   tvParallaxProperties={{magnification: 1.1}}
                   style={[
-                    props.focus === 'menu' && focus == item.key
+                    focus == item.key
                       ? styles.itemWrapperSelected
                       : styles.itemWrapper,
                     {},
                   ]}>
                   <Text
-                    numberOfLines={1}
+                    // numberOfLines={1}
                     style={
-                      props.focus === 'menu' && focus == item.key
+                       focus == item.key
                         ? styles.focusText
                         : selected == item.key
                         ? styles.selectedText
@@ -201,10 +201,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                         />
                       ) : (
                         <Text
-                          numberOfLines={
-                            (item.type == 'title' || item.type == 'subtitle') &&
-                            1
-                          }
+                          
                           style={[
                             item.type == 'title'
                               ? styles.aboutUsTitle
@@ -239,10 +236,10 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                         />
                       ) : (
                         <Text
-                          numberOfLines={
-                            (item.type == 'title' || item.type == 'subtitle') &&
-                            1
-                          }
+                          // numberOfLines={
+                          //   (item.type == 'title' || item.type == 'subtitle') &&
+                          //   1
+                          // }
                           style={
                             item.type == 'title'
                               ? styles.aboutUsTitle
@@ -495,14 +492,27 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   itemWrapperSelected: {
-    paddingVertical: isAndroid() ? 0 : 4,
     backgroundColor: colors.tomatoRed,
-    borderRadius: 14,
-    marginVertical: isAndroid() ? 0 : 5,
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(8)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    paddingStart: StyleConfig.resHeight(15),
+    // margin: isAndroid() ? StyleConfig.resWidth(10) : StyleConfig.resWidth(4),
+    borderRadius: StyleConfig.resWidth(10),
   },
   itemWrapper: {
-    paddingVertical: isAndroid() ? 0 : 6,
-    marginVertical: 5,
+    paddingHorizontal: StyleConfig.resWidth(10),
+    paddingVertical: StyleConfig.resWidth(10),
+    // // paddingHorizontal: isAndroid()
+    //   ? StyleConfig.resWidth(0)
+    //   : StyleConfig.resWidth(8),
+    // paddingVertical: isAndroid()
+    //   ? StyleConfig.resWidth(2)
+    //   : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
   },
   text: {
     color: colors.black,
