@@ -6,11 +6,14 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import styles from './styles';
 import colors from '../../helper/colors';
+import {useTranslation} from 'react-i18next';
+import {WIDTH} from '../../helper/globalFunctions';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const TVKeyboard = ({...props}) => {
   // console.log('ite',props);
+  const {t} = useTranslation();
   const [focus, setFocus] = useState(false);
   const onFocus = useCallback(() => {
     setFocus(true);
@@ -123,9 +126,15 @@ const TVKeyboard = ({...props}) => {
           );
         })}
       </View>
-      <Text style={{fontSize: isAndroid() ? 18 : 40, marginTop: 10}}>
+      <Text
+        numberOfLines={1}
+        style={{
+          fontSize: isAndroid() ? 18 : 40,
+          marginTop: 10,
+          width: WIDTH * 0.2,
+        }}>
         {' '}
-        12 results
+        {`12 ${t('texts.id_91')}`}
       </Text>
     </View>
   );

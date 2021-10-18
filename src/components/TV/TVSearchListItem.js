@@ -16,6 +16,8 @@ import primary_regular_font from '../../helper/fonts';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
+import {useTranslation} from 'react-i18next';
+import {WIDTH} from '../../helper/globalFunctions';
 
 let DATA = {
   name: 'Todd Phillips',
@@ -28,6 +30,7 @@ let DATA = {
 
 const TVCardDetail = ({item, ...props}) => {
   // console.log('item',item);
+  const {t} = useTranslation();
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -118,7 +121,9 @@ const TVCardDetail = ({item, ...props}) => {
               </Text>
             </View>
             <View style={styles.match}>
-              <Text style={styles.bornYear}>{item.DATA.release}</Text>
+              <Text style={styles.bornYear}>{`${t('types.code_m')}${
+                item.DATA.release
+              }`}</Text>
               {/* <Icon
                   name={'thumbs-up'}
                   size={isAndroid() ? 15 : 35}

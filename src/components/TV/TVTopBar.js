@@ -328,24 +328,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             );
           })}
         </View>
-      ) : props.headerSelected == MENU ? (
-        <View style={styles.container}>
-          {/* {MENU_DATA.map((item, index) => {
-                    return (
-                        <Pressable
-                            key={item.key}
-                            onFocus={() => onFocus(item.key)}
-                            onBlur={onBlur}
-                            onPress={() => onChangeSelected(item.key)}
-                            tvParallaxProperties={{ magnification: 1.1 }}
-                            style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                              <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
-
-                        </Pressable>
-                    )
-                })} */}
-        </View>
-      ) : (
+      ) : props.headerSelected == MENU ? null : (
         <ScrollView onBlur={onBlur} horizontal={true}>
           <View style={styles.container}>
             {isScroll
@@ -477,7 +460,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                             }}>
                             <View
                               style={{
-                                width:WIDTH/8,
+                                width: WIDTH / 8,
                                 // marginRight: isAndroid() ? 25 : 75,
                                 flex: 1,
                                 justifyContent: 'center',
@@ -518,7 +501,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               <Text style={{alignSelf: 'flex-end'}}>Hi!</Text>
             </View> */}
                             <View>
-                            {t(item.title) === 'Price' ? null : (
+                              {t(item.title) === 'Price' ? null : (
                                 // <Image style={{ marginLeft:-80, width: StyleConfig.resWidth(30),
                                 //     borderColor:'red',
                                 //        height: StyleConfig.resHeight(30),}} source={AppImages.arrow_right} />

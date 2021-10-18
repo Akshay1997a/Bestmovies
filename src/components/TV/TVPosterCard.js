@@ -175,15 +175,17 @@ const TVPosterCard = ({item, ...props}) => {
           </Text>
           <View style={{flexDirection: 'row', marginTop: 20}}>
             <Text
+              numberOfLines={1}
               style={[
                 {
+                  width: WIDTH * 0.4,
                   fontFamily: primary_regular_font.primary_regular_font,
                   fontSize: isAndroid() ? 17 : 26,
                   fontWeight: '400',
                   color: 'white',
                 },
               ]}>
-              Crime, Drama ,Thriller - 2019 - 154 min -18+
+              {`${t('texts.id_134')} - 2019 - 154 min -18+`}
             </Text>
             {/* <View style={{marginStart: 385}}>
               
@@ -267,8 +269,10 @@ const TVPosterCard = ({item, ...props}) => {
                 marginTop: StyleConfig.resHeight(20),
               }}>
               <Text
+                numberOfLines={1}
                 style={[
                   {
+                    width: WIDTH * 0.3,
                     marginStart: 120,
                     fontFamily: primary_regular_font.primary_regular_font,
                     fontSize: isAndroid() ? 17 : 26,
@@ -276,7 +280,7 @@ const TVPosterCard = ({item, ...props}) => {
                     color: 'white',
                   },
                 ]}>
-                78% match - 12
+                {`78% ${t('texts.id_104')} - 12`}
               </Text>
               <View
                 style={{
