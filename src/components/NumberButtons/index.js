@@ -135,9 +135,7 @@ const TVKeyboard = ({...props}) => {
           );
         })}
       </View>
-      <Text
-        numberOfLines={1}
-        style={styles.results}>
+      <Text numberOfLines={1} style={styles.results}>
         {' '}
         {`12 ${t('texts.id_91')}`}
       </Text>

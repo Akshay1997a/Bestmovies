@@ -161,7 +161,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                   <Text
                     // numberOfLines={1}
                     style={
-                       focus == item.key
+                      focus == item.key
                         ? styles.focusText
                         : selected == item.key
                         ? styles.selectedText
@@ -201,7 +201,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                         />
                       ) : (
                         <Text
-                          
                           style={[
                             item.type == 'title'
                               ? styles.aboutUsTitle
