@@ -194,6 +194,7 @@ export class RenderMobile extends Component {
           flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
           justifyContent: 'center',
           borderRadius: 8,
+          overflow: 'hidden',
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
             borderColor: '#fff',
@@ -247,7 +248,7 @@ export class RenderMobile extends Component {
                         borderRadius: 8,
                       }
                     : {
-                        height: heightScale(235),
+                        height: heightScale(240),
                         width: window / 2 - 15,
                         borderTopRightRadius: 8,
                         borderTopLeftRadius: 8,
@@ -277,7 +278,7 @@ export class RenderMobile extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{paddingTop: 5, paddingHorizontal: 5}}>
+            <View style={{paddingTop: 5, paddingHorizontal: 10}}>
               <Text style={styles.textFont}>Parasite</Text>
               {viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <Text style={[styles.textSecondary, styles.italic]}>
@@ -288,40 +289,23 @@ export class RenderMobile extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                paddingHorizontal: 5,
+                paddingHorizontal: 10,
                 paddingBottom: 5,
               }}>
               <View style={{flex: 1}}>
                 <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
+                <Text style={[styles.textSecondary]}>
+                  2016 - US - 17{' '}
+                  <AntDesign name="like1" color="#35B736" size={13} />
+                </Text>
+                <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    position: 'absolute',
+                    right: 0,
+                    top: 20,
                   }}>
-                  <Text style={[styles.textSecondary]}>
-                    2016 - US - 17{' '}
-                    <AntDesign name="like1" color="#35B736" size={13} />
-                  </Text>
                   <RatingComponent rating={9.2} />
-                </View>
-                {viewStyle === VIEW_STYLE.FULL_VIEW && (
-                  <View style={{flexDirection: 'row'}}>
-                    <View
-                      style={{
-                        height: '100%',
-                        borderWidth: 1,
-                        padding: 2,
-                        marginRight: 2,
-                      }}>
-                      <Text>16+</Text>
-                    </View>
-                    <Text style={styles.textSecondary}>France - </Text>
-                    <Text style={styles.textSecondary}>2018 - </Text>
-                    <Text style={styles.textSecondary}>2h 34m</Text>
-                  </View>
-                )}
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
                 </View>
               </View>
               {/* <View
@@ -375,6 +359,7 @@ export class RenderMobile extends Component {
               <ScrollView
                 horizontal={true}
                 nestedScrollEnabled={true}
+                showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{flex: 1}}>
                 {DATA.map((item) => this.rendeDirector(item))}
               </ScrollView>
@@ -454,7 +439,10 @@ export class RenderMobile extends Component {
             {/* For the watch now flatlist */}
             <View style={{height: window / 2, marginTop: 25}}>
               <Text style={styles.textFont}>Watch now</Text>
-              <ScrollView horizontal={true} nestedScrollEnabled={true}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                nestedScrollEnabled={true}>
                 {DATA.map((item) => this.rendeDirector(item))}
               </ScrollView>
             </View>
@@ -724,6 +712,7 @@ export class RenderMobile extends Component {
             <FlatList
               key={viewStyle}
               bounces={false}
+              showsVerticalScrollIndicator={false}
               contentContainerStyle={{
                 padding: 10,
                 paddingTop: TOTAL_HEADER_HEIGHT,
@@ -800,6 +789,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontFamily: primary_regular_font.primary_bold_font,
     fontSize: fontScale(14),
+    // lineHeight: heightScale(13),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -839,6 +829,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(14),
+    lineHeight: 15,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),

@@ -12,7 +12,7 @@ import Loader from './src/components/Loader';
 
 export const StatusBarContext = React.createContext();
 
-// console.log = function () {};
+console.log = function () {};
 console.group = function () {};
 
 enableScreens(true);
