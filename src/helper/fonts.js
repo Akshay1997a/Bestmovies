@@ -12,8 +12,8 @@ export default {
     : `${primary_font_ios}`,
   primary_light_font: isAndroid()
     ? `${primary_font}-Light`
-    : `${primary_font_ios}Light`,
+    : `${primary_font_ios} Light`,
   primary_bold_font: isAndroid()
     ? `${primary_font}-Bold`
-    : `${primary_font_ios}Bold`,
+    : `${primary_font_ios} Bold`,
 };
