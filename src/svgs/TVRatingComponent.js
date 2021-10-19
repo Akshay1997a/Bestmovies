@@ -48,7 +48,7 @@ function EllipseComponent({size, ...props}) {
       <G clipPath="url(#clip-s-Ellipse_2385328)">
         <Ellipse
           className="pie ellipse shape firer commentable non-processed"
-          cx={30}
+          cx={20}
           cy={16}
           rx={30}
           ry={16}

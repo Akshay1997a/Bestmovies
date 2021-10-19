@@ -1,4 +1,4 @@
-package com.bestmovies;
+package com.Bestmovies;
 
 import android.app.Application;
 import android.content.Context;

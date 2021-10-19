@@ -81,7 +81,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             props.focus === 'header' && focus == SEARCH
               ? styles.itemWrapperSelectedSearch
               : styles.itemWrapperSeach,
-            {maxWidth: WIDTH * 0.3},
+            // {width: WIDTH * 0.1},
           ]}>
           <Image
             style={
@@ -120,13 +120,13 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         <Pressable
           onFocus={() => onFocus(MOVIES)}
           onPress={() => onLocalChangeSelected()}
-          tvParallaxProperties={{magnification: 1.1}}
+          // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
               props.focus === 'header' && focus == MOVIES
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.3},
+              {width: WIDTH * 0.1},
             ]
             // styles.itemWrapperSelected :
             // styles.itemWrapper
@@ -157,7 +157,8 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
 
-              {maxWidth: WIDTH * 0.3},
+                {width: WIDTH * 0.1},
+                ,
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -172,7 +173,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             numberOfLines={1}
             style={
               props.focus === 'header' && focus == TV_SHOW
-                ? styles.focusText
+                ? styles.focusTextShow
                 : styles.text
               // props.focus === 90 ?
               // styles.text :
@@ -195,13 +196,14 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onFocus={() => onFocus(SHORTS)}
           onPress={() => onLocalChangeSelected()}
           onPress={() => alert('Test')}
-          tvParallaxProperties={{magnification: 1.1}}
+          // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
               props.focus === 'header' && focus == SHORTS
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {maxWidth: WIDTH * 0.3},
+                {width: WIDTH * 0.1},
+
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -314,7 +316,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         <Pressable
           onFocus={() => onFocus(MENU)}
           onPress={() => onLocalChangeSelected()}
-          tvParallaxProperties={{magnification: 1.1}}
+          // tvParallaxProperties={{magnification: 1.1}}
           style={
             focus == MENU ? styles.itemWrapperSelectedMenu : styles.itemWrapperMenu
           }>
@@ -344,7 +346,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     flexDirection: 'row',
-    marginVertical: 5,
+    marginBottom: StyleConfig.resHeight(3),
+    // marginVertical: 5,
 
     marginStart: isAndroid()
       ? StyleConfig.resWidth(20)
@@ -355,12 +358,12 @@ const styles = StyleSheet.create({
   },
   bannerIcon: {
     width: StyleConfig.resWidth(210),
-    height: StyleConfig.resWidth(170) / 2,
+    height: StyleConfig.resWidth(160) / 2,
   },
   itemWrapperSelected: {
     // borderWidth: 1,
     justifyContent: 'center',
-    paddingHorizontal: StyleConfig.resWidth(60),
+    // paddingHorizontal: StyleConfig.resWidth(60),
     // paddingVertical: StyleConfig.resHeight(5),
     // marginHorizontal:  StyleConfig.resWidth(5),
     backgroundColor: colors.tomatoRed,
@@ -376,7 +379,7 @@ const styles = StyleSheet.create({
     marginHorizontal: StyleConfig.resWidth(18),
     // backgroundColor: colors.tomatoRed,
     borderRadius: StyleConfig.resWidth(10),
-    minWidth: StyleConfig.resWidth(100),
+    // minWidth: StyleConfig.resWidth(100),
     alignItems: 'center',
   },
   itemWrapperMenu: {
@@ -436,12 +439,27 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   focusText: {
+    paddingVertical: StyleConfig.resHeight(2),
+    // paddingHorizontal: StyleConfig.resWidth(45),
     fontSize: StyleConfig.resWidth(32),
     fontFamily: primary_regular_font.primary_bold_font,
     fontWeight: '700',
     ...Platform.select({
       android: {
-        fontFamily: primary_regular_font.primary_bold_font,
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+    color: colors.white,
+  },
+  focusTextShow: {
+    paddingVertical: StyleConfig.resHeight(2),
+    // paddingHorizontal: StyleConfig.resWidth(30),
+    fontSize: StyleConfig.resWidth(32),
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
       },
     }),
     color: colors.white,

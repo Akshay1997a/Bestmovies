@@ -124,30 +124,6 @@ const TVPosterCard = ({item, ...props}) => {
   const headerHeight = useHeaderHeight();
   const [selected, setSelected] = useState(-1);
 
-  const renderProviderComponent = (data) => {
-    return (
-      <View style={{width: window / 5 - 4}}>
-        <TouchableOpacity style={{borderRadius: 25, padding: 2}}>
-          <View
-            style={{
-              // position: 'relative',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View>
-              <Image
-                keyExtractor={data.id}
-                style={{height: 44, width: 66, borderRadius: 10}}
-                source={data.image}
-              />
-            </View>
-            <Text style={styles.sortbyButText}>{data.name}</Text>
-            <Text style={styles.sortbyButText}>{data.subName}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  };
   return (
     <View style={{flexDirection: 'row'}}>
       {/* <View style={styles.viewContainer}>
@@ -224,7 +200,7 @@ const TVPosterCard = ({item, ...props}) => {
           <Text numberOfLines={2} style={styles.titleText}>
             {item?.title}
           </Text>
-          <Text style={styles.textSecondary}>
+          <Text style={styles.subTextSecondary}>
             Name of original title if foreign
           </Text>
           {/* <View
@@ -237,13 +213,23 @@ const TVPosterCard = ({item, ...props}) => {
             </Text>
 
           </View> */}
-          <View style={{flexDirection: 'row'}}>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              // borderWidth: 1,
+              // borderColor: 'green',
+              paddingTop:StyleConfig.resHeight(20),
+              // paddingBottom:StyleConfig.resHeight(10)
+
+              // marginVertical: StyleConfig.resHeight(20),
+            }}>
             <View
               style={{
-                maxWidth: WIDTH / 2,
                 // borderWidth: 1,
+                // maxWidth: WIDTH / 2,
                 // borderColor: 'red',
-                marginTop: StyleConfig.resHeight(20),
+                // marginTop: StyleConfig.resHeight(20),
               }}>
               <Text numberOfLines={1} style={styles.textSecondary}>
                 {`${t('texts.id_134')} - 2019 - 154 min -18+`}
@@ -271,13 +257,13 @@ const TVPosterCard = ({item, ...props}) => {
                   Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy
                 </Text>
               </View>
-              <Text style={styles.detailsText}>
+              {/* <Text style={styles.detailsText}>
                 In Gotham City, mentally troubled comedian Arthur Fleck is
                 disregarded and mistreated by society. He then embarks on a
                 downward spiral of revolution and bloody crime. This path brings
                 him into a dangerous downward spiral of revolution and bloody
                 crime
-              </Text>
+              </Text> */}
               {/* </View> */}
               {/* <View
               style={{
@@ -322,11 +308,17 @@ const TVPosterCard = ({item, ...props}) => {
               </View>
             </View> */}
             </View>
-
+            {/* <Text style={styles.detailsText}>
+                In Gotham City, mentally troubled comedian Arthur Fleck is
+                disregarded and mistreated by society. He then embarks on a
+                downward spiral of revolution and bloody crime. This path brings
+                him into a dangerous downward spiral of revolution and bloody
+                crime
+              </Text> */}
             <View
               style={{
-                width: StyleConfig.resWidth(WIDTH - 300),
-                marginTop: StyleConfig.resHeight(20),
+                width: StyleConfig.resWidth(WIDTH - 370),
+                // marginTop: StyleConfig.resHeight(20),
               }}>
               <View
                 style={{
@@ -348,18 +340,19 @@ const TVPosterCard = ({item, ...props}) => {
               </View>
               <View
                 style={{
-                  borderWidth: 2,
+                  borderWidth: StyleConfig.resWidth(2),
                   borderColor: colors.white,
-                  borderRadius: 10,
+                  borderRadius: StyleConfig.resWidth(10),
                   flexDirection: 'row',
                   // backgroundColor: '#EAF2FF',
                   overflow: 'hidden',
                 }}>
                 <View
                   style={{
-                    flex: 1,
-                    padding: 6,
-                    borderRightWidth: 2,
+                    flex: 0.35,
+                    justifyContent: 'center',
+                    borderRightWidth: StyleConfig.resWidth(2),
+                    paddingHorizontal: StyleConfig.resWidth(10),
                     borderColor: colors.white,
                   }}>
                   <View>
@@ -367,6 +360,38 @@ const TVPosterCard = ({item, ...props}) => {
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Awards</Text>
+                      <Text style={styles.textSecondary}>9.2</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Critics</Text>
+                      <Text style={styles.textSecondary}>8.1</Text>
+                    </View>
+                  </View>
+                </View>
+                {/* <View
+                  style={{
+                    flex: 1,
+
+                    padding:StyleConfig.resWidth(6),
+                    borderRightWidth: StyleConfig.resWidth(2),
+                    borderColor: colors.white,
+                    justifyContent:'center'
+                  }}>
+                  <View style={{borderWidth:3}}>
+                    <View
+                      style={{
+
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+
                       }}>
                       <Text style={styles.textSecondary}>Awards</Text>
                       <Text style={styles.textSecondary}>9.3</Text>
@@ -377,13 +402,20 @@ const TVPosterCard = ({item, ...props}) => {
                       style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+
                       }}>
                       <Text style={styles.textSecondary}>Critics</Text>
                       <Text style={styles.textSecondary}>9.5</Text>
                     </View>
                   </View>
-                </View>
-                <View style={{flex: 1, padding: 6}}>
+                </View> */}
+                <View
+                  style={{
+                    flex: 0.35,
+                    justifyContent: 'center',
+                    paddingHorizontal: StyleConfig.resWidth(10),
+                    borderColor: colors.white,
+                  }}>
                   <View>
                     <View
                       style={{
@@ -405,34 +437,36 @@ const TVPosterCard = ({item, ...props}) => {
                     </View>
                   </View>
                 </View>
+
                 <View style={{justifyContent: 'space-between'}}>
                   <SVGTriangleTop />
                   <SVGTriangleBottom />
                 </View>
                 <View
                   style={{
-                    flex: 0.4,
+                    flex: 0.3,
+                    // borderWidth: 2,
                     backgroundColor: '#4183E2',
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
                   <Text style={styles.ratingText}>8.2</Text>
-                  {/* <Text style={styles.ratingText}></Text> */}
+                  <Text style={styles.ratingText}>Excellent</Text>
                 </View>
               </View>
-              <Text style={styles.textSecondary}>
+              {/* <Text style={styles.textSecondary}>
                 Won 2 oscars including best director
               </Text>
               <Text style={styles.textSecondary}>
                 Nominated to 12 Sundance awards include best director
-              </Text>
+              </Text> */}
             </View>
           </View>
 
-          {/* <View
+          <View
             style={{
               flexDirection: 'row',
-              marginTop: StyleConfig.resHeight(20),
+              // marginTop: StyleConfig.resHeight(20),
             }}>
             <Text style={styles.detailsText}>
               In Gotham City, mentally troubled comedian Arthur Fleck is
@@ -441,15 +475,15 @@ const TVPosterCard = ({item, ...props}) => {
               him into a dangerous downward spiral of revolution and bloody
               crime
             </Text>
-            <View style={{marginLeft: WIDTH * 0.05}}>
-              <Text style={styles.commentText}>
+            <View>
+              <Text style={styles.textSecondary}>
                 {
                   'Won 2 oscars including best director\nWon 1 G. Globe including best movie'
                 }
               </Text>
-              <Text style={styles.commentText} />
+              <Text style={styles.textSecondary} />
             </View>
-          </View> */}
+          </View>
 
           {/* <Text style={styles.movieTypeText}>Watch:</Text> */}
           <ScrollView horizontal contentContainerStyle={[{flexGrow: 1}]}>
@@ -474,7 +508,7 @@ const TVPosterCard = ({item, ...props}) => {
                     height: StyleConfig.resHeight(66),
                     width: StyleConfig.resWidth(66),
                     borderRadius: StyleConfig.resWidth(10),
-                    marginTop: StyleConfig.resHeight(10),
+                    // marginTop: StyleConfig.resHeight(10),
                     marginRight: StyleConfig.resHeight(10),
                   }}
                   source={AppImages.play}
@@ -485,13 +519,15 @@ const TVPosterCard = ({item, ...props}) => {
                 <TouchableOpacity
                   onPress={() => alert('To be implemented')}
                   key={`${obj}-${ind}`}
-                  style={{margin: 4}}>
+                  // style={{margin: 4}}
+                >
                   {/* <Image style={styles.watchImage} source={obj.image} />
                   <Text numberOfLines={1} style={styles.watchText}>
                     {t(obj.name)}
                   </Text> */}
                   <View
                     style={{
+                      borderWidth: 1,
                       // position: 'relative',
                       justifyContent: 'center',
                       alignItems: 'center',
@@ -586,13 +622,41 @@ const styles = StyleSheet.create({
     flex: 1,
     // height: StyleConfig.height*0.4,
     // marginLeft:StyleConfig.resWidth(20),
-    marginTop: StyleConfig.resHeight(24),
+    // marginTop: StyleConfig.resHeight(24),
     // marginRight: StyleConfig.resWidth(12),
-    padding: StyleConfig.resHeight(12),
-    paddingLeft:StyleConfig.resWidth(30)
+    // padding: StyleConfig.resHeight(12),
+    paddingTop: StyleConfig.resHeight(25),
+    paddingLeft: StyleConfig.resWidth(30),
   },
   textSecondary: {
     // borderWidth: 1,
+    lineHeight: StyleConfig.resHeight(30),
+    color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  ratingText: {
+    // borderWidth: 1,
+    // lineHeight: StyleConfig.resHeight(18),
+    color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(26),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  subTextSecondary: {
+    // borderWidth: 1,
+    marginTop: StyleConfig.resHeight(-10),
     color: colors.white,
     fontWeight: '400',
     fontFamily: primary_regular_font.primary_regular_font,
@@ -604,6 +668,7 @@ const styles = StyleSheet.create({
     }),
   },
   headTextSecondary: {
+    lineHeight: StyleConfig.resHeight(30),
     color: colors.white,
     fontWeight: '700',
     fontFamily: primary_regular_font.primary_bold_font,
@@ -615,7 +680,10 @@ const styles = StyleSheet.create({
     }),
   },
   titleText: {
-    // padding:10,
+    marginTop: StyleConfig.resHeight(-10),
+    // height:40,
+    // margin:10,
+    // marginBottom:-20,
     // borderWidth: 1,
     fontSize: StyleConfig.resWidth(60),
     fontWeight: '700',
@@ -669,8 +737,9 @@ const styles = StyleSheet.create({
   detailsText: {
     width: WIDTH * 0.4,
     fontSize: StyleConfig.resHeight(26),
-    marginTop: 20,
-    marginBottom: 20,
+    lineHeight: StyleConfig.resHeight(30),
+    // marginTop: 20,
+    // marginBottom: 20,
     color: colors.white,
     fontWeight: '400',
     fontFamily: primary_regular_font.primary_regular_font,

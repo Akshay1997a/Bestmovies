@@ -1,4 +1,4 @@
-package com.bestmovies;
+package com.Bestmovies;
 
 import com.facebook.react.ReactActivity;
 

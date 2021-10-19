@@ -460,10 +460,12 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
               }}>
               <View
                 style={{
+                  // borderWidth:1,
                   flexDirection: 'row',
-                  marginVertical: isAndroid() ? 5 : 10,
+                marginTop: StyleConfig.resHeight(20),
+                  // marginVertical: ,
                   backgroundColor: colors.white,
-                  marginHorizontal: 10,
+                  marginHorizontal: StyleConfig.resWidth(20),
                 }}>
                 <Text numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}

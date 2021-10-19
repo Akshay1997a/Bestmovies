@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "56473424541",
+    "project_id": "bestmovies-47f7c",
+    "storage_bucket": "bestmovies-47f7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56473424541:android:8ce7fd3abf92bba251ba74",
+        "android_client_info": {
+          "package_name": "com.bestmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56473424541-9h2qk56mhg9sb57jv4pmqgks59dt1qmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBObyrohHRWrUxKYy49Bc1WMyNBIz-BXWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56473424541-9h2qk56mhg9sb57jv4pmqgks59dt1qmo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "56473424541-mji1vrbgo5svbndlttgorvlcjbmlmbu2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bestmovies"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

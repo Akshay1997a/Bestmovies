@@ -9,7 +9,7 @@ function SVGTriangleTop(props) {
       className="prefix__svgContainer"
       style={{
         width: 13,
-        height: 28,
+        height: 20,
         transform: [{rotateY: '180deg'}, {rotateX: "180deg"}]
       }}
       {...props}>

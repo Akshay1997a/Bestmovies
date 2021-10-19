@@ -331,10 +331,10 @@ const MyCarousel = ({item, posts, ...props}) => {
               {
                 position: 'absolute',
                 top: isAndroid()
-                  ? StyleConfig.resHeight(100)
+                  ? StyleConfig.resHeight(130)
                   : StyleConfig.resHeight(450),
                 bottom: 0,
-                marginTop: HEIGHT * 0.3,
+                marginTop: HEIGHT * 0.33,
               },
             ]}>
             <TVPosterCard item={item} {...props} />
