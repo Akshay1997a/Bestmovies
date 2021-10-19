@@ -38,7 +38,7 @@ import Language from '../screens/LanguageScreen';
 const Stack = createStackNavigator();
 
 const StackNav = () => {
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
   const commonOptions = {
     headerBackImage: () => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
@@ -55,7 +55,7 @@ const StackNav = () => {
         backgroundColor: 'rgba(0,0,0,0.2)',
         overflow: 'hidden',
         // marginTop: insets.top,
-        marginBottom: insets.bottom,
+        // marginBottom: insets.bottom,
       },
       cardOverlayEnabled: true,
       animationTypeForReplace: 'push',
@@ -333,11 +333,9 @@ const StackNav = () => {
 
 const Router = () => {
   return (
-    <SafeAreaProvider>
       <NavigationContainer>
         <StackNav />
       </NavigationContainer>
-    </SafeAreaProvider>
   );
 };
 export default Router;
