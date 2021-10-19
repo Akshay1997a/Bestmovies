@@ -275,7 +275,7 @@ class RenderMobile extends Component {
         bounces={false}
         contentContainerStyle={{
           // padding: 10,
-          paddingTop: TOTAL_HEADER_HEIGHT - (!isAndroid() ? 45 : 0),
+          paddingTop: TOTAL_HEADER_HEIGHT
         }}>
         <View
           style={{
