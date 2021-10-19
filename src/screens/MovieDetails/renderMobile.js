@@ -43,7 +43,7 @@ import SVGTriangleTop from '../../svgs/TriangleTop';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
 import {withTranslation} from 'react-i18next';
-import primary_regular_font from '../../helper/fonts';
+import primary_regular_font, { isAndroid } from '../../helper/fonts';
 import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
@@ -275,7 +275,7 @@ class RenderMobile extends Component {
         bounces={false}
         contentContainerStyle={{
           // padding: 10,
-          paddingTop: TOTAL_HEADER_HEIGHT,
+          paddingTop: TOTAL_HEADER_HEIGHT - (!isAndroid() ? 45 : 0),
         }}>
         <View
           style={{
@@ -836,7 +836,6 @@ class RenderMobile extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <SafeAreaView style={{flex: 1}}>
           <View style={{flex: 1, marginTop: 5}}>
             <View style={{flex: 1}}>
               <FlatList
@@ -855,7 +854,6 @@ class RenderMobile extends Component {
               />
             </View>
           </View>
-        </SafeAreaView>
       </View>
     );
   }
