@@ -29,8 +29,9 @@ import StatusBar from './StatusBar';
 import {heightScale, widthScale} from '../helper/ResponsiveFonts';
 import { isAndroid } from '../helper/fonts';
 // import { SafeAreaView } from 'react-native-safe-area-context';
+import primary_regular_fonts from '../helper/fonts';
 
-export const HEADER_HEIGHT = 30;
+export const HEADER_HEIGHT = 50;
 export const TAB_BAR_HEIGHT = 40;
 export const STATUS_BAR_HEIGHT = RNStatusBar.currentHeight;
 export const TOTAL_HEADER_HEIGHT =
@@ -100,15 +101,19 @@ const DefaultHeader = ({navigate}) => {
         height: HEADER_HEIGHT,
         paddingHorizontal: 10,
       }}>
-      <TouchableOpacity onPress={() => navigate('Menu')}>
+      <TouchableOpacity
+        onPress={() => navigate('Menu')}
+        style={{
+          position: 'absolute',
+          bottom: heightScale(5),
+          left: widthScale(10),
+        }}>
         <Image
           source={require('../../assets/Icons/BMicon.png')}
           style={{
             width: widthScale(130),
             height: heightScale(83),
             resizeMode: 'contain',
-            position: 'absolute',
-            top: heightScale(-60),
           }}
         />
       </TouchableOpacity>
@@ -227,7 +232,10 @@ function TabButton({title, index, onPress, ...rest}) {
           style={[
             rest.labelStyle,
             state.index === index
-              ? {color: activeTintColor}
+              ? {
+                  color: activeTintColor,
+                  fontFamily: primary_regular_fonts.primary_bold_font,
+                }
               : {color: inactiveTintColor},
           ]}>
           {title}
