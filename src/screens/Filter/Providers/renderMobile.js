@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {flatMap, update} from 'lodash';
 import React, {Component} from 'react';
 import {
@@ -73,6 +74,7 @@ export class RenderMobile extends Component {
       screen,
       selectedCountry: null,
       selectedMenu: MENUS.ALL,
+      selectedProviders: [],
     };
 
     this.togalItem = this.togalItem.bind(this);
@@ -91,26 +93,42 @@ export class RenderMobile extends Component {
   }
 
   togalItem(id) {
-    const {updateProviderConfig} = this.props;
+    const {selectedProviders} = this.state;
     const {providerConfig} = this.props;
-    if (!providerConfig.selectedProviders.includes(id)) {
-      updateProviderConfig({
-        ...providerConfig,
-        selectedProviders: [...providerConfig.selectedProviders, id],
+    if (!selectedProviders.includes(id)) {
+      this.setState({
+        selectedProviders: [...selectedProviders, id],
       });
     } else {
-      updateProviderConfig({
-        ...providerConfig,
-        selectedProviders: [...providerConfig.selectedProviders].filter(
-          (i) => i !== id,
-        ),
+      this.setState({
+        selectedProviders: [...selectedProviders].filter((i) => i !== id),
       });
     }
   }
 
+  saveAsMyProvider() {
+    const {updateProviderConfig, providerConfig} = this.props;
+    const {selectedProviders} = this.state;
+    updateProviderConfig({
+      ...providerConfig,
+      selectedProviders: [
+        ...providerConfig.selectedProviders,
+        ...selectedProviders,
+      ],
+    });
+    this.setState({
+      selectedMenu: MENUS.MY_PROVIDES,
+      selectedProviders: [],
+    });
+  }
+
   renderItemComponent = (data) => {
-    const selectedProviders = this.props.providerConfig.selectedProviders || [];
-    console.log(selectedProviders);
+    const {selectedProviders} = this.state;
+    const {providerConfig} = this.props;
+    let activeProviders = [
+      ...selectedProviders,
+      ...providerConfig.selectedProviders,
+    ];
     return (
       <View style={{width: window / 5 - 2}}>
         <TouchableOpacity
@@ -132,11 +150,11 @@ export class RenderMobile extends Component {
             <Text
               style={{
                 textAlign: 'center',
-                color: selectedProviders.includes(data.id) ? '#FF3300' : '#000',
+                color: activeProviders.includes(data.id) ? '#FF3300' : '#000',
               }}>
               {data.name}
             </Text>
-            {selectedProviders.includes(data.id) && (
+            {activeProviders.includes(data.id) && (
               <View style={styles.checkContainer}>
                 <FontAwesome5Icon name="check" color="#fff" size={20} />
               </View>
@@ -189,13 +207,23 @@ export class RenderMobile extends Component {
           <TouchableOpacity
             style={[
               styles.butContainer,
-              selectedMenu === MENUS.ALL ? styles.butActive : {},
+              providerConfig.selectedProviders.length === 0
+                ? styles.butActive
+                : {},
             ]}
-            onPress={() => this.setState({selectedMenu: MENUS.ALL})}>
+            onPress={() => {
+              updateProviderConfig({
+                ...providerConfig,
+                selectedProviders: [],
+              });
+              this.setState({selectedMenu: MENUS.ALL, selectedProviders: []});
+            }}>
             <Text
               style={[
                 styles.butText,
-                selectedMenu === MENUS.ALL ? styles.activeButText : {},
+                providerConfig.selectedProviders.length === 0
+                  ? styles.activeButText
+                  : {},
               ]}>
               All
             </Text>
@@ -203,25 +231,28 @@ export class RenderMobile extends Component {
           <TouchableOpacity
             style={[
               styles.butContainer,
-              selectedMenu === MENUS.MY_PROVIDES ? styles.butActive : {},
+              providerConfig.selectedProviders.length !== 0
+                ? styles.butActive
+                : {},
             ]}
             onPress={() => this.setState({selectedMenu: MENUS.MY_PROVIDES})}>
             <Text
               style={[
                 styles.butText,
-                selectedMenu === MENUS.MY_PROVIDES ? styles.activeButText : {},
+                providerConfig.selectedProviders.length !== 0
+                  ? styles.activeButText
+                  : {},
               ]}>
               {t('texts.id_147')}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            disabled={this.state.selectedProviders.length === 0}
             style={[
               styles.butContainer,
               selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.butActive : {},
             ]}
-            onPress={() =>
-              this.setState({selectedMenu: MENUS.SAVE_AS_PROVIDER})
-            }>
+            onPress={() => this.saveAsMyProvider()}>
             <Text
               style={[
                 styles.butText,
@@ -231,7 +262,6 @@ export class RenderMobile extends Component {
               ]}>
               {t('texts.id_148')}
             </Text>
-            {/* <Text style={styles.butText}>MY Provider</Text> */}
           </TouchableOpacity>
         </View>
         <ScrollView
@@ -253,13 +283,7 @@ export class RenderMobile extends Component {
                   <View style={[highlighted && {marginLeft: 0}]} />
                 ))
               }
-              data={
-                selectedMenu === MENUS.ALL
-                  ? DATA
-                  : DATA.filter((i) =>
-                      providerConfig.selectedProviders.includes(i.id),
-                    )
-              }
+              data={DATA}
               renderItem={({item, index}) =>
                 this.renderItemComponent({...item})
               }
@@ -348,6 +372,7 @@ const styles = StyleSheet.create({
   butText: {
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
+    textAlign: 'center',
     fontSize: 16,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -369,7 +394,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   filterContainer: {
-    height: 250,
+    height: 200,
     paddingHorizontal: 10,
     paddingVertical: 20,
   },
@@ -389,7 +414,7 @@ const styles = StyleSheet.create({
   checkContainer: {
     position: 'absolute',
     right: 0,
-    bottom: 18,
+    top: 19,
     width: 28,
     height: 28,
     justifyContent: 'center',

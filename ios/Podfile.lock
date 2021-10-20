@@ -359,8 +359,9 @@ PODS:
     - React-Core
   - RNLocalize (2.1.4):
     - React-Core
-  - RNScreens (2.16.1):
+  - RNScreens (3.8.0):
     - React-Core
+    - React-RCTImage
   - RNSVG (12.1.1):
     - React
   - RNVectorIcons (8.1.0):
@@ -586,8 +587,8 @@ SPEC CHECKSUMS:
   RNFBCrashlytics: 347db4a99a802d41f58762bd9d4913d04970adf7
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNLocalize: 7f1e5792b65a839af55a9552d05b3558b66d017e
-  RNScreens: 45c457af3d2ee9e08fc01e70da87e653d46b1198
-  RNSVG: 4ce1d509bb19a8285c4c14e78fa72a074318fc40
+  RNScreens: 6e1ea5787989f92b0671049b808aef64fa1ef98c
+  RNSVG: 5a496a08bef6e2658d449c221780f4b89d660fb8
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: e6fad7d759aada82718ccebaaeef8113c431d41e
   YogaKit: 1e22bf2228b3a5ac8cc88965153061ae92c494b5

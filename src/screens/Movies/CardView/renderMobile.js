@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {wrap} from 'lodash';
 import React, {Component} from 'react';
 import {
@@ -72,7 +73,6 @@ export class RenderMobile extends Component {
           flex: 0,
           justifyContent: 'center',
           borderRadius: 8,
-          overflow: 'hidden',
           borderWidth: 1,
           borderColor: '#fff',
           backgroundColor: '#fff',
@@ -81,6 +81,7 @@ export class RenderMobile extends Component {
           shadowOpacity: 0.25,
           shadowColor: '#000',
           shadowRadius: 3.84,
+          overflow: 'hidden',
         }}>
         <TouchableOpacity>
           <View>

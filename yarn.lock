@@ -1675,13 +1675,12 @@
     query-string "^6.13.6"
     react-is "^16.13.0"
 
-"@react-navigation/material-top-tabs@^6.0.2":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-6.0.2.tgz#c2036ab53345a634f12f66cf04896c3fc059a423"
-  integrity sha512-Al//AEYGB0e1fHn+gqb/mW7MFrYv15MT+NvDHWfl02SldmQIaUfR/LSZytvYTZL1sUApN4XkmD1XZhLKhmGoRA==
+"@react-navigation/material-top-tabs@^5.3.15":
+  version "5.3.19"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-5.3.19.tgz#64f3a933f5d7e86e99f3d57d9f0c1e833ffa7e4f"
+  integrity sha512-I7bEF99THxxcY7kCUZ5pPmwXr6kgo6L2sg3P1YJo+CcBWSGvGiHyNbZXNs15HuKRuFvEuueChNV9n8QuKBWbDA==
   dependencies:
     color "^3.1.3"
-    warn-once "^0.1.0"
 
 "@react-navigation/native@^5.9.4":
   version "5.9.6"
@@ -7704,9 +7703,11 @@ react-native-safe-area-context@^3.2.0:
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.2.0.tgz#06113c6b208f982d68ab5c3cebd199ca93db6941"
   integrity sha512-k2Nty4PwSnrg9HwrYeeE+EYqViYJoOFwEy9LxL5RIRfoqxAq/uQXNGwpUg2/u4gnKpBbEPa9eRh15KKMe/VHkA==
 
-react-native-screens@software-mansion/react-native-screens#675/head:
-  version "2.16.1"
-  resolved "https://codeload.github.com/software-mansion/react-native-screens/tar.gz/489623c763c56628d216cdf3c4a35b4430d823e3"
+react-native-screens@software-mansion/react-native-screens:
+  version "3.8.0"
+  resolved "https://codeload.github.com/software-mansion/react-native-screens/tar.gz/cf2608c8b7524daf0443c724e0da0447ebd64baa"
+  dependencies:
+    warn-once "^0.1.0"
 
 react-native-snap-carousel@^3.9.1:
   version "3.9.1"

@@ -81,7 +81,7 @@ export default function RenderMobile(props) {
 const PrimaryTile = ({title, subTitle, onPress}) => (
   <TouchableOpacity onPress={onPress}>
     <View style={[styles.PrimaryTileStyle, styles.row]}>
-      <View style={[styles.col, {flex: 3}]}>
+      <View style={[styles.col, {flex: 3, flexWrap: 'wrap', flexShrink: 1}]}>
         <Text style={styles.PrimaryTileTitleStyle}>{title}</Text>
         <Text style={styles.PrimaryTileSubTitleStyle}>{subTitle}</Text>
       </View>
@@ -145,6 +145,8 @@ const styles = StyleSheet.create({
   },
   PrimaryTileTitleStyle: {
     color: '#000000',
+    flexShrink: 1,
+    flexWrap: 'wrap',
     fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 20,
     fontStyle: 'normal',

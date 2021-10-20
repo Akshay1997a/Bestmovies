@@ -13,6 +13,8 @@ import {
   StyleSheet,
   Platform,
   Dimensions,
+  Easing,
+  StatusBar as RNStatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -24,11 +26,15 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {FilterInitialState} from '../redux/FilterModule/FilterReducer';
 import StatusBar from './StatusBar';
+import {heightScale, widthScale} from '../helper/ResponsiveFonts';
 // import { SafeAreaView } from 'react-native-safe-area-context';
+import primary_regular_fonts from '../helper/fonts';
 
-export const HEADER_HEIGHT = 60;
+export const HEADER_HEIGHT = 50;
 export const TAB_BAR_HEIGHT = 40;
-export const TOTAL_HEADER_HEIGHT = HEADER_HEIGHT + TAB_BAR_HEIGHT;
+export const STATUS_BAR_HEIGHT = RNStatusBar.currentHeight;
+export const TOTAL_HEADER_HEIGHT =
+  HEADER_HEIGHT + TAB_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
 export const HEADER_TYPE = {
@@ -51,7 +57,7 @@ export default function Header(props) {
 
   return (
     <>
-      <StatusBar backgroundColor="#fff" />
+      <StatusBar backgroundColor="transparent" />
       <Animated.View
         style={[
           styles.headerContainer,
@@ -94,12 +100,23 @@ const DefaultHeader = ({navigate}) => {
         height: HEADER_HEIGHT,
         paddingHorizontal: 10,
       }}>
-      <TouchableOpacity onPress={() => navigate('Menu')}>
+      <TouchableOpacity
+        onPress={() => navigate('Menu')}
+        style={{
+          position: 'absolute',
+          bottom: heightScale(5),
+          left: widthScale(10),
+        }}>
         <Image
           source={require('../../assets/Icons/BMicon.png')}
-          style={{width: 130, height: 83, resizeMode: 'center'}}
+          style={{
+            width: widthScale(130),
+            height: heightScale(83),
+            resizeMode: 'contain',
+          }}
         />
       </TouchableOpacity>
+      <View style={{width: widthScale(130)}} />
       <View style={{height: 50}} />
       <TouchableOpacity onPress={() => navigate('Filter')}>
         <View style={{position: 'relative'}}>
@@ -214,7 +231,10 @@ function TabButton({title, index, onPress, ...rest}) {
           style={[
             rest.labelStyle,
             state.index === index
-              ? {color: activeTintColor}
+              ? {
+                  color: activeTintColor,
+                  fontFamily: primary_regular_fonts.primary_bold_font,
+                }
               : {color: inactiveTintColor},
           ]}>
           {title}
@@ -236,7 +256,8 @@ export function useCollapsibleHeader() {
   const reset = () => {
     Animated.timing(scrollY, {
       toValue: 0,
-      duration: 200,
+      duration: 100,
+      easing: Easing.linear,
       useNativeDriver: true,
     }).start();
   };
@@ -260,7 +281,7 @@ export function useCollapsibleHeader() {
 
 export function useCollapsibleHeaderHOC(WrappedComponent) {
   return (props) => {
-    const {onScrollY} = useCollapsibleHeader();
+    const {onScrollY, reset} = useCollapsibleHeader();
     const scrollContext = useAnimationProvider();
 
     return (
@@ -268,6 +289,7 @@ export function useCollapsibleHeaderHOC(WrappedComponent) {
         {...props}
         onScrollY={onScrollY}
         scrollContext={scrollContext}
+        reset={reset}
       />
     );
   };

@@ -143,7 +143,7 @@ class Filter extends React.Component {
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Year')}
             style={{
               ...styles.butContainer,
@@ -159,7 +159,7 @@ class Filter extends React.Component {
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <Icon {...iconStyle} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Provider')}
             style={styles.butContainer}>
@@ -167,11 +167,13 @@ class Filter extends React.Component {
               <Text style={providerTextStyle}>{t('texts.id_144')} (US)</Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
-                  {DATA.filter((i) =>
-                    providerConfig.selectedProviders.includes(i.id),
-                  )
-                    .map((i) => i.name)
-                    .join(', ')}
+                  {providerConfig.selectedProviders.length
+                    ? DATA.filter((i) =>
+                        providerConfig.selectedProviders.includes(i.id),
+                      )
+                        .map((i) => i.name)
+                        .join(', ')
+                    : 'Any'}
                 </Text>
               </View>
             </View>

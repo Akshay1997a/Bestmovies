@@ -44,6 +44,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
 import {withTranslation} from 'react-i18next';
 import primary_regular_font from '../../helper/fonts';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -183,7 +184,7 @@ class RenderMobile extends Component {
             <View>
               <Image
                 keyExtractor={data.id}
-                style={{height: 44, width: 66, borderRadius: 10}}
+                style={{height: heightScale(44), width: 66, borderRadius: 10}}
                 source={data.image}
               />
             </View>
@@ -209,7 +210,7 @@ class RenderMobile extends Component {
         source={data.image}
         style={{
           width: 150,
-          height: 200,
+          height: heightScale(200),
           resizeMode: 'cover',
           borderRadius: 12,
           marginBottom: 10,
@@ -255,282 +256,366 @@ class RenderMobile extends Component {
     };
 
     return (
-      <View
-        style={{
-          flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
-          justifyContent: 'center',
-          borderRadius: 15,
-          ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
-            borderWidth: 1,
-            borderColor: '#fff',
-            backgroundColor: '#fff',
-            elevation: 5,
-          }),
+      <Animated.ScrollView
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: this.props.scrollContext,
+                },
+              },
+            },
+          ],
+          {useNativeDriver: true}, // Add this line
+        )}
+        horizontal={false}
+        scrollEventThrottle={16}
+        automaticallyAdjustContentInsets={true}
+        bounces={false}
+        contentContainerStyle={{
+          // padding: 10,
+          paddingTop: TOTAL_HEADER_HEIGHT,
         }}>
-        <View style={{justifyContent: 'center'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10,
+            paddingHorizontal: 10,
+          }}>
+          <View style={{flex: 3, flexDirection: 'row'}}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+              <FontAwesome5Icon
+                name="angle-left"
+                size={23}
+                style={{marginRight: 10}}
+              />
+            </TouchableOpacity>
+            <Text style={styles.resultText}>Rating of best movies</Text>
+          </View>
           <TouchableOpacity
-            onPress={() => alert('heekk')}
-            style={{elevation: 1}}>
+            style={{
+              alignItems: 'flex-end',
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              this.setState({modalVisible: true});
+            }}>
+            <Text style={styles.sortbyButText}>Rating</Text>
+            <Icon name="chevron-down" size={20} color="#232323" />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
+            justifyContent: 'center',
+            borderRadius: 15,
+            ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
+              borderWidth: 1,
+              borderColor: '#fff',
+              backgroundColor: '#fff',
+              elevation: 5,
+            }),
+          }}>
+          <View style={{justifyContent: 'center'}}>
+            <TouchableOpacity
+              onPress={() => alert('heekk')}
+              style={{elevation: 1}}>
+              <View
+                style={{
+                  position: 'absolute',
+                  top: -10,
+                  right: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
+                <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
+              </View>
+            </TouchableOpacity>
+            {!this.state.isIntroTipVisible &&
+              viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <TouchableOpacity
+                  style={{
+                    elevation: 1,
+                    position: 'absolute',
+                    top: 200,
+                    left: window / 2 - 30,
+                    zIndex: 1000,
+                  }}
+                  onPress={playVideo}>
+                  <Icons name="play-circle" size={50} color="white" />
+                </TouchableOpacity>
+              )}
+            <Image
+              style={
+                viewStyle === VIEW_STYLE.FULL_VIEW
+                  ? {height: heightScale(495), width: window}
+                  : {
+                      height: heightScale(250),
+                    }
+              }
+              source={data.image}
+              onLoadEnd={() => {
+                this.showTip();
+              }}
+            />
             <View
               style={{
                 position: 'absolute',
-                top: -10,
-                right: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
+                top: screen / 2.5,
+                flexWrap: 'wrap',
+                left: window / 6,
               }}>
-              <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
-              <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
-            </View>
-          </TouchableOpacity>
-          {!this.state.isIntroTipVisible && viewStyle === VIEW_STYLE.FULL_VIEW && (
-            <TouchableOpacity
-              style={{
-                elevation: 1,
-                position: 'absolute',
-                top: 200,
-                left: window / 2 - 30,
-                zIndex: 1000,
-              }}
-              onPress={playVideo}>
-              <Icons name="play-circle" size={50} color="white" />
-            </TouchableOpacity>
-          )}
-          <Image
-            style={
-              viewStyle === VIEW_STYLE.FULL_VIEW
-                ? {height: 495, width: window}
-                : {
-                    height: 250,
-                  }
-            }
-            source={data.image}
-            onLoadEnd={() => {
-              this.showTip();
-            }}
-          />
-          <View
-            style={{
-              position: 'absolute',
-              top: screen / 2.5,
-              flexWrap: 'wrap',
-              left: window / 6,
-            }}>
-            <Text
-              allowFontScaling={true}
-              numberOfLines={2}
-              style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
-              {data.name}
-            </Text>
-          </View>
-        </View>
-        <View style={{flexDirection: 'row', padding: 10}}>
-          <View style={{flex: 5}}>
-            <Text style={styles.textFont}>Parasite</Text>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <Text style={[styles.textSecondary]}>
-                Parasite(Original title)
+              <Text
+                allowFontScaling={true}
+                numberOfLines={2}
+                style={{
+                  fontSize: fontScale(50),
+                  color: 'white',
+                  fontWeight: '700',
+                }}>
+                {data.name}
               </Text>
-            )}
-            <View style={{height: 10}} />
-            <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
+            </View>
+          </View>
+          <View style={{flexDirection: 'row', padding: 10}}>
+            <View style={{flex: 5}}>
+              <Text style={styles.titleFont}>Parasite</Text>
+              {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <Text style={[styles.textSecondary]}>
+                  Parasite(Original title)
+                </Text>
+              )}
+              <View style={{height: heightScale(10)}} />
+              <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
+              {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.textSecondary}>
+                    2016 - US - 17{' '}
+                    <AntDesign name="like1" color="#35B736" size={18} />
+                  </Text>
+                </View>
+              )}
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecondary}>
-                  2016 - US - 17{' '}
-                  <AntDesign name="like1" color="#35B736" size={18} />
+                <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
+                <TouchableOpacity>
+                  <Icon name="heart-outlined" size={20} color="#232323" />
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'space-between',
+                alignItems: 'flex-end',
+              }}>
+              {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                <TouchableOpacity onPress={onShare}>
+                  <Icon
+                    name="reply"
+                    size={heightScale(25)}
+                    color="#232323"
+                    style={{transform: [{rotateY: '180deg'}]}}
+                  />
+                </TouchableOpacity>
+              )}
+
+              <View
+                style={{
+                  alignItems: 'center',
+                }}>
+                <RatingComponent size="lg" rating={'9.2'} />
+                <Text
+                  style={{
+                    fontSize: fontScale(14.67),
+                    fontFamily: primary_regular_font.primary_bold_font,
+                    ...(Platform.OS === 'ios' && {
+                      fontWeight: '700',
+                    }),
+                  }}>
+                  Best
                 </Text>
               </View>
-            )}
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
-              <TouchableOpacity>
-                <Icon name="heart-outlined" size={20} color="#232323" />
-              </TouchableOpacity>
             </View>
           </View>
+          {viewStyle === VIEW_STYLE.FULL_VIEW && (
+            <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
+              <View>
+                <Text style={styles.textFont}>Plot</Text>
+                <Text style={styles.textDesc}>
+                  Greed and class discrimination threaten the newly formed
+                  symbiotic relationship between the wealthy Park family and the
+                  destitute Kim clan. Their adventures unfurl in three stories
+                  that ingeniously trip back and forth in time.
+                </Text>
+              </View>
+              <View style={{marginTop: 11, borderWidth: 0}}>
+                <View style={{flexDirection: 'row'}}>
+                  <View>
+                    <Text style={styles.textFont}>Director </Text>
+                    <ScrollView
+                      horizontal={true}
+                      nestedScrollEnabled={true}
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={{
+                        height: heightScale(162),
+                      }}>
+                      {DATA.slice(0, 1).map((item, index) =>
+                        this.rendeDirector(item, index),
+                      )}
+                    </ScrollView>
+                  </View>
+                  <View>
+                    <Text style={styles.textFont}>Cast</Text>
+                    <ScrollView
+                      horizontal={true}
+                      nestedScrollEnabled={true}
+                      showsHorizontalScrollIndicator={false}
+                      contentContainerStyle={{height: heightScale(152)}}>
+                      {DATA.map((item, index) =>
+                        this.rendeDirector(item, index),
+                      )}
+                    </ScrollView>
+                  </View>
+                </View>
+              </View>
+              {/* For the Rating */}
+              <View style={{marginTop: 11}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={styles.textFont}>Rating</Text>
+                </View>
+                <View
+                  style={{
+                    borderWidth: 2,
+                    borderColor: '#4183E2',
+                    borderRadius: 10,
+                    flexDirection: 'row',
+                    backgroundColor: '#EAF2FF',
+                    overflow: 'hidden',
+                  }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      padding: 6,
+                      borderRightWidth: 2,
+                      borderColor: '#4183E2',
+                    }}>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Awards</Text>
+                        <Text style={styles.textSecondary}>9.3</Text>
+                      </View>
+                    </View>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Critics</Text>
+                        <Text style={styles.textSecondary}>9.5</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{flex: 1, padding: 6}}>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Audience</Text>
+                        <Text style={styles.textSecondary}>9.0</Text>
+                      </View>
+                    </View>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Box-Office</Text>
+                        <Text style={styles.textSecondary}>8.1</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{justifyContent: 'space-between'}}>
+                    <SVGTriangleTop />
+                    <SVGTriangleBottom />
+                  </View>
+                  <View
+                    style={{
+                      flex: 0.4,
+                      backgroundColor: '#4183E2',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={styles.ratingText}>9.2</Text>
+                  </View>
+                </View>
+                <Text style={styles.textSecondary}>
+                  Won 2 oscars including best director
+                </Text>
+                <Text style={styles.textSecondary}>
+                  Won 2 oscars including best director
+                </Text>
+              </View>
+              {/* For the watch now flatlist */}
+              <View style={{marginTop: 25}}>
+                <Text style={styles.textFont}>Watch now</Text>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {PROVIDER_DATA.map((item, index) =>
+                    this.renderProviderComponent(item),
+                  )}
+                </View>
+              </View>
+              <View style={{marginTop: 25}}>
+                <Text style={styles.textFont}>Images</Text>
+                <Text />
+                <View style={{alignItems: 'center'}}>
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                  <Image
+                    source={require('../../../assets/poster1.jpg')}
+                    style={styles.images}
+                  />
+                </View>
+              </View>
+            </View>
+          )}
+        </View>
+        <View style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
+          <Text style={styles.textFont}>Similer title</Text>
           <View
             style={{
               flex: 1,
-              justifyContent: 'space-evenly',
-              alignItems: 'flex-end',
+              alignItems: 'center',
             }}>
-            {viewStyle === VIEW_STYLE.FULL_VIEW && (
-              <TouchableOpacity onPress={onShare}>
-                <Icon
-                  name="reply"
-                  size={24}
-                  color="#232323"
-                  style={{transform: [{rotateY: '180deg'}]}}
-                />
-              </TouchableOpacity>
-            )}
-
-            <View
-              style={{
-                alignItems: 'center',
-              }}>
-              <RatingComponent size="lg" rating={'9.2'} />
-              <Text
-                style={{
-                  fontSize: 14.67,
-                  fontFamily: primary_regular_font.primary_bold_font,
-                  ...(Platform.OS === 'ios' && {
-                    fontWeight: '700',
-                  }),
-                }}>
-                Best
-              </Text>
-            </View>
+            <CardView />
           </View>
         </View>
-        {viewStyle === VIEW_STYLE.FULL_VIEW && (
-          <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
-            <View>
-              <Text style={styles.textFont}>Plot</Text>
-              <Text style={styles.textDesc}>
-                Greed and class discrimination threaten the newly formed
-                symbiotic relationship between the wealthy Park family and the
-                destitute Kim clan. Their adventures unfurl in three stories
-                that ingeniously trip back and forth in time.
-              </Text>
-            </View>
-            <View style={{marginTop: 11}}>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textFont}>Director </Text>
-                <Text style={styles.textFont}>Cast</Text>
-              </View>
-              <ScrollView
-                horizontal={true}
-                nestedScrollEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{height: 152}}>
-                {DATA.map((item, index) => this.rendeDirector(item, index))}
-              </ScrollView>
-            </View>
-            {/* For the Rating */}
-            <View style={{marginTop: 11}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={styles.textFont}>Rating</Text>
-              </View>
-              <View
-                style={{
-                  borderWidth: 2,
-                  borderColor: '#4183E2',
-                  borderRadius: 10,
-                  flexDirection: 'row',
-                  backgroundColor: '#EAF2FF',
-                  overflow: 'hidden',
-                }}>
-                <View
-                  style={{
-                    flex: 1,
-                    padding: 6,
-                    borderRightWidth: 2,
-                    borderColor: '#4183E2',
-                  }}>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Awards</Text>
-                      <Text style={styles.textSecondary}>9.3</Text>
-                    </View>
-                  </View>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Critics</Text>
-                      <Text style={styles.textSecondary}>9.5</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={{flex: 1, padding: 6}}>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Audience</Text>
-                      <Text style={styles.textSecondary}>9.0</Text>
-                    </View>
-                  </View>
-                  <View>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text style={styles.textSecondary}>Box-Office</Text>
-                      <Text style={styles.textSecondary}>8.1</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={{justifyContent: 'space-between'}}>
-                  <SVGTriangleTop />
-                  <SVGTriangleBottom />
-                </View>
-                <View
-                  style={{
-                    flex: 0.4,
-                    backgroundColor: '#4183E2',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={styles.ratingText}>9.2</Text>
-                </View>
-              </View>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
-              <Text style={styles.textSecondary}>
-                Won 2 oscars including best director
-              </Text>
-            </View>
-            {/* For the watch now flatlist */}
-            <View style={{marginTop: 25}}>
-              <Text style={styles.textFont}>Watch now</Text>
-              <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                {PROVIDER_DATA.map((item, index) =>
-                  this.renderProviderComponent(item),
-                )}
-              </View>
-            </View>
-            <View style={{marginTop: 25}}>
-              <Text style={styles.textFont}>Images</Text>
-              <Text />
-              <View style={{alignItems: 'center'}}>
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-                <Image
-                  source={require('../../../assets/poster1.jpg')}
-                  style={styles.images}
-                />
-              </View>
-            </View>
-          </View>
-        )}
-      </View>
+      </Animated.ScrollView>
     );
   };
   render() {
@@ -557,7 +642,7 @@ class RenderMobile extends Component {
             <View style={styles.shadowView} />
             <Image
               source={require('../../../assets/Icons/hand_ic.png')}
-              style={{width: 102, height: 102}}
+              style={{width: heightScale(102), height: heightScale(102)}}
             />
             <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
@@ -574,7 +659,7 @@ class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: 250,
+              height: heightScale(280),
               borderRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
@@ -664,10 +749,11 @@ class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               alignItems: 'center',
-              height: 500,
+              height: heightScale(500),
               top: screen - 300,
             }}>
-            <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
+            <Text
+              style={{fontSize: fontScale(18), fontWeight: '700', padding: 5}}>
               Sort By
             </Text>
             <TouchableOpacity
@@ -703,7 +789,7 @@ class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               alignItems: 'center',
-              height: 500,
+              height: heightScale(500),
               top: screen - 500,
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
@@ -714,7 +800,12 @@ class RenderMobile extends Component {
                 padding: 10,
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 18, fontWeight: '700', padding: 5}}>
+              <Text
+                style={{
+                  fontSize: fontScale(18),
+                  fontWeight: '700',
+                  padding: 5,
+                }}>
                 Recommend title
               </Text>
               <Icon name="share" size={25} style={{marginLeft: 20}} />
@@ -746,81 +837,24 @@ class RenderMobile extends Component {
           </View>
         </Modal>
         <SafeAreaView style={{flex: 1}}>
-          <Animated.ScrollView
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: {
-                    contentOffset: {
-                      y: this.props.scrollContext,
-                    },
-                  },
-                },
-              ],
-              {useNativeDriver: true}, // Add this line
-            )}
-            horizontal={false}
-            scrollEventThrottle={16}
-            automaticallyAdjustContentInsets={true}
-            bounces={false}
-            contentContainerStyle={{
-              // padding: 10,
-              paddingTop: TOTAL_HEADER_HEIGHT,
-            }}>
-            <View style={{flex: 1, marginTop: 5}}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  marginBottom: 10,
-                  paddingHorizontal: 10,
-                }}>
-                <View style={{flex: 3, flexDirection: 'row'}}>
-                  <TouchableOpacity
-                    onPress={() => this.props.navigation.goBack()}>
-                    <FontAwesome5Icon
-                      name="angle-left"
-                      size={23}
-                      style={{marginRight: 10}}
-                    />
-                  </TouchableOpacity>
-                  <Text style={styles.resultText}>Rating of best movies</Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    alignItems: 'flex-end',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}
-                  onPress={() => {
-                    this.setState({modalVisible: true});
-                  }}>
-                  <Text style={styles.sortbyButText}>Rating</Text>
-                  <Icon name="chevron-down" size={20} color="#232323" />
-                </TouchableOpacity>
-              </View>
-              <View style={{flex: 1}}>
-                <FlatList
-                  scrollEnabled={this.state.parentScroll}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}
-                  data={DATA}
-                  renderItem={({item}) => this.moviewPoster(item)}
-                  keyExtractor={(item) => item.id}
-                  // ItemSeparatorComponent={() => <View style={{width: 10}} />}
-                  // nestedScrollEnabled={true}
-                  pagingEnabled={true}
-                />
-              </View>
+          <View style={{flex: 1, marginTop: 5}}>
+            <View style={{flex: 1}}>
+              <FlatList
+                scrollEnabled={this.state.parentScroll}
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                data={DATA}
+                renderItem={({item}) => this.moviewPoster(item)}
+                keyExtractor={(item) => item.id}
+                // ItemSeparatorComponent={() => <View style={{width: 10}} />}
+                // nestedScrollEnabled={true}
+                pagingEnabled={true}
+                onMomentumScrollEnd={() => {
+                  this.props.reset();
+                }}
+              />
             </View>
-            <View
-              style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
-              <Text style={styles.textFont}>Similer title</Text>
-              <View style={{flex: 1, alignItems: 'center'}}>
-                <CardView />
-              </View>
-            </View>
-          </Animated.ScrollView>
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -842,10 +876,19 @@ const EnhanchedComponent = useCollapsibleHeaderHOC(
 export default connect(mapStateToProps, null)(EnhanchedComponent);
 
 const styles = StyleSheet.create({
+  titleFont: {
+    color: '#000',
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: fontScale(20),
+    fontStyle: 'normal',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
+  },
   textFont: {
     color: '#000',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 17,
+    fontSize: fontScale(17),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -853,15 +896,15 @@ const styles = StyleSheet.create({
   },
   seprater: {
     backgroundColor: 'red',
-    height: 1,
+    height: heightScale(1),
   },
   modalText: {
-    fontSize: 18,
+    fontSize: fontScale(18),
     padding: 10,
     padding: 10,
     fontFamily: 'VAG Rounded Next Regular',
     color: '#000',
-    fontSize: 20,
+    fontSize: fontScale(20),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
@@ -870,7 +913,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'VAG Rounded Next Bold',
     color: '#fff',
-    fontSize: 20,
+    fontSize: fontScale(20),
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
@@ -886,7 +929,8 @@ const styles = StyleSheet.create({
   textSecondary: {
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 16,
+    fontSize: fontScale(16),
+    lineHeight: 18,
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
@@ -900,21 +944,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   posterImageContainer: {justifyContent: 'center', marginVertical: 5},
-  posterImage: {height: 450, width: window - 20, borderRadius: 12},
+  posterImage: {height: heightScale(450), width: window - 20, borderRadius: 12},
   posterDescContainer: {flexDirection: 'row', padding: 5},
   directorContainer: {
-    width: 78,
-    height: 149,
+    width: widthScale(78),
+    height: heightScale(149),
     backgroundColor: '#fff',
     // padding: 5,
-    marginRight: 15,
+    marginRight: widthScale(7),
     elevation: 5,
     alignItems: 'center',
     borderRadius: 10,
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
   directorImage: {
-    height: 104,
+    height: heightScale(104),
     width: '100%',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
@@ -922,7 +966,7 @@ const styles = StyleSheet.create({
   directorName: {
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 14,
+    fontSize: fontScale(14),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -931,7 +975,7 @@ const styles = StyleSheet.create({
   resultText: {
     color: '#000',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 16,
+    fontSize: fontScale(16),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -940,7 +984,7 @@ const styles = StyleSheet.create({
   sortbyButText: {
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 14,
+    fontSize: fontScale(14),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -962,7 +1006,7 @@ const styles = StyleSheet.create({
   swipTitle: {
     color: '#FFFFFF',
     fontFamily: 'Helvetica Neue',
-    fontSize: 22,
+    fontSize: fontScale(22),
     fontStyle: 'normal',
     zIndex: 100,
     ...(Platform.OS === 'ios' && {
@@ -978,7 +1022,7 @@ const styles = StyleSheet.create({
   },
   vDivider: {
     width: '100%',
-    height: 1,
+    height: heightScale(1),
     backgroundColor: 'gray',
     opacity: 0.1,
   },
@@ -995,21 +1039,21 @@ const styles = StyleSheet.create({
   ratingText: {
     color: '#FFFFFF',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 22,
+    fontSize: fontScale(22),
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
   },
   images: {
     width: window - 20,
-    height: 300,
+    height: heightScale(300),
     resizeMode: 'cover',
     marginBottom: 10,
     borderRadius: 10,
   },
   textDesc: {
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 16,
+    fontSize: fontScale(16),
     color: '#000',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -1018,7 +1062,7 @@ const styles = StyleSheet.create({
   soryByHead: {
     padding: 5,
     fontFamily: 'VAG Rounded Next Bold',
-    fontSize: 22,
+    fontSize: fontScale(22),
     color: '#ff3300',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
