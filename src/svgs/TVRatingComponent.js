@@ -2,7 +2,9 @@ import * as React from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
 import Svg, {G, Ellipse, Defs, ClipPath} from 'react-native-svg';
 import _ from 'lodash';
-import primary_font from '../helper/fonts';
+import primary_font, { isAndroid } from '../helper/fonts';
+import StyleConfig from '../helper/StyleConfig';
+import colors from '../helper/colors';
 
 function EllipseComponent({size, ...props}) {
   const md = () => (
@@ -74,24 +76,36 @@ function EllipseComponent({size, ...props}) {
 function RatingComponent({
   rating,
   color,
-  textStyle,
+  //textStyle,
   size = 'md',
   width = 38,
   height = 22,
 }) {
   if (size === 'lg') {
-    width = 60;
-    height = 32;
+    width =82;
+    height = 36;
   }
   return (
     <View style={styles.container}>
-      <EllipseComponent
+      {isAndroid()?
+        <EllipseComponent
         width={width}
         height={height}
         size={size}
         color={color}
-      />
-      <Text style={[styles.ratingText, textStyle]}>{rating}</Text>
+      />:
+      <Svg style={{height:36,width:82,}}>
+  <Ellipse
+    cx="42"
+    cy="18"
+    rx="40"
+    ry="18"
+    fill={color}
+  />
+</Svg>
+
+      }
+      <Text style={[styles.ratingText,]}>{rating}</Text>
     </View>
   );
 }
@@ -105,12 +119,14 @@ const styles = StyleSheet.create({
     marginTop: -5,
   },
   ratingText: {
-    color: '#fff',
+    color: colors.white,
     position: 'absolute',
     fontFamily: primary_font.primary_bold_font,
-    fontSize: 14,
-    ...(Platform.OS === 'ios' && {
-      fontWeight: '700',
-    }),
+    fontSize: StyleConfig.resHeight(24),
+    lineHeight:StyleConfig.resHeight(30),
+    fontWeight:'700',
+    // ...(Platform.OS === 'ios' && {
+    //   fontWeight: '700',
+    // }),
   },
 });

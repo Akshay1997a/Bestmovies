@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         //backgroundColor: colors.tomatoRed,
         // height: StyleConfig.resHeight(360),
         flexDirection:'row',
-        justifyContent:'flex-end'
+        justifyContent:'flex-end',
     },
     tile: {
         

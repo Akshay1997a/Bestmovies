@@ -92,7 +92,7 @@ const TVCardDetail = ({item, ...props}) => {
               }>
               <ImageBackground
                 source={AppImages[item.thumbnail]}
-                style={{width: '100%', height: '100%', borderRadius: 15,}}>
+                style={{width: '100%', height: '100%', borderRadius:Platform.OS==='ios'?20:15,overflow:Platform.OS==="ios"? 'hidden':null}}>
                 {item.title === 'Joker' ? (
                   <View />
                 ) : (
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resHeight(24),
+    lineHeight:StyleConfig.resHeight(30),
     fontWeight: '400',
     ...Platform.select({
       android: {
@@ -317,10 +318,13 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   title: {
-    width: StyleConfig.resWidth(300),
+    width: StyleConfig.resWidth(356),
     fontFamily: primary_regular_font.primary_regular_font,
-    marginTop: StyleConfig.resHeight(10),
+    //marginTop: StyleConfig.resHeight(10),
     fontSize: StyleConfig.resHeight(24),
+    lineHeight:StyleConfig.resHeight(33),
+    // borderWidth:1,
+    // borderColor:'red',
     fontWeight: '700',
     ...Platform.select({
       android: {
@@ -411,7 +415,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: '#fff',
     backgroundColor: '#fff',
-    elevation: 5,
+    elevation: 2,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowColor: '#000',
@@ -438,7 +442,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
     backgroundColor: '#fff',
-    elevation: 5,
+    elevation: 2,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowColor: '#000',

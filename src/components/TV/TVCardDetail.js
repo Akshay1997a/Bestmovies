@@ -178,6 +178,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#A9A9A9',
+    // borderWidth:1,
+    // borderColor:'red',
   },
 
   viewContainer: {

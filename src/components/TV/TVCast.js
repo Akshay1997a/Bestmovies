@@ -83,8 +83,6 @@ const TVCast = (props) => {
                   width: '100%',
                   height: '100%',
                   borderRadius: 15,
-                  // borderColor:'red',
-                  // borderWidth:1,
                 }}
               />
             </View>
@@ -131,7 +129,7 @@ const TVCast = (props) => {
               <View
                 style={{
                   flexDirection: 'row',
-                  paddingEnd: StyleConfig.resWidth(10),
+                 // paddingEnd:Platform.OS==="ios"? StyleConfig.resWidth(16):null,
                   // paddingBottom: 5,
                 }}>
                 <View style={{flex: 1}}>
@@ -140,7 +138,7 @@ const TVCast = (props) => {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                     }}>
-                    <Text style={[styles.textSecondary]}>
+                    <Text style={[styles.textSecondary,]}>
                       {`${t('texts.id_215')} ${props.item.dob}`}
                       {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
                     </Text>
@@ -379,6 +377,18 @@ const styles = StyleSheet.create({
     }),
     color: 'black',
   },
+  textSecondary:{
+    fontSize:StyleConfig.resHeight(24),
+    fontWeight:'400',
+    lineHeight:StyleConfig.resHeight(26),
+    fontFamily:primary_regular_font.primary_regular_font,
+    color:colors.black,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
   titleText: {
     fontSize: StyleConfig.resWidth(24),
     fontWeight: '700',
@@ -405,18 +415,18 @@ const styles = StyleSheet.create({
     // borderWidth:1,
     // borderColor:'black'
   },
-  top: {
-    textAlign: 'center',
-    fontWeight: '700',
-    fontSize: isAndroid() ? 12 : 18,
-    color: 'black',
-  },
-  rating: {
-    textAlign: 'center',
-    fontWeight: '900',
-    fontSize: isAndroid() ? 12 : 18,
-    color: 'black',
-  },
+  // top: {
+  //   textAlign: 'center',
+  //   fontWeight: '700',
+  //   fontSize: isAndroid() ? 12 : 18,
+  //   color: 'black',
+  // },
+  // rating: {
+  //   textAlign: 'center',
+  //   fontWeight: '900',
+  //   fontSize: isAndroid() ? 12 : 18,
+  //   color: 'black',
+  // },
   ovalShapeView: {
     alignItems: 'center',
     justifyContent: 'center',

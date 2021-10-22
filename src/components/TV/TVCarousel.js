@@ -260,7 +260,7 @@ const MyCarousel = ({item, posts, ...props}) => {
         <ImageBackground
           source={{uri: item.illustration}}
           containerStyle={styles.imageContainer}
-          style={styles.image}
+          style={[styles.image]}
         />
         {/* <Text style={styles.title} numberOfLines={2}>
           {item.title}
@@ -368,9 +368,9 @@ const MyCarousel = ({item, posts, ...props}) => {
             autoplay={true}
             ref={carouselRef}
             sliderWidth={WIDTH}
-            sliderHeight={100}
-            itemWidth={isAndroid() ? 200 : 360}
-            itemHeight={110}
+            sliderHeight={HEIGHT}
+            itemWidth={isAndroid()?StyleConfig.resWidth(480):StyleConfig.resWidth(480)}
+            itemHeight={isAndroid()?StyleConfig.resHeight(360):StyleConfig.resHeight(360)}
             data={entries}
             renderItem={bottomRenderItem}
             hasParallaxImages={true}
@@ -550,9 +550,9 @@ const styles = StyleSheet.create({
     // resizeMode: 'cover',
   },
   bottomImage: {
-    //resizeMode: 'contain',
-    width: isAndroid() ? StyleConfig.resWidth(480) : StyleConfig.resWidth(480),
-    height:isAndroid() ?StyleConfig.resHeight(360):StyleConfig.resHeight(360),
+    //resizeMode:"cover",
+    width:isAndroid()? StyleConfig.resWidth(480):StyleConfig.resWidth(480),
+    height:isAndroid()? StyleConfig.resHeight(360):StyleConfig.resHeight(360),
   },
   notfocusbackWrap: {
     margin: StyleConfig.resWidth(30),
