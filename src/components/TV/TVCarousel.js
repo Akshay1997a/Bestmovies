@@ -280,7 +280,7 @@ const MyCarousel = ({item, posts, ...props}) => {
       <Image
         source={{uri: item.illustration}}
         // containerStyle={styles.imageContainer}
-        style={[styles.bottomImage, {width: 200, height: 200}]}
+        style={[styles.bottomImage]}
       />
       // </View>
     );
@@ -501,6 +501,7 @@ const styles = StyleSheet.create({
     maxWidth: 400,
   },
   director: {
+    //marginTop:Platform.OS==='ios'?65:null,
     fontFamily: primary_regular_font.primary_bold_font,
     fontSize: StyleConfig.resWidth(37.33),
     marginLeft: StyleConfig.resWidth(12),
@@ -549,9 +550,9 @@ const styles = StyleSheet.create({
     // resizeMode: 'cover',
   },
   bottomImage: {
-    // resizeMode: 'cover',
-    width: isAndroid() ? 210 : 400,
-    height: 400,
+    //resizeMode: 'contain',
+    width: isAndroid() ? StyleConfig.resWidth(480) : StyleConfig.resWidth(480),
+    height:isAndroid() ?StyleConfig.resHeight(360):StyleConfig.resHeight(360),
   },
   notfocusbackWrap: {
     margin: StyleConfig.resWidth(30),

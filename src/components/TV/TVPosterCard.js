@@ -18,7 +18,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 export const PROVIDER_DATA = [
   {
     id: '1',
@@ -147,7 +147,7 @@ const TVPosterCard = ({item, ...props}) => {
       <View style={styles.detailViewContainer}>
         <View style={styles.notHighlightFocused}>
           <ImageBackground
-            style={{width: '100%', height: '100%', borderRadius: 15}}
+            style={{width: '100%', height: '100%', borderRadius: 15,}}
             // resizeMode={'stretch'}
             source={AppImages[item.thumbnail]}>
             {/* <View
@@ -317,8 +317,9 @@ const TVPosterCard = ({item, ...props}) => {
               </Text> */}
             <View
               style={{
-                width: StyleConfig.resWidth(WIDTH - 370),
+                width:Platform.OS==='android'? StyleConfig.resWidth(WIDTH - 310): StyleConfig.resWidth(WIDTH/2.8),
                 // marginTop: StyleConfig.resHeight(20),
+                marginLeft:45,
               }}>
               <View
                 style={{
@@ -332,8 +333,8 @@ const TVPosterCard = ({item, ...props}) => {
                   name={'thumbs-up'}
                   size={
                     isAndroid()
-                      ? StyleConfig.resWidth(15)
-                      : StyleConfig.resWidth(35)
+                      ? StyleConfig.resWidth(24)
+                      : StyleConfig.resWidth(24)
                   }
                   color={'#35b736'}
                 />
@@ -476,7 +477,7 @@ const TVPosterCard = ({item, ...props}) => {
               crime
             </Text>
             <View>
-              <Text style={styles.textSecondary}>
+              <Text style={[styles.textSecondary,{marginTop:5}]}>
                 {
                   'Won 2 oscars including best director\nWon 1 G. Globe including best movie'
                 }
@@ -491,8 +492,12 @@ const TVPosterCard = ({item, ...props}) => {
               style={{
                 flexDirection: 'row',
                 flex: 1,
+                marginTop:5,
+                width:Platform.OS==="ios"? StyleConfig.resWidth(WIDTH*0.776):StyleConfig.resWidth(WIDTH*0.8 *1.95),
                 // alignItems: 'flex-end',
+                justifyContent:'space-evenly',
                 // borderWidth: 1,
+                 //borderColor:'red'
               }}>
               {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
               <View
@@ -513,7 +518,7 @@ const TVPosterCard = ({item, ...props}) => {
                   }}
                   source={AppImages.play}
                 />
-                <Text style={styles.sortbyButText}>Trailor</Text>
+                <Text style={[styles.sortbyButText,{marginTop:5}]}>Trailor</Text>
               </View>
               {PROVIDER_DATA.map((obj, ind) => (
                 <TouchableOpacity
@@ -527,7 +532,8 @@ const TVPosterCard = ({item, ...props}) => {
                   </Text> */}
                   <View
                     style={{
-                      borderWidth: 1,
+                      width:StyleConfig.resWidth(130),
+                      //justifyContent:"space-between",
                       // position: 'relative',
                       justifyContent: 'center',
                       alignItems: 'center',
@@ -592,7 +598,7 @@ const styles = StyleSheet.create({
     width: isAndroid() ? 180 : 360,
     height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
     // StyleConfig.width * 0.3,
-    paddingTop: 1,
+    paddingTop:Platform.OS==="android"? 1:20,
     overflow: 'hidden',
   },
   viewContainer: {
@@ -609,14 +615,13 @@ const styles = StyleSheet.create({
     // marginLeft: StyleConfig.resWidth(20),
     // marginTop: StyleConfig.resHeight(20),
     // borderRadius: StyleConfig.resHeight(30),
-    // borderWidth:1,
-    // borderColor:'red',
     // flex: 1,
     width: WIDTH * 0.19,
     height: WIDTH * 0.3,
   },
   detailViewContainer: {
     flexDirection: 'row',
+    marginTop:Platform.OS==='ios'? StyleConfig.resHeight(-270):null,
     backgroundColor: 'rgba(0,0,0,0.33)',
     // borderRadius:StyleConfig.resHeight(20),
     flex: 1,
@@ -625,7 +630,7 @@ const styles = StyleSheet.create({
     // marginTop: StyleConfig.resHeight(24),
     // marginRight: StyleConfig.resWidth(12),
     // padding: StyleConfig.resHeight(12),
-    paddingTop: StyleConfig.resHeight(25),
+    paddingTop:Platform.OS==='android'? StyleConfig.resHeight(25):null,
     paddingLeft: StyleConfig.resWidth(30),
   },
   textSecondary: {
@@ -655,7 +660,6 @@ const styles = StyleSheet.create({
     }),
   },
   subTextSecondary: {
-    // borderWidth: 1,
     marginTop: StyleConfig.resHeight(-10),
     color: colors.white,
     fontWeight: '400',
@@ -665,6 +669,9 @@ const styles = StyleSheet.create({
       android: {
         fontFamily: primary_regular_font.primary_regular_font,
       },
+      ios:{
+        fontFamily: primary_regular_font.primary_regular_font,
+      }
     }),
   },
   headTextSecondary: {
@@ -680,7 +687,7 @@ const styles = StyleSheet.create({
     }),
   },
   titleText: {
-    marginTop: StyleConfig.resHeight(-10),
+    marginTop:Platform.OS==="android"? StyleConfig.resHeight(-10):StyleConfig.resHeight(10),
     // height:40,
     // margin:10,
     // marginBottom:-20,
@@ -735,7 +742,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   detailsText: {
-    width: WIDTH * 0.4,
+    width:Platform.OS==='android'? WIDTH * 0.41:WIDTH * 0.386,
     fontSize: StyleConfig.resHeight(26),
     lineHeight: StyleConfig.resHeight(30),
     // marginTop: 20,

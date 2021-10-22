@@ -83,6 +83,8 @@ const TVCast = (props) => {
                   width: '100%',
                   height: '100%',
                   borderRadius: 15,
+                  // borderColor:'red',
+                  // borderWidth:1,
                 }}
               />
             </View>
@@ -441,7 +443,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     shadowOpacity: 0.9,
     elevation: 10,
-    // borderColor:'red',
+    //borderColor:'red',
     height: StyleConfig.width * 0.3,
   },
 

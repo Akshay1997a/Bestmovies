@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     shadowOpacity: 0.9,
     elevation: 10,
-    // borderColor:'red',
+    borderColor:'red',
     height: StyleConfig.width * 0.3,
   },
 

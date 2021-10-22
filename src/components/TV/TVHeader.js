@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
   },
   bannerIcon: {
     width: StyleConfig.resWidth(210),
-    height: StyleConfig.resWidth(160) / 2,
+    height: StyleConfig.resWidth(160) /2,
   },
   itemWrapperSelected: {
     // borderWidth: 1,
@@ -487,6 +487,8 @@ const styles = StyleSheet.create({
   },
   headerIconFocus: {
     width: StyleConfig.resWidth(30),
+
+
     height: StyleConfig.resHeight(30),
     tintColor: colors.white,
   },
