@@ -18,6 +18,11 @@ import {withTranslation} from 'react-i18next';
 import i18next from 'i18next';
 import {isNotEmpty} from '../../../helper/globalFunctions';
 import primary_regular_font from '../../../helper/fonts';
+import {
+  fontScale,
+  heightScale,
+  widthScale,
+} from '../../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -85,14 +90,17 @@ export class RenderMobile extends Component {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <HeaderModal title={t('texts.id_137')} {...this.props} />
-        <View style={{padding: 10}}>
+        <View
+          style={{
+            marginTop: heightScale(-3),
+            paddingHorizontal: widthScale(10),
+          }}>
           <SearchBar
             placeholder={t('texts.id_27')}
             value={searchString}
             onChangeText={(text) => this.onSearchHandler(text)}
-            onClear={this.onClearSearch}
           />
-          <View>
+          <View style={{marginTop: heightScale(8)}}>
             <Button
               title={t('texts.id_172')}
               isActive={selectedCountries.length === 0}
@@ -160,7 +168,10 @@ const Button = ({title, isActive, onPress}) => (
   <TouchableOpacity
     style={[styles.butContainer, isActive && styles.butActive]}
     onPress={() => onPress(title)}>
-    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
+    <Text
+      numberOfLines={1}
+      ellipsizeMode="tail"
+      style={[styles.butTitle, isActive && styles.butActiveText]}>
       {title}
     </Text>
   </TouchableOpacity>
@@ -168,9 +179,11 @@ const Button = ({title, isActive, onPress}) => (
 
 const styles = StyleSheet.create({
   butContainer: {
-    padding: 10,
-    borderRadius: 15,
-    marginVertical: 5,
+    height: heightScale(40),
+    justifyContent: 'center',
+    paddingLeft: 9,
+    paddingRight: 11,
+    borderRadius: 10,
   },
   butActive: {
     backgroundColor: '#FF4D01',
@@ -182,7 +195,7 @@ const styles = StyleSheet.create({
   butTitle: {
     color: '#000000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 20,
+    fontSize: fontScale(20),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',

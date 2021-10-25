@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {values} from 'lodash';
 import React from 'react';
 import {
@@ -32,6 +33,7 @@ import {withTranslation} from 'react-i18next';
 import primary_regular_font from '../../helper/fonts';
 import _ from 'lodash';
 import {DATA} from '../Filter/Providers/renderMobile';
+import {heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -123,7 +125,7 @@ class Filter extends React.Component {
         <HeaderModal title={t('texts.id_109')} {...this.props} />
         <ScrollView
           contentContainerStyle={{
-            marginHorizontal: 10,
+            marginHorizontal: widthScale(20),
             ...(Platform.OS === 'android' && {paddingBottom: 40}),
           }}>
           <TouchableOpacity
@@ -134,16 +136,26 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={styles.textTitle}>{t('texts.id_99')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.textTitle}>
+                {t('texts.id_99')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>{sortBy}</Text>
+                <Text
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
+                  {sortBy}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Year')}
             style={{
               ...styles.butContainer,
@@ -159,12 +171,17 @@ class Filter extends React.Component {
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <Icon {...iconStyle} />
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Provider')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={providerTextStyle}>{t('texts.id_144')} (US)</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={providerTextStyle}>
+                {t('texts.id_144')} (US)
+              </Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={{fontSize: 15}}>
                   {providerConfig.selectedProviders.length
@@ -189,7 +206,12 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={yearTextStyle}>{t('texts.id_112')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={yearTextStyle}>
+                {t('texts.id_112')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textSecond}>{year.type}</Text>
               </View>
@@ -200,9 +222,18 @@ class Filter extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={[styles.textTitle]}>{t('texts.id_127')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                xt
+                style={[styles.textTitle]}>
+                {t('texts.id_127')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>
+                <Text
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
                   Comedy,Drama,Thriller,Action,Documentary,Horror
                 </Text>
               </View>
@@ -215,9 +246,17 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('CountryFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={titleTextStyle}>{t('texts.id_29')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={titleTextStyle}>
+                {t('texts.id_29')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={{fontSize: 15}}>
                   {selectedCountries.length > 0
                     ? selectedCountries.join(', ')
                     : 'Any'}
@@ -232,9 +271,19 @@ class Filter extends React.Component {
             // onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>{t('texts.id_141')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.textTitle}>
+                {t('texts.id_141')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>{t('texts.id_172')}</Text>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={{fontSize: 15}}>
+                  {t('texts.id_172')}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -245,9 +294,19 @@ class Filter extends React.Component {
             // onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>{t('texts.id_158')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.textTitle}>
+                {t('texts.id_158')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>{'< 10 €'}</Text>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={{fontSize: 15}}>
+                  {'< 10 €'}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -258,9 +317,17 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('LanguageFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={languageTextStyle}>Original Language</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={languageTextStyle}>
+                Original Language
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={{fontSize: 15}}>
                   {languages.length > 0 ? languages.join(', ') : 'Any'}
                 </Text>
               </View>
@@ -274,7 +341,9 @@ class Filter extends React.Component {
               />
             </View>
           </TouchableOpacity>
-          <Text style={styles.textTitle}>{t('texts.id_167')}</Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.textTitle}>
+            {t('texts.id_167')}
+          </Text>
           <View style={{marginTop: 10}}>
             <View
               style={{
@@ -285,7 +354,12 @@ class Filter extends React.Component {
                 value={this.props.filterConfig.watched}
                 onValueChange={(value) => this.props.updateWatched(value)}
               />
-              <Text style={styles.textSecond}>Watching</Text>
+              <Text
+                numberOfLines={3}
+                ellipsizeMode="tail"
+                style={styles.textSecond}>
+                Watching
+              </Text>
             </View>
             <View
               style={{
@@ -298,13 +372,20 @@ class Filter extends React.Component {
                   this.props.updatePriviouslyBrowsed(value)
                 }
               />
-              <Text style={styles.textSecond}>{t('texts.id_171')}</Text>
+              <Text
+                numberOfLines={3}
+                ellipsizeMode="tail"
+                style={styles.textSecond}>
+                {t('texts.id_171')}
+              </Text>
             </View>
           </View>
           <TouchableOpacity
             style={{padding: 5}}
             onPress={() => this.props.clearFilter()}>
             <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
               style={{
                 color: '#ff3300',
                 textAlign: 'center',
@@ -346,6 +427,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 18,
     fontStyle: 'normal',
+    width: widthScale(315),
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),

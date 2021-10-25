@@ -17,6 +17,7 @@ import i18next from 'i18next';
 import strings from '../../helper/strings';
 import {isNotEmpty} from '../../helper/globalFunctions';
 import primary_regular_font from '../../helper/fonts';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -63,7 +64,7 @@ export class RenderMobile extends Component {
       let newCountryList = selectedCountries.filter((val) => val !== name);
       this.setState({selectedCountries: newCountryList});
     } else {
-      this.setState({selectedCountries: [...selectedCountries, name]});
+      this.setState({selectedCountries: [name]});
     }
   }
 
@@ -82,7 +83,7 @@ export class RenderMobile extends Component {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <HeaderModal title={t('texts.id_140')} {...this.props} />
-        <View style={{padding: 10}}>
+        <View style={{marginTop: 0, marginHorizontal: widthScale(10)}}>
           <SearchBar
             placeholder={t('texts.id_27')}
             value={searchString}
@@ -112,6 +113,9 @@ export class RenderMobile extends Component {
               );
             }}
             keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={{
+              marginTop: heightScale(8),
+            }}
           />
         </View>
       </SafeAreaView>
@@ -133,9 +137,11 @@ export const Button = ({title, isActive, onPress}) => (
 
 const styles = StyleSheet.create({
   butContainer: {
-    padding: 10,
-    borderRadius: 15,
-    marginVertical: 5,
+    borderRadius: 10,
+    justifyContent: 'center',
+    height: heightScale(40),
+    paddingLeft: 9,
+    paddingRight: 11,
   },
   butActive: {
     backgroundColor: '#FF4D01',
@@ -147,7 +153,7 @@ const styles = StyleSheet.create({
   butTitle: {
     color: '#000000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 20,
+    fontSize: fontScale(20),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable radix */
 import React, {useState} from 'react';
 import {
@@ -18,6 +19,11 @@ import {connect, useDispatch, useSelector} from 'react-redux';
 import {updateYear} from '../../../redux/FilterModule/FilterActions';
 import {YEARS_TYPE} from '../../../redux/FilterModule/FilterTypes';
 import {FilterInitialState} from '../../../redux/FilterModule/FilterReducer';
+import {
+  fontScale,
+  heightScale,
+  widthScale,
+} from '../../../helper/ResponsiveFonts';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -35,7 +41,7 @@ export default function RenderMobile(props) {
   return (
     <View style={styles.container}>
       <HeaderModal title="Year of release" {...props} />
-      <ScrollView contentContainerStyle={{padding: 10}}>
+      <ScrollView contentContainerStyle={{marginHorizontal: widthScale(11)}}>
         <Button
           title={t('texts.id_172')}
           isActive={year.type === YEARS_TYPE.ANY}
@@ -118,21 +124,29 @@ export default function RenderMobile(props) {
         />
         <View style={styles.SliderContainer}>
           <MultiSlider
-            sliderLength={WIDTH - 40}
+            sliderLength={widthScale(320)}
             values={[year.from, year.to]}
             min={1950}
             max={new Date().getFullYear()}
             step={1}
             allowOverlap
             snapped
-            markerStyle={{backgroundColor: '#CCCCCC', width: 25, height: 25}}
+            markerStyle={{
+              backgroundColor: '#CCCCCC',
+              width: widthScale(25),
+              height: heightScale(25),
+            }}
             trackStyle={{backgroundColor: '#CCCCCC'}}
             selectedStyle={{
               backgroundColor: '#CCCCCC',
-              height: 3,
+              height: heightScale(3),
               ...(year.type === YEARS_TYPE.CUSTOME && {
                 backgroundColor: 'red',
               }),
+            }}
+            pressedMarkerStyle={{
+              width: widthScale(24),
+              height: heightScale(25),
             }}
             onValuesChange={(values) => {
               console.log('Values', values);
@@ -143,7 +157,7 @@ export default function RenderMobile(props) {
               });
             }}
           />
-          <View style={{height: 20}} />
+          <View style={{height: heightScale(20)}} />
           <View style={styles.row}>
             <TextInput
               style={styles.textInputStyle}
@@ -161,7 +175,7 @@ export default function RenderMobile(props) {
                 });
               }}
             />
-            <View style={{width: 20}} />
+            <View style={{width: widthScale(20)}} />
             <TextInput
               style={styles.textInputStyle}
               placeholder="to"
@@ -187,7 +201,10 @@ const Button = ({title, isActive, onPress}) => (
   <TouchableOpacity
     style={[styles.butContainer, isActive && styles.butActive]}
     onPress={onPress}>
-    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
+    <Text
+      numberOfLines={1}
+      ellipsizeMode="tail"
+      style={[styles.butTitle, isActive && styles.butActiveText]}>
       {title}
     </Text>
   </TouchableOpacity>
@@ -212,7 +229,7 @@ const styles = StyleSheet.create({
   butTitle: {
     color: '#000000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 20,
+    fontSize: fontScale(20),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -220,6 +237,7 @@ const styles = StyleSheet.create({
   },
   SliderContainer: {
     padding: 10,
+    alignItems: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -227,7 +245,7 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     flex: 1,
-    fontSize: 16,
+    fontSize: fontScale(16),
     color: '#cccccc',
     paddingHorizontal: 20,
     paddingVertical: 10,

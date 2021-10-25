@@ -27,11 +27,12 @@ import {useSelector} from 'react-redux';
 import {FilterInitialState} from '../redux/FilterModule/FilterReducer';
 import StatusBar from './StatusBar';
 import {heightScale, widthScale} from '../helper/ResponsiveFonts';
-import { isAndroid } from '../helper/fonts';
+import {isAndroid} from '../helper/fonts';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 import primary_regular_fonts from '../helper/fonts';
+import {WIDTH} from '../helper/globalFunctions';
 
-export const HEADER_HEIGHT = isAndroid() ? 50 : 45;
+export const HEADER_HEIGHT = isAndroid() ? 40 : 45;
 export const TAB_BAR_HEIGHT = 40;
 export const STATUS_BAR_HEIGHT = RNStatusBar.currentHeight;
 export const TOTAL_HEADER_HEIGHT =
@@ -99,14 +100,15 @@ const DefaultHeader = ({navigate}) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         height: HEADER_HEIGHT,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
+        paddingTop: 5,
       }}>
       <TouchableOpacity
         onPress={() => navigate('Menu')}
         style={{
           position: 'absolute',
-          bottom: heightScale(5),
-          left: widthScale(10),
+          bottom: heightScale(-7),
+          left: widthScale(16),
         }}>
         <Image
           source={require('../../assets/Icons/BMicon.png')}
@@ -117,7 +119,7 @@ const DefaultHeader = ({navigate}) => {
           }}
         />
       </TouchableOpacity>
-      <View style={{width: widthScale(130)}} />
+      <View style={{width: widthScale(110)}} />
       <View style={{height: 50}} />
       <TouchableOpacity onPress={() => navigate('Filter')}>
         <View style={{position: 'relative'}}>
@@ -168,22 +170,22 @@ function TopBar(props) {
 
   const navigateTo = (routeIndex) => {
     navigate(routes[routeIndex].name);
-    Animated.timing(indicatorAnim, {
-      toValue: (SCREEN_WIDTH / indicatorSpan) * routeIndex,
-      duration: 200,
-      // easing: Easing.ease,
-      useNativeDriver: true,
-    }).start();
+    // Animated.timing(indicatorAnim, {
+    //   toValue: (SCREEN_WIDTH / indicatorSpan - 20) * routeIndex + 20,
+    //   duration: 200,
+    //   // easing: Easing.ease,
+    //   useNativeDriver: true,
+    // }).start();
   };
 
-  useEffect(() => {
-    Animated.timing(indicatorAnim, {
-      toValue: (SCREEN_WIDTH / indicatorSpan) * index,
-      duration: 200,
-      // easing: Easing.ease,
-      useNativeDriver: true,
-    }).start();
-  }, [index]);
+  // useEffect(() => {
+  //   Animated.timing(indicatorAnim, {
+  //     toValue: (SCREEN_WIDTH / indicatorSpan - 20) * index + 20,
+  //     duration: 200,
+  //     // easing: Easing.ease,
+  //     useNativeDriver: true,
+  //   }).start();
+  // }, [index]);
 
   return (
     <ScrollView
@@ -191,6 +193,7 @@ function TopBar(props) {
       scrollEnabled={props.scrollEnabled}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={[
+        {paddingHorizontal: 10},
         styles.TopBarScrollContainer,
         (props.scrollEnabled === undefined || !props.scrollEnabled) && {
           width: '100%',
@@ -206,14 +209,14 @@ function TopBar(props) {
           {...props}
         />
       ))}
-      <Animated.View
+      {/* <Animated.View
         style={[
           indicatorStyle,
           styles.indicatorStyle,
-          {width: SCREEN_WIDTH / indicatorSpan},
+          {width: SCREEN_WIDTH / indicatorSpan - 20},
           {transform: [{translateX: indicatorAnim}]},
         ]}
-      />
+      /> */}
     </ScrollView>
   );
 }
@@ -227,17 +230,21 @@ function TabButton({title, index, onPress, ...rest}) {
         style={[
           styles.TabButStyle,
           rest.scrollEnabled && {width: SCREEN_WIDTH / 4},
+          state.index === index && styles.TabButActive,
         ]}>
         <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
           style={[
+            styles.TabButTextStyle,
             rest.labelStyle,
             state.index === index
               ? {
                   color: activeTintColor,
                   fontFamily: primary_regular_fonts.primary_bold_font,
-                  ...!isAndroid() && {
-                    fontWeight: '700'
-                  }
+                  ...(!isAndroid() && {
+                    fontWeight: '700',
+                  }),
                 }
               : {color: inactiveTintColor},
           ]}>
@@ -327,7 +334,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // padding: 10,
+    overflow: 'hidden',
+    paddingHorizontal: 10,
+  },
+  TabButActive: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#ff3300',
+  },
+  TabButTextStyle: {
+    // width: '80%',
   },
   indicatorStyle: {
     position: 'absolute',
