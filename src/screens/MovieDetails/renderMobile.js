@@ -43,7 +43,7 @@ import SVGTriangleTop from '../../svgs/TriangleTop';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
 import {withTranslation} from 'react-i18next';
-import primary_regular_font from '../../helper/fonts';
+import primary_regular_font, {isAndroid} from '../../helper/fonts';
 import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
@@ -865,26 +865,24 @@ class RenderMobile extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <SafeAreaView style={{flex: 1}}>
-          <View style={{flex: 1, marginTop: 5}}>
-            <View style={{flex: 1}}>
-              <FlatList
-                scrollEnabled={this.state.parentScroll}
-                showsHorizontalScrollIndicator={false}
-                horizontal={true}
-                data={DATA}
-                renderItem={({item}) => this.moviewPoster(item)}
-                keyExtractor={(item) => item.id}
-                // ItemSeparatorComponent={() => <View style={{width: 10}} />}
-                // nestedScrollEnabled={true}
-                pagingEnabled={true}
-                onMomentumScrollEnd={() => {
-                  this.props.reset();
-                }}
-              />
-            </View>
+        <View style={{flex: 1, marginTop: 5}}>
+          <View style={{flex: 1}}>
+            <FlatList
+              scrollEnabled={this.state.parentScroll}
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              data={DATA}
+              renderItem={({item}) => this.moviewPoster(item)}
+              keyExtractor={(item) => item.id}
+              // ItemSeparatorComponent={() => <View style={{width: 10}} />}
+              // nestedScrollEnabled={true}
+              pagingEnabled={true}
+              onMomentumScrollEnd={() => {
+                this.props.reset();
+              }}
+            />
           </View>
-        </SafeAreaView>
+        </View>
       </View>
     );
   }

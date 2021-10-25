@@ -27,15 +27,16 @@ import {useSelector} from 'react-redux';
 import {FilterInitialState} from '../redux/FilterModule/FilterReducer';
 import StatusBar from './StatusBar';
 import {heightScale, widthScale} from '../helper/ResponsiveFonts';
+import {isAndroid} from '../helper/fonts';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 import primary_regular_fonts from '../helper/fonts';
 import {WIDTH} from '../helper/globalFunctions';
 
-export const HEADER_HEIGHT = 40;
+export const HEADER_HEIGHT = isAndroid() ? 40 : 45;
 export const TAB_BAR_HEIGHT = 40;
 export const STATUS_BAR_HEIGHT = RNStatusBar.currentHeight;
 export const TOTAL_HEADER_HEIGHT =
-  HEADER_HEIGHT + TAB_BAR_HEIGHT + STATUS_BAR_HEIGHT;
+  HEADER_HEIGHT + TAB_BAR_HEIGHT + (isAndroid() ? STATUS_BAR_HEIGHT : 45);
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
 export const HEADER_TYPE = {
@@ -241,6 +242,9 @@ function TabButton({title, index, onPress, ...rest}) {
               ? {
                   color: activeTintColor,
                   fontFamily: primary_regular_fonts.primary_bold_font,
+                  ...(!isAndroid() && {
+                    fontWeight: '700',
+                  }),
                 }
               : {color: inactiveTintColor},
           ]}>
