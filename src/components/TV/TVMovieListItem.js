@@ -319,12 +319,10 @@ const styles = StyleSheet.create({
   },
   title: {
     width: StyleConfig.resWidth(356),
-    fontFamily: primary_regular_font.primary_regular_font,
-    //marginTop: StyleConfig.resHeight(10),
+    fontFamily: primary_regular_font.primary_bold_font,
+    marginTop: StyleConfig.resHeight(10),
     fontSize: StyleConfig.resHeight(24),
     lineHeight:StyleConfig.resHeight(33),
-    // borderWidth:1,
-    // borderColor:'red',
     fontWeight: '700',
     ...Platform.select({
       android: {
@@ -346,6 +344,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: isAndroid() ? 10 : 20,
     color: 'white',
+    borderWidth:1,
+    borderColor:"red",
   },
   thumb: {
     zIndex: 1,
@@ -367,7 +367,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: StyleConfig.resHeight(10),
     marginBottom: StyleConfig.resHeight(10),
-
     // marginVertical: StyleConfig.resHeight(10),
     marginHorizontal: StyleConfig.resWidth(10),
   },

@@ -272,6 +272,8 @@ const styles = StyleSheet.create({
     borderRadius: StyleConfig.resHeight(10),
     // // minWidth:  StyleConfig.resWidth(60),
     // alignItems: 'center',
+    borderWidth:1,
+    borderColor:'red',
     width: StyleConfig.resWidth(230),
     justifyContent: 'center',
     alignContent: 'center',
@@ -304,7 +306,8 @@ const styles = StyleSheet.create({
     paddingVertical: StyleConfig.resWidth(2),
     width: StyleConfig.resWidth(95),
     height: StyleConfig.resWidth(63),
-    borderRadius: StyleConfig.resWidth(6),
+    borderRadius: StyleConfig.resWidth(8),
+    overflow:'hidden',
     marginLeft: StyleConfig.resWidth(6),
     marginVertical: StyleConfig.resWidth(6),
     // paddingTop:40
@@ -313,6 +316,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resWidth(24),
+    lineHeight:StyleConfig.resHeight(28),
     fontWeight: '400',
     ...Platform.select({
       android: {
@@ -329,8 +333,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // borderWidth:1,
     // height: isAndroid()? 35:80,
+    // borderWidth:1,
+    // borderColor:'red',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resWidth(24),
+    lineHeight:StyleConfig.resHeight(28),
     fontWeight: '400',
     ...Platform.select({
       android: {
