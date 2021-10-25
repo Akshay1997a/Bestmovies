@@ -15,6 +15,7 @@ import {
 import Inocons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../../svgs/RatingComponent';
+import { isAndroid } from '../../../helper/fonts';
 
 const DATA = [
   {
@@ -81,7 +82,9 @@ export class RenderMobile extends Component {
           shadowOpacity: 0.25,
           shadowColor: '#000',
           shadowRadius: 3.84,
-          overflow: 'hidden',
+          ...isAndroid() && {
+            overflow: 'hidden',
+          }
         }}>
         <TouchableOpacity>
           <View>
