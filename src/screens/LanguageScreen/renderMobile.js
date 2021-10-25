@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {withTranslation} from 'react-i18next';
 import {
@@ -8,6 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -17,6 +19,7 @@ import {getTranslateFile} from '../../network/requests';
 import i18n from 'i18next';
 import Loader from '../../components/Loader';
 import primary_regular_font from '../../helper/fonts';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 // import {Button} from '../Country';
 
@@ -464,7 +467,7 @@ export class RenderMobile extends Component {
       <SafeAreaView style={styles.container}>
         {/* <Loader /> */}
         <HeaderModal title={t('texts.id_31')} {...this.props} />
-        <View style={[{marginHorizontal: 10}]}>
+        <View style={{marginTop: 0, paddingHorizontal: widthScale(10)}}>
           <Button
             key={'yutuy'}
             title={'English'}
@@ -483,7 +486,6 @@ export class RenderMobile extends Component {
           />
         </View>
         <FlatList
-          margin={10}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
             Platform.OS !== 'android' &&
@@ -501,6 +503,9 @@ export class RenderMobile extends Component {
             />
           )}
           keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={{
+            paddingHorizontal: widthScale(10),
+          }}
         />
       </SafeAreaView>
     );
@@ -533,9 +538,11 @@ export const Button = ({title, isActive, onPress}) => (
 
 const styles = StyleSheet.create({
   butContainer: {
-    padding: 10,
-    borderRadius: 15,
-    marginVertical: 5,
+    borderRadius: 10,
+    justifyContent: 'center',
+    height: heightScale(40),
+    paddingLeft: 9,
+    paddingRight: 11,
   },
   butActive: {
     backgroundColor: '#FF4D01',
@@ -547,7 +554,7 @@ const styles = StyleSheet.create({
   butTitle: {
     color: '#000000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 20,
+    fontSize: fontScale(20),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',

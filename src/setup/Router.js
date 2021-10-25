@@ -349,8 +349,8 @@ const styles = StyleSheet.create({
   ModalContainer: {
     height: '100%',
     marginTop: Platform.OS === 'android' ? STATUS_BAR_HEIGHT : 48,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
     backgroundColor: '#fff',
     overflow: 'hidden',
     elevation: 10,

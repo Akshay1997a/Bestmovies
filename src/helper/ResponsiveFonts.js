@@ -1,29 +1,29 @@
 'use strict';
 
 import {Dimensions, Platform} from 'react-native';
-export const {width, height} = Dimensions.get('window');
+export const {width, height} = Dimensions.get('screen');
 
 const guidelineBaseWidth = 375;
 const guidelineBaseHeight = 812;
 
 export const horizontalScale = (size) => (width / guidelineBaseWidth) * size;
 export const verticalScale = (size) => (height / guidelineBaseHeight) * size;
-export const heightScale = (size, factor = 0.5) => {
+export const heightScale = (size, factor = 1) => {
   if (Platform.OS === 'web') {
     factor = 0.12;
   }
   if (Platform.OS === 'android') {
-    factor = 0;
+    factor = 1;
   }
   return size + (verticalScale(size) - size) * factor;
 };
 
-export const widthScale = (size, factor = 0.5) => {
+export const widthScale = (size, factor = 1) => {
   if (Platform.OS === 'web') {
     factor = 0.12;
   }
   if (Platform.OS === 'android') {
-    factor = 0;
+    factor = 1;
   }
   return size + (horizontalScale(size) - size) * factor;
 };

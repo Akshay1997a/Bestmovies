@@ -16,6 +16,7 @@ import HeaderModal from '../../components/HeaderModal';
 import {APP_PLAYSTORE_URL} from '../../config/urls';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 import primary_regular_font from '../../helper/fonts';
+import {heightScale} from '../../helper/ResponsiveFonts';
 
 export default function RenderMobile(props) {
   const {replace, navigate} = props.navigation;
@@ -44,6 +45,16 @@ export default function RenderMobile(props) {
         />
         <PrimaryTile
           title={t('texts.id_31')}
+          subTitle="English"
+          onPress={() => navigate('Languages')}
+        />
+        <PrimaryTile
+          title={"Titles' country version"}
+          subTitle="United States"
+          onPress={() => navigate('Country')}
+        />
+        <PrimaryTile
+          title={"Titles' language version"}
           subTitle="English"
           onPress={() => navigate('Languages')}
         />
@@ -82,8 +93,18 @@ const PrimaryTile = ({title, subTitle, onPress}) => (
   <TouchableOpacity onPress={onPress}>
     <View style={[styles.PrimaryTileStyle, styles.row]}>
       <View style={[styles.col, {flex: 3, flexWrap: 'wrap', flexShrink: 1}]}>
-        <Text style={styles.PrimaryTileTitleStyle}>{title}</Text>
-        <Text style={styles.PrimaryTileSubTitleStyle}>{subTitle}</Text>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.PrimaryTileTitleStyle}>
+          {title}
+        </Text>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.PrimaryTileSubTitleStyle}>
+          {subTitle}
+        </Text>
       </View>
       <FontAwesomeIcon name="chevron-right" style={styles.icStyle} size={20} />
     </View>
@@ -136,11 +157,11 @@ const styles = StyleSheet.create({
     marginRight: 31,
   },
   scrollviewStyle: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
 
   PrimaryTileStyle: {
-    paddingVertical: 10,
+    marginTop: heightScale(10),
     alignItems: 'center',
   },
   PrimaryTileTitleStyle: {
@@ -150,6 +171,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_bold_font,
     fontSize: 20,
     fontStyle: 'normal',
+    width: '90%',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
@@ -192,7 +214,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   SecondaryTileStyle: {
-    paddingVertical: 10,
+    marginTop: heightScale(15),
   },
   SecondaryTileTitleStyle: {
     color: '#000000',

@@ -36,7 +36,7 @@ import {getTranslateFile} from '../../network/requests';
 import {runTimeTranslations} from '../../i18n';
 import {withTranslation} from 'react-i18next';
 import primary_regular_font from '../../helper/fonts';
-import {fontScale, heightScale} from '../../helper/ResponsiveFonts';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -195,6 +195,8 @@ export class RenderMobile extends Component {
           justifyContent: 'center',
           borderRadius: 8,
           overflow: 'hidden',
+          // width: widthScale(175),
+          height: heightScale(320),
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
             borderColor: '#fff',
@@ -240,20 +242,12 @@ export class RenderMobile extends Component {
                   </TouchableOpacity>
                 )}
               <Image
-                style={
-                  viewStyle === VIEW_STYLE.FULL_VIEW
-                    ? {
-                        height: heightScale(450),
-                        width: window - 20,
-                        borderRadius: 8,
-                      }
-                    : {
-                        height: heightScale(240),
-                        width: window / 2 - 15,
-                        borderTopRightRadius: 8,
-                        borderTopLeftRadius: 8,
-                      }
-                }
+                style={{
+                  height: heightScale(240),
+                  width: widthScale(175),
+                  borderTopRightRadius: 8,
+                  borderTopLeftRadius: 8,
+                }}
                 source={data.image}
                 onLoadEnd={() => {
                   this.showTip();
@@ -278,7 +272,7 @@ export class RenderMobile extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{paddingTop: 5, paddingHorizontal: 10}}>
+            <View style={{paddingTop: 10, paddingHorizontal: 10}}>
               <Text style={styles.textFont}>Parasite</Text>
               {viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <Text style={[styles.textSecondary, styles.italic]}>
@@ -290,7 +284,8 @@ export class RenderMobile extends Component {
               style={{
                 flexDirection: 'row',
                 paddingHorizontal: 10,
-                paddingBottom: 5,
+                paddingBottom: 10,
+                marginTop: heightScale(3),
               }}>
               <View style={{flex: 1}}>
                 <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
@@ -302,8 +297,8 @@ export class RenderMobile extends Component {
                 <View
                   style={{
                     position: 'absolute',
-                    right: 0,
-                    top: 20,
+                    right: 2,
+                    bottom: 5,
                   }}>
                   <RatingComponent rating={9.2} />
                 </View>
@@ -536,7 +531,12 @@ export class RenderMobile extends Component {
               paddingVertical: 10,
               elevation: 10,
             }}>
-            <Text style={styles.soryByHead}>{t('texts.id_99')}</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.soryByHead}>
+              {t('texts.id_99')}
+            </Text>
             <TouchableOpacity
               style={[
                 styles.filterBut,
@@ -547,6 +547,8 @@ export class RenderMobile extends Component {
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_RATING
                     ? styles.modalTextSelected
@@ -564,6 +566,8 @@ export class RenderMobile extends Component {
               ]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_MATCH
                     ? styles.modalTextSelected
@@ -583,6 +587,8 @@ export class RenderMobile extends Component {
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE
                     ? styles.modalTextSelected
@@ -602,6 +608,8 @@ export class RenderMobile extends Component {
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR
                     ? styles.modalTextSelected
@@ -721,9 +729,17 @@ export class RenderMobile extends Component {
                 <View
                   style={{
                     flexDirection: 'row',
+                    height: heightScale(30),
+                    alignItems: 'center',
+                    // backgroundColor: 'red',
                   }}>
                   <View style={{flex: 3}}>
-                    <Text style={styles.resultText}>{t('texts.id_78')}</Text>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                      style={[styles.resultText, {width: widthScale(224)}]}>
+                      {t('texts.id_78')}
+                    </Text>
                   </View>
                   <TouchableOpacity
                     style={{
@@ -745,7 +761,7 @@ export class RenderMobile extends Component {
               {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
               {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
                 columnWrapperStyle: {
-                  marginTop: 10,
+                  marginTop: 5,
                   justifyContent: 'space-between',
                 },
               })}
@@ -829,7 +845,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(14),
-    lineHeight: 15,
+    lineHeight: heightScale(15),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
@@ -875,6 +891,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: primary_regular_font.primary_bold_font,
     fontSize: fontScale(16),
+    width: widthScale(250),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
