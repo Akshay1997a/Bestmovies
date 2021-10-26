@@ -35,7 +35,7 @@ import {bindActionCreators} from 'redux';
 import {getTranslateFile} from '../../network/requests';
 import {runTimeTranslations} from '../../i18n';
 import {withTranslation} from 'react-i18next';
-import primary_regular_font from '../../helper/fonts';
+import primary_regular_font, { isAndroid } from '../../helper/fonts';ß
 import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
@@ -194,8 +194,9 @@ export class RenderMobile extends Component {
           flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
           justifyContent: 'center',
           borderRadius: 8,
-          overflow: 'hidden',
-          // width: widthScale(175),
+          ...isAndroid() && {
+            overflow: 'hidden',
+          },
           height: heightScale(320),
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
@@ -715,7 +716,6 @@ export class RenderMobile extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <SafeAreaView style={{flex: 1}}>
           <View style={{flex: 1, marginTop: 5}}>
             <FlatList
               key={viewStyle}
@@ -767,7 +767,6 @@ export class RenderMobile extends Component {
               })}
             />
           </View>
-        </SafeAreaView>
         {/* <View style={{marginBottom: 60, marginTop: 25}}>
           <Text style={styles.textFont}>Similer title</Text>
           <View style={{flex: 1, alignItems: 'center'}}>

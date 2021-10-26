@@ -36,7 +36,7 @@ export const HEADER_HEIGHT = isAndroid() ? 40 : 45;
 export const TAB_BAR_HEIGHT = 40;
 export const STATUS_BAR_HEIGHT = RNStatusBar.currentHeight;
 export const TOTAL_HEADER_HEIGHT =
-  HEADER_HEIGHT + TAB_BAR_HEIGHT + (isAndroid() ? STATUS_BAR_HEIGHT : 45);
+  HEADER_HEIGHT + TAB_BAR_HEIGHT + (isAndroid() ? STATUS_BAR_HEIGHT : 48);
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
 export const HEADER_TYPE = {
