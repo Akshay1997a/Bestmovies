@@ -292,10 +292,20 @@ class RenderMobile extends Component {
           }}>
           <View style={{flex: 3, flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <FontAwesome5Icon
+              {/* <FontAwesome5Icon
                 name="angle-left"
-                size={23}
+                size={heightScale(20)}
                 style={{marginRight: 10}}
+              /> */}
+              <Image
+                source={require('../../../assets/Icons/back_ic.png')}
+                resizeMode="contain"
+                style={{
+                  width: widthScale(12),
+                  height: heightScale(20),
+                  marginRight: widthScale(10),
+                  transform: [{rotateY: '180deg'}],
+                }}
               />
             </TouchableOpacity>
             <Text style={styles.resultText}>Ranking of best movies</Text>
@@ -326,21 +336,6 @@ class RenderMobile extends Component {
             }),
           }}>
           <View style={{justifyContent: 'center'}}>
-            <TouchableOpacity
-              onPress={() => alert('heekk')}
-              style={{elevation: 1}}>
-              <View
-                style={{
-                  position: 'absolute',
-                  top: -5,
-                  right: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
-                <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
-              </View>
-            </TouchableOpacity>
             {!this.state.isIntroTipVisible &&
               viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <TouchableOpacity

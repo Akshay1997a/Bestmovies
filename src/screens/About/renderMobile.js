@@ -143,10 +143,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
+    fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(16),
-    fontStyle: 'normal',
-    textDecorationColor: 'rgb(51,0,0)',
     marginTop: heightScale(5),
     width: widthScale(354),
     ...(Platform.OS === 'ios' && {

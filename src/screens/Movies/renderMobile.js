@@ -213,7 +213,7 @@ export class RenderMobile extends Component {
           onPress={goToMovieDetails}>
           <View>
             <View style={{justifyContent: 'center'}}>
-              <TouchableOpacity style={{elevation: 1}}>
+              {/* <TouchableOpacity style={{elevation: 1}}>
                 <View
                   style={{
                     position: 'absolute',
@@ -226,7 +226,7 @@ export class RenderMobile extends Component {
                   <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
                   <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               {!this.state.isIntroTipVisible &&
                 viewStyle === VIEW_STYLE.FULL_VIEW && (
                   <TouchableOpacity
@@ -761,7 +761,7 @@ export class RenderMobile extends Component {
               {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
               {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
                 columnWrapperStyle: {
-                  marginTop: 5,
+                  marginTop: heightScale(5),
                   justifyContent: 'space-between',
                 },
               })}
