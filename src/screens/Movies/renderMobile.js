@@ -250,6 +250,7 @@ export class RenderMobile extends Component {
                   borderTopLeftRadius: 8,
                 }}
                 source={data.image}
+                resizeMode="cover"
                 onLoadEnd={() => {
                   this.showTip();
                 }}

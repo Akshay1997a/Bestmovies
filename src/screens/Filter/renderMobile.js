@@ -33,7 +33,7 @@ import {withTranslation} from 'react-i18next';
 import primary_regular_font from '../../helper/fonts';
 import _ from 'lodash';
 import {DATA} from '../Filter/Providers/renderMobile';
-import {heightScale, widthScale} from '../../helper/ResponsiveFonts';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -74,7 +74,7 @@ class Filter extends React.Component {
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 5}}>
           <Text style={styles.textTitle}>{data.title}</Text>
-          <Text style={{fontSize: 15}}>{data.other}</Text>
+          <Text style={{fontSize: fontScale(15)}}>{data.other}</Text>
         </View>
         <View style={{flex: 1}}>
           <Icon {...iconStyle} />
@@ -183,7 +183,7 @@ class Filter extends React.Component {
                 {t('texts.id_144')} (US)
               </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>
+                <Text style={{fontSize: fontScale(15)}}>
                   {providerConfig.selectedProviders.length
                     ? DATA.filter((i) =>
                         providerConfig.selectedProviders.includes(i.id),
@@ -256,7 +256,7 @@ class Filter extends React.Component {
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: 15}}>
+                  style={{fontSize: fontScale(15)}}>
                   {selectedCountries.length > 0
                     ? selectedCountries.join(', ')
                     : 'Any'}
@@ -281,7 +281,7 @@ class Filter extends React.Component {
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: 15}}>
+                  style={{fontSize: fontScale(15)}}>
                   {t('texts.id_172')}
                 </Text>
               </View>
@@ -304,7 +304,7 @@ class Filter extends React.Component {
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: 15}}>
+                  style={{fontSize: fontScale(15)}}>
                   {'< 10 €'}
                 </Text>
               </View>
@@ -327,7 +327,7 @@ class Filter extends React.Component {
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: 15}}>
+                  style={{fontSize: fontScale(15)}}>
                   {languages.length > 0 ? languages.join(', ') : 'Any'}
                 </Text>
               </View>
@@ -389,7 +389,7 @@ class Filter extends React.Component {
               style={{
                 color: '#ff3300',
                 textAlign: 'center',
-                fontSize: 15,
+                fontSize: fontScale(15),
                 fontWeight: '700',
               }}>
               {t('texts.id_111')}
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 18,
+    fontSize: fontScale(18),
     fontStyle: 'normal',
     width: widthScale(315),
     ...(Platform.OS === 'ios' && {
@@ -435,7 +435,7 @@ const styles = StyleSheet.create({
   textSecond: {
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 16,
+    fontSize: fontScale(16),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
   },
   butContainer: {
     flexDirection: 'row',
-    paddingVertical: 10,
+    paddingVertical: heightScale(10),
     marginBottom: 1,
     borderBottomWidth: 1,
     borderBottomColor: '#eeeeee',

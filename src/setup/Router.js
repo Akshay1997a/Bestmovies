@@ -333,9 +333,9 @@ const StackNav = () => {
 
 const Router = () => {
   return (
-      <NavigationContainer>
-        <StackNav />
-      </NavigationContainer>
+    <NavigationContainer>
+      <StackNav />
+    </NavigationContainer>
   );
 };
 export default Router;
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: '100%',
+    flex: 1,
     marginTop: Platform.OS === 'android' ? STATUS_BAR_HEIGHT : 48,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,

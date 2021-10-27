@@ -1,9 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  Image,
+} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import primary_regular_font from '../helper/fonts';
 import {fontScale, heightScale, widthScale} from '../helper/ResponsiveFonts';
+import {CloseIcon} from './Icons';
 
 export default function HeaderModal(props) {
   const inset = useSafeAreaInsets();
@@ -15,10 +23,7 @@ export default function HeaderModal(props) {
     <View style={[styles.headerContainer]}>
       <View style={styles.closeBut}>
         <TouchableOpacity onPress={goBack}>
-          <FontAwesomeIcon
-            name={initialModalScreens.includes(name) ? 'close' : 'chevron-left'}
-            size={widthScale(25)}
-          />
+          <CloseIcon />
         </TouchableOpacity>
       </View>
       <Text numberOfLines={1} style={[styles.title, {width: widthScale(300)}]}>

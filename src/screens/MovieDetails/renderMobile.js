@@ -280,7 +280,7 @@ class RenderMobile extends Component {
         bounces={false}
         contentContainerStyle={{
           // padding: 10,
-          marginTop: heightScale(5),
+          // marginTop: heightScale(5),
           paddingTop: TOTAL_HEADER_HEIGHT,
         }}>
         <View
@@ -428,7 +428,7 @@ class RenderMobile extends Component {
             <View
               style={{
                 position: 'absolute',
-                bottom: 0,
+                top: heightScale(62),
                 right: widthScale(15),
               }}>
               <RatingComponent
