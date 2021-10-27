@@ -420,10 +420,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   justifyContent: 'center',
                   alignContent: 'center',
                 }}>
-                <Text numberOfLines={1} style={styles.ranking}>
+                <Text 
+                        ellipsizeMode="tail"
+
+                numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
                 </Text>
-                <Text numberOfLines={1} style={styles.result}>
+                <Text numberOfLines={1}
+                        ellipsizeMode="tail"
+
+                 style={styles.result}>
                   {' '}
                   12,348 {t('texts.id_91')}{' '}
                 </Text>
@@ -892,6 +898,7 @@ const styles = StyleSheet.create({
     fontWeight: isAndroid() ? '400' : '400',
   },
   ranking: {
+    width: StyleConfig.resWidth(250),
     marginStart: StyleConfig.resWidth(14),
     fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
@@ -904,6 +911,7 @@ const styles = StyleSheet.create({
     }),
   },
   result: {
+    width: StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
     fontSize: StyleConfig.resWidth(32),

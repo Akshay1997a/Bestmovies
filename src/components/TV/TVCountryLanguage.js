@@ -29,10 +29,12 @@ import {
   getLanguageData,
   getLanguageList,
   getTranslateFile,
+  getStaticData,
 } from '../../network/requests';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
+import {result} from 'lodash';
 
 const COUNTRY = [
   {id: 0, name: 'United States'},
@@ -179,25 +181,30 @@ const TVCountryLanguage = (props) => {
   const [selected, setSelected] = useState(0);
   const [focus, setFocus] = useState('DZ');
   const [data, setData] = useState(COUNTRY_LANGUAGE);
-  const [country, setCountry] = useState(DATA);
+  const [country, setCountry] = useState(null);
   const [isCountryClick, setCountryClick] = useState(true);
-  const [countryList, setCountryList] = useState(null);
+  const [dataList, setDataList] = useState(null);
+  const [language, setLanguageList] = useState(null);
+  const [titleLanguage, setTitleLanguageList] = useState(null);
+  const [aboutUs, setAboutUsData] = useState(null);
+
+  // const [country, setContryList] = useState(null);
 
   useFocusEffect(() => {
-    let lng = i18n.language;
-    let countryData = i18next.getDataByLanguage(lng);
-    let countryTemp = countryData?.translation?.countries_listed;
-    console.log('CountryDataaasasassadadfasaffq', countryTemp);
-    for (const item of LANGUAGES) {
-      languageMap.set('code_AD', 'Andorra');
-    }
-    countryTemp && setCountryList(countryTemp);
+    // let lng = i18n.language;
+    // let countryData = i18next.getDataByLanguage(lng);
+    // let countryTemp = countryData?.translation?.countries_listed;
+    // console.log('CountryDataaasasassadadfasaffq', countryTemp);
+    // for (const item of LANGUAGES) {
+    //   languageMap.set('code_AD', 'Andorra');
+    // }
+    // countryTemp && setCountryList(countryTemp);
   });
 
   const changeLanguage = () => {
     props.getTranslateFile(
       (res) => {
-        // console.log('Response from translate api', res);
+        console.log('Response from translate api', res);
         runTimeTranslations(res, res?.language);
       },
       (err) => {
@@ -207,8 +214,25 @@ const TVCountryLanguage = (props) => {
   };
 
   useEffect(() => {
+    let lng = i18n.language;
+    let countryData = i18next.getDataByLanguage(lng);
+    let countryTemp = countryData?.translation?.countries_listed;
+    for (const item of LANGUAGES) {
+      languageMap.set('code_AD', 'Andorra');
+    }
+    countryTemp && setDataList(countryTemp);
+    setCountry(countryTemp);
+
     props.getLanguageData((res) => {
-      // console.log('responseeeeee90909090', res);
+      let data = convertArrayToObject(res.data.display, 'code');
+      let titleLanguage = convertArrayToObject(res.data.list, 'code');
+      setLanguageList(data);
+      setTitleLanguageList(titleLanguage);
+    });
+    props.getStaticData((res) => {
+      setAboutUsData(res);
+      // let data = res;
+
     });
   }, []);
 
@@ -218,25 +242,43 @@ const TVCountryLanguage = (props) => {
     let data = {
       cd: code?.toLowerCase(),
     };
+    if (code) {
+      i18n.changeLanguage(code);
+      changeLanguage();
+    }
     props.getLanguageList(data, (res) => {
-      // console.log('responseeeeee', res);
+      console.log('responseeeeee', res);
     });
   };
 
   const onPressHandle = async (item) => {
-    setCountryClick(true);
+    console.log(
+      'hi-------------------------------------------------------',
+      item,
+    );
+    // setCountryClick(true);
     setSelected(item.id);
-    if (item?.code) {
-      i18n.changeLanguage(item?.code);
-      changeLanguage();
+    if (item.id == 0) {
+      setDataList(country);
+    } else if (item.id == 1) {
+      setDataList(language);
+    } else if (item.id == 2) {
+      setDataList(country);
+    } else if (item.id == 3) {
+      setDataList(titleLanguage);
     }
+    // setCountryList(language);
+    // let lng = i18n.language;
+    // let countryData = i18next.getDataByLanguage(lng);
+    // let countryTemp = countryData?.translation?.countries_listed;
+    // console.log('CountryDataaasasassadadfasaffq', countryTemp);
+    // if (item?.code) {
+    //   i18n.changeLanguage(item?.code);
+    // changeLanguage();
+    // }
   };
 
   const onFocus = useCallback((val) => {
-    console.log(
-      'hi-------------------------------------------------------',
-      languageMap,
-    );
     // props.reduxSetCurrFocus('countryLang');
     setFocus(val);
   });
@@ -246,6 +288,20 @@ const TVCountryLanguage = (props) => {
 
     setFocus(false);
   }, []);
+
+  const convertArrayToObject = (array, key) => {
+    const initialValue = {};
+    return array.reduce(
+      (obj, item) => ((obj['code_' + item.code] = item.name), obj),
+      {},
+    );
+    // obj[curr.code]='', obj;
+    // return {
+    //   // ...obj,
+    //   [item.code]: item.name,
+    // };
+    // }, initialValue);
+  };
 
   return (
     // <ScrollView>
@@ -282,13 +338,15 @@ const TVCountryLanguage = (props) => {
           <View
             style={{
               width: WIDTH * 0.2,
+              // borderWidth:1,
+              height: HEIGHT,
               // marginLeft: isAndroid() ? 100 : 160,
               paddingLeft: StyleConfig.resWidth(20),
               borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
-            {countryList !== null &&
-              Object.entries(countryList).map((item, index) => {
+            {dataList !== null &&
+              Object.entries(dataList).map((item, index) => {
                 let [temp, code] = item[0].split('_');
                 return (
                   <Pressable
@@ -324,6 +382,7 @@ const mapDispatchToProps = (dispatch) => {
       getTranslateFile,
       getLanguageList,
       getLanguageData,
+      getStaticData,
     },
     dispatch,
   );

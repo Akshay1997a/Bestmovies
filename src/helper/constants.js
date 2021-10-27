@@ -19,6 +19,44 @@ export default {
   F_DRAWER_PRICE: 16,
   F_DRAWER_PROVIDER: 17,
 
+  static_pages: [
+    {
+      name: 'About us',
+      heading_size: '0',
+      subtitle_size: '0',
+      text_size: '0',
+      image1_url: 'https://www.bestmovies.org/images/x923557-projector.png',
+      image1_alt_text: 'test_alt_text',
+      heading1: 'Lorem ipsum dolor sit amet',
+      subtitle1: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      text1:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare suscipit elementum. Quisque convallis orci non laoreet malesuada. Sed sed massa at magna maximus faucibus in nec urna. Ut non leo vel felis ultricies mattis consequat eget mi. Duis dapibus porttitor purus id pretium. Proin faucibus maximus varius. Curabitur facilisis felis sit amet risus condimentum, vitae venenatis ligula fermentum. Sed faucibus dui suscipit sem feugiat blandit. Etiam egestas sem nulla, quis consectetur ligula convallis eget. Vivamus ac eros dictum tellus dictum consectetur. Sed vestibulum purus et urna vestibulum euismod. Proin tempor elit vitae laoreet mollis. Donec interdum scelerisque ipsum, id.',
+      image2_url: 'https://www.bestmovies.org/images/x923557-projector.png',
+      image2_alt_text: 'test_alt_text',
+      heading2: 'Lorem ipsum dolor sit amet',
+      subtitle2: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      text2:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare suscipit elementum. Quisque convallis orci non laoreet malesuada. Sed sed massa at magna maximus faucibus in nec urna. Ut non leo vel felis ultricies mattis consequat eget mi. Duis dapibus porttitor purus id pretium. Proin faucibus maximus varius. Curabitur facilisis felis sit amet risus condimentum, vitae venenatis ligula fermentum. Sed faucibus dui suscipit sem feugiat blandit. Etiam egestas sem nulla, quis consectetur ligula convallis eget. Vivamus ac eros dictum tellus dictum consectetur. Sed vestibulum purus et urna vestibulum euismod. Proin tempor elit vitae laoreet mollis. Donec interdum scelerisque ipsum, id.',
+      image3_url: '',
+      image3_alt_text: '',
+      heading3: 'Lorem ipsum dolor sit amet',
+      subtitle3: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      text3:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ornare suscipit elementum. Quisque convallis orci non laoreet malesuada. Sed sed massa at magna maximus faucibus in nec urna. Ut non leo vel felis ultricies mattis consequat eget mi. Duis dapibus porttitor purus id pretium. Proin faucibus maximus varius. Curabitur facilisis felis sit amet risus condimentum, vitae venenatis ligula fermentum. Sed faucibus dui suscipit sem feugiat blandit. Etiam egestas sem nulla, quis consectetur ligula convallis eget. Vivamus ac eros dictum tellus dictum consectetur. Sed vestibulum purus et urna vestibulum euismod. Proin tempor elit vitae laoreet mollis. Donec interdum scelerisque ipsum, id.',
+      image4_url: 'https://www.bestmovies.org/images/x923557-projector.png',
+      image4_alt_text: 'test_alt_text',
+      heading4: '',
+      subtitle4: '',
+      text4: '',
+      image5_url: '',
+      image5_alt_text: '',
+      heading5: '',
+      subtitle5: '',
+      text5: '',
+      image6_filename: '',
+      image6_alt_text: '',
+    },
+  ],
   ABOUT_US: [
     {
       id: 1,

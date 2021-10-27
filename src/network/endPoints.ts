@@ -3,4 +3,7 @@ export const endPoints = {
     translate:"translations/",
     languageList:"countries?",
     languageData:"languages",
+    staticData:"static-pages?",
+
 }
+

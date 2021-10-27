@@ -3,7 +3,9 @@ import React, {
   useCallback,
   forwardRef,
   useImperativeHandle,
+  useEffect,
 } from 'react';
+import axios from 'axios';
 import {View, Pressable, StyleSheet, Text, Image, Platform} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import colors from '../../helper/colors';
@@ -13,8 +15,16 @@ import TVCountryLanguage from '../TV/TVCountryLanguage';
 import primary_regular_font from '../../helper/fonts';
 import Const from '../../helper/constants';
 import {useTranslation} from 'react-i18next';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 import AppImages from '../../assets';
+import {
+  getLanguageData,
+  getLanguageList,
+  getTranslateFile,
+  getStaticData,
+} from '../../network/requests';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 const ICON_SIZE = 24;
 let [
@@ -110,9 +120,15 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   const [focus, setFocus] = useState(NONE);
   const [key, setKey] = useState(9);
   const [selected, setSelected] = useState(9);
+  const [aboutUs, setAboutUsData] = useState(null);
+
+  const [terms_of_use, setTerms] = useState(null);
 
   const onFocus = useCallback((val) => {
     console.log('onFocus TVSideBar>>>', val);
+    if (val == 12) {
+      getAboutUsData();
+    }
     // props.reduxSetCurrFocus('menu');
 
     // setFocus(val);
@@ -122,7 +138,51 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     setSelected(val);
     // setFocus(val);
   };
+  const getAboutUsData = () => {
+    props.getTranslateFile(
+      (res) => {
+        console.log('Response from translate api', Object.keys(res));
+        let data = Object.keys(res.static_pages);
+        let slug = res.language === 'en' ? data[0] : data[1];
+        axios
+          .get('http://3.144.9.39:3002/static-pages?device=tv&slug=' + slug)
+          .then(function (response) {
+            // handle success
+            setAboutUsData(response.data.data.static_pages);
 
+            console.log(response);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          });
+        let slug1 = res.language === 'en' ? data[1] : data[2];
+
+        axios
+          .get('http://3.144.9.39:3002/static-pages?device=tv&slug=' + slug1)
+          .then(function (response) {
+            // handle success
+            setTerms(response.data.data.static_pages);
+
+            console.log(response);
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          });
+        // runTimeTranslations(res, res?.language);
+      },
+      (err) => {
+        console.log('Error from translate file', err);
+      },
+    );
+  };
   useImperativeHandle(ref, () => ({
     setResetFocus() {
       setFocus(NONE);
@@ -131,6 +191,14 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       setFocus(val);
     },
   }));
+
+  useEffect(() => {
+    // props.getStaticData('dat').then(){
+    //   setAboutUsData(res.data.static_pages);
+    // })
+    // let data = res;
+    // });
+  }, []);
   console.log(props.headerSelected, MENU_DATA);
   return (
     <>
@@ -139,6 +207,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           flexDirection: 'row',
           marginLeft: StyleConfig.resWidth(20),
           marginTop: StyleConfig.resWidth(20),
+          // borderWidth:1,
         }}>
         <View style={[styles.container]}>
           {MENU_DATA.map((item, index) => {
@@ -159,7 +228,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                     {},
                   ]}>
                   <Text
-                    // numberOfLines={1}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
                     style={
                       focus == item.key
                         ? styles.focusText
@@ -261,37 +331,66 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           <View>
             <FlatList
               contentContainerStyle={[{}]}
-              data={Const.ABOUT_US}
+              data={aboutUs}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
                   <Pressable
                     style={{
-                      flexDirection: 'row',
+                      // flexDirection: 'row',
                       marginRight: WIDTH * 0.21,
                     }}>
                     <>
-                      {item.type == 'image' ? (
-                        <Image
-                          source={AppImages.sideBarBackground}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                      ) : (
-                        <Text
-                          style={[
-                            item.type == 'title'
-                              ? styles.aboutUsTitle
-                              : item.type == 'subtitle'
-                              ? styles.aboutUsSubTitle
-                              : styles.aboutUsDetail,
-                            {
-                              flexWrap: 'wrap',
-                            },
-                          ]}>
-                          {item.data}
-                        </Text>
-                      )}
+                      {/* {item.type == 'image' ? ( */}
+                      <Image
+                        source={AppImages.sideBarBackground}
+                        resizeMode={'stretch'}
+                        style={styles.aboutUsImg}
+                      />
+                      {/* ) : ( */}
+                      <Text
+                        style={[
+                          // item.name == 'About us'
+                          // ?
+                          styles.aboutUsTitle,
+                          // : item.subtitle1
+                          // ? styles.aboutUsSubTitle
+                          // : styles.aboutUsDetail,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.name}
+                      </Text>
+                      <Text
+                        style={[
+                          // item.name == 'About us'
+                          // ?
+                          styles.aboutUsSubTitle,
+                          // : item.subtitle1
+                          // ? styles.aboutUsSubTitle
+                          // : styles.aboutUsDetail,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.subtitle1}
+                      </Text>
+                      <Text
+                        style={[
+                          // item.name == 'About us'
+                          // ?
+                          styles.aboutUsDetail,
+                          // : item.subtitle1
+                          // ? styles.aboutUsSubTitle
+                          // : styles.aboutUsDetail,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.text1}
+                      </Text>
+                      {/* // )} */}
                     </>
                   </Pressable>
                 );
@@ -481,14 +580,29 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     </>
   );
 });
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getTranslateFile,
+      getLanguageList,
+      getLanguageData,
+      getStaticData,
+    },
+    dispatch,
+  );
+};
 
-export default TVSideBar;
+export default connect(null, mapDispatchToProps)(TVSideBar);
+
+// export default TVSideBar;
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
+    // borderWidth:1,
+    height: HEIGHT,
   },
   itemWrapperSelected: {
     backgroundColor: colors.tomatoRed,
@@ -514,6 +628,7 @@ const styles = StyleSheet.create({
     margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
   },
   text: {
+    width: StyleConfig.resWidth(200),
     color: colors.black,
     fontSize: StyleConfig.resWidth(28),
     fontWeight: '400',

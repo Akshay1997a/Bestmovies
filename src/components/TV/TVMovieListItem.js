@@ -92,7 +92,12 @@ const TVCardDetail = ({item, ...props}) => {
               }>
               <ImageBackground
                 source={AppImages[item.thumbnail]}
-                style={{width: '100%', height: '100%', borderRadius:Platform.OS==='ios'?20:15,overflow:Platform.OS==="ios"? 'hidden':null}}>
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: Platform.OS === 'ios' ? 20 : 15,
+                  overflow: Platform.OS === 'ios' ? 'hidden' : null,
+                }}>
                 {item.title === 'Joker' ? (
                   <View />
                 ) : (
@@ -176,7 +181,12 @@ const TVCardDetail = ({item, ...props}) => {
               <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
                 {item.title}
               </Text>
-              <Text style={styles.typeSecondary}>{t('texts.id_129')}</Text>
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={1}
+                style={styles.typeSecondary}>
+                {t('texts.id_129')}
+              </Text>
 
               <View
                 style={{
@@ -189,7 +199,10 @@ const TVCardDetail = ({item, ...props}) => {
                       justifyContent: 'space-between',
                     }}>
                     <View>
-                      <Text style={[styles.textSecondary]}>
+                      <Text
+                        style={[styles.textSecondary]}
+                        ellipsizeMode="tail"
+                        numberOfLines={1}>
                         {`${item.DATA.bornYear} ${t(item.DATA.country)}`}
                         <AntDesign name="like1" color="#35B736" size={13} />
                       </Text>
@@ -200,7 +213,7 @@ const TVCardDetail = ({item, ...props}) => {
 
                     <View
                       style={{
-                        flex: 0.9,
+                        flex: 0.8,
                         justifyContent: 'center',
                         alignContent: 'center',
                         alignItems: 'center',
@@ -211,6 +224,8 @@ const TVCardDetail = ({item, ...props}) => {
                       />
                       <Text
                         style={{
+    // width: StyleConfig.resWidth(200),
+
                           color: item.DATA.color,
                           fontFamily: primary_regular_font.primary_regular_font,
                           fontSize: StyleConfig.resHeight(24),
@@ -245,10 +260,11 @@ const isAndroid = () => {
 const styles = StyleSheet.create({
   textSecondary: {
     // alignSelf:'center',
+    width: StyleConfig.resWidth(250),
     color: colors.black,
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resHeight(24),
-    lineHeight:StyleConfig.resHeight(30),
+    lineHeight: StyleConfig.resHeight(30),
     fontWeight: '400',
     ...Platform.select({
       android: {
@@ -279,6 +295,7 @@ const styles = StyleSheet.create({
     }),
   },
   typeSecondary: {
+    width: StyleConfig.resWidth(356),
     lineHeight: StyleConfig.resHeight(30),
     color: '#000000',
     fontFamily: primary_regular_font.primary_regular_font,
@@ -322,7 +339,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
     //marginTop: StyleConfig.resHeight(10),
     fontSize: StyleConfig.resHeight(24),
-    lineHeight:StyleConfig.resHeight(33),
+    lineHeight: StyleConfig.resHeight(33),
     // borderWidth:1,
     // borderColor:'red',
     fontWeight: '700',

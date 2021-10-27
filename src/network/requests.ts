@@ -75,9 +75,37 @@ export const getLanguageData = (
 			(err) => errorCallback(err),
 		);
 };
+export const getStaticData = (
+	succesCallback: Function,
+	errorCallback: Function,
+) => {
+
+	return (dispatch: Function) =>
+		commonApiWrapper(
+            dispatch,
+			endPoints.staticData + `device=tv&slug=about`,
+			apiConstants.get_request_type,
+			apiConstants.raw_data_type,
+			null,
+			null,
+			null,
+			(response: any, dispatch: any) => {
+				// if (succesCallback) {
+					succesCallback(response);
+				// }
+			},
+			(err) => errorCallback(err),
+		);
+};
 
 
-const commonApiWrapper = (dispatch, url: string, apiRequestType: String, contentType: String, path: string, requestData: any, params: any, successCallback: Function, errorCallback: Function,) => {
+const commonApiWrapper = (dispatch,
+	 url: string,
+	  apiRequestType: String, 
+	  contentType: String, 
+	  path: string, 
+	  requestData: any,
+	   params: any, successCallback: Function, errorCallback: Function,) => {
         showLoader(true, dispatch);
         if (isNotEmpty(path))
             url = `${url}${path}/`
