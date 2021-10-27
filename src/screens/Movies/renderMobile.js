@@ -35,7 +35,7 @@ import {bindActionCreators} from 'redux';
 import {getTranslateFile} from '../../network/requests';
 import {runTimeTranslations} from '../../i18n';
 import {withTranslation} from 'react-i18next';
-import primary_regular_font, { isAndroid } from '../../helper/fonts';ß
+import primary_regular_font, {isAndroid} from '../../helper/fonts';
 import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
@@ -194,9 +194,9 @@ export class RenderMobile extends Component {
           flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
           justifyContent: 'center',
           borderRadius: 8,
-          ...isAndroid() && {
+          ...(isAndroid() && {
             overflow: 'hidden',
-          },
+          }),
           height: heightScale(320),
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
@@ -716,57 +716,57 @@ export class RenderMobile extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-          <View style={{flex: 1, marginTop: 5}}>
-            <FlatList
-              key={viewStyle}
-              bounces={false}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                padding: 10,
-                paddingTop: TOTAL_HEADER_HEIGHT,
-              }}
-              ListHeaderComponent={() => (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    height: heightScale(30),
-                    alignItems: 'center',
-                    // backgroundColor: 'red',
-                  }}>
-                  <View style={{flex: 3}}>
-                    <Text
-                      numberOfLines={1}
-                      ellipsizeMode="tail"
-                      style={[styles.resultText, {width: widthScale(224)}]}>
-                      {t('texts.id_78')}
-                    </Text>
-                  </View>
-                  <TouchableOpacity
-                    style={{
-                      alignItems: 'flex-end',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                    }}
-                    onPress={() => {
-                      this.setState({modalVisible: true});
-                    }}>
-                    <Text style={styles.sortbyButText}>Rating</Text>
-                    <Icon name="chevron-down" size={20} color="#232323" />
-                  </TouchableOpacity>
+        <View style={{flex: 1, marginTop: 5}}>
+          <FlatList
+            key={viewStyle}
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              padding: 10,
+              paddingTop: TOTAL_HEADER_HEIGHT,
+            }}
+            ListHeaderComponent={() => (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  height: heightScale(30),
+                  alignItems: 'center',
+                  // backgroundColor: 'red',
+                }}>
+                <View style={{flex: 3}}>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={[styles.resultText, {width: widthScale(224)}]}>
+                    {t('texts.id_78')}
+                  </Text>
                 </View>
-              )}
-              data={DATA}
-              renderItem={({item}) => this.moviewPoster(item)}
-              keyExtractor={(item) => item.id + viewStyle}
-              {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
-              {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
-                columnWrapperStyle: {
-                  marginTop: heightScale(5),
-                  justifyContent: 'space-between',
-                },
-              })}
-            />
-          </View>
+                <TouchableOpacity
+                  style={{
+                    alignItems: 'flex-end',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => {
+                    this.setState({modalVisible: true});
+                  }}>
+                  <Text style={styles.sortbyButText}>Rating</Text>
+                  <Icon name="chevron-down" size={20} color="#232323" />
+                </TouchableOpacity>
+              </View>
+            )}
+            data={DATA}
+            renderItem={({item}) => this.moviewPoster(item)}
+            keyExtractor={(item) => item.id + viewStyle}
+            {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
+            {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
+              columnWrapperStyle: {
+                marginTop: heightScale(5),
+                justifyContent: 'space-between',
+              },
+            })}
+          />
+        </View>
         {/* <View style={{marginBottom: 60, marginTop: 25}}>
           <Text style={styles.textFont}>Similer title</Text>
           <View style={{flex: 1, alignItems: 'center'}}>

@@ -40,7 +40,10 @@ export default function RenderMobile(props) {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="height"
+      keyboardVerticalOffset={50}>
       <HeaderModal title="Year of release" {...props} />
       <ScrollView contentContainerStyle={{marginHorizontal: widthScale(11)}}>
         <Button

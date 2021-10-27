@@ -69,9 +69,9 @@ export default function RenderMobile(props) {
         />
         <View style={styles.divider} />
         <View style={[styles.row, styles.PV10]}>
-          <IconButton name="facebook" />
-          <IconButton name="twitter" />
-          <IconButton name="instagram" />
+          <IconButton name="facebook" onPress={() => {}} />
+          <IconButton name="twitter" onPress={() => {}} />
+          <IconButton name="instagram" onPress={() => {}} />
         </View>
         <View style={styles.divider} />
         <SecondaryTile title="About" onPress={() => replace('About')} />
