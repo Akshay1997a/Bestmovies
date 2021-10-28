@@ -16,7 +16,7 @@ import HeaderModal from '../../components/HeaderModal';
 import {APP_PLAYSTORE_URL} from '../../config/urls';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 import primary_regular_font from '../../helper/fonts';
-import {heightScale} from '../../helper/ResponsiveFonts';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 export default function RenderMobile(props) {
   const {replace, navigate} = props.navigation;
@@ -35,7 +35,7 @@ export default function RenderMobile(props) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <HeaderModal title="Menu" {...props} />
       <ScrollView contentContainerStyle={styles.scrollviewStyle}>
         <PrimaryTile
@@ -69,9 +69,9 @@ export default function RenderMobile(props) {
         />
         <View style={styles.divider} />
         <View style={[styles.row, styles.PV10]}>
-          <IconButton name="facebook" />
-          <IconButton name="twitter" />
-          <IconButton name="instagram" />
+          <IconButton name="facebook" onPress={() => {}} />
+          <IconButton name="twitter" onPress={() => {}} />
+          <IconButton name="instagram" onPress={() => {}} />
         </View>
         <View style={styles.divider} />
         <SecondaryTile title="About" onPress={() => replace('About')} />
@@ -85,7 +85,7 @@ export default function RenderMobile(props) {
           onPress={() => replace('About')}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -122,7 +122,8 @@ const SecondaryTile = ({title, onPress}) => (
 const IconTile = ({title, iconName, iconSize, onPress}) => (
   <TouchableOpacity onPress={onPress}>
     <View style={[styles.IconTileStyle, styles.row]}>
-      <View style={[styles.itemCenter, {width: 25, marginRight: 5}]}>
+      <View
+        style={[styles.itemCenter, {width: 25, marginRight: widthScale(8)}]}>
         <FontAwesomeIcon name={iconName} size={iconSize} />
       </View>
       <Text style={styles.IconTileTitleStyle}>{title}</Text>
@@ -131,8 +132,8 @@ const IconTile = ({title, iconName, iconSize, onPress}) => (
 );
 
 const IconButton = (props, onPress) => (
-  <TouchableOpacity onPress={onPress}>
-    <FontAwesomeIcon style={styles.socialIc} size={20} {...props} />
+  <TouchableOpacity style={styles.socialIc} onPress={onPress}>
+    <FontAwesomeIcon size={20} {...props} />
   </TouchableOpacity>
 );
 
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   socialIc: {
-    marginRight: 31,
+    marginRight: widthScale(31),
   },
   scrollviewStyle: {
     paddingHorizontal: 20,
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: 'wrap',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 20,
+    fontSize: fontScale(20),
     fontStyle: 'normal',
     width: '90%',
     ...(Platform.OS === 'ios' && {
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
   PrimaryTileSubTitleStyle: {
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 18,
+    fontSize: fontScale(18),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
   IconTileTitleStyle: {
     color: '#000000',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 20,
+    fontSize: fontScale(20),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
   SecondaryTileTitleStyle: {
     color: '#000000',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 20,
+    fontSize: fontScale(20),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',

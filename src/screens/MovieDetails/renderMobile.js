@@ -218,7 +218,7 @@ class RenderMobile extends Component {
           height: heightScale(200),
           resizeMode: 'cover',
           borderRadius: 12,
-          marginBottom: 10,
+          marginBottom: heightScale(10),
         }}
       />
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -280,22 +280,33 @@ class RenderMobile extends Component {
         bounces={false}
         contentContainerStyle={{
           // padding: 10,
-          marginTop: 5,
+          // marginTop: heightScale(5),
           paddingTop: TOTAL_HEADER_HEIGHT,
         }}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            marginBottom: 10,
+            marginBottom: heightScale(10),
             paddingHorizontal: 10,
+            height: heightScale(23),
           }}>
           <View style={{flex: 3, flexDirection: 'row'}}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <FontAwesome5Icon
+              {/* <FontAwesome5Icon
                 name="angle-left"
-                size={23}
+                size={heightScale(20)}
                 style={{marginRight: 10}}
+              /> */}
+              <Image
+                source={require('../../../assets/Icons/back_ic.png')}
+                resizeMode="contain"
+                style={{
+                  width: widthScale(12),
+                  height: heightScale(20),
+                  marginRight: widthScale(10),
+                  transform: [{rotateY: '180deg'}],
+                }}
               />
             </TouchableOpacity>
             <Text style={styles.resultText}>Ranking of best movies</Text>
@@ -326,21 +337,6 @@ class RenderMobile extends Component {
             }),
           }}>
           <View style={{justifyContent: 'center'}}>
-            <TouchableOpacity
-              onPress={() => alert('heekk')}
-              style={{elevation: 1}}>
-              <View
-                style={{
-                  position: 'absolute',
-                  top: -5,
-                  right: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
-                <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
-              </View>
-            </TouchableOpacity>
             {!this.state.isIntroTipVisible &&
               viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <TouchableOpacity
@@ -390,12 +386,18 @@ class RenderMobile extends Component {
           <View
             style={{
               flex: 5,
-              paddingHorizontal: 10,
-              paddingTop: 4,
+              paddingHorizontal: widthScale(10),
+              paddingTop: heightScale(4),
               position: 'relative',
             }}>
             <Text style={styles.titleFont}>Parasite</Text>
-            <Text style={[styles.textSecondary]}>Parasite(Original title)</Text>
+            <Text
+              style={[
+                styles.textSecondary,
+                {marginTop: heightScale(-2), height: heightScale(24)},
+              ]}>
+              Gisaengchung (Original title)
+            </Text>
             <View style={{height: heightScale(10)}} />
             <Text style={styles.textSecondary}>Drama, Thriller</Text>
             <Text style={styles.textSecondary}>
@@ -410,19 +412,23 @@ class RenderMobile extends Component {
               style={{
                 position: 'absolute',
                 right: widthScale(11),
-                // top: heightScale(11),
+                top: heightScale(4),
               }}>
               <Icon
                 name="reply"
                 size={widthScale(25)}
                 color="#232323"
-                style={{transform: [{rotateY: '180deg'}]}}
+                style={{
+                  width: widthScale(25),
+                  height: heightScale(21),
+                  transform: [{rotateY: '180deg'}],
+                }}
               />
             </TouchableOpacity>
             <View
               style={{
                 position: 'absolute',
-                bottom: 0,
+                top: heightScale(62),
                 right: widthScale(15),
               }}>
               <RatingComponent
@@ -444,7 +450,7 @@ class RenderMobile extends Component {
           </View>
           {viewStyle === VIEW_STYLE.FULL_VIEW && (
             <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
-              <View style={{marginTop: 11}}>
+              <View style={{marginTop: heightScale(11)}}>
                 <Text style={styles.textFont}>Plot</Text>
                 <Text style={[styles.textDesc, {width: widthScale(355)}]}>
                   Greed and class discrimination threaten the newly formed
@@ -453,7 +459,7 @@ class RenderMobile extends Component {
                   that ingeniously trip back and forth in time.
                 </Text>
               </View>
-              <View style={{marginTop: 11, borderWidth: 0}}>
+              <View style={{marginTop: heightScale(11), borderWidth: 0}}>
                 <View style={{flexDirection: 'row'}}>
                   <View>
                     <Text style={styles.textFont}>Director </Text>
@@ -484,7 +490,7 @@ class RenderMobile extends Component {
                 </View>
               </View>
               {/* For the Rating */}
-              <View style={{marginTop: 25}}>
+              <View style={{marginTop: heightScale(25)}}>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -596,7 +602,7 @@ class RenderMobile extends Component {
                   )}
                 </View>
               </View>
-              <View style={{marginTop: 25}}>
+              <View style={{marginTop: heightScale(25)}}>
                 <Text style={styles.textFont}>Images</Text>
                 <Text />
                 <View style={{alignItems: 'center'}}>
@@ -621,7 +627,12 @@ class RenderMobile extends Component {
             </View>
           )}
         </View>
-        <View style={{marginBottom: 60, marginTop: 15, paddingHorizontal: 10}}>
+        <View
+          style={{
+            marginBottom: 60,
+            marginTop: heightScale(15),
+            paddingHorizontal: 10,
+          }}>
           <Text style={styles.textFont}>Similer title</Text>
           <View
             style={{
@@ -865,7 +876,7 @@ class RenderMobile extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-        <View style={{flex: 1, marginTop: 5}}>
+        <View style={{flex: 1, marginTop: heightScale(5)}}>
           <View style={{flex: 1}}>
             <FlatList
               scrollEnabled={this.state.parentScroll}

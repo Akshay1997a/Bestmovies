@@ -31,6 +31,7 @@ import {isAndroid} from '../helper/fonts';
 // import { SafeAreaView } from 'react-native-safe-area-context';
 import primary_regular_fonts from '../helper/fonts';
 import {WIDTH} from '../helper/globalFunctions';
+import {CloseIcon} from './Icons';
 
 export const TAB_BAR_HEIGHT = 40;
 export const STATUS_BAR_HEIGHT = isAndroid() ? RNStatusBar.currentHeight : 33;
@@ -151,10 +152,11 @@ const SearchHeader = ({onPress}) => (
       justifyContent: 'center',
       alignItems: 'center',
       height: HEADER_HEIGHT,
-      paddingHorizontal: 10,
+      paddingHorizontal: widthScale(12),
     }}>
-    <TouchableOpacity style={{marginRight: 10}} onPress={onPress}>
-      <FA5 name="chevron-left" size={25} color="#232323" />
+    <TouchableOpacity style={{marginRight: widthScale(12)}} onPress={onPress}>
+      {/* <FA name="close" size={widthScale(15)} color="#232323" /> */}
+      <CloseIcon />
     </TouchableOpacity>
     <SearchTitle placeholder="Title" />
   </View>

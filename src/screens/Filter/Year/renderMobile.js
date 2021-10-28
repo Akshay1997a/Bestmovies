@@ -10,6 +10,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  KeyboardAvoidingView,
 } from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HeaderModal from '../../../components/HeaderModal';
@@ -39,7 +40,10 @@ export default function RenderMobile(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="height"
+      keyboardVerticalOffset={50}>
       <HeaderModal title="Year of release" {...props} />
       <ScrollView contentContainerStyle={{marginHorizontal: widthScale(11)}}>
         <Button
@@ -193,7 +197,7 @@ export default function RenderMobile(props) {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
