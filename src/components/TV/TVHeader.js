@@ -36,11 +36,15 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
   // console.log('props TVHeader', props);
 
   const onFocus = useCallback((val) => {
-    props.reduxSetCurrFocus('header');
+    // props.reduxSetCurrFocus('header');
 
     setFocus(val);
   });
-
+  const onBlur = useCallback(() => {
+    // console.log('onBlur called***');
+    setFocus(-1);
+    // setIsFocus(false);
+  }, []);
   useImperativeHandle(ref, () => ({
     setResetFocus() {
       setFocus(NONE);
@@ -75,17 +79,18 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         {/* <View style={{flex: 1}} /> */}
         <Pressable
           onFocus={() => onFocus(SEARCH)}
+          onBlur={() => onBlur()}
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={[
-            props.focus === 'header' && focus == SEARCH
+            focus == SEARCH
               ? styles.itemWrapperSelectedSearch
               : styles.itemWrapperSeach,
             // {width: WIDTH * 0.1},
           ]}>
           <Image
             style={
-              props.focus === 'header' && focus == SEARCH
+            focus == SEARCH
                 ? styles.headerIconFocus
                 : selected == SEARCH
                 ? styles.headerIconSelected
@@ -123,9 +128,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
-              props.focus === 'header' && focus == MOVIES
-                ? styles.itemWrapperSelected
-                : styles.itemWrapper,
+              focus == MOVIES ? styles.itemWrapperSelected : styles.itemWrapper,
               {width: WIDTH * 0.1},
             ]
             // styles.itemWrapperSelected :
@@ -137,7 +140,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           <Text
             numberOfLines={1}
             style={
-              props.focus === 'header' && focus == MOVIES
+               focus == MOVIES
                 ? styles.focusText
                 : selected == MOVIES
                 ? styles.selectedText
@@ -153,12 +156,12 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           tvParallaxProperties={{magnification: 1.1}}
           style={
             [
-              props.focus === 'header' && focus == TV_SHOW
+              focus == TV_SHOW
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
 
-                {width: WIDTH * 0.1},
-                ,
+              {width: WIDTH * 0.1},
+              ,
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -172,7 +175,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           <Text
             numberOfLines={1}
             style={
-              props.focus === 'header' && focus == TV_SHOW
+             focus == TV_SHOW
                 ? styles.focusTextShow
                 : styles.text
               // props.focus === 90 ?
@@ -199,11 +202,10 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
-              props.focus === 'header' && focus == SHORTS
+              focus == SHORTS
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-                {width: WIDTH * 0.1},
-
+              {width: WIDTH * 0.1},
             ]
             // props.focus === 90 ?
             // styles.itemWrapper :
@@ -216,7 +218,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           <Text
             numberOfLines={1}
             style={
-              props.focus === 'header' && focus == SHORTS
+              focus == SHORTS
                 ? styles.focusText
                 : styles.text
               // props.focus === 90 ?
@@ -318,7 +320,9 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => onLocalChangeSelected()}
           // tvParallaxProperties={{magnification: 1.1}}
           style={
-            focus == MENU ? styles.itemWrapperSelectedMenu : styles.itemWrapperMenu
+            focus == MENU
+              ? styles.itemWrapperSelectedMenu
+              : styles.itemWrapperMenu
           }>
           <Image
             style={
@@ -358,7 +362,7 @@ const styles = StyleSheet.create({
   },
   bannerIcon: {
     width: StyleConfig.resWidth(210),
-    height: StyleConfig.resWidth(160) /2,
+    height: StyleConfig.resWidth(160) / 2,
   },
   itemWrapperSelected: {
     // borderWidth: 1,
@@ -487,7 +491,6 @@ const styles = StyleSheet.create({
   },
   headerIconFocus: {
     width: StyleConfig.resWidth(30),
-
 
     height: StyleConfig.resHeight(30),
     tintColor: colors.white,

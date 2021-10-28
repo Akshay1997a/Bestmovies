@@ -79,30 +79,30 @@ const MENU_DATA = [
     key: COUNTRY_LANGUAGE,
     title: strings.country_language,
   },
-  {
-    key: MOBILE_APP,
-    title: 'texts.id_16',
-  },
-  {
-    key: INVITE_FRIEND,
-    title: 'texts.id_18',
-  },
+  // {
+  //   key: MOBILE_APP,
+  //   title: 'texts.id_16',
+  // },
+  // {
+  //   key: INVITE_FRIEND,
+  //   title: 'texts.id_18',
+  // },
   {
     key: ABOUT_US,
     title: strings.about_us,
   },
-  {
-    key: ADVERTISE,
-    title: strings.advertise,
-  },
-  {
-    key: COLLABORATE,
-    title: strings.collaborate,
-  },
-  {
-    key: JOBS,
-    title: strings.jobs,
-  },
+  // {
+  //   key: ADVERTISE,
+  //   title: strings.advertise,
+  // },
+  // {
+  //   key: COLLABORATE,
+  //   title: strings.collaborate,
+  // },
+  // {
+  //   key: JOBS,
+  //   title: strings.jobs,
+  // },
   {
     key: TERMS_OF_USE,
     title: strings.terms_of_use,
@@ -131,8 +131,12 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     }
     // props.reduxSetCurrFocus('menu');
 
-    // setFocus(val);
+    setFocus(val);
   });
+  const onBlur = useCallback(() => {
+    console.log('onBlur  CommonFilterTvModal called***', focus);
+    setFocus(-1);
+  }, []);
   const onPressHandle = (val) => {
     setKey(val);
     setSelected(val);
@@ -206,27 +210,30 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         style={{
           flexDirection: 'row',
           marginLeft: StyleConfig.resWidth(20),
-          marginTop: StyleConfig.resWidth(20),
+          // marginTop: StyleConfig.resWidth(20),
           // borderWidth:1,
         }}>
         <View style={[styles.container]}>
           {MENU_DATA.map((item, index) => {
             return (
-              <View key={index} style={[{width: WIDTH * 0.28}]}>
+              <View
+                key={index}
+                style={[{width: isAndroid() ? WIDTH * 0.15 : WIDTH * 0.28}]}>
                 <Pressable
                   key={item.key}
+
                   onFocus={() => {
                     onFocus(item.key);
                     onPressHandle(item.key);
                   }}
-                  onPress={() => onPressHandle(item.key)}
+                  onBlur={onBlur}
+                  // onPress={() => onPressHandle(item.key)}
                   tvParallaxProperties={{magnification: 1.1}}
-                  style={[
+                  style={
                     focus == item.key
                       ? styles.itemWrapperSelected
-                      : styles.itemWrapper,
-                    {},
-                  ]}>
+                      : styles.itemWrapper
+                  }>
                   <Text
                     numberOfLines={1}
                     ellipsizeMode="tail"
@@ -295,7 +302,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable 
+                  style={{flexDirection: 'row'}}>
                     <>
                       {item.type == 'image' ? (
                         <Image
@@ -337,9 +345,10 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                 return (
                   <Pressable
                     style={{
-                      // flexDirection: 'row',
+                    
                       marginRight: WIDTH * 0.21,
-                    }}>
+                    }}
+                    >
                     <>
                       {/* {item.type == 'image' ? ( */}
                       <Image
@@ -350,12 +359,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                       {/* ) : ( */}
                       <Text
                         style={[
-                          // item.name == 'About us'
-                          // ?
                           styles.aboutUsTitle,
-                          // : item.subtitle1
-                          // ? styles.aboutUsSubTitle
-                          // : styles.aboutUsDetail,
                           {
                             flexWrap: 'wrap',
                           },
@@ -364,12 +368,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                       </Text>
                       <Text
                         style={[
-                          // item.name == 'About us'
-                          // ?
                           styles.aboutUsSubTitle,
-                          // : item.subtitle1
-                          // ? styles.aboutUsSubTitle
-                          // : styles.aboutUsDetail,
                           {
                             flexWrap: 'wrap',
                           },
@@ -378,18 +377,106 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                       </Text>
                       <Text
                         style={[
-                          // item.name == 'About us'
-                          // ?
                           styles.aboutUsDetail,
-                          // : item.subtitle1
-                          // ? styles.aboutUsSubTitle
-                          // : styles.aboutUsDetail,
                           {
                             flexWrap: 'wrap',
                           },
                         ]}>
                         {item.text1}
                       </Text>
+                      <Image
+                        source={AppImages.sideBarBackground}
+                        resizeMode={'stretch'}
+                        style={styles.aboutUsImg}
+                      />
+                      <Text
+                        style={[
+                          styles.aboutUsSubTitle,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.subtitle2}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.aboutUsDetail,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.text2}
+                      </Text>
+                      <Image
+                        source={AppImages.sideBarBackground}
+                        resizeMode={'stretch'}
+                        style={styles.aboutUsImg}
+                      />
+                      <Text
+                        style={[
+                          styles.aboutUsSubTitle,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.subtitle3}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.aboutUsDetail,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.text3}
+                      </Text>
+                      <Image
+                        source={AppImages.sideBarBackground}
+                        resizeMode={'stretch'}
+                        style={styles.aboutUsImg}
+                      />
+                      <Text
+                        style={[
+                          styles.aboutUsSubTitle,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.subtitle4}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.aboutUsDetail,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.text4}
+                      </Text>
+                      <Image
+                        source={AppImages.sideBarBackground}
+                        resizeMode={'stretch'}
+                        style={styles.aboutUsImg}
+                      />
+                      <Text
+                        style={[
+                          styles.aboutUsSubTitle,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.subtitle5}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.aboutUsDetail,
+                          {
+                            flexWrap: 'wrap',
+                          },
+                        ]}>
+                        {item.text5}
+                      </Text>
+
                       {/* // )} */}
                     </>
                   </Pressable>
@@ -602,33 +689,39 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
     // borderWidth:1,
+    marginTop: StyleConfig.resHeight(30),
     height: HEIGHT,
+    marginEnd: StyleConfig.resWidth(10),
+
   },
   itemWrapperSelected: {
+    // marginHorizontal:10,
+    marginVertical:StyleConfig.resHeight(10),
     backgroundColor: colors.tomatoRed,
     paddingHorizontal: isAndroid()
-      ? StyleConfig.resWidth(8)
+      ? StyleConfig.resWidth(15)
       : StyleConfig.resWidth(8),
     paddingVertical: isAndroid()
       ? StyleConfig.resWidth(2)
       : StyleConfig.resHeight(4),
-    paddingStart: StyleConfig.resHeight(15),
-    // margin: isAndroid() ? StyleConfig.resWidth(10) : StyleConfig.resWidth(4),
-    borderRadius: StyleConfig.resWidth(10),
+    paddingStart: StyleConfig.resHeight(10),
+    borderRadius: StyleConfig.resWidth(5),
   },
   itemWrapper: {
-    paddingHorizontal: StyleConfig.resWidth(10),
-    paddingVertical: StyleConfig.resWidth(10),
-    // // paddingHorizontal: isAndroid()
-    //   ? StyleConfig.resWidth(0)
-    //   : StyleConfig.resWidth(8),
-    // paddingVertical: isAndroid()
-    //   ? StyleConfig.resWidth(2)
-    //   : StyleConfig.resHeight(4),
-    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
+    // backgroundColor: colors.tomatoRed,
+    // marginHorizontal:10,
+    marginVertical:StyleConfig.resHeight(10),
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(15)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    paddingStart: StyleConfig.resHeight(10),
+    borderRadius: StyleConfig.resWidth(10),
   },
   text: {
-    width: StyleConfig.resWidth(200),
+    width: StyleConfig.resWidth(250),
     color: colors.black,
     fontSize: StyleConfig.resWidth(28),
     fontWeight: '400',
@@ -675,14 +768,12 @@ const styles = StyleSheet.create({
   },
   focusTextTitle: {
     fontSize: StyleConfig.resWidth(28),
-
     fontWeight: '700',
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
   },
   textSelected: {
     fontSize: StyleConfig.resWidth(28),
-
     fontWeight: '700',
     ...Platform.select({
       android: {
@@ -693,38 +784,57 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   aboutUsImg: {
-    height: isAndroid() ? 200 : 400,
-    width: StyleConfig.width - StyleConfig.resWidth(385),
-    borderRadius: 20,
-    marginTop: 20,
+    height: isAndroid() ? StyleConfig.resWidth(300) : 400,
+    width: WIDTH - 160,
+    borderRadius: StyleConfig.resWidth(20),
+    // marginTop: 20,
   },
   aboutUsTitle: {
-    fontSize: isAndroid() ? 20 : 40,
+    fontSize: StyleConfig.resWidth(40),
     fontWeight: '700',
-    lineHeight: 62,
     color: colors.tomatoRed,
-    marginTop: 30,
-    maxWidth: 500,
-    // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    // fontSize: isAndroid() ? 20 : 40,
+    // fontWeight: '700',
+    lineHeight:  StyleConfig.resHeight(62),
+    // color: colors.tomatoRed,
+    // marginTop: 30,
+    // maxWidth: 500,
+    // // width: StyleConfig.width - StyleConfig.resWidth(250),
+    // fontFamily: primary_regular_font.primary_regular_font,
   },
   aboutUsSubTitle: {
-    fontSize: isAndroid() ? 18 : 32,
+    fontSize: StyleConfig.resWidth(32),
     fontWeight: '700',
-    lineHeight: 42,
+    lineHeight: StyleConfig.resHeight(42),
     maxWidth: 1500,
     color: colors.black33,
-    marginVertical: 8,
+    // marginVertical: 8,
     // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   aboutUsDetail: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(26),
     fontWeight: '400',
-    lineHeight: 35,
+    lineHeight: StyleConfig.resHeight(60),
     color: colors.black33,
-    marginVertical: 8,
+    // marginVertical: 8,
     // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
   },
 });
