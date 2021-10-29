@@ -396,6 +396,7 @@ const TVCountryLanguage = (props) => {
           return (
             <View style={[{width: WIDTH * 0.27}]}>
               <Pressable
+                hasTVPreferredFocus={true}
                 onPress={() => onPressHandle(item)}
                 onFocus={() => onFocus(item.id)}
                 onBlur={onBlur}
@@ -440,6 +441,7 @@ const TVCountryLanguage = (props) => {
                 return (
                   // <ScrollView></ScrollView>
                   <Pressable
+                   hasTVPreferredFocus={true}
                     onPress={() => countryPress(code, item)}
                     onBlur={onBlur}
                     onFocus={() => onFocus(code)}

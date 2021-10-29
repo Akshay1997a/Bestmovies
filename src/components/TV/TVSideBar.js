@@ -257,7 +257,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         </View>
 
         {key == COUNTRY_LANGUAGE && (
-          <View style={[{}]} hasTVPreferredFocus={true}>
+          <View style={[{}]} >
             <TVCountryLanguage {...props} />
           </View>
         )}
