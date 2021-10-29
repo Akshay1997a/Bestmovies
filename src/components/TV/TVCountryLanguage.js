@@ -216,6 +216,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: StyleConfig.resWidth(20),
     borderLeftWidth: 1,
     borderLeftColor: colors.borderColor,
+    // borderWidth:1,
+    // marginTop: StyleConfig.resHeight(30),
+
   },
   backWrap: {
     paddingHorizontal: StyleConfig.resWidth(20),
@@ -386,7 +389,8 @@ const TVCountryLanguage = (props) => {
 
   return (
     // <ScrollView>
-    <View style={{flexDirection: 'row'}}>
+    
+    <View style={{flexDirection: 'row',marginTop: StyleConfig.resHeight(30)}}>
       <View style={styles.container}>
         {data.map((item, index) => {
           return (
@@ -420,7 +424,8 @@ const TVCountryLanguage = (props) => {
           <View
             style={{
               width: WIDTH * 0.2,
-              borderWidth:1,
+              
+              // borderWidth:1,
               height: HEIGHT-100,
               // marginLeft: isAndroid() ? 100 : 160,
               paddingLeft: StyleConfig.resWidth(20),

@@ -36,7 +36,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
   // console.log('props TVHeader', props);
 
   const onFocus = useCallback((val) => {
-    // props.reduxSetCurrFocus('header');
+    props.reduxSetCurrFocus('header');
 
     setFocus(val);
   });
