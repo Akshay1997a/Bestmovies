@@ -149,7 +149,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         let data = Object.keys(res.static_pages);
         let slug = res.language === 'en' ? data[0] : data[1];
         axios
-          .get('http://3.144.9.39:3002/static-pages?device=tv&slug=' + slug)
+          .get('http://18.119.119.183:3002/static-pages?device=tv&slug=' + slug)
           .then(function (response) {
             // handle success
             setAboutUsData(response.data.data.static_pages);
@@ -166,7 +166,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         let slug1 = res.language === 'en' ? data[1] : data[2];
 
         axios
-          .get('http://3.144.9.39:3002/static-pages?device=tv&slug=' + slug1)
+          .get('http://18.119.119.183:3002/static-pages?device=tv&slug=' + slug1)
           .then(function (response) {
             // handle success
             setTerms(response.data.data.static_pages);
