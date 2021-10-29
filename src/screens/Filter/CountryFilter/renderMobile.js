@@ -88,7 +88,7 @@ export class RenderMobile extends Component {
     let {t} = this.props;
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
         <HeaderModal title={t('texts.id_137')} {...this.props} />
         <View
           style={{
@@ -119,7 +119,9 @@ export class RenderMobile extends Component {
             />
           </View>
           <FlatList
+          bounces={false}
             showsVerticalScrollIndicator={false}
+            bounces={false}
             ItemSeparatorComponent={
               Platform.OS !== 'android' &&
               (({highlighted}) => (
@@ -143,7 +145,7 @@ export class RenderMobile extends Component {
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }

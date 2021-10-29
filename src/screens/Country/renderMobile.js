@@ -91,6 +91,7 @@ export class RenderMobile extends Component {
             onClear={this.onClearSearch}
           />
           <FlatList
+          bounces={false}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={
               Platform.OS !== 'android' &&

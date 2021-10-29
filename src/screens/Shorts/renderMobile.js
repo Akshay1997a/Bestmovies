@@ -260,6 +260,7 @@ export class RenderMobile extends Component {
               </View>
               <View style={{flex: 1}}>
                 <FlatList
+          bounces={false}
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
                   data={DATA}
@@ -273,6 +274,7 @@ export class RenderMobile extends Component {
                   <Text style={styles.textFont}>Cast</Text>
                 </View>
                 <FlatList
+          bounces={false}
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
                   data={DATA}
@@ -357,6 +359,7 @@ export class RenderMobile extends Component {
               <View style={{height: window / 2, marginTop: 25}}>
                 <Text style={styles.textFont}>Watch now</Text>
                 <FlatList
+          bounces={false}
                   showsHorizontalScrollIndicator={false}
                   horizontal={true}
                   data={DATA}

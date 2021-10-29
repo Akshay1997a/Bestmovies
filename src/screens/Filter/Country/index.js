@@ -443,6 +443,7 @@ export class Country extends Component {
     return (
       <SafeAreaView>
         <FlatList
+          bounces={false}
           margin={15}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={

@@ -43,7 +43,7 @@ export default function RenderMobile(props) {
   return (
     <View style={styles.container}>
       <HeaderModal title="Menu" {...props} />
-      <ScrollView contentContainerStyle={styles.scrollviewStyle}>
+      <ScrollView contentContainerStyle={styles.scrollviewStyle} bounces={false}>
         <PrimaryTile
           title={t('texts.id_28')}
           subTitle="United States"
