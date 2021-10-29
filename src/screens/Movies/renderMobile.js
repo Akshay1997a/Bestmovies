@@ -719,6 +719,7 @@ export class RenderMobile extends Component {
         </Modal>
         <View style={{flex: 1, marginTop: 5}}>
           <FlatList
+          bounces={false}
             key={viewStyle}
             bounces={false}
             showsVerticalScrollIndicator={false}
@@ -762,7 +763,7 @@ export class RenderMobile extends Component {
             {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
             {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
               columnWrapperStyle: {
-                marginTop: heightScale(5),
+                marginTop: heightScale(isAndroid() ? 5 : 10),
                 justifyContent: 'space-between',
               },
             })}

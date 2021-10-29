@@ -488,6 +488,7 @@ class RenderMobile extends Component {
             />
           </View>
           <FlatList
+          bounces={false}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={
               Platform.OS !== 'android' &&

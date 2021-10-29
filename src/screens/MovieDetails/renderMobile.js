@@ -879,6 +879,7 @@ class RenderMobile extends Component {
         <View style={{flex: 1, marginTop: heightScale(5)}}>
           <View style={{flex: 1}}>
             <FlatList
+          bounces={false}
               scrollEnabled={this.state.parentScroll}
               showsHorizontalScrollIndicator={false}
               horizontal={true}

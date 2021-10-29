@@ -199,6 +199,7 @@ export class RenderMobile extends Component {
     return (
       <SafeAreaView style={{width: window - 20}}>
         <FlatList
+          bounces={false}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
             Platform.OS !== 'android' &&

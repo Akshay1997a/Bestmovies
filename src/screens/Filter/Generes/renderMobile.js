@@ -438,6 +438,7 @@ export class RenderMobile extends Component {
     return (
       <SafeAreaView style={{backgroundColor: '#fff'}}>
         <FlatList
+          bounces={false}
           margin={15}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
