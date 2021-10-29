@@ -719,7 +719,7 @@ export class RenderMobile extends Component {
         </Modal>
         <View style={{flex: 1, marginTop: 5}}>
           <FlatList
-          bounces={false}
+            bounces={false}
             key={viewStyle}
             bounces={false}
             showsVerticalScrollIndicator={false}

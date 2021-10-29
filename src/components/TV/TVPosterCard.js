@@ -12,31 +12,81 @@ import {
 import colors from '../../helper/colors';
 import StyleConfig from '../../helper/StyleConfig';
 import {useHeaderHeight} from '@react-navigation/stack';
+import SVGTriangleBottom from '../../svgs/TriangleBottom';
+import SVGTriangleTop from '../../svgs/TriangleTop';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
-
-const items = [
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
+export const PROVIDER_DATA = [
   {
-    name: 'Trailer',
-    image: AppImages.play,
+    id: '1',
+    name: 'Free',
+    subName: '4k',
+    image: require('../../../assets/Providers/netflix_ic.png'),
   },
   {
+    id: '2',
     name: 'Free',
+    subName: '(ads)',
+    image: require('../../../assets/Providers/prime_ic.png'),
+  },
+  {
+    id: '3',
+    name: '$4.99',
+    subName: '',
+    image: require('../../../assets/Providers/Hulu_ic.png'),
+  },
+  {
+    id: '4',
+    name: '$5.99',
+    subName: '',
+    image: require('../../../assets/Providers/apple_ic.png'),
+  },
+  {
+    id: '4',
+    name: 'Subs.',
+    subName: '$6.99/m',
+    image: require('../../../assets/Providers/disny_ic.png'),
+  },
+].flatMap((i) => [i, i]);
+const items = [
+  // {
+  //   name: 'Trailer',
+  //   image: AppImages.play,
+  // },
+  {
+    name: 'texts.id_159',
     image: AppImages.netflix,
   },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.amazon,
   },
   {
-    name: 'Free',
+    name: 'texts.id_159',
     image: AppImages.hbo,
   },
   {
-    name: 'Ads',
+    name: 'texts.id_224',
     image: AppImages.youtube,
+  },
+  {
+    name: 'texts.id_159',
+    image: AppImages.amazon,
+  },
+  {
+    name: 'texts.id_159',
+    image: AppImages.hbo,
+  },
+  {
+    name: 'texts.id_224',
+    image: AppImages.youtube,
+  },
+  {
+    name: 'texts.id_159',
+    image: AppImages.amazon,
   },
   {
     name: '$5,99',
@@ -73,6 +123,7 @@ const TVPosterCard = ({item, ...props}) => {
 
   const headerHeight = useHeaderHeight();
   const [selected, setSelected] = useState(-1);
+
   return (
     <View style={{flexDirection: 'row'}}>
       {/* <View style={styles.viewContainer}>
@@ -94,12 +145,12 @@ const TVPosterCard = ({item, ...props}) => {
             </ImageBackground>
             </View> */}
       <View style={styles.detailViewContainer}>
-        <View style={styles.viewContainer}>
+        <View style={styles.notHighlightFocused}>
           <ImageBackground
-            style={styles.container}
-            resizeMode={'stretch'}
-            source={{uri: item.thumbnail}}>
-            <View
+            style={{width: '100%', height: '100%', borderRadius: 15,}}
+            // resizeMode={'stretch'}
+            source={AppImages[item.thumbnail]}>
+            {/* <View
               style={[
                 {
                   flex: 1,
@@ -136,166 +187,288 @@ const TVPosterCard = ({item, ...props}) => {
                   style={[{position: 'absolute', top: 28}]}
                 />
               </View>
-            </View>
+            </View> */}
           </ImageBackground>
         </View>
-        {/* <View> */}
-        {/* <Text>HI</Text>
-                <Text>HI</Text>
-                 <Text>HI</Text> */}
-        {/* </View> */}
 
-        <View style={{marginLeft: isAndroid() ? 27 : 40}}>
+        <View
+          style={{
+            marginLeft: isAndroid()
+              ? StyleConfig.resWidth(27)
+              : StyleConfig.resWidth(40),
+          }}>
           <Text numberOfLines={2} style={styles.titleText}>
             {item?.title}
           </Text>
-          <Text
-            style={[
-              {
-                fontFamily: primary_regular_font.primary_regular_font,
-                fontSize: isAndroid() ? 17 : 26,
-                fontWeight: '400',
-                color: 'white',
-              },
-            ]}>
+          <Text style={styles.subTextSecondary}>
             Name of original title if foreign
           </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text
-              style={[
-                {
-                  fontFamily: primary_regular_font.primary_regular_font,
-                  fontSize: isAndroid() ? 17 : 26,
-                  fontWeight: '400',
-                  color: 'white',
-                },
-              ]}>
-              Crime, Drama ,Thriller - 2019 - 154 min -18+
+          {/* <View
+            style={{
+              flexDirection: 'row',
+              marginTop: StyleConfig.resHeight(20),
+            }}>
+            <Text numberOfLines={1} style={styles.textSecondary}>
+              {`${t('texts.id_134')} - 2019 - 154 min -18+`}
             </Text>
-            <View style={{marginStart: 400}}>
-              <Text
-                style={[
-                  {
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 26,
-                    fontWeight: '400',
-                    color: 'white',
-                  },
-                ]}>
-                78% match - 12
-              </Text>
-            </View>
-          </View>
 
-          <View style={{flexDirection: 'row'}}>
-            <View>
+          </View> */}
+
+          <View
+            style={{
+              flexDirection: 'row',
+              // borderWidth: 1,
+              // borderColor: 'green',
+              paddingTop:StyleConfig.resHeight(20),
+              // paddingBottom:StyleConfig.resHeight(10)
+
+              // marginVertical: StyleConfig.resHeight(20),
+            }}>
+            <View
+              style={{
+                // borderWidth: 1,
+                // maxWidth: WIDTH / 2,
+                // borderColor: 'red',
+                // marginTop: StyleConfig.resHeight(20),
+              }}>
+              <Text numberOfLines={1} style={styles.textSecondary}>
+                {`${t('texts.id_134')} - 2019 - 154 min -18+`}
+              </Text>
+              {/* <View> */}
               <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 37,
-                    fontWeight: '700',
-                    color: colors.white,
-                  }}>
+                <Text style={styles.headTextSecondary}>
                   {t('professions.code_df')}:
                 </Text>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    justifyContent: 'center',
-                    alignSelf: 'center',
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 16 : 26,
-                    fontWeight: '400',
-                    color: colors.white,
-                  }}>
-                  {' '}
-                  Todd Phillips
-                </Text>
+                <Text style={styles.textSecondary}> Todd Phillips</Text>
               </View>
 
-              <View style={{flexDirection: 'row'}}>
-                <Text
-                  numberOfLines={1}
-                  style={{
-                    maxWidth: 180,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 17 : 37,
-                    fontWeight: '700',
-                    color: colors.white,
-                  }}>
-                  {t('texts.id_14')}:
+              <View
+                style={{
+                  flexDirection: 'row',
+                }}>
+                <Text numberOfLines={1} style={styles.headTextSecondary}>
+                  {t('texts.id_14')}
                 </Text>
-                <Text
-                  style={{
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid() ? 16 : 26,
-                    fontWeight: '400',
-                    color: colors.white,
-                  }}>
+                <Text numberOfLines={1} style={styles.textSecondary}>
+                  :
+                </Text>
+                <Text numberOfLines={1} style={styles.textSecondary}>
                   {' '}
                   Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy
                 </Text>
               </View>
-            </View>
-            <View
+              {/* <Text style={styles.detailsText}>
+                In Gotham City, mentally troubled comedian Arthur Fleck is
+                disregarded and mistreated by society. He then embarks on a
+                downward spiral of revolution and bloody crime. This path brings
+                him into a dangerous downward spiral of revolution and bloody
+                crime
+              </Text> */}
+              {/* </View> */}
+              {/* <View
               style={{
-                flexDirection: 'row',
                 marginTop: StyleConfig.resHeight(20),
               }}>
-              {/* <View style={{alignItems:'center', justifyContent:'center'}}>
-                        <View style={styles.ratingWrap}>
-                            <Text style={{fontFamily:primary_regular_font.primary_regular_font,textAlign:'center', color:colors.white,fontWeight:'700', fontSize:14, lineHeight:16}}>7.9</Text>
-                        </View>
-                        <Text  style={[styles.greatText]} >Great</Text>
-                    </View> */}
-
-              {/* <View>
-                        </View> */}
+              <Text
+                numberOfLines={1}
+                style={styles.textSecondary}>
+                {`78% ${t('texts.id_104')} - 12`}
+              </Text>
               <View
                 style={{
-                  marginStart: 100,
-                  borderWidth: 1,
-                  borderRadius: 4,
+                  marginStart: 120,
+                  borderWidth: 3,
+                  borderRadius: 15,
                   marginLeft: StyleConfig.resWidth(32),
                   borderColor: colors.white,
+                  paddingHorizontal: 10,
                 }}>
                 <View style={{flexDirection: 'row'}}>
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_210')}:
+                    {t('texts.id_210')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
-                  <View
-                    style={{width: 1, backgroundColor: colors.white}}></View>
+                  <View style={{width: 1, backgroundColor: colors.white}} />
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_212')}:
+                    {t('texts.id_212')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
                 </View>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', marginTop: -8}}>
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_211')}:
+                    {t('texts.id_211')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
-                  <View
-                    style={{width: 1, backgroundColor: colors.white}}></View>
+                  <View style={{width: 1, backgroundColor: colors.white}} />
                   <Text numberOfLines={1} style={styles.typeText}>
-                    {t('texts.id_213')}:
+                    {t('texts.id_213')}
                   </Text>
                   <Text style={styles.valueText}>9.0</Text>
                 </View>
               </View>
+            </View> */}
+            </View>
+            {/* <Text style={styles.detailsText}>
+                In Gotham City, mentally troubled comedian Arthur Fleck is
+                disregarded and mistreated by society. He then embarks on a
+                downward spiral of revolution and bloody crime. This path brings
+                him into a dangerous downward spiral of revolution and bloody
+                crime
+              </Text> */}
+            <View
+              style={{
+                width:Platform.OS==='android'? StyleConfig.resWidth(WIDTH - 310): StyleConfig.resWidth(WIDTH/2.8),
+                // marginTop: StyleConfig.resHeight(20),
+                marginLeft:45,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  // justifyContent: 'space-between',
+                }}>
+                <Text numberOfLines={1} style={styles.textSecondary}>
+                  {`78% ${t('texts.id_104')} - 12`}
+                </Text>
+                <Icon
+                  name={'thumbs-up'}
+                  size={
+                    isAndroid()
+                      ? StyleConfig.resWidth(24)
+                      : StyleConfig.resWidth(24)
+                  }
+                  color={'#35b736'}
+                />
+              </View>
+              <View
+                style={{
+                  borderWidth: StyleConfig.resWidth(2),
+                  borderColor: colors.white,
+                  borderRadius: StyleConfig.resWidth(10),
+                  flexDirection: 'row',
+                  // backgroundColor: '#EAF2FF',
+                  overflow: 'hidden',
+                }}>
+                <View
+                  style={{
+                    flex: 0.35,
+                    justifyContent: 'center',
+                    borderRightWidth: StyleConfig.resWidth(2),
+                    paddingHorizontal: StyleConfig.resWidth(10),
+                    borderColor: colors.white,
+                  }}>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Awards</Text>
+                      <Text style={styles.textSecondary}>9.2</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Critics</Text>
+                      <Text style={styles.textSecondary}>8.1</Text>
+                    </View>
+                  </View>
+                </View>
+                {/* <View
+                  style={{
+                    flex: 1,
+
+                    padding:StyleConfig.resWidth(6),
+                    borderRightWidth: StyleConfig.resWidth(2),
+                    borderColor: colors.white,
+                    justifyContent:'center'
+                  }}>
+                  <View style={{borderWidth:3}}>
+                    <View
+                      style={{
+
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+
+                      }}>
+                      <Text style={styles.textSecondary}>Awards</Text>
+                      <Text style={styles.textSecondary}>9.3</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+
+                      }}>
+                      <Text style={styles.textSecondary}>Critics</Text>
+                      <Text style={styles.textSecondary}>9.5</Text>
+                    </View>
+                  </View>
+                </View> */}
+                <View
+                  style={{
+                    flex: 0.35,
+                    justifyContent: 'center',
+                    paddingHorizontal: StyleConfig.resWidth(10),
+                    borderColor: colors.white,
+                  }}>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Audience</Text>
+                      <Text style={styles.textSecondary}>9.0</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text style={styles.textSecondary}>Box-Office</Text>
+                      <Text style={styles.textSecondary}>8.1</Text>
+                    </View>
+                  </View>
+                </View>
+
+                <View style={{justifyContent: 'space-between'}}>
+                  <SVGTriangleTop />
+                  <SVGTriangleBottom />
+                </View>
+                <View
+                  style={{
+                    flex: 0.3,
+                    // borderWidth: 2,
+                    backgroundColor: '#4183E2',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={styles.ratingText}>8.2</Text>
+                  <Text style={styles.ratingText}>Excellent</Text>
+                </View>
+              </View>
+              {/* <Text style={styles.textSecondary}>
+                Won 2 oscars including best director
+              </Text>
+              <Text style={styles.textSecondary}>
+                Nominated to 12 Sundance awards include best director
+              </Text> */}
             </View>
           </View>
 
-          {/* <View style={styles.spaceVertical} /> */}
-          {/* <Text style={styles.movieTypeText}>Crime, Drama -<Text style={styles.movieValueText}> US - 2019 - 154 min - Ages 18+</Text></Text> */}
-          {/* <Text style={styles.movieTypeText}>2.99 € - 23     - 78% match - Recommend  <Icon name={"share"} type={"fontawesome"} style={{fontSize:20,}} /> </Text> */}
-          {/* <View style={styles.spaceVertical} /> */}
-          {/* <Text style={styles.movieTypeText}>Director: <Text style={styles.movieValueText}>Todd Phillips</Text></Text> */}
-          {/* <Text style={styles.movieTypeText}>Cast: <Text style={styles.movieValueText}>Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy</Text></Text> */}
-          {/* <View style={styles.spaceVertical} /> */}
-          <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+              // marginTop: StyleConfig.resHeight(20),
+            }}>
             <Text style={styles.detailsText}>
               In Gotham City, mentally troubled comedian Arthur Fleck is
               disregarded and mistreated by society. He then embarks on a
@@ -303,31 +476,92 @@ const TVPosterCard = ({item, ...props}) => {
               him into a dangerous downward spiral of revolution and bloody
               crime
             </Text>
-            <View style={{marginLeft: StyleConfig.resWidth(20)}}>
-              <Text style={styles.commentText}>
-                Won 2 oscars including best director
+            <View>
+              <Text style={[styles.textSecondary,{marginTop:5}]}>
+                {
+                  'Won 2 oscars including best director\nWon 1 G. Globe including best movie'
+                }
               </Text>
-              <Text style={styles.commentText}>
-                Won 1 G. Globe including best movie
-              </Text>
+              <Text style={styles.textSecondary} />
             </View>
           </View>
 
           {/* <Text style={styles.movieTypeText}>Watch:</Text> */}
           <ScrollView horizontal contentContainerStyle={[{flexGrow: 1}]}>
-            <View style={{flexDirection: 'row', flex: 1}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                flex: 1,
+                marginTop:5,
+                width:Platform.OS==="ios"? StyleConfig.resWidth(WIDTH*0.776):StyleConfig.resWidth(WIDTH*0.8 *1.95),
+                // alignItems: 'flex-end',
+                justifyContent:'space-evenly',
+                // borderWidth: 1,
+                 //borderColor:'red'
+              }}>
               {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
-
-              {items.map((obj, ind) => (
+              <View
+                style={
+                  {
+                    // position: 'relative',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                  }
+                }>
+                <Image
+                  style={{
+                    height: StyleConfig.resHeight(66),
+                    width: StyleConfig.resWidth(66),
+                    borderRadius: StyleConfig.resWidth(10),
+                    // marginTop: StyleConfig.resHeight(10),
+                    marginRight: StyleConfig.resHeight(10),
+                  }}
+                  source={AppImages.play}
+                />
+                <Text style={[styles.sortbyButText,{marginTop:5}]}>Trailor</Text>
+              </View>
+              {PROVIDER_DATA.map((obj, ind) => (
                 <TouchableOpacity
                   onPress={() => alert('To be implemented')}
                   key={`${obj}-${ind}`}
-                  style={{margin: 4}}>
-                  <Image style={styles.watchImage} source={obj.image} />
-                  <Text style={styles.watchText}>{obj.name}</Text>
-                  {/* <Text style={styles.watchText}>/month</Text> */}
+                  // style={{margin: 4}}
+                >
+                  {/* <Image style={styles.watchImage} source={obj.image} />
+                  <Text numberOfLines={1} style={styles.watchText}>
+                    {t(obj.name)}
+                  </Text> */}
+                  <View
+                    style={{
+                      width:StyleConfig.resWidth(130),
+                      //justifyContent:"space-between",
+                      // position: 'relative',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <View style={{marginBottom: StyleConfig.resHeight(10)}}>
+                      <Image
+                        keyExtractor={obj.id}
+                        style={{
+                          height: StyleConfig.resHeight(66),
+                          width: StyleConfig.resWidth(88),
+                          borderRadius: StyleConfig.resWidth(10),
+                        }}
+                        source={obj.image}
+                      />
+                    </View>
+                    <Text style={styles.sortbyButText}>{obj.name}</Text>
+                    <Text style={styles.sortbyButText}>{obj.subName}</Text>
+                  </View>
                 </TouchableOpacity>
               ))}
+              {/* <View style={{marginTop: 25}}>
+                <Text style={styles.textFont}>Watch now</Text>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {PROVIDER_DATA.map((item, index) =>
+                    renderProviderComponent(item),
+                  )}
+                </View>
+              </View> */}
             </View>
           </ScrollView>
         </View>
@@ -343,37 +577,129 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
+  sortbyButText: {
+    color: colors.white,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontWeight: '400',
+    fontSize: StyleConfig.resWidth(24),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  notHighlightFocused: {
+    borderWidth: isAndroid()
+      ? StyleConfig.resWidth(1)
+      : StyleConfig.resWidth(0),
+    borderRadius: isAndroid()
+      ? StyleConfig.resHeight(20)
+      : StyleConfig.resHeight(30),
+    width: isAndroid() ? 180 : 360,
+    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
+    // StyleConfig.width * 0.3,
+    paddingTop:Platform.OS==="android"? 1:20,
+    overflow: 'hidden',
+  },
   viewContainer: {
     marginLeft: StyleConfig.resWidth(20),
     marginTop: StyleConfig.resHeight(20),
-    borderRadius: StyleConfig.resHeight(20),
+    borderRadius: StyleConfig.resHeight(30),
     // backgroundColor:'rgba(255,255,255,0.9)',
-    shadowColor: 'black',
-    shadowOpacity: 0.9,
-    overflow: 'hidden',
-    elevation: 10,
+    // shadowColor: 'black',
+    // shadowOpacity: 0.9,
+    // overflow: 'hidden',
+    // elevation: 10,
   },
   container: {
-    flex: 1,
-    width: StyleConfig.width * 0.2,
-    height: StyleConfig.width * 0.3,
+    // marginLeft: StyleConfig.resWidth(20),
+    // marginTop: StyleConfig.resHeight(20),
+    // borderRadius: StyleConfig.resHeight(30),
+    // flex: 1,
+    width: WIDTH * 0.19,
+    height: WIDTH * 0.3,
   },
   detailViewContainer: {
     flexDirection: 'row',
+    marginTop:Platform.OS==='ios'? StyleConfig.resHeight(-270):null,
     backgroundColor: 'rgba(0,0,0,0.33)',
     // borderRadius:StyleConfig.resHeight(20),
     flex: 1,
     // height: StyleConfig.height*0.4,
     // marginLeft:StyleConfig.resWidth(20),
-    marginTop: StyleConfig.resHeight(24),
-    marginRight: StyleConfig.resWidth(12),
-    padding: StyleConfig.resHeight(12),
-    // paddingLeft:StyleConfig.resWidth(40)
+    // marginTop: StyleConfig.resHeight(24),
+    // marginRight: StyleConfig.resWidth(12),
+    // padding: StyleConfig.resHeight(12),
+    paddingTop:Platform.OS==='android'? StyleConfig.resHeight(25):null,
+    paddingLeft: StyleConfig.resWidth(30),
+  },
+  textSecondary: {
+    // borderWidth: 1,
+    lineHeight: StyleConfig.resHeight(30),
+    color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  ratingText: {
+    // borderWidth: 1,
+    // lineHeight: StyleConfig.resHeight(18),
+    color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(26),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  subTextSecondary: {
+    marginTop: StyleConfig.resHeight(-10),
+    color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(26),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+      ios:{
+        fontFamily: primary_regular_font.primary_regular_font,
+      }
+    }),
+  },
+  headTextSecondary: {
+    lineHeight: StyleConfig.resHeight(30),
+    color: colors.white,
+    fontWeight: '700',
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: StyleConfig.resHeight(26),
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   titleText: {
-    fontSize: StyleConfig.resHeight(60),
+    marginTop:Platform.OS==="android"? StyleConfig.resHeight(-10):StyleConfig.resHeight(10),
+    // height:40,
+    // margin:10,
+    // marginBottom:-20,
+    // borderWidth: 1,
+    fontSize: StyleConfig.resWidth(60),
     fontWeight: '700',
-    fontFamily: primary_regular_font.primary_regular_font,
+    fontFamily: primary_regular_font.primary_bold_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     // textShadowColor: 'rgba(255, 255, 255, 0.75)',
     // textShadowOffset: {width: -2, height: 2},
     // textShadowRadius: 10,
@@ -396,9 +722,11 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   commentText: {
-    fontSize: StyleConfig.resHeight(20),
+    fontSize: 26,
     paddingVertical: StyleConfig.resWidth(2),
     color: colors.white,
+    fontWeight: '400',
+    fontFamily: primary_regular_font.primary_regular_font,
   },
   movieTypeText: {
     fontSize: StyleConfig.resHeight(20),
@@ -414,9 +742,11 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   detailsText: {
-    width: (StyleConfig.width - 130) / 2,
+    width:Platform.OS==='android'? WIDTH * 0.41:WIDTH * 0.386,
     fontSize: StyleConfig.resHeight(26),
-    marginTop: 4,
+    lineHeight: StyleConfig.resHeight(30),
+    // marginTop: 20,
+    // marginBottom: 20,
     color: colors.white,
     fontWeight: '400',
     fontFamily: primary_regular_font.primary_regular_font,
@@ -427,7 +757,6 @@ const styles = StyleSheet.create({
     width: StyleConfig.resWidth(34),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.blue_color,
     borderRadius: 50,
     transform: [{scaleX: 2}],
   },
@@ -451,11 +780,18 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   watchText: {
-    fontSize: StyleConfig.resHeight(18),
-    fontWeight: '500',
-    marginTop: 4,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resWidth(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+    marginTop: StyleConfig.resHeight(4),
     color: colors.white,
     textAlign: 'center',
+    // maxWidth: 110,
   },
   greatText: {
     fontSize: 22,

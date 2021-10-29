@@ -9,17 +9,22 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import Inocons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import RatingComponent from '../../svgs/TVRatingComponent';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from 'src/helper/colors';
 const {width, height} = Dimensions.get('window');
-import StyleConfig from 'src/helper/StyleConfig';
 import primary_regular_font from '../../helper/fonts';
+import StyleConfig from '../../helper/StyleConfig';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
+import {WIDTH} from '../../helper/globalFunctions';
+import {useTranslation} from 'react-i18next';
 
 let DATA = {
   name: 'Todd Phillips',
@@ -31,6 +36,7 @@ let DATA = {
 };
 
 const TVCardDetail = ({item, ...props}) => {
+  const {t} = useTranslation();
   console.log('item', item);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
@@ -45,7 +51,7 @@ const TVCardDetail = ({item, ...props}) => {
 
   const onFocus = useCallback(() => {
     // console.log('OnFocus TVCardDetail***',props);
-    // props.reduxSetCurrFocus('list')
+    props?.reduxSetCurrFocus?.('list');
     setFocus(0);
     setIsFocus(true);
   }, [0]);
@@ -61,6 +67,8 @@ const TVCardDetail = ({item, ...props}) => {
       // console.log('focus TVMovieList ');
     });
   }, []);
+
+  console.log('item.thumbnail', item.thumbnail);
   return (
     <View>
       <Pressable
@@ -83,182 +91,143 @@ const TVCardDetail = ({item, ...props}) => {
                 isFocus ? styles.highlightFocused : styles.notHighlightFocused
               }>
               <ImageBackground
-                source={{uri: item.thumbnail}}
-                style={{width: '100%', height: '100%', borderRadius: 15}}>
+                source={AppImages[item.thumbnail]}
+                style={{width: '100%', height: '100%', borderRadius:Platform.OS==='ios'?20:15,overflow:Platform.OS==="ios"? 'hidden':null}}>
                 {item.title === 'Joker' ? (
-                  <View style={styles.thumb}>
-                    <Icon
-                      name={'thumbs-down'}
-                      size={isAndroid() ? 15 : 35}
-                      color={'white'}
-                    />
-                    <View style={styles.circleShape}>
-                      <Text
-                        style={{
-                          fontFamily: primary_regular_font.primary_regular_font,
-                          fontWeight: isAndroid() ? 'bold' : '400',
-                          textAlign: 'center',
-                          fontSize: isAndroid() ? 8 : 15,
-                          color: 'white',
-                        }}>
-                        OK
-                      </Text>
-                    </View>
-                    <View style={styles.circleShape}>
-                      <Icon
-                        name={'thumbs-up'}
-                        size={isAndroid() ? 10 : 20}
-                        color={'white'}
-                      />
-                    </View>
-                    <View style={styles.circleShape}>
-                      <Icon
-                        name={'plus'}
-                        size={isAndroid() ? 10 : 20}
-                        color={'white'}
-                      />
-                    </View>
-                    <View style={styles.circleShape}>
-                      <Icon
-                        name={'share'}
-                        size={isAndroid() ? 10 : 20}
-                        color={'white'}
-                      />
-                    </View>
-                  </View>
+                  <View />
                 ) : (
-                  <View
-                    style={[
-                      {
-                        flexDirection: 'row',
-                        flex: 0.2,
-                        justifyContent: 'flex-end',
-                        marginTop: -5,
-                        marginEnd: 20,
-                      },
-                    ]}>
-                    <Icon
+                  // <View style={styles.thumb}>
+                  //   <Icon
+                  //     name={'thumbs-down'}
+                  //     size={isAndroid() ? 15 : 35}
+                  //     color={'white'}
+                  //   />
+                  //   <View style={styles.circleShape}>
+                  //     <Text
+                  //       style={{
+                  //         fontFamily: primary_regular_font.primary_regular_font,
+                  //         fontWeight: isAndroid() ? 'bold' : '400',
+                  //         textAlign: 'center',
+                  //         fontSize: isAndroid() ? 8 : 15,
+                  //         color: 'white',
+                  //       }}>
+                  //       OK
+                  //     </Text>
+                  //   </View>
+                  //   <View style={styles.circleShape}>
+                  //     <Icon
+                  //       name={'thumbs-up'}
+                  //       size={isAndroid() ? 10 : 20}
+                  //       color={'white'}
+                  //     />
+                  //   </View>
+                  //   <View style={styles.circleShape}>
+                  //     <Icon
+                  //       name={'plus'}
+                  //       size={isAndroid() ? 10 : 20}
+                  //       color={'white'}
+                  //     />
+                  //   </View>
+                  //   <View style={styles.circleShape}>
+                  //     <Icon
+                  //       name={'share'}
+                  //       size={isAndroid() ? 10 : 20}
+                  //       color={'white'}
+                  //     />
+                  //   </View>
+                  // </View>
+                  <View style={[{alignItems: 'center', marginTop: -25}]}>
+                    {/* <Icon
                       name={'bookmark'}
-                      size={isAndroid() ? 25 : 50}
-                      color={'green'}
+                      size={isAndroid() ? 50 : 100}
+                      color={'blue'}
+                      style={[{borderWidth: 1, width: 50, height: 50}]}
                     />
+                    <Icon
+                      name={'plus'}
+                      size={isAndroid() ? 10 : 50}
+                      color={'white'}
+                      style={[{position: 'absolute', top: 30}]}
+                    /> */}
                   </View>
+                  // <View
+                  //   style={[
+                  //     {
+                  //       flexDirection: 'row',
+                  //       flex: 0.2,
+                  //       justifyContent: 'flex-end',
+                  //       marginTop: -5,
+                  //       marginEnd: 20,
+                  //     },
+                  //   ]}>
+                  //   <Icon
+                  //     name={'bookmark'}
+                  //     size={isAndroid() ? 25 : 50}
+                  //     color={'green'}
+                  //   />
+                  // </View>
                 )}
               </ImageBackground>
             </View>
           </View>
           {/* //Bottom View */}
-          <View style={{flexDirection: 'row', marginLeft: 10}}>
+          <View>
             <View>
-              <Text
-                numberOfLines={1}
-                style={[
-                  {
-                    width: isAndroid() ? 150 : 300,
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    marginVertical: 5,
-                    fontSize: isAndroid()
-                      ? StyleConfig.resHeight(26)
-                      : StyleConfig.resHeight(26),
-                    fontWeight: '700',
-                    color: 'black',
-                  },
-                ]}>
+              <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
                 {item.title}
               </Text>
-              <Text
-                style={[
-                  {
-                    fontFamily: primary_regular_font.primary_regular_font,
-                    fontSize: isAndroid()
-                      ? StyleConfig.resHeight(20)
-                      : StyleConfig.resHeight(24),
-                    color: 'black',
-                    fontWeight: '400',
-                  },
-                ]}>
-                {DATA.type}
-              </Text>
-              {/* <View style={{flexDirection:'row'}}>
-                  <View>
-                          <Text style={[{
-                            fontFamily:primary_regular_font.primary_regular_font,
-                            fontSize: isAndroid() ? StyleConfig.resHeight(26) :StyleConfig.resHeight(26), 
-                            color:'black', fontWeight:'400'}]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
-                  </View>
-                  <View style={{flexDirection:'row',borderWidth:1}}>
-                        <Text style={styles.rating}>{item.DATA.rating}</Text>
-                  </View>
-               
+              <Text style={styles.typeSecondary}>{t('texts.id_129')}</Text>
 
-                </View>
-               */}
               <View
                 style={{
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: isAndroid() ? 150 : 333,
                 }}>
-                <Text
-                  style={[
-                    {
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: StyleConfig.resHeight(26),
-                      color: 'black',
-                      fontWeight: '400',
-                    },
-                  ]}>{`${DATA.bornYear} ${DATA.country}`}</Text>
-                <View
-                  style={{
-                    paddingTop: 3,
-                    alignItems: 'center',
-                    width: isAndroid() ? 20 : 50,
-                    height: isAndroid() ? 20 : 45,
-                    borderRadius: 100,
-                    transform: [{scaleX: 1.5}],
-                    backgroundColor: item.DATA.color,
-                    justifyContent: 'center',
-                  }}>
-                  <Text
+                <View style={{flex: 1}}>
+                  <View
                     style={{
-                      color: colors.white,
-                      fontWeight: '700',
-                      fontSize: StyleConfig.resHeight(20),
-                      textAlign: 'center',
-                      alignSelf: 'center',
-                      //  fontStyle : primary_regular_font.primary_regular_font
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
                     }}>
-                    {item.DATA.rating}
-                  </Text>
+                    <View>
+                      <Text style={[styles.textSecondary]}>
+                        {`${item.DATA.bornYear} ${t(item.DATA.country)}`}
+                        <AntDesign name="like1" color="#35B736" size={13} />
+                      </Text>
+                      <Text style={[styles.textSecondary]}>
+                        {`${item.DATA.match} match`}
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        flex: 0.9,
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <RatingComponent
+                        rating={item.DATA.rating}
+                        color={item.DATA.color}
+                      />
+                      <Text
+                        style={{
+                          color: item.DATA.color,
+                          fontFamily: primary_regular_font.primary_regular_font,
+                          fontSize: StyleConfig.resHeight(24),
+                          fontWeight: '400',
+                          ...Platform.select({
+                            android: {
+                              fontFamily:
+                                primary_regular_font.primary_regular_font,
+                            },
+                          }),
+                        }}>
+                        {item.DATA.feedback}
+                      </Text>
+                    </View>
+                  </View>
                 </View>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width:
-                    isAndroid() && item.DATA.feedback == 'OK'
-                      ? 150
-                      : isAndroid()
-                      ? 155
-                      : !isAndroid() && item.DATA.feedback == 'OK'
-                      ? 330
-                      : 340,
-                }}>
-                <Text
-                  style={[
-                    {
-                      // fontFamily:primary_regular_font.primary_regular_font,
-                      fontSize: StyleConfig.resHeight(26),
-                      color: 'black',
-                      fontWeight: '400',
-                    },
-                  ]}>{`${DATA.match} match`}</Text>
-                <Text style={styles.feedback}>{item.DATA.feedback}</Text>
-              </View>
-
-              {/* <View style={{alignContent:'center',justifyContent:'center'}}>
-                          </View> */}
             </View>
           </View>
         </View>
@@ -274,13 +243,103 @@ const isAndroid = () => {
 };
 
 const styles = StyleSheet.create({
-  feedback: {
-    fontFamily: primary_regular_font.primary_regular_font,
-    // marginLeft: isAndroid() ? 40 : 55 ,
-    fontSize: StyleConfig.resHeight(26),
+  textSecondary: {
+    // alignSelf:'center',
     color: colors.black,
-    fontWeight: '700',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    lineHeight:StyleConfig.resHeight(30),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
   },
+  dynTextSecondary: {
+    // alignSelf:'center',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  dynTextColor: {
+    // alignSelf:'center',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  typeSecondary: {
+    lineHeight: StyleConfig.resHeight(30),
+    color: '#000000',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(24),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+  },
+  feedback: {
+    fontSize: StyleConfig.resHeight(26),
+    color: 'black',
+    fontWeight: '400',
+  },
+  rating: {},
+  bornYear: {
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: StyleConfig.resHeight(26),
+    color: 'black',
+    fontWeight: '400',
+  },
+  match: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: isAndroid() ? 158 : 333,
+  },
+  type: {
+    // fontFamily: primary_regular_font.primary_light_font,
+    width: isAndroid() ? 158 : 333,
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: isAndroid()
+      ? StyleConfig.resHeight(24)
+      : StyleConfig.resHeight(24),
+    color: 'black',
+    fontWeight: '400',
+  },
+  title: {
+    width: StyleConfig.resWidth(356),
+    fontFamily: primary_regular_font.primary_regular_font,
+    //marginTop: StyleConfig.resHeight(10),
+    fontSize: StyleConfig.resHeight(24),
+    lineHeight:StyleConfig.resHeight(33),
+    // borderWidth:1,
+    // borderColor:'red',
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    color: 'black',
+  },
+  // feedback: {
+  //   fontFamily: primary_regular_font.primary_regular_font,
+  //   fontSize: StyleConfig.resHeight(26),
+  //   color: colors.black,
+  //   width: WIDTH * 0.06,
+  //   fontWeight: '700',
+  // },
   ok: {
     fontFamily: primary_regular_font.primary_regular_font,
     fontWeight: '800',
@@ -298,15 +357,18 @@ const styles = StyleSheet.create({
     paddingRight: isAndroid() ? 30 : 35,
     justifyContent: 'space-between',
   },
-  rating: {
-    fontFamily: primary_regular_font.primary_regular_font,
-    textAlign: 'center',
-    fontWeight: '700',
-    fontSize: isAndroid() ? 10 : 18,
-    color: 'black',
-  },
+  // rating: {
+  //   fontFamily: primary_regular_font.primary_regular_font,
+  //   textAlign: 'center',
+  //   fontWeight: '700',
+  //   fontSize: isAndroid() ? 10 : 18,
+  //   color: 'black',
+  // },
   container: {
-    marginVertical: StyleConfig.resHeight(10),
+    marginTop: StyleConfig.resHeight(10),
+    marginBottom: StyleConfig.resHeight(10),
+
+    // marginVertical: StyleConfig.resHeight(10),
     marginHorizontal: StyleConfig.resWidth(10),
   },
   ovalShapeView: {
@@ -346,24 +408,57 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   highlightFocused: {
-    borderRadius: StyleConfig.resHeight(30),
+    flex: 0,
+    justifyContent: 'center',
+    borderRadius: 8,
+    // overflow: 'hidden',
+    // borderWidth: 1,
+    // borderColor: '#fff',
+    backgroundColor: '#fff',
+    elevation: 2,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowColor: '#000',
+    shadowRadius: 3.84,
+
     width: isAndroid() ? 180 : 360,
     borderWidth: isAndroid()
       ? StyleConfig.resWidth(10)
       : StyleConfig.resWidth(10),
-    height: isAndroid() ? StyleConfig.width * 0.28 : StyleConfig.width * 0.3,
+    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.28,
     borderColor: colors.tomatoRed,
     overflow: 'hidden',
-    padding: 1,
+    // padding: 1,
     // paddingBottom:1,
     // paddingVertical:2,
     // paddingHorizontal:2
   },
   notHighlightFocused: {
-    borderRadius: StyleConfig.resHeight(20),
-    width: isAndroid() ? 180 : 360,
-    height: isAndroid() ? StyleConfig.width * 0.28 : StyleConfig.width * 0.3,
-    paddingTop: 1,
+    // style={{
+    flex: 0,
+    justifyContent: 'center',
+    borderRadius: 8,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor: '#fff',
+    elevation: 2,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowColor: '#000',
+    shadowRadius: 3.84,
+    // }}
+    // borderWidth: isAndroid()
+    //   ? StyleConfig.resWidth(1)
+    //   : StyleConfig.resWidth(0),
+    // borderRadius: isAndroid()
+    //   ? StyleConfig.resHeight(20)
+    //   : StyleConfig.resHeight(30),
+    width: isAndroid() ? 180 : 360,
+    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
+    // StyleConfig.width * 0.3,
+    // paddingTop: 1,
+    // margin:2,
+    // overflow: 'hidden',
   },
 });

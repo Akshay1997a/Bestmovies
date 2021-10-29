@@ -114,15 +114,15 @@ const TVSubscriptionRender = (props) => {
 
   const [selected, setSelected] = useState(-1);
   const [data, setData] = useState(DATA);
+  const [isFocus, setIsFocus] = useState(false);
 
   const [focus, setFocus] = useState(false);
   const onFocus = useCallback(() => {
-    console.log('onFocus');
+    console.log('onFocus----->>>>>>');
     setFocus(true);
     //   onFocusedItem(item)
   });
   const onPressClick = (val) => {
-    console.log('onPressClick TVSubscriptionRender***', val);
     props.action(val);
   };
 
@@ -144,186 +144,223 @@ const TVSubscriptionRender = (props) => {
   //     fetchData();
   //   }, [])
   return (
-    <ScrollView
-    // showsVerticalScrollIndicator={true}
-    >
-      <View
-        style={{
-          flexDirection: 'row',
-          borderColor: 'red',
-          marginBottom: isAndroid() ? 0 : 10,
-        }}>
+    // <ScrollView
+    // // showsVerticalScrollIndicator={true}
+    // >
+    <Pressable
+      onBlur={() => setFocus(false)}
+      onPress={() => onPressClick(props.item)}
+      onFocus={() => {
+        setFocus(true);
+        // onFocus();
+        setFocus(props.item.id);
+      }}>
+      <View style={focus ? styles.itemWrapperSelected : styles.itemWrapper}>
         {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
 
         {/* {
             props.item.map((obj, ind)=>( */}
 
-        <Pressable
-          onBlur={() => setFocus(false)}
-          onPress={() => onPressClick(props.item)}
-          onFocus={() => setFocus(props.item.id)}
-          style={
-            props.item.id == focus
-              ? {borderRadius: 10, backgroundColor: colors.tomatoRed}
-              : {}
-          }>
-          <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
-            {props.item.selected ? (
-              <Image
-                style={{
-                  height: 40,
-                  position: 'absolute',
-                  left: 70,
-                  top: 40,
-                  width: 40,
-                }}
-                source={AppImages.check_red}
-              />
-            ) : null}
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            zIndex: isAndroid()
+              ? StyleConfig.resWidth(10)
+              : StyleConfig.resWidth(100),
+            // elevation: 2,
+          }}>
+          {props.item.selected ? (
+            <Image
+              style={{
+                height: StyleConfig.resHeight(44),
+                position: 'absolute',
+                left: StyleConfig.resWidth(70),
+                top: StyleConfig.resHeight(40),
+                width: StyleConfig.resWidth(66),
+              }}
+              source={AppImages.check_red}
+            />
+          ) : null}
+        </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => alert('To be implemented')}>
-            <View
+        <TouchableOpacity>
+          <View
+            style={
+              isAndroid()
+                ? {flexDirection: 'row', justifyContent: 'center'}
+                : {
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                  }
+            }>
+            <Image style={styles.watchImage} source={props.item.image} />
+            <Text
               style={
-                isAndroid()
-                  ? {flexDirection: 'row', alignItems: 'center'}
-                  : {
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      alignContent: 'center',
-                      alignItems: 'center',
-                    }
+                focus == props.item.id
+                  ? styles.focusText
+                  : props.item.selected
+                  ? styles.selectedText
+                  : styles.text
               }>
-              <Image style={styles.watchImage} source={props.item.image} />
-              <Text
-                style={
-                  focus == props.item.id
-                    ? styles.focusText
-                    : props.item.selected
-                    ? styles.selectedText
-                    : styles.text
-                }>
-                {props.item.name}
-              </Text>
-            </View>
+              {props.item.name}
+            </Text>
+          </View>
 
-            {/* <Text style={styles.watchText}>/month</Text> */}
-          </TouchableOpacity>
-        </Pressable>
+          {/* <Text style={styles.watchText}>/month</Text> */}
+        </TouchableOpacity>
 
         {/* // ))
             // } */}
       </View>
-    </ScrollView>
+    </Pressable>
+
+    // </ScrollView>
   );
 };
 
 const TVSubscription = (props) => {
-  const onPressClick = (val) => {
-    let data = items[val.id];
-    val.selected = true;
-    props.action(props.items);
-
-    // for (const element of items) {
-    //     if(element.id == val.id){
-    //         if(element.selected){
-    //             element.selected = false;
-    //         }else{
-    //             element.selected = true
-    //         }
-    //         console.log('element***',element);
-    //     }
-    // }
+  const onPressClick = (index) => {
+    props.action(index);
   };
 
   return (
     <FlatList
       hasTVPreferredFocus={true}
-      //    contentContainerStyle={{paddingBottom:50}}
-      //    keyExtractor={(item, index) => `item${index}`}
       numColumns={5}
-      data={props.items}
-      renderItem={({item}) => (
-        <TVSubscriptionRender item={item} type="movie" action={onPressClick} />
-      )}
+      data={items}
+      renderItem={({item, index}) => {
+        return (
+          <TVSubscriptionRender
+            item={item}
+            type="movie"
+            onFocus={props?.onFocus}
+            action={() => onPressClick(index)}
+          />
+        );
+      }}
     />
   );
 };
 
 export default TVSubscription;
 const styles = StyleSheet.create({
+  container: {
+    // paddingHorizontal:10,
+    width: StyleConfig.resWidth(270),
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    // borderWidth: 1,
+    backgroundColor: colors.tomatoRed,
+    marginRight: StyleConfig.resWidth(26),
+    // paddingVertical: StyleConfig.resWidth(5),
+    // flexDirection: 'row',
+    // borderColor: 'red',
+    // marginBottom: isAndroid() ? 0 : 10,
+  },
   scrollView: {
     backgroundColor: 'pink',
     // marginHorizontal: 20,
   },
   itemWrapperSelected: {
+    // justifyContent: 'center',
+    // paddingHorizontal: StyleConfig.resWidth(30),
+    // paddingVertical: StyleConfig.resWidth(6),
+    // marginLeft: 20,
+    // backgroundColor: colors.tomatoRed,
+    borderRadius: StyleConfig.resHeight(10),
+    // // minWidth:  StyleConfig.resWidth(60),
+    // alignItems: 'center',
+    width: StyleConfig.resWidth(230),
     justifyContent: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    // marginHorizontal: 18,
-    backgroundColor: colors.tomatoRed,
-    borderRadius: 30,
-    minWidth: 60,
+    alignContent: 'center',
     alignItems: 'center',
+    // borderWidth: 1,
+    backgroundColor: colors.tomatoRed,
+    marginRight: StyleConfig.resWidth(26),
+    // paddingVertical: StyleConfig.resWidth(5),
   },
   itemWrapper: {
-    //   borderWidth:1,
+    // borderWidth:1,
+    // justifyContent: 'center',
+    // paddingHorizontal: StyleConfig.resWidth(12),
+    // paddingVertical: StyleConfig.resWidth(6),
+    // marginHorizontal: 18,
+    // // minWidth: StyleConfig.resWidth(60),
+    // alignItems: 'center',
+    // borderRadius: StyleConfig.resHeight(10),
+    width: StyleConfig.resWidth(230),
     justifyContent: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    // marginHorizontal:18,
-    minWidth: 60,
+    alignContent: 'center',
     alignItems: 'center',
+    // borderWidth: 1,
+    // backgroundColor:colors.tomatoRed,
+    marginRight: StyleConfig.resWidth(26),
+    // marginVertical: StyleConfig.resWidth(5),
   },
   watchImage: {
     // borderWidth:1,
-    width: isAndroid() ? 60 : StyleConfig.resWidth(95),
-    height: isAndroid()
-      ? StyleConfig.resHeight(120 / 2)
-      : StyleConfig.resHeight(60),
-    borderRadius: isAndroid() ? 5 : 10,
-    marginLeft: 10,
-    marginVertical: isAndroid() ? 5 : 5,
+    paddingVertical: StyleConfig.resWidth(2),
+    width: StyleConfig.resWidth(95),
+    height: StyleConfig.resWidth(63),
+    borderRadius: StyleConfig.resWidth(6),
+    marginLeft: StyleConfig.resWidth(6),
+    marginVertical: StyleConfig.resWidth(6),
     // paddingTop:40
   },
   focusText: {
-    // borderWidth:1,
-
+    alignSelf: 'center',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 14 : StyleConfig.resHeight(24),
+    fontSize: StyleConfig.resWidth(24),
     fontWeight: '400',
-    // borderWidth:1,
-    // marginTop:4,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
     color: colors.white,
-    // textAlign:"center",
-    marginLeft: 10,
-    width: isAndroid() ? 100 : 150,
+    marginLeft: StyleConfig.resWidth(10),
+    // width: isAndroid() ? StyleConfig.resWidth(100) : StyleConfig(150),
 
-    // width: isAndroid()?100 : 100,
+    width: StyleConfig.resWidth(120),
   },
   text: {
+    alignSelf: 'center',
     // borderWidth:1,
     // height: isAndroid()? 35:80,
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 14 : StyleConfig.resHeight(26),
+    fontSize: StyleConfig.resWidth(24),
     fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
     // borderWidth:1,
     // marginTop:isAndroid()? 10:10,
     color: '#999999',
-
-    marginLeft: 10,
-    width: isAndroid() ? 100 : 150,
+    width: StyleConfig.resWidth(120),
+    marginLeft: StyleConfig.resWidth(10),
   },
 
   selectedText: {
+    alignSelf: 'center',
+
+    // borderWidth: 1,
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 14 : StyleConfig.resHeight(26),
+    fontSize: StyleConfig.resHeight(24),
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     // borderWidth:1,
     // marginTop:4,
     color: colors.tomatoRed,
     // textAlign:"center",
-    marginLeft: 10,
-    width: isAndroid() ? 100 : 150,
+    marginLeft: StyleConfig.resWidth(10),
+    width: StyleConfig.resWidth(120),
   },
 });

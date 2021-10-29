@@ -4,7 +4,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react';
-import {View, Pressable, StyleSheet, Text, Image} from 'react-native';
+import {View, Pressable, StyleSheet, Text, Image, Platform} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import colors from '../../helper/colors';
 import strings from '../../helper/strings';
@@ -14,6 +14,7 @@ import primary_regular_font from '../../helper/fonts';
 import Const from '../../helper/constants';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
+import AppImages from '../../assets';
 
 const ICON_SIZE = 24;
 let [
@@ -112,9 +113,9 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
 
   const onFocus = useCallback((val) => {
     console.log('onFocus TVSideBar>>>', val);
-    props.reduxSetCurrFocus('menu');
+    // props.reduxSetCurrFocus('menu');
 
-    setFocus(val);
+    // setFocus(val);
   });
   const onPressHandle = (val) => {
     setKey(val);
@@ -133,52 +134,34 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   console.log(props.headerSelected, MENU_DATA);
   return (
     <>
-      {/* {props.headerSelected == PROFILE ? 
-            <View style={styles.container}>
-                {PROFILE_DATA.map((item, index) => {
-                    return (
-                        <Pressable
-                            key={item.key}
-                            onFocus={() => onFocus(item.key)}
-                            onPress={() => onChangeSelected(item.key)}
-                            tvParallaxProperties={{ magnification: 1.1 }}
-                            style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                            <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
-                        </Pressable>
-                    )
-                })}
-
-            </View> : */}
-
-      {/* props.headerSelected == MENU ? */}
       <View
         style={{
           flexDirection: 'row',
-          marginLeft: 30,
+          marginLeft: StyleConfig.resWidth(20),
+          marginTop: StyleConfig.resWidth(20),
         }}>
         <View style={[styles.container]}>
           {MENU_DATA.map((item, index) => {
             return (
-              <View
-                key={index}
-                style={[{width: WIDTH * 0.18, marginRight: 30}]}>
+              <View key={index} style={[{width: WIDTH * 0.28}]}>
                 <Pressable
                   key={item.key}
                   onFocus={() => {
                     onFocus(item.key);
+                    onPressHandle(item.key);
                   }}
                   onPress={() => onPressHandle(item.key)}
                   tvParallaxProperties={{magnification: 1.1}}
                   style={[
-                    props.focus === 'menu' && focus == item.key
+                    focus == item.key
                       ? styles.itemWrapperSelected
                       : styles.itemWrapper,
                     {},
                   ]}>
                   <Text
-                    numberOfLines={1}
+                    // numberOfLines={1}
                     style={
-                      props.focus === 'menu' && focus == item.key
+                      focus == item.key
                         ? styles.focusText
                         : selected == item.key
                         ? styles.selectedText
@@ -198,19 +181,11 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
 
         {key == COUNTRY_LANGUAGE && (
           <View style={[{}]} hasTVPreferredFocus={true}>
-            <TVCountryLanguage {...props}></TVCountryLanguage>
-            {/* <FlatList 
-                data={COLLABORATE_DATA}
-                keyExtractor={(item, index) => `item${index}`}
-                renderItem={({item})=>{
-                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} /> : 
-                  <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
-                }}
-              /> */}
+            <TVCountryLanguage {...props} />
           </View>
         )}
         {key == MOBILE_APP && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={Const.MOBILE_APP}
               keyExtractor={(item, index) => `item${index}`}
@@ -220,20 +195,20 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
                       ) : (
                         <Text
-                          style={
+                          style={[
                             item.type == 'title'
                               ? styles.aboutUsTitle
                               : item.type == 'subtitle'
                               ? styles.aboutUsSubTitle
-                              : styles.aboutUsDetail
-                          }>
-                          {item.data}
+                              : styles.aboutUsDetail,
+                          ]}>
+                          {t(item.data)}
                         </Text>
                       )}
                     </>
@@ -244,7 +219,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == INVITE_FRIEND && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={Const.INVITE}
               keyExtractor={(item, index) => `item${index}`}
@@ -254,12 +229,16 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
                       ) : (
                         <Text
+                          // numberOfLines={
+                          //   (item.type == 'title' || item.type == 'subtitle') &&
+                          //   1
+                          // }
                           style={
                             item.type == 'title'
                               ? styles.aboutUsTitle
@@ -267,7 +246,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                               ? styles.aboutUsSubTitle
                               : styles.aboutUsDetail
                           }>
-                          {item.data}
+                          {t(item.data)}
                         </Text>
                       )}
                     </>
@@ -279,7 +258,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         )}
 
         {key == ABOUT_US && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               contentContainerStyle={[{}]}
               data={Const.ABOUT_US}
@@ -294,7 +273,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
@@ -321,29 +300,33 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == ADVERTISE && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={ADVERTISE}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable
+                    style={{flexDirection: 'row', marginRight: WIDTH * 0.21}}>
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
                       ) : (
                         <Text
-                          style={
+                          style={[
                             item.type == 'title'
                               ? styles.aboutUsTitle
                               : item.type == 'subtitle'
                               ? styles.aboutUsSubTitle
-                              : styles.aboutUsDetail
-                          }>
+                              : styles.aboutUsDetail,
+                            {
+                              flexWrap: 'wrap',
+                            },
+                          ]}>
                           {item.data}
                         </Text>
                       )}
@@ -355,17 +338,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == COLLABORATE && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={COLLABORATE_DATA}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable
+                    style={{flexDirection: 'row', marginRight: WIDTH * 0.21}}>
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
@@ -389,17 +373,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == JOBS && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={JOBS_DATA}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable
+                    style={{flexDirection: 'row', marginRight: WIDTH * 0.21}}>
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
@@ -423,17 +408,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == TERMS_OF_USE && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={TERMS_OF_USE_DATA}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable
+                    style={{flexDirection: 'row', marginRight: WIDTH * 0.21}}>
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
@@ -457,17 +443,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
         {key == PRIVACY_POLICY && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={PRIVACY_POLICY_DATA}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable
+                    style={{flexDirection: 'row', marginRight: WIDTH * 0.21}}>
                     <>
                       {item.type == 'image' ? (
                         <Image
-                          source={{uri: item.data}}
+                          source={AppImages.sideBarBackground}
                           resizeMode={'stretch'}
                           style={styles.aboutUsImg}
                         />
@@ -491,24 +478,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           </View>
         )}
       </View>
-      {/* :
-
-                <View style={styles.container}>
-                    {DATA.map((item, index) => {
-                        return (
-                            <Pressable
-                                key={item.key}
-                                onFocus={() => onFocus(item.key)}
-                                onPress={() => onChangeSelected(item.key)}
-                                tvParallaxProperties={{ magnification: 1.1 }}
-                                style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                                <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
-                                <Text style={focus == item.key ? styles.focusText : styles.text}>{item.details}</Text>
-                            </Pressable>
-                        )
-                    })}
-
-                </View>} */}
     </>
   );
 });
@@ -520,65 +489,97 @@ const isAndroid = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-
-    // padding:16,
-    // paddingRight: 21,
   },
   itemWrapperSelected: {
-    // paddingHorizontal: isAndroid() ? 0 : 12,
-    paddingVertical: isAndroid() ? 0 : 6,
-    // marginHorizontal: isAndroid() ? 0 : 6,
     backgroundColor: colors.tomatoRed,
-    borderRadius: 30,
-    // minWidth:60,
-    marginVertical: isAndroid() ? 0 : 20,
-    // justifyContent:'center',
-    // alignItems:'center'
+    paddingHorizontal: isAndroid()
+      ? StyleConfig.resWidth(8)
+      : StyleConfig.resWidth(8),
+    paddingVertical: isAndroid()
+      ? StyleConfig.resWidth(2)
+      : StyleConfig.resHeight(4),
+    paddingStart: StyleConfig.resHeight(15),
+    // margin: isAndroid() ? StyleConfig.resWidth(10) : StyleConfig.resWidth(4),
+    borderRadius: StyleConfig.resWidth(10),
   },
   itemWrapper: {
-    // paddingHorizontal: isAndroid() ? 0 : 12,
-    paddingVertical: isAndroid() ? 0 : 6,
-    // marginHorizontal: isAndroid() ? 0 : 6,
-    marginVertical: 5,
+    paddingHorizontal: StyleConfig.resWidth(10),
+    paddingVertical: StyleConfig.resWidth(10),
+    // // paddingHorizontal: isAndroid()
+    //   ? StyleConfig.resWidth(0)
+    //   : StyleConfig.resWidth(8),
+    // paddingVertical: isAndroid()
+    //   ? StyleConfig.resWidth(2)
+    //   : StyleConfig.resHeight(4),
+    margin: isAndroid() ? StyleConfig.resWidth(0) : StyleConfig.resWidth(4),
   },
   text: {
     color: colors.black,
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '400',
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_light_font,
+      },
+    }),
   },
   selectedText: {
-    fontSize: isAndroid() ? 12 : 32,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '700',
     color: colors.tomatoRed,
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   focusText: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
-    paddingLeft: 10,
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    // paddingLeft: 10,
   },
   textTitle: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
     fontFamily: primary_regular_font.primary_regular_font,
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
   },
   focusTextTitle: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
   },
   textSelected: {
-    fontSize: isAndroid() ? 16 : 27,
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
   },
   aboutUsImg: {
     height: isAndroid() ? 200 : 400,
-    width: StyleConfig.width - StyleConfig.resWidth(250),
+    width: StyleConfig.width - StyleConfig.resWidth(385),
     borderRadius: 20,
     marginTop: 20,
   },
@@ -588,6 +589,7 @@ const styles = StyleSheet.create({
     lineHeight: 62,
     color: colors.tomatoRed,
     marginTop: 30,
+    maxWidth: 500,
     // width: StyleConfig.width - StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
   },
@@ -595,6 +597,7 @@ const styles = StyleSheet.create({
     fontSize: isAndroid() ? 18 : 32,
     fontWeight: '700',
     lineHeight: 42,
+    maxWidth: 1500,
     color: colors.black33,
     marginVertical: 8,
     // width: StyleConfig.width - StyleConfig.resWidth(250),
@@ -603,7 +606,7 @@ const styles = StyleSheet.create({
   aboutUsDetail: {
     fontSize: isAndroid() ? 16 : 26,
     fontWeight: '400',
-    lineHeight: 30,
+    lineHeight: 35,
     color: colors.black33,
     marginVertical: 8,
     // width: StyleConfig.width - StyleConfig.resWidth(250),

@@ -108,7 +108,9 @@ export default function RenderTV(props) {
               <Text style={[styles.Text, styles.M10]}>Filter</Text>
             </View>
           </View>
-          <Text style={styles.TitleSecondary}>#1 of 87 filtered results</Text>
+          <Text style={styles.TitleSecondary}>
+            #1 of 87 filtered {t('texts.id_91')}
+          </Text>
           <Text />
           <CardView />
         </View>

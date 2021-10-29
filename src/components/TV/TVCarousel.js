@@ -24,6 +24,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import strings from '../../helper/strings';
 import AppImages from '../../assets';
 import {useTranslation} from 'react-i18next';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 
 // import {
 //   View,
@@ -39,18 +40,171 @@ import {useTranslation} from 'react-i18next';
 
 // } from 'react-native';
 // import TVPosterCard from '../../components/TV/TVPosterCard'
+const CAST = [
+  {
+    id: 1,
+    feedback: 'texts.id_214',
+    rating: '123',
+    name: 'Todd Phillips',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#868686',
+    thumbnail: 'cast2',
+  },
+  {
+    id: 2,
+    feedback: 'texts.id_214',
+    rating: '57',
+    name: 'Jaqquin Phoenix',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: colors.black,
+    thumbnail: 'cast5',
+  },
+  {
+    id: 3,
+    feedback: 'texts.id_214',
+    rating: '8',
+    name: 'Robert Denaro',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: colors.black,
+    thumbnail: 'cast4',
+  },
+  {
+    id: 4,
+    feedback: 'texts.id_214',
+    rating: '473',
+    name: 'Brett Cullin',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#868686',
+    thumbnail: 'cast3',
+  },
+  {
+    id: 5,
+    feedback: 'texts.id_214',
+    rating: '12,50',
+    name: 'ShiaWigham',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#4183e2',
+    thumbnail: 'cast4',
+  },
+  {
+    id: 6,
+    feedback: 'texts.id_214',
+    rating: '24,85',
+    name: 'Todd Phillips',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#35b736',
+    thumbnail: 'cast5',
+  },
+
+  {
+    id: 7,
+    feedback: 'texts.id_214',
+    rating: '128',
+    name: 'Todd Phillips',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#35b736',
+    thumbnail: 'cast5',
+  },
+  {
+    id: 8,
+    feedback: 'texts.id_214',
+    rating: '128',
+    name: 'Todd Phillips',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#35b736',
+    thumbnail: 'cast3',
+  },
+  {
+    id: 9,
+    feedback: 'texts.id_214',
+    rating: '128',
+    name: 'Todd Phillips',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#35b736',
+    thumbnail: 'cast2',
+  },
+  {
+    id: 10,
+    feedback: 'texts.id_214',
+    rating: '128',
+    name: 'Todd Phillips',
+    type: 'texts.id_129',
+    country: 'countries.code_US',
+    dob: '1927',
+    bornYear: '2019 -',
+    match: '78% match - 12 ',
+    follower: '5.7',
+    designation: 'texts.id_12',
+    color: '#35b736',
+    thumbnail: 'cast4',
+  },
+];
 
 const ENTRIES1 = [
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
+  // {
+  //   title: 'Beautiful and dramatic Antelope Canyon',
+  //   subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+  //   illustration: 'https://i.imgur.com/UYiroysl.jpg',
+  // },
+  // {
+  //   title: 'Beautiful and dramatic Antelope Canyon',
+  //   subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+  //   illustration: 'https://i.imgur.com/UYiroysl.jpg',
+  // },
   {
     title: 'Earlier this morning, NYC',
     subtitle: 'Lorem ipsum dolor sit amet',
@@ -106,7 +260,8 @@ const MyCarousel = ({item, posts, ...props}) => {
         <ImageBackground
           source={{uri: item.illustration}}
           containerStyle={styles.imageContainer}
-          style={styles.image}></ImageBackground>
+          style={[styles.image]}
+        />
         {/* <Text style={styles.title} numberOfLines={2}>
           {item.title}
         </Text> */}
@@ -114,23 +269,25 @@ const MyCarousel = ({item, posts, ...props}) => {
       </View>
     );
   };
-  const bottomRenderItem = ({item, index}, parallaxProps) => {
+  const bottomRenderItem = (
+    // item,
+    // index,
+    {item, index},
+  ) => {
+    console.log('item daaaaaaa', item);
     return (
-      <View style={styles.secondItem}>
-        <Image
-          source={{uri: item.illustration}}
-          // containerStyle={styles.imageContainer}
-          style={styles.bottomImage}></Image>
-        {/* <Text style={styles.title} numberOfLines={2}>
-          {item.title}
-        </Text> */}
-        {/* <TVPosterCard item={item} {...props} /> */}
-      </View>
+      // <View style={styles.secondItem}>
+      <Image
+        source={{uri: item.illustration}}
+        // containerStyle={styles.imageContainer}
+        style={[styles.bottomImage]}
+      />
+      // </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {}]}>
       <ScrollView>
         <TouchableOpacity onPress={goForward}>
           {/* <Text>go to next slide</Text> */}
@@ -141,13 +298,14 @@ const MyCarousel = ({item, posts, ...props}) => {
           autoplayDelay={4000}
           autoplay={true}
           ref={carouselRef}
-          sliderWidth={screenWidth}
-          sliderHeight={screenWidth}
+          sliderWidth={WIDTH}
+          sliderHeight={HEIGHT}
           itemWidth={screenWidth}
           data={entries}
           renderItem={renderItem}
           // hasParallaxImages={true}
         />
+
         <View style={[styles.item, {position: 'absolute', zIndex: 1}]}>
           <Pressable
             onFocus={onFocus}
@@ -170,52 +328,87 @@ const MyCarousel = ({item, posts, ...props}) => {
           <View
             style={[
               styles.item,
-              {position: 'absolute', top: isAndroid() ? 160 : 450},
+              {
+                position: 'absolute',
+                top: isAndroid()
+                  ? StyleConfig.resHeight(130)
+                  : StyleConfig.resHeight(450),
+                bottom: 0,
+                marginTop: HEIGHT * 0.33,
+              },
             ]}>
             <TVPosterCard item={item} {...props} />
           </View>
         </View>
-
-        <Carousel
-          //  vertical={3}
-          loop={true}
-          autoplayDelay={4000}
-          // autoplay={true}
-          ref={carouselRef}
-          sliderWidth={screenWidth}
-          // sliderHeight={100}
-          itemWidth={isAndroid() ? 190 : 400}
-          itemHeight={110}
-          data={entries}
-          renderItem={bottomRenderItem}
-          // hasParallaxImages={true}
-        />
-        <View style={{flexDirection: 'row'}}>
-          <View style={{marginTop: isAndroid() ? 6 : 16}}>
-            <Text numberOfLines={1} style={styles.director}>
-              {t('professions.code_df')}:
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <TVCast item={item} {...props} image={item.director_image} />
-            </View>
-          </View>
-          <View
-            style={{
-              marginTop: isAndroid() ? 6 : 16,
-              marginLeft: isAndroid() ? 10 : 30,
-            }}>
-            <Text numberOfLines={1} style={styles.cast}>
-              {t('texts.id_14')}:
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              {item.actors_image.map((obj, ind) => (
-                <TVCast item={item} {...props} image={obj} />
-              ))}
-            </View>
-          </View>
+        <View>
+          {/* <Carousel
+            slideInterpolatedStyle={_animatedStyles}
+            useScrollView={true}
+            layout={'default'}
+            autoplay={false}
+            loop={true}
+            data={
+              currentListing.attributes.publicData.videoUrls?.length > 0 &&
+              currentListing.attributes.publicData.videoUrls[0]?.link
+                ? [currentListing.attributes.publicData.videoUrls, ...images]
+                : images
+            }
+            sliderWidth={width}
+            itemWidth={width}
+            renderItem={_renderItem}
+            onSnapToItem={(index) => {
+              setPaginationState(index), setPaginationStateM(index);
+            }}
+          /> */}
+          <Carousel
+            slideInterpolatedStyle={_animatedStyles}
+            //  vertical={3}
+            loop={true}
+            autoplayDelay={400}
+            autoplay={true}
+            ref={carouselRef}
+            sliderWidth={WIDTH}
+            sliderHeight={HEIGHT}
+            itemWidth={isAndroid()?StyleConfig.resWidth(480):StyleConfig.resWidth(480)}
+            itemHeight={isAndroid()?StyleConfig.resHeight(360):StyleConfig.resHeight(360)}
+            data={entries}
+            renderItem={bottomRenderItem}
+            hasParallaxImages={true}
+          />
+          {/* <FlatList
+            contentContainerStyle={[{flex: 1, flexDirection: 'row'}]}
+            data={entries}
+            renderItem={bottomRenderItem}
+          /> */}
         </View>
+        <ScrollView horizontal={true}>
+          <View style={{flexDirection: 'row', paddingLeft: 10}}>
+            <View style={{marginTop: isAndroid() ? 6 : 16}}>
+              <Text numberOfLines={1} style={styles.director}>
+                {t('professions.code_df')}
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <TVCast item={CAST[0]} {...props} image={item.director_image} />
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: isAndroid() ? 6 : 16,
+                marginLeft: isAndroid() ? 10 : 30,
+              }}>
+              <Text numberOfLines={1} style={styles.director}>
+                {t('texts.id_14')}
+              </Text>
 
-        <View style={{flexDirection: 'row'}}>
+              <View style={{flexDirection: 'row'}}>
+                {CAST.map((obj, ind) => (
+                  <TVCast item={obj} type={'movie'} />
+                ))}
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+        <View style={{flexDirection: 'row', paddingLeft: 10}}>
           <View style={{marginTop: isAndroid() ? 0 : 0}}>
             <Text numberOfLines={1} style={styles.similar_titles}>
               {t('texts.id_230')}
@@ -266,7 +459,38 @@ export default MyCarousel;
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
+const _animatedStyles = (index, animatedValue, carouselProps) => {
+  return;
+  // const sizeRef = carouselProps.vertical ? carouselProps.itemHeight : carouselProps.itemWidth;
+  // const translateProp = carouselProps.vertical ? 'translateY' : 'translateX';
 
+  // return {
+  //     zIndex: carouselProps.data.length - index,
+  //     opacity: animatedValue.interpolate({
+  //         inputRange: [2, 3],
+  //         outputRange: [1, 0]
+  //     }),
+  //     transform: [{
+  //         rotate: animatedValue.interpolate({
+  //             inputRange: [-1, 0, 1, 2, 3],
+  //             outputRange: ['0deg', '0deg', '0deg', '0deg', '0deg'],
+
+  //         })
+  //     }, {
+  //         [translateProp]: animatedValue.interpolate({
+  //             inputRange: [-1, 0, 1, 2, 3],
+  //             outputRange: [
+  //                 -sizeRef,
+  //                 -sizeRef,
+  //                 -sizeRef, // centered
+  //                 -sizeRef, // centered
+  //                 -sizeRef // centered
+  //             ],
+  //             extrapolate: 'clamp'
+  //         })
+  //     }]
+  // };
+};
 const styles = StyleSheet.create({
   similar_titles: {
     fontFamily: primary_regular_font.primary_regular_font,
@@ -277,10 +501,16 @@ const styles = StyleSheet.create({
     maxWidth: 400,
   },
   director: {
-    fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: isAndroid() ? 17 : 37,
-    marginLeft: 12,
+    //marginTop:Platform.OS==='ios'?65:null,
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: StyleConfig.resWidth(37.33),
+    marginLeft: StyleConfig.resWidth(12),
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: colors.black,
   },
   cast: {
@@ -299,8 +529,10 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   item: {
-    width: screenWidth,
-    height: isAndroid() ? screenWidth - 500 : 1000,
+    width: WIDTH,
+    height: HEIGHT,
+    // backgroundColor: 'red',
+    // isAndroid() ? screenWidth - 500 : 1000,
   },
   secondItem: {
     // marginTop:40,
@@ -318,23 +550,27 @@ const styles = StyleSheet.create({
     // resizeMode: 'cover',
   },
   bottomImage: {
-    // resizeMode: 'cover',
-    width: isAndroid() ? 210 : 400,
-    height: 400,
+    //resizeMode:"cover",
+    width:isAndroid()? StyleConfig.resWidth(480):StyleConfig.resWidth(480),
+    height:isAndroid()? StyleConfig.resHeight(360):StyleConfig.resHeight(360),
   },
   notfocusbackWrap: {
-    paddingHorizontal: StyleConfig.resWidth(8),
+    margin: StyleConfig.resWidth(30),
+    // paddingHorizontal: StyleConfig.resWidth(8),
     paddingVertical: StyleConfig.resHeight(4),
     // margin: 4,
     // marginLeft:10,
   },
   focusBackWrap: {
-    width: 100,
+    margin: StyleConfig.resWidth(30),
+    width: StyleConfig.resWidth(60),
+    height: StyleConfig.resWidth(60),
+    borderRadius: StyleConfig.resWidth(35),
     backgroundColor: colors.tomatoRed,
     // paddingHorizontal: isAndroid() ? 0: StyleConfig.resWidth(8),
     // paddingVertical:  isAndroid() ? 0:StyleConfig.resHeight(4),
     // margin: isAndroid() ? 0:4,
-    borderRadius: 10,
+    // borderRadius: 10,
 
     // marginLeft:10,
   },

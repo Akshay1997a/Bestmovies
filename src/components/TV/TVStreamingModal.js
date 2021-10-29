@@ -62,7 +62,7 @@ const TVStreamingModal = (props) => {
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
       title={'Sort'}>
-      <ScrollView>
+      {/* <ScrollView> */}
         {data.map((item, index) => {
           return (
             <Pressable
@@ -91,7 +91,7 @@ const TVStreamingModal = (props) => {
             </Pressable>
           );
         })}
-      </ScrollView>
+      {/* </ScrollView> */}
     </StreamModal>
   );
 };

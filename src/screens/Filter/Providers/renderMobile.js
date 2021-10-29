@@ -338,7 +338,7 @@ export class RenderMobile extends Component {
           </Text>
           <ScrollView nestedScrollEnabled={true}>
             <FlatList
-          bounces={false}
+              bounces={false}
               showsVerticalScrollIndicator={true}
               ItemSeparatorComponent={
                 Platform.OS !== 'android' &&

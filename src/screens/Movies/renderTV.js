@@ -64,6 +64,7 @@ export class RenderTV extends Component {
       shearModal: false,
     };
   }
+
   rendeDirector = (data) => (
     <TouchableOpacity style={styles.directorContainer}>
       <Image style={styles.directorImage} source={data.image} />

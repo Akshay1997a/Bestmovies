@@ -155,7 +155,7 @@ class Filter extends React.Component {
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Year')}
             style={{
               ...styles.butContainer,
@@ -171,7 +171,7 @@ class Filter extends React.Component {
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <Icon {...iconStyle} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Provider')}
             style={styles.butContainer}>

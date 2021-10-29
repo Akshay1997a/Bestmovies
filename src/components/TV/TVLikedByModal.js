@@ -79,7 +79,6 @@ const TVLikedByModal = (props) => {
   //             setData(resJson)
   //         }).catch(e => console.log(e));
   //     }
-
   //     fetchData();
   //   }, [])
   return (

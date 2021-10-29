@@ -1,4 +1,5 @@
 import React, {useState, useCallback} from 'react';
+
 import {
   View,
   Text,
@@ -14,7 +15,7 @@ import StyleConfig from '../../helper/StyleConfig';
 import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
   {id: 0, name: 'Quality'},
@@ -52,18 +53,14 @@ const heightLayout = (title) => {
 
 const styles = StyleSheet.create({
   backWrap: {
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
-    marginLeft: 10,
+    paddingHorizontal: StyleConfig.resWidth(10),
+    paddingVertical: StyleConfig.resHeight(8),
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
-    paddingHorizontal: StyleConfig.resWidth(8),
-    paddingVertical: StyleConfig.resHeight(4),
-    margin: 4,
-    borderRadius: 10,
-    marginLeft: 10,
+    paddingHorizontal: StyleConfig.resWidth(10),
+    paddingVertical: StyleConfig.resHeight(8),
+    borderRadius: StyleConfig.resWidth(20),
   },
   highlightFocused: {
     height: 20,
@@ -107,10 +104,47 @@ const CommonFilterTvModal = (props) => {
     <BaseModal visible={props?.visible} oncloseModal={props.oncloseModal}>
       <View
         style={{
-          minWidth: isAndroid() ? 250 : 500,
+          minWidth:
+            isAndroid() && props.title == 'Sort by'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Release year'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Genres'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Country of origin'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Age rating'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Price'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Your country'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'From'
+              ? StyleConfig.resWidth(500)
+              : 200,
+          maxHeight:
+            isAndroid() && props.title == 'Sort by'
+              ? HEIGHT * 0.3
+              : props.title == 'Release year'
+              ? HEIGHT * 0.67
+              : props.title == 'Genres'
+              ? HEIGHT * 0.8
+              : props.title == 'Country of origin'
+              ? HEIGHT * 0.8
+              : props.title == 'Age rating'
+              ? HEIGHT * 0.8
+              : props.title == 'Price'
+              ? HEIGHT * 0.6
+              : props.title == 'Your country'
+              ? HEIGHT * 0.8
+              : props.title == 'From'
+              ? HEIGHT * 0.6
+              : 200,
+
+          // : HEIGHT * 0.9,
           backgroundColor: colors.white,
-          maxHeight: heightLayout(props.title),
-          borderRadius: 10,
+          // maxHeight: heightLayout(props.title),
+          borderRadius: StyleConfig.resWidth(20),
           paddingVertical: 10,
           paddingStart: 5,
         }}>
@@ -133,15 +167,21 @@ const CommonFilterTvModal = (props) => {
           <Text
             numberOfLines={1}
             style={{
-              fontFamily: primary_regular_font.primary_regular_font,
-              fontSize: isAndroid() ? 17 : 34,
+              fontFamily: primary_regular_font.primary_bold_font,
+              fontSize: StyleConfig.resWidth(34),
               fontWeight: '700',
+              ...Platform.select({
+                android: {
+                  fontFamily: primary_regular_font.primary_light_font,
+                },
+              }),
               textAlign: 'center',
-              maxWidth: WIDTH * 0.2,
+              // maxWidth: WIDTH * 0.2,
             }}>
             {props?.title}
           </Text>
-          <View style={{width: StyleConfig.resWidth(36), margin: 4}} />
+          <View style={{width: StyleConfig.resWidth(36), margin: 4}}
+           />
         </View>
         {props?.children}
       </View>
