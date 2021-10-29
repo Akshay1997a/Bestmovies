@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 // Imports: Redux Store
 import store from './redux/store';
 import Loader from './components/Loader';
-
+//test
 // React Native App
 export default function App() {
   console.log('App()......');
