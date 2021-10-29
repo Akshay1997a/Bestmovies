@@ -344,7 +344,7 @@ class Filter extends React.Component {
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.textTitle}>
             {t('texts.id_167')}
           </Text>
-          <View style={{marginTop: 10}}>
+          <View style={{marginTop: heightScale(4)}}>
             <View
               style={{
                 flex: 1,
@@ -365,6 +365,7 @@ class Filter extends React.Component {
               style={{
                 flex: 1,
                 flexDirection: 'row',
+                marginTop: heightScale(9),
               }}>
               <Switch
                 value={this.props.filterConfig.previouslyBrowsed}
@@ -381,7 +382,7 @@ class Filter extends React.Component {
             </View>
           </View>
           <TouchableOpacity
-            style={{padding: 5}}
+            style={{padding: 5, marginTop: heightScale(16)}}
             onPress={() => this.props.clearFilter()}>
             <Text
               numberOfLines={1}
@@ -454,10 +455,12 @@ const styles = StyleSheet.create({
   },
   butContainer: {
     flexDirection: 'row',
-    paddingVertical: heightScale(10),
+    // paddingVertical: heightScale(10),
     marginBottom: 1,
     borderBottomWidth: 1,
     borderBottomColor: '#eeeeee',
+    minHeight: heightScale(54),
+    marginTop: heightScale(7),
   },
   headerRightContainer: {
     flexDirection: 'row',

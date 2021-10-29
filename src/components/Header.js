@@ -155,8 +155,7 @@ const SearchHeader = ({onPress}) => (
       paddingHorizontal: widthScale(12),
     }}>
     <TouchableOpacity style={{marginRight: widthScale(12)}} onPress={onPress}>
-      {/* <FA name="close" size={widthScale(15)} color="#232323" /> */}
-      <CloseIcon />
+      <FA name="close" size={widthScale(15)} color="#232323" />
     </TouchableOpacity>
     <SearchTitle placeholder="Title" />
   </View>
@@ -195,7 +194,6 @@ function TopBar(props) {
       scrollEnabled={props.scrollEnabled}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={[
-        {paddingHorizontal: 10},
         styles.TopBarScrollContainer,
         (props.scrollEnabled === undefined || !props.scrollEnabled) && {
           width: '100%',
@@ -231,6 +229,7 @@ function TabButton({title, index, onPress, ...rest}) {
       <View
         style={[
           styles.TabButStyle,
+          rest.tabButStyle,
           rest.scrollEnabled && {width: SCREEN_WIDTH / 4},
           state.index === index && styles.TabButActive,
         ]}>
