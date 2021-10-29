@@ -33,11 +33,11 @@ import primary_regular_fonts from '../helper/fonts';
 import {WIDTH} from '../helper/globalFunctions';
 import {CloseIcon} from './Icons';
 
-export const HEADER_HEIGHT = isAndroid() ? 40 : 45;
 export const TAB_BAR_HEIGHT = 40;
-export const STATUS_BAR_HEIGHT = RNStatusBar.currentHeight;
+export const STATUS_BAR_HEIGHT = isAndroid() ? RNStatusBar.currentHeight : 33;
+export const HEADER_HEIGHT = isAndroid() ? heightScale(40) : heightScale(40);
 export const TOTAL_HEADER_HEIGHT =
-  HEADER_HEIGHT + TAB_BAR_HEIGHT + (isAndroid() ? STATUS_BAR_HEIGHT : 48);
+  HEADER_HEIGHT + TAB_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('screen');
 export const HEADER_TYPE = {
@@ -64,7 +64,7 @@ export default function Header(props) {
       <Animated.View
         style={[
           styles.headerContainer,
-          {paddingTop: inset.top, transform: [{translateY: translateY}]},
+          {paddingTop: inset.top - heightScale(15), transform: [{translateY: translateY}]},
         ]}>
         {headerType === undefined || headerType === HEADER_TYPE.DEFAULT ? (
           <DefaultHeader navigate={(name) => navigate(name)} />
