@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   InteractionManager,
+  StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CardView from '../Movies/CardView';
@@ -16,6 +17,8 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import primart_font, {isAndroid} from '../../helper/fonts';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 export function RenderMobile() {
   const [isLoaded, setLoaded] = useState(false);
@@ -36,21 +39,34 @@ export function RenderMobile() {
       style={{
         flex: 1,
         backgroundColor: '#fff',
-        paddingHorizontal: 10,
         paddingTop: TOTAL_HEADER_HEIGHT,
       }}>
-      <View style={{marginBottom: 10, flex: 5.7, backgroundColor: '#fff'}}>
-        <View style={{flexDirection: 'row', padding: 3, alignItems: 'center'}}>
-          <Text style={{fontSize: 15, fontWeight: '700', marginLeft: 2}}>
-            Recent searches
-          </Text>
-        </View>
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <CardView />
-        </View>
+      <View style={{paddingHorizontal: widthScale(10)}}>
+        <Text style={styles.title}>Recent searches</Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          paddingHorizontal: widthScale(10),
+        }}>
+        <CardView />
       </View>
     </KeyboardAvoidingView>
   );
 }
 
 export default RenderMobile;
+
+const styles = StyleSheet.create({
+  title: {
+    fontFamily: primart_font.primary_bold_font,
+    fontSize: fontScale(16),
+    // lineHeight: heightScale(15),
+    color: '#333333',
+    height: heightScale(19),
+    width: widthScale(355),
+    ...(!isAndroid() && {
+      fontWeight: '700',
+    }),
+  },
+});

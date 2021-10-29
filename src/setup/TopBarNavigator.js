@@ -15,6 +15,7 @@ import {
 import Search from '../screens/Search';
 import {useTranslation} from 'react-i18next';
 import primary_regular_font from '../helper/fonts';
+import {fontScale, widthScale} from '../helper/ResponsiveFonts';
 
 const isAndroid = () => Platform.OS === 'android';
 
@@ -57,6 +58,7 @@ export function TopBarMainNavigator(props) {
             fontWeight: '400',
           }),
         },
+        style: {paddingHorizontal: widthScale(10)},
         tabStyle: {padding: 0},
       }}>
       <Tab.Screen name={t('texts.id_2')} children={MoviesStack} />
@@ -91,8 +93,11 @@ export function TopBarSearchNavigator(props) {
         indicatorStyle: {backgroundColor: '#ff000'},
         activeTintColor: '#ff000',
         inactiveTintColor: 'black',
+        style: {
+          marginLeft: widthScale(39),
+        },
         labelStyle: {
-          fontSize: 14,
+          fontSize: fontScale(15),
           color: '#000',
           fontFamily: primary_regular_font.primary_regular_font,
           ...(!isAndroid() && {
@@ -100,10 +105,15 @@ export function TopBarSearchNavigator(props) {
           }),
         },
         tabStyle: {padding: 0},
+        tabButStyle: {
+          flex: 0,
+          width: widthScale(72),
+        },
       }}>
       {/* <Tab.Screen name={'Title'} children={Search} /> */}
       <Tab.Screen name={t('texts.id_38')} component={Search} />
       <Tab.Screen name={t('texts.id_41')} component={Search} />
+      <Tab.Screen name={'User'} component={Search} />
     </Tab.Navigator>
   );
 }
@@ -121,6 +131,7 @@ export function TopBarSecondaryNavigator(props) {
         indicatorStyle: {backgroundColor: '#ff0000'},
         activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
+        style: {paddingHorizontal: widthScale(10)},
         labelStyle: {
           fontSize: 14,
           color: '#000',
