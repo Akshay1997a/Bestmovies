@@ -41,7 +41,12 @@ export function RenderMobile() {
         backgroundColor: '#fff',
         paddingTop: TOTAL_HEADER_HEIGHT,
       }}>
-      <View style={{paddingHorizontal: widthScale(10)}}>
+      <View
+        style={{
+          paddingHorizontal: widthScale(10),
+          height: heightScale(30),
+          justifyContent: 'center',
+        }}>
         <Text style={styles.title}>Recent searches</Text>
       </View>
       <View

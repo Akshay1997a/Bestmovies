@@ -212,7 +212,7 @@ export class RenderMobile extends Component {
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={{
-            marginTop: 10,
+            marginTop: heightScale(5),
             justifyContent: 'space-between',
           }}
         />

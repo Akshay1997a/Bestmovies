@@ -35,7 +35,7 @@ import {bindActionCreators} from 'redux';
 import {getTranslateFile} from '../../network/requests';
 import {runTimeTranslations} from '../../i18n';
 import {withTranslation} from 'react-i18next';
-import primary_regular_font, { isAndroid } from '../../helper/fonts';
+import primary_regular_font, {isAndroid} from '../../helper/fonts';
 import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;

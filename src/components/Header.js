@@ -64,7 +64,10 @@ export default function Header(props) {
       <Animated.View
         style={[
           styles.headerContainer,
-          {paddingTop: inset.top - heightScale(15), transform: [{translateY: translateY}]},
+          {
+            paddingTop: isAndroid() ? inset.top : inset.top - heightScale(15),
+            transform: [{translateY: translateY}],
+          },
         ]}>
         {headerType === undefined || headerType === HEADER_TYPE.DEFAULT ? (
           <DefaultHeader navigate={(name) => navigate(name)} />
@@ -153,9 +156,10 @@ const SearchHeader = ({onPress}) => (
       alignItems: 'center',
       height: HEADER_HEIGHT,
       paddingHorizontal: widthScale(12),
+      paddingTop: 5,
     }}>
     <TouchableOpacity style={{marginRight: widthScale(12)}} onPress={onPress}>
-      <FA name="close" size={widthScale(15)} color="#232323" />
+      <CloseIcon />
     </TouchableOpacity>
     <SearchTitle placeholder="Title" />
   </View>
@@ -189,35 +193,30 @@ function TopBar(props) {
   // }, [index]);
 
   return (
-    <ScrollView
-      horizontal={true}
-      scrollEnabled={props.scrollEnabled}
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={[
-        styles.TopBarScrollContainer,
-        (props.scrollEnabled === undefined || !props.scrollEnabled) && {
-          width: '100%',
-        },
-        props.style,
-      ]}>
-      {routes.map((item, ind) => (
-        <TabButton
-          key={item.key}
-          title={item.name}
-          index={ind}
-          onPress={() => navigateTo(ind)}
-          {...props}
-        />
-      ))}
-      {/* <Animated.View
-        style={[
-          indicatorStyle,
-          styles.indicatorStyle,
-          {width: SCREEN_WIDTH / indicatorSpan - 20},
-          {transform: [{translateX: indicatorAnim}]},
-        ]}
-      /> */}
-    </ScrollView>
+    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <ScrollView
+        horizontal={true}
+        scrollEnabled={props.scrollEnabled}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={[
+          styles.TopBarScrollContainer,
+          (props.scrollEnabled === undefined || !props.scrollEnabled) && {
+            width: '100%',
+          },
+          props.style,
+        ]}>
+        {routes.map((item, ind) => (
+          <TabButton
+            key={item.key}
+            title={item.name}
+            index={ind}
+            onPress={() => navigateTo(ind)}
+            {...props}
+          />
+        ))}
+      </ScrollView>
+      {props.rightBut}
+    </View>
   );
 }
 

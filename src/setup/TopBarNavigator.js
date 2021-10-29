@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useState} from 'react';
 import Movies from '../screens/Movies';
 import Directors from '../screens/Directors';
@@ -7,7 +8,15 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import About from '../screens/About';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import Header, {HEADER_HEIGHT, HEADER_TYPE} from '../components/Header';
-import {Animated, StyleSheet, Dimensions, Platform} from 'react-native';
+import {
+  Animated,
+  StyleSheet,
+  Dimensions,
+  Platform,
+  View,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import {
   AnimationContext,
   useAnimationProvider,
@@ -15,7 +24,7 @@ import {
 import Search from '../screens/Search';
 import {useTranslation} from 'react-i18next';
 import primary_regular_font from '../helper/fonts';
-import {fontScale, widthScale} from '../helper/ResponsiveFonts';
+import {fontScale, heightScale, widthScale} from '../helper/ResponsiveFonts';
 
 const isAndroid = () => Platform.OS === 'android';
 
@@ -90,11 +99,26 @@ export function TopBarSearchNavigator(props) {
         />
       )}
       tabBarOptions={{
+        rightBut: (
+          <TouchableOpacity style={{marginRight: widthScale(12)}}>
+            <View>
+              <Image
+                source={require('../../assets/Icons/filter_ic.png')}
+                style={{
+                  width: widthScale(20),
+                  height: heightScale(18),
+                  opacity: 0.2,
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+        ),
         indicatorStyle: {backgroundColor: '#ff000'},
         activeTintColor: '#ff000',
         inactiveTintColor: 'black',
         style: {
           marginLeft: widthScale(39),
+          marginRight: widthScale(12),
         },
         labelStyle: {
           fontSize: fontScale(15),
