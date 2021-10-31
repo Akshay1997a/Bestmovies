@@ -163,14 +163,6 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               {width: WIDTH * 0.1},
               ,
             ]
-            // props.focus === 90 ?
-            // styles.itemWrapper :
-            // focus == TV_SHOW ?
-            //  styles.itemWrapperSelected
-            //  : styles.itemWrapper
-
-            // focus == TV_SHOW
-            // ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             numberOfLines={1}
@@ -178,63 +170,34 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
              focus == TV_SHOW
                 ? styles.focusTextShow
                 : styles.text
-              // props.focus === 90 ?
-              // styles.text :
-              // focus == TV_SHOW
-              //   ? styles.focusText
-              //   : selected == TV_SHOW
-              //   ? styles.selectedText
-              //   : styles.text
-              // focus == TV_SHOW
-              //   ? styles.focusText
-              //   : selected == TV_SHOW
-              //   ? styles.selectedText
-              //   : styles.text
             }>
             {t('texts.id_4')}
           </Text>
         </Pressable>
 
+        
         <Pressable
           onFocus={() => onFocus(SHORTS)}
           onPress={() => onLocalChangeSelected()}
-          onPress={() => alert('Test')}
-          // tvParallaxProperties={{magnification: 1.1}}
+          tvParallaxProperties={{magnification: 1.1}}
           style={
             [
               focus == SHORTS
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-              {width: WIDTH * 0.1},
-            ]
-            // props.focus === 90 ?
-            // styles.itemWrapper :
-            // focus == SHORTS ?
-            //  styles.itemWrapperSelected
-            //  : styles.itemWrapper
 
-            // focus == SHORTS ? styles.itemWrapperSelected : styles.itemWrapper
+              {width: WIDTH * 0.1},
+              ,
+            ]
           }>
           <Text
             numberOfLines={1}
             style={
-              focus == SHORTS
-                ? styles.focusText
+             focus == SHORTS
+                ? styles.focusTextShow
                 : styles.text
-              // props.focus === 90 ?
-              // styles.text :
-              // focus == SHORTS
-              //   ? styles.focusText
-              //   : selected == SHORTS
-              //   ? styles.selectedText
-              //   : styles.text
-              // focus == SHORTS
-              //   ? styles.focusText
-              //   : selected == SHORTS
-              //   ? styles.selectedText
-              //   : styles.text
             }>
-            {t('texts.id_6')}
+            {t('texts.id_4')}
           </Text>
         </Pressable>
 

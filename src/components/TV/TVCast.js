@@ -71,14 +71,8 @@ const TVCast = (props) => {
           <View hasTVPreferredFocus={false}>
             <View style={styles.notHighlightFocused}>
               <ImageBackground
-                source={
-                  props?.type == 'movie'
-                    ? AppImages[props.item.thumbnail]
-                    : AppImages[props.image]
-                  // {
-                  //     uri: props.image,
-                  //   }
-                }
+                              source={{ uri: props.item.photo_url }}
+
                 style={{
                   width: '100%',
                   height: '100%',
@@ -94,7 +88,7 @@ const TVCast = (props) => {
                 {props.item.name}
               </Text>
               <Text style={styles.typeSecondary}>
-                {t(props.item.designation)}
+                {t(props.item.professions)}
               </Text>
 
               <View
@@ -110,7 +104,7 @@ const TVCast = (props) => {
                       justifyContent: 'space-between',
                     }}>
                     <Text style={[styles.textSecondary]}>
-                      {t(props.item.country)}
+                      {t(props.item.country_cd)}
                       {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
                     </Text>
                     <Text style={[styles.textSecondary]}>
@@ -139,7 +133,7 @@ const TVCast = (props) => {
                       justifyContent: 'space-between',
                     }}>
                     <Text style={[styles.textSecondary,]}>
-                      {`${t('texts.id_215')} ${props.item.dob}`}
+                      {`${t('texts.id_215')} ${props.item.birth_year}`}
                       {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
                     </Text>
                     <RatingComponent

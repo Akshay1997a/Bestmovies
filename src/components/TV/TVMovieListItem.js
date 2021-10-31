@@ -9,6 +9,8 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import axios from 'axios';
+
 import Inocons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/TVRatingComponent';
@@ -48,7 +50,23 @@ const TVCardDetail = ({item, ...props}) => {
       // saving error
     }
   };
+const getMovies = () =>{
+  axios
+  .get('http://18.119.119.183:3003/titles?device=tv&output=bas&limit=' + 8)
+  .then(function (response) {
+    // handle success
+    // setAboutUsData(response.data.data.static_pages);
 
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+}
   const onFocus = useCallback(() => {
     // console.log('OnFocus TVCardDetail***',props);
     props?.reduxSetCurrFocus?.('list');
@@ -91,14 +109,18 @@ const TVCardDetail = ({item, ...props}) => {
                 isFocus ? styles.highlightFocused : styles.notHighlightFocused
               }>
               <ImageBackground
-                source={AppImages[item.thumbnail]}
+                // source={AppImages[item.thumbnail]}
+                // source={item.image_url}
+                // source={{uri:'https://engineering.fb.com/wp-content/uploads/2016/04/yearinreview.jpg'}}
+                source={{ uri: item.image_url }}
+
                 style={{
                   width: '100%',
                   height: '100%',
                   borderRadius: Platform.OS === 'ios' ? 20 : 15,
                   overflow: Platform.OS === 'ios' ? 'hidden' : null,
                 }}>
-                {item.title === 'Joker' ? (
+                {item.local_title === 'Joker' ? (
                   <View />
                 ) : (
                   // <View style={styles.thumb}>
@@ -179,13 +201,14 @@ const TVCardDetail = ({item, ...props}) => {
           <View>
             <View>
               <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-                {item.title}
+                {item.local_title}
               </Text>
               <Text
                 ellipsizeMode="tail"
                 numberOfLines={1}
                 style={styles.typeSecondary}>
-                {t('texts.id_129')}
+                {/* {t('texts.id_129')} */}
+                {item.genres}
               </Text>
 
               <View
@@ -199,15 +222,26 @@ const TVCardDetail = ({item, ...props}) => {
                       justifyContent: 'space-between',
                     }}>
                     <View>
-                      <Text
+                    <Text
                         style={[styles.textSecondary]}
                         ellipsizeMode="tail"
                         numberOfLines={1}>
-                        {`${item.DATA.bornYear} ${t(item.DATA.country)}`}
-                        <AntDesign name="like1" color="#35B736" size={13} />
+                        {item.year + ' - ' +item.origins}
+                
+                          {/* {item.year} */}
+                        {/* {t(item.year)} */}
+                        {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
                       </Text>
+                      
+                      {/* <Text
+                        style={[styles.textSecondary]}
+                        ellipsizeMode="tail"
+                        numberOfLines={1}>
+                        {item.box_office_rating}
+                        <AntDesign name="like1" color="#35B736" size={13} />
+                      </Text> */}
                       <Text style={[styles.textSecondary]}>
-                        {`${item.DATA.match} match`}
+                        {`${item.price} match`}
                       </Text>
                     </View>
 
@@ -218,14 +252,12 @@ const TVCardDetail = ({item, ...props}) => {
                         alignContent: 'center',
                         alignItems: 'center',
                       }}>
-                      <RatingComponent
-                        rating={item.DATA.rating}
-                        color={item.DATA.color}
+                       <RatingComponent
+                        rating={item.rating}
+                        color={'red'}
                       />
-                      <Text
+                      {/* <Text
                         style={{
-    // width: StyleConfig.resWidth(200),
-
                           color: item.DATA.color,
                           fontFamily: primary_regular_font.primary_regular_font,
                           fontSize: StyleConfig.resHeight(24),
@@ -238,7 +270,7 @@ const TVCardDetail = ({item, ...props}) => {
                           }),
                         }}>
                         {item.DATA.feedback}
-                      </Text>
+                      </Text> */} 
                     </View>
                   </View>
                 </View>
