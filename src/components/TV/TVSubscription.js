@@ -3,6 +3,8 @@ import React, {
   useCallback,
   forwardRef,
   useImperativeHandle,
+  useEffect,
+  useSelector,
 } from 'react';
 import {
   View,
@@ -23,6 +25,13 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import StreamModal from './StreamModal';
 import primary_regular_font from '../../helper/fonts';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {
+  getProvidersList
+} from "../../network/requests.ts";
+import { State } from 'react-native-gesture-handler';
+import { logOnConsole } from '../../helper/globalFunctions';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -40,8 +49,8 @@ const items = [
     selected: false,
   },
   {id: 2, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 3, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 4, name: 'Netflix', image: AppImages.netflix, selected: false},
+  {id: 3, name: 'Netflix', image: AppImages.netflix, selected: true},
+  {id: 4, name: 'Netflix', image: AppImages.netflix, selected: true},
   {id: 5, name: 'Disney+', image: AppImages.disnep, selected: false},
   {id: 6, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
   {
@@ -66,12 +75,12 @@ const items = [
   {id: 16, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
   {id: 17, name: 'Disney+', image: AppImages.disnep, selected: false},
   {id: 18, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 18,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
+  // {
+  //   id: 18,
+  //   name: 'Netflix',
+  //   image: AppImages.netflix,
+  //   selected: false,
+  // },
   {id: 19, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
   {id: 20, name: 'HBO', image: AppImages.hbo, selected: false},
   {id: 21, name: 'Disney+', image: AppImages.disnep, selected: false},
@@ -112,7 +121,7 @@ const items = [
 const TVSubscriptionRender = (props) => {
   // console.log('props',props);
 
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSelected] = useState(false);
   const [data, setData] = useState(DATA);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -124,6 +133,7 @@ const TVSubscriptionRender = (props) => {
   });
   const onPressClick = (val) => {
     props.action(val);
+    setSelected(true);
   };
 
   const onBlur = useCallback(() => {
@@ -131,18 +141,8 @@ const TVSubscriptionRender = (props) => {
 
     setFocus(false);
   }, []);
-  // useEffect(() => {
 
-  //     async function fetchData() {
-  //         fetch('https://60cde54091cc8e00178dc16b.mockapi.io/generes')
-  //         .then(res => res.json())
-  //         .then(resJson => {
-  //             setData(resJson)
-  //         }).catch(e => console.log(e));
-  //     }
-
-  //     fetchData();
-  //   }, [])
+  
   return (
     // <ScrollView
     // // showsVerticalScrollIndicator={true}
@@ -152,7 +152,7 @@ const TVSubscriptionRender = (props) => {
       onPress={() => onPressClick(props.item)}
       onFocus={() => {
         setFocus(true);
-        // onFocus();
+        // onFocus(true);
         setFocus(props.item.id);
       }}>
       <View style={focus ? styles.itemWrapperSelected : styles.itemWrapper}>
@@ -170,11 +170,13 @@ const TVSubscriptionRender = (props) => {
           }}>
           {props.item.selected ? (
             <Image
+            resizeMode="contain"
               style={{
-                height: StyleConfig.resHeight(44),
+                height: StyleConfig.resHeight(40),
                 position: 'absolute',
-                left: StyleConfig.resWidth(70),
-                top: StyleConfig.resHeight(40),
+                alignSelf:'flex-end',
+                // left: StyleConfig.resWidth(10),
+                top: StyleConfig.resHeight(38),
                 width: StyleConfig.resWidth(66),
               }}
               source={AppImages.check_red}
@@ -222,13 +224,26 @@ const TVSubscriptionRender = (props) => {
 const TVSubscription = (props) => {
   const onPressClick = (index) => {
     props.action(index);
+    logOnConsole('data',index);
   };
+   ///const data = useSelector(state => state.state)
+  const [item,setItem] = useState([]);
 
+  useEffect(() => {
+    //logOnConsole('call streem modal');
+    console.log('call streem modal');
+    props.getProvidersList((res) => {
+    // console.log('provider respone', res.data.providers);
+     setItem(res.data);
+   });
+  }, []);
+  
+  //console.log("hello item providers",item.providers);
   return (
     <FlatList
       hasTVPreferredFocus={true}
       numColumns={5}
-      data={items}
+      data={item.providers}
       renderItem={({item, index}) => {
         return (
           <TVSubscriptionRender
@@ -242,8 +257,18 @@ const TVSubscription = (props) => {
     />
   );
 };
+//const mapStateToProps = state => ({providerData:state.providerData});
 
-export default TVSubscription;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getProvidersList,
+    },
+    dispatch,
+  );
+};
+
+export default connect(null,mapDispatchToProps) (TVSubscription);
 const styles = StyleSheet.create({
   container: {
     // paddingHorizontal:10,
@@ -302,7 +327,6 @@ const styles = StyleSheet.create({
     // marginVertical: StyleConfig.resWidth(5),
   },
   watchImage: {
-    // borderWidth:1,
     paddingVertical: StyleConfig.resWidth(2),
     width: StyleConfig.resWidth(95),
     height: StyleConfig.resWidth(63),

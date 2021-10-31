@@ -3,6 +3,7 @@ import React, {
   useCallback,
   forwardRef,
   useImperativeHandle,
+  useEffect,
 } from 'react';
 import {
   View,
@@ -27,7 +28,7 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
-import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, logOnConsole, WIDTH} from '../../helper/globalFunctions';
 // import ToggleSwitch from "toggle-switch-react-native";
 const isAndroid = () => {
   return Platform.OS == 'android';
@@ -379,7 +380,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
     console.log('val', val);
     setShowSelected(false);
   };
-
+ 
   // useEffect(() => {
 
   //     async function fetchData() {
@@ -427,6 +428,8 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               }
             : {
                // width: 1400,
+              //  borderColor:'red',
+              //  borderWidth:1,
                 height: HEIGHT - StyleConfig.resHeight(50),
                 width: WIDTH - StyleConfig.resWidth(550),
                 backgroundColor: 'white',

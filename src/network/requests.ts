@@ -27,6 +27,29 @@ export const getTranslateFile = (
 		);
 };
 
+export const getProvidersList = (
+	succesCallback: Function,
+	errorCallback: Function,
+) => {
+
+	return (dispatch: Function) =>
+		commonApiWrapper(
+            dispatch,
+			endPoints.providers,
+			apiConstants.get_request_type,
+			apiConstants.raw_data_type,
+			null,
+			null,
+			null,
+			(response: any, dispatch: any) => {
+				if (succesCallback) {
+					succesCallback(response);
+				}
+			},
+			(err) => errorCallback(err),
+		);
+};
+
 
 export const getLanguageList = (
     param:any,
