@@ -41,82 +41,82 @@ const DATA = [
   {id: 2, name: "Friend's Like"},
   {id: 3, name: 'Popularity'},
 ];
-const items = [
-  {
-    id: 1,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 2, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 3, name: 'Netflix', image: AppImages.netflix, selected: true},
-  {id: 4, name: 'Netflix', image: AppImages.netflix, selected: true},
-  {id: 5, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 6, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 7,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 8, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 9, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 10, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 11, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 12, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 13,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 14, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 15, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 16, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 17, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 18, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  // {
-  //   id: 18,
-  //   name: 'Netflix',
-  //   image: AppImages.netflix,
-  //   selected: false,
-  // },
-  {id: 19, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 20, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 21, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 22, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 23, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 24, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 25, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 26, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 27, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 28, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 29, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 30, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 31, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 32, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 33, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 34, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 35, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-];
+// const items = [
+//   {
+//     id: 1,
+//     name: 'Netflix',
+//     image: AppImages.netflix,
+//     selected: false,
+//   },
+//   {id: 2, name: 'Amzon prime video', image: AppImages.amazon},
+//   {id: 3, name: 'Netflix', image: AppImages.netflix, selected: true},
+//   {id: 4, name: 'Netflix', image: AppImages.netflix, selected: true},
+//   {id: 5, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 6, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {
+//     id: 7,
+//     name: 'Netflix',
+//     image: AppImages.netflix,
+//     selected: false,
+//   },
+//   {id: 8, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
+//   {id: 9, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 10, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 11, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 12, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {
+//     id: 13,
+//     name: 'Netflix',
+//     image: AppImages.netflix,
+//     selected: false,
+//   },
+//   {id: 14, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
+//   {id: 15, name: 'HBO', image: AppImages.hbo, selected: false},
+//   {id: 16, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 17, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 18, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   // {
+//   //   id: 18,
+//   //   name: 'Netflix',
+//   //   image: AppImages.netflix,
+//   //   selected: false,
+//   // },
+//   {id: 19, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
+//   {id: 20, name: 'HBO', image: AppImages.hbo, selected: false},
+//   {id: 21, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 22, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 23, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 24, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 25, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 26, name: 'HBO', image: AppImages.hbo, selected: false},
+//   {id: 27, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 28, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 29, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 30, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 31, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 32, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 33, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 34, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 35, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+// ];
 
-// const styles = StyleSheet.create({
-//     backWrap:{
-//         paddingHorizontal: StyleConfig.resWidth(8),
-//         paddingVertical: StyleConfig.resHeight(4),
-//         margin: 4,
-//         marginLeft:10,
-//     },
-//     focusBackWrap:{
-//         backgroundColor: colors.tomatoRedLight,
-//         paddingHorizontal: StyleConfig.resWidth(8),
-//         paddingVertical: StyleConfig.resHeight(4),
-//         margin: 4,
-//         borderRadius:10,
-//         marginLeft:10
+// // const styles = StyleSheet.create({
+// //     backWrap:{
+// //         paddingHorizontal: StyleConfig.resWidth(8),
+// //         paddingVertical: StyleConfig.resHeight(4),
+// //         margin: 4,
+// //         marginLeft:10,
+// //     },
+// //     focusBackWrap:{
+// //         backgroundColor: colors.tomatoRedLight,
+// //         paddingHorizontal: StyleConfig.resWidth(8),
+// //         paddingVertical: StyleConfig.resHeight(4),
+// //         margin: 4,
+// //         borderRadius:10,
+// //         marginLeft:10
 
-//     }
-// })
+// //     }
+// // })
 
 const TVSubscriptionRender = (props) => {
   // console.log('props',props);
@@ -203,7 +203,7 @@ const TVSubscriptionRender = (props) => {
                     alignItems: 'center',
                   }
             }>
-            <Image style={styles.watchImage} source={props.item.image} />
+            <Image style={styles.watchImage} source={props.item.logo_url} />
             <Text
               style={
                 focus == props.item.id
