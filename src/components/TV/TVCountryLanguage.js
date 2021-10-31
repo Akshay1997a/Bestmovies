@@ -29,10 +29,12 @@ import {
   getLanguageData,
   getLanguageList,
   getTranslateFile,
+  getStaticData,
 } from '../../network/requests';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
+import {result} from 'lodash';
 
 const COUNTRY = [
   {id: 0, name: 'United States'},
@@ -46,27 +48,109 @@ const COUNTRY_LANGUAGE = [
   {id: 3, name: 'Title language Version', code: 'es'},
 ];
 
-const DATA = [
-  {id: 10, name: 'United States'},
-  {id: 11, name: 'Albaniya'},
-  {id: 2, name: 'Algeria'},
-  {id: 3, name: 'American Samoa'},
-  {id: 4, name: 'Andorra'},
-  {id: 5, name: 'Angola'},
-  {id: 6, name: 'Aruba'},
-  {id: 7, name: 'Australia'},
-  {id: 9, name: 'Azerbaizan'},
-  {id: 110, name: 'Algeria'},
-  {id: 111, name: 'Andorra'},
-  {id: 12, name: 'Aruba'},
-  {id: 13, name: 'Australia'},
-  {id: 14, name: 'Andorra'},
-  {id: 15, name: 'Albaniya'},
-  {id: 16, name: 'Aruba'},
-  {id: 17, name: 'Australia'},
-  {id: 18, name: 'Andorra'},
-  {id: 19, name: 'Albaniya'},
-];
+const DATA = {
+  code_DZ: 'Algeria',
+  code_AO: 'Angola',
+  code_AR: 'Argentina',
+  code_AU: 'Australia',
+  code_AT: 'Austria',
+  code_AZ: 'Azerbaijan',
+  code_BH: 'Bahrain',
+  code_BD: 'Bangladesh',
+  code_BY: 'Belarus',
+  code_BE: 'Belgium',
+  code_BO: 'Bolivia',
+  code_BR: 'Brazil',
+  code_BG: 'Bulgaria',
+  code_KH: 'Cambodia',
+  code_CM: 'Cameroon',
+  code_CA: 'Canada',
+  code_CL: 'Chile',
+  code_CN: 'China',
+  code_CO: 'Colombia',
+  code_CR: 'Costa Rica',
+  code_HR: 'Croatia',
+  code_CY: 'Cyprus',
+  code_CZ: 'Czech Republic',
+  code_DK: 'Denmark',
+  code_DO: 'Dominican Republic',
+  code_EC: 'Ecuador',
+  code_SV: 'El Salvador',
+  code_EE: 'Estonia',
+  code_ET: 'Ethiopia',
+  code_EU: 'European Union',
+  code_FI: 'Finland',
+  code_FR: 'France',
+  code_DE: 'Germany',
+  code_GH: 'Ghana',
+  code_GR: 'Greece',
+  code_GT: 'Guatemala',
+  code_HN: 'Honduras',
+  code_HU: 'Hungary',
+  code_IS: 'Iceland',
+  code_IN: 'India',
+  code_ID: 'Indonesia',
+  code_IQ: 'Iraq',
+  code_IE: 'Ireland',
+  code_IL: 'Israel',
+  code_IT: 'Italy',
+  code_JP: 'Japan',
+  code_JO: 'Jordan',
+  code_KZ: 'Kazakhstan',
+  code_KE: 'Kenya',
+  code_KW: 'Kuwait',
+  code_LV: 'Latvia',
+  code_LB: 'Lebanon',
+  code_LY: 'Libya',
+  code_LT: 'Lithuania',
+  code_LU: 'Luxembourg',
+  code_MY: 'Malaysia',
+  code_MX: 'Mexico',
+  code_MA: 'Morocco',
+  code_MM: 'Myanmar',
+  code_NP: 'Nepal',
+  code_NL: 'Netherlands',
+  code_NZ: 'New Zealand',
+  code_NG: 'Nigeria',
+  code_NO: 'Norway',
+  code_OM: 'Oman',
+  code_PK: 'Pakistan',
+  code_PA: 'Panama',
+  code_PG: 'Papua New Guinea',
+  code_PY: 'Paraguay',
+  code_PE: 'Peru',
+  code_PH: 'Philippines',
+  code_PL: 'Poland',
+  code_PT: 'Portugal',
+  code_PR: 'Puerto Rico',
+  code_QA: 'Qatar',
+  code_RO: 'Romania',
+  code_SA: 'Saudi Arabia',
+  code_SN: 'Senegal',
+  code_RS: 'Serbia',
+  code_SG: 'Singapore',
+  code_SI: 'Slovenia',
+  code_ZA: 'South Africa',
+  code_KR: 'South Korea',
+  code_ES: 'Spain',
+  code_LK: 'Sri Lanka',
+  code_SD: 'Sudan',
+  code_SE: 'Sweden',
+  code_CH: 'Switzerland',
+  code_TZ: 'Tanzania',
+  code_TH: 'Thailand',
+  code_TT: 'Trinidad and Tobago',
+  code_TN: 'Tunisia',
+  code_TR: 'Turkey',
+  code_UG: 'Uganda',
+  code_UA: 'Ukraine',
+  code_AE: 'United Arab Emirates',
+  code_GB: 'United Kingdom',
+  code_US: 'United States',
+  code_UY: 'Uruguay',
+  code_UZ: 'Uzbekistan',
+  code_VN: 'Vietnam',
+};;
 const LANGUAGES = [
   {id: 1, name: 'English'},
   {id: 11, name: 'Albaniya'},
@@ -132,6 +216,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: StyleConfig.resWidth(20),
     borderLeftWidth: 1,
     borderLeftColor: colors.borderColor,
+    // borderWidth:1,
+    // marginTop: StyleConfig.resHeight(30),
+
   },
   backWrap: {
     paddingHorizontal: StyleConfig.resWidth(20),
@@ -179,25 +266,30 @@ const TVCountryLanguage = (props) => {
   const [selected, setSelected] = useState(0);
   const [focus, setFocus] = useState('DZ');
   const [data, setData] = useState(COUNTRY_LANGUAGE);
-  const [country, setCountry] = useState(DATA);
+  const [country, setCountry] = useState(null);
   const [isCountryClick, setCountryClick] = useState(true);
-  const [countryList, setCountryList] = useState(null);
+  const [dataList, setDataList] = useState(DATA);
+  const [language, setLanguageList] = useState(null);
+  const [titleLanguage, setTitleLanguageList] = useState(null);
+  const [aboutUs, setAboutUsData] = useState(null);
+
+  // const [country, setContryList] = useState(null);
 
   useFocusEffect(() => {
-    let lng = i18n.language;
-    let countryData = i18next.getDataByLanguage(lng);
-    let countryTemp = countryData?.translation?.countries_listed;
-    console.log('CountryDataaasasassadadfasaffq', countryTemp);
-    for (const item of LANGUAGES) {
-      languageMap.set('code_AD', 'Andorra');
-    }
-    countryTemp && setCountryList(countryTemp);
+    // let lng = i18n.language;
+    // let countryData = i18next.getDataByLanguage(lng);
+    // let countryTemp = countryData?.translation?.countries_listed;
+    // console.log('CountryDataaasasassadadfasaffq', countryTemp);
+    // for (const item of LANGUAGES) {
+    //   languageMap.set('code_AD', 'Andorra');
+    // }
+    // countryTemp && setCountryList(countryTemp);
   });
 
   const changeLanguage = () => {
     props.getTranslateFile(
       (res) => {
-        // console.log('Response from translate api', res);
+        console.log('Response from translate api', res);
         runTimeTranslations(res, res?.language);
       },
       (err) => {
@@ -207,8 +299,24 @@ const TVCountryLanguage = (props) => {
   };
 
   useEffect(() => {
+    let lng = i18n.language;
+    let countryData = i18next.getDataByLanguage(lng);
+    let countryTemp = countryData?.translation?.countries_listed;
+    for (const item of LANGUAGES) {
+      languageMap.set('code_AD', 'Andorra');
+    }
+    countryTemp && setDataList(countryTemp);
+    setCountry(countryTemp);
+
     props.getLanguageData((res) => {
-      // console.log('responseeeeee90909090', res);
+      let data = convertArrayToObject(res.data.display, 'code');
+      let titleLanguage = convertArrayToObject(res.data.list, 'code');
+      setLanguageList(data);
+      setTitleLanguageList(titleLanguage);
+    });
+    props.getStaticData((res) => {
+      setAboutUsData(res);
+      // let data = res;
     });
   }, []);
 
@@ -218,25 +326,43 @@ const TVCountryLanguage = (props) => {
     let data = {
       cd: code?.toLowerCase(),
     };
+    if (code) {
+      i18n.changeLanguage(code);
+      changeLanguage();
+    }
     props.getLanguageList(data, (res) => {
-      // console.log('responseeeeee', res);
+      console.log('responseeeeee', res);
     });
   };
 
   const onPressHandle = async (item) => {
-    setCountryClick(true);
+    console.log(
+      'hi-------------------------------------------------------',
+      item,
+    );
+    // setCountryClick(true);
     setSelected(item.id);
-    if (item?.code) {
-      i18n.changeLanguage(item?.code);
-      changeLanguage();
+    if (item.id == 0) {
+      setDataList(country);
+    } else if (item.id == 1) {
+      setDataList(language);
+    } else if (item.id == 2) {
+      setDataList(country);
+    } else if (item.id == 3) {
+      setDataList(titleLanguage);
     }
+    // setCountryList(language);
+    // let lng = i18n.language;
+    // let countryData = i18next.getDataByLanguage(lng);
+    // let countryTemp = countryData?.translation?.countries_listed;
+    // console.log('CountryDataaasasassadadfasaffq', countryTemp);
+    // if (item?.code) {
+    //   i18n.changeLanguage(item?.code);
+    // changeLanguage();
+    // }
   };
 
   const onFocus = useCallback((val) => {
-    console.log(
-      'hi-------------------------------------------------------',
-      languageMap,
-    );
     // props.reduxSetCurrFocus('countryLang');
     setFocus(val);
   });
@@ -244,19 +370,36 @@ const TVCountryLanguage = (props) => {
   const onBlur = useCallback(() => {
     console.log('onBlur');
 
-    setFocus(false);
+    setFocus(-1);
   }, []);
+
+  const convertArrayToObject = (array, key) => {
+    const initialValue = {};
+    return array.reduce(
+      (obj, item) => ((obj['code_' + item.code] = item.name), obj),
+      {},
+    );
+    // obj[curr.code]='', obj;
+    // return {
+    //   // ...obj,
+    //   [item.code]: item.name,
+    // };
+    // }, initialValue);
+  };
 
   return (
     // <ScrollView>
-    <View style={{flexDirection: 'row'}}>
+    
+    <View style={{flexDirection: 'row',marginTop: StyleConfig.resHeight(30)}}>
       <View style={styles.container}>
         {data.map((item, index) => {
           return (
             <View style={[{width: WIDTH * 0.27}]}>
               <Pressable
+                hasTVPreferredFocus={true}
                 onPress={() => onPressHandle(item)}
                 onFocus={() => onFocus(item.id)}
+                onBlur={onBlur}
                 style={
                   item.id == focus
                     ? styles.listfocusBackWrap
@@ -278,21 +421,29 @@ const TVCountryLanguage = (props) => {
         })}
       </View>
       {isCountryClick ? (
-        <ScrollView>
+        // <ScrollView>
           <View
             style={{
               width: WIDTH * 0.2,
+              
+              // borderWidth:1,
+              height: HEIGHT-100,
               // marginLeft: isAndroid() ? 100 : 160,
               paddingLeft: StyleConfig.resWidth(20),
               borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
-            {countryList !== null &&
-              Object.entries(countryList).map((item, index) => {
+      <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
+
+            {dataList !== null &&
+              Object.entries(dataList).map((item, index) => {
                 let [temp, code] = item[0].split('_');
                 return (
+                  // <ScrollView></ScrollView>
                   <Pressable
+                   hasTVPreferredFocus={true}
                     onPress={() => countryPress(code, item)}
+                    onBlur={onBlur}
                     onFocus={() => onFocus(code)}
                     style={
                       // props.focus === 'code' &&
@@ -309,10 +460,12 @@ const TVCountryLanguage = (props) => {
                       {item[1]}
                     </Text>
                   </Pressable>
+                  
                 );
               })}
+              </ScrollView>
           </View>
-        </ScrollView>
+        // </ScrollView>
       ) : null}
     </View>
   );
@@ -324,6 +477,7 @@ const mapDispatchToProps = (dispatch) => {
       getTranslateFile,
       getLanguageList,
       getLanguageData,
+      getStaticData,
     },
     dispatch,
   );

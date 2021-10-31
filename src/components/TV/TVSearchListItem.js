@@ -69,7 +69,8 @@ const TVCardDetail = ({item, ...props}) => {
                 isFocus ? styles.highlightFocused : styles.notHighlightFocused
               }>
               <ImageBackground
-                source={AppImages[item.thumbnail]}
+                               source={{ uri: item.image_url }}
+
                 style={{width: '100%', height: '100%', borderRadius: 15}}>
                 {/* <View> */}
                 {/* {
@@ -107,14 +108,15 @@ const TVCardDetail = ({item, ...props}) => {
           <View>
             <View>
               <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-                {item.title}
+              {item.local_title}
+
               </Text>
             </View>
             <View style={styles.match}>
               <View>
-                <Text style={styles.bornYear}>{`${t('types.code_m')}${
-                  item.DATA.release
-                }`}</Text>
+                <Text style={styles.bornYear}>
+                      {item.genres + ' - ' +item.year
+                }</Text>
               </View>
               <View
                 style={{
@@ -122,8 +124,8 @@ const TVCardDetail = ({item, ...props}) => {
                   paddingEnd: StyleConfig.resWidth(5),
                 }}>
                 <RatingComponent
-                  rating={item.DATA.rating}
-                  color={item.DATA.color}
+                  rating={item.rating}
+                  color={'red'}
                 />
               </View>
 

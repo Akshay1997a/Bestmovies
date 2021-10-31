@@ -4,4 +4,7 @@ export const endPoints = {
     providers:"providers",
     languageList:"countries?",
     languageData:"languages",
+    staticData:"static-pages?",
+
 }
+

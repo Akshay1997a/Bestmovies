@@ -132,6 +132,14 @@ const TVSubscriptionRender = (props) => {
     //   onFocusedItem(item)
   });
   const onPressClick = (val) => {
+    console.log('onFocus----->>>>>>',val);
+    if(val.selected == true){
+      val.selected = false
+
+    }else{
+      val.selected = true
+
+    }
     props.action(val);
     setSelected(true);
   };
@@ -172,12 +180,11 @@ const TVSubscriptionRender = (props) => {
             <Image
             resizeMode="contain"
               style={{
-                height: StyleConfig.resHeight(40),
+                height: StyleConfig.resHeight(32),
                 position: 'absolute',
-                alignSelf:'flex-end',
-                // left: StyleConfig.resWidth(10),
-                top: StyleConfig.resHeight(38),
-                width: StyleConfig.resWidth(66),
+                left: StyleConfig.resWidth(-40),
+                top: StyleConfig.resHeight(40),
+                width: StyleConfig.resWidth(32),
               }}
               source={AppImages.check_red}
             />

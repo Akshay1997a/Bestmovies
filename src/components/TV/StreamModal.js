@@ -428,8 +428,6 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               }
             : {
                // width: 1400,
-              //  borderColor:'red',
-              //  borderWidth:1,
                 height: HEIGHT - StyleConfig.resHeight(50),
                 width: WIDTH - StyleConfig.resWidth(550),
                 backgroundColor: 'white',
