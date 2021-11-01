@@ -9,8 +9,8 @@ function SVGTriangleTop(props) {
       className="prefix__svgContainer"
       style={{
         width: 13,
-        height: 20,
-        transform: [{rotateY: '180deg'}, {rotateX: "180deg"}]
+        height: 28,
+        transform: [{rotateY: '180deg'}, {rotateX: '180deg'}],
       }}
       {...props}>
       <G clipPath="url(#prefix__clip-s-Triangle_304115)">
@@ -18,7 +18,6 @@ function SVGTriangleTop(props) {
           className="prefix__pie prefix__triangle prefix__shape prefix__firer prefix__commentable prefix__non-processed"
           d="M0 0l13 28H0z"
           fill="#4183e2"
-          
         />
       </G>
       <Defs>
