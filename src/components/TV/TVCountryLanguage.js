@@ -433,7 +433,7 @@ const TVCountryLanguage = (props) => {
               borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
-      <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
+      {/* <ScrollView style={{margin: StyleConfig.resWidth(15)}}> */}
 
             {dataList !== null &&
               Object.entries(dataList).map((item, index) => {
@@ -443,8 +443,8 @@ const TVCountryLanguage = (props) => {
                   <Pressable
                    hasTVPreferredFocus={true}
                     onPress={() => countryPress(code, item)}
-                    onBlur={onBlur}
-                    onFocus={() => onFocus(code)}
+                    // onBlur={onBlur}
+                    // onFocus={() => onFocus(code)}
                     style={
                       // props.focus === 'code' &&
                       focus == code
@@ -454,7 +454,8 @@ const TVCountryLanguage = (props) => {
                       // : selected == 0
                       // ? styles.listfocusBackWrap
                       // : styles.listbackWrap
-                    }>
+                    }
+                    >
                     <Text
                       style={code == focus ? styles.focusText : styles.text}>
                       {item[1]}
@@ -463,7 +464,7 @@ const TVCountryLanguage = (props) => {
                   
                 );
               })}
-              </ScrollView>
+              {/* </ScrollView> commented for fixing*/}
           </View>
         // </ScrollView>
       ) : null}
