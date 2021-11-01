@@ -197,7 +197,7 @@ export class RenderMobile extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{width: window - 20}}>
+      <View style={{width: window - 20}}>
         <FlatList
           bounces={false}
           showsVerticalScrollIndicator={false}
@@ -213,11 +213,11 @@ export class RenderMobile extends Component {
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={{
-            marginTop: heightScale(5),
+            marginTop: heightScale(isAndroid() ? 5 : 10),
             justifyContent: 'space-between',
           }}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

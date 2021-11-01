@@ -274,7 +274,7 @@ export class RenderMobile extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{paddingTop: 10, paddingHorizontal: 10}}>
+            <View style={{paddingTop: heightScale(9), paddingHorizontal: widthScale(10)}}>
               <Text style={styles.textFont}>Parasite</Text>
               {viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <Text style={[styles.textSecondary, styles.italic]}>
@@ -285,7 +285,7 @@ export class RenderMobile extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                paddingHorizontal: 10,
+                paddingHorizontal: widthScale(10),
                 paddingBottom: 10,
                 marginTop: heightScale(3),
               }}>
@@ -354,6 +354,7 @@ export class RenderMobile extends Component {
                 <Text style={styles.textFont}>Cast</Text>
               </View>
               <ScrollView
+                bounces={false}
                 horizontal={true}
                 nestedScrollEnabled={true}
                 showsHorizontalScrollIndicator={false}
@@ -871,7 +872,9 @@ const styles = StyleSheet.create({
     elevation: 5,
     alignItems: 'center',
     borderRadius: 10,
-    overflow: 'hidden',
+    ...isAndroid() && {
+      overflow: 'hidden',
+    }
   },
   directorImage: {
     height: '80%',

@@ -13,7 +13,8 @@ import YoutubePlayerLib from 'react-native-youtube-iframe';
 import Orientation from 'react-native-orientation';
 import Loader from './Loader';
 import HeaderModal from './HeaderModal';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { CloseIcon } from './Icons';
 
 const RATIO = 16 / 9;
 const WIDTH = Dimensions.get('window').width;
@@ -38,6 +39,10 @@ export default function YoutubePlayer(props) {
   const onReady = () => {
     setPlaying(true);
   };
+
+  const goBack = () => {
+    props.navigation.goBack()
+  }
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
@@ -78,6 +83,9 @@ export default function YoutubePlayer(props) {
           <FontAwesome5Icon name="close" />
         </TouchableOpacity>
       )} */}
+      <TouchableOpacity onPress={goBack} style={styles.bc_but}>
+        <FontAwesome name="close" size={25} color="#fff" />
+      </TouchableOpacity>
       <YoutubePlayerLib
         width={height * RATIO}
         height={height}
@@ -101,4 +109,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#000',
   },
+  bc_but: {
+    position: 'absolute',
+    top: 20,
+    left: 20
+  }
 });

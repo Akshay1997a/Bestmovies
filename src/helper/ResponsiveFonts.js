@@ -8,7 +8,7 @@ const guidelineBaseHeight = 812;
 
 export const horizontalScale = (size) => (width / guidelineBaseWidth) * size;
 export const verticalScale = (size) => (height / guidelineBaseHeight) * size;
-export const heightScale = (size, factor = 1) => {
+export const heightScale = (size, factor = 0.75) => {
   if (Platform.OS === 'web') {
     factor = 0.12;
   }

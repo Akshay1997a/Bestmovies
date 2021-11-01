@@ -35,7 +35,7 @@ import {CloseIcon} from './Icons';
 
 export const TAB_BAR_HEIGHT = 40;
 export const STATUS_BAR_HEIGHT = isAndroid() ? RNStatusBar.currentHeight : 33;
-export const HEADER_HEIGHT = isAndroid() ? heightScale(40) : heightScale(40);
+export const HEADER_HEIGHT = isAndroid() ? heightScale(40) : heightScale(45);
 export const TOTAL_HEADER_HEIGHT =
   HEADER_HEIGHT + TAB_BAR_HEIGHT + STATUS_BAR_HEIGHT;
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
