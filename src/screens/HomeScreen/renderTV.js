@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import {
   Platform,
 } from 'react-native';
 import axios from 'axios';
+import {useFocusEffect} from '@react-navigation/core';
+import i18next from 'i18next';
 
 import TVHeader from '../../components/TV/TVHeader';
 import TVTopBar from '../../components/TV/TVTopBar';
@@ -182,9 +184,13 @@ const buttons = [
 const posts_json = MoviesJSON.data.children.map((child) => child.data);
 
 const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
 
+  let onEndReachedCalledDuringMomentum = false;
   const [topSelected, setTopSelected] = useState(0);
+  const [page, setPage] = useState(0);
+  const [language, setLanguage] = useState('en');
+
   const [selected, setSelected] = useState(MOVIES);
   const [movies, setMovies] = useState([]);
   const [moviesSearch, setMoviesSearch] = useState([]);
@@ -227,16 +233,22 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
   //   });
   // }
-
+  useFocusEffect(() => {
+    let lng = i18n.language;
+    console.log('CountryDataaasasassadadfasaffq', lng);
+   
+  });
   useEffect(() => {
     //   _enableTVEventHandler()
     // componentWillUnmount
     console.log('propsssss', props);
-    getMovies();
     props.getTranslateFile(
       (res) => {
         console.log('Response from translate api', res);
+        getMovies();
+
         runTimeTranslations(res, res?.language);
+
       },
       (err) => {
         console.log('Error from translate file', err);
@@ -250,13 +262,19 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       // }
     };
   }, []);
-  const getMovies = () =>{
+  const getMovies = (lan) =>{
     axios
-    .get('http://18.119.119.183:3003/titles?device=tv&type=m&output=ove&limit=' + 20)
+    .get('http://18.119.119.183:3003/titles?device=tv&type=m&output=ove&t_lang='+language+'&limit=' + 10,{
+      headers: {
+        't_lang': lan ? lan : language
+      }
+    })
     .then(function (response) {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
-      setMovies(response.data.data)
+      
+      
+      setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
       setMoviesSearch(response.data.data)
 
       getTVShows();
@@ -310,7 +328,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
   const getSearch = () =>{
     axios
-    .get('http://18.119.119.183:3003/titles?title='+text+'&output=bas&limit=16&type=m')
+    .get('http://18.119.119.183:3003/titles?device=tv&type=m&output=bas&limit='+20+'&title='+text)
     .then(function (response) {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
@@ -374,6 +392,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     }
     onChangeText(data);
   }
+  const loadMoreRandomData = () =>{
+    onEndReachedCalledDuringMomentum = false;
+    console.log('called');
+    // this.setState({page:this.state.page+1},
+    setPage(2);
+    //   ()=>
+   getMovies()
+  //  )
+  }
+  
   // console.log({selected, ADVERTISE_DATA})
   return (
     <View style={{backgroundColor: colors.white}}>
@@ -383,6 +411,12 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
         ref={header}
         selected={selected}
         onChangeSelected={(val) => {
+          let lng = i18n.language;
+          console.log('CountryDataaasasassadadfasaffq', lng);
+          if(val ==2 ){
+            setLanguage(language);
+            getMovies(lng);
+          }
           setSelected(val);
           if (val == MENU) {
             setShowSelected(ABOUT_US);
@@ -570,9 +604,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
               <FlatList
                 style={{marginStart: 10}}
                 hasTVPreferredFocus={true}
-                contentContainerStyle={{paddingBottom: 50}}
+                // contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
                 numColumns={5}
+                extraData={movies}
                 data={movies}
                 renderItem={({item}) => (
                   <TVMovieListItem
@@ -582,6 +617,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                     selected={MOVIES}
                   />
                 )}
+                // keyExtractor={(item, index) => index.toString()}
+                onEndReachedThreshold={0.5}
+                onMomentumScrollBegin = {() => {onEndReachedCalledDuringMomentum = false;}}
+                onEndReached ={() => loadMoreRandomData('test string')}
               />
             </View>
           </View>
