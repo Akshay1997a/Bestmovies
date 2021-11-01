@@ -3,6 +3,7 @@ import React, {
   useCallback,
   forwardRef,
   useImperativeHandle,
+  useEffect,
 } from 'react';
 import {
   View,
@@ -27,7 +28,7 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
-import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, logOnConsole, WIDTH} from '../../helper/globalFunctions';
 // import ToggleSwitch from "toggle-switch-react-native";
 const isAndroid = () => {
   return Platform.OS == 'android';
@@ -76,10 +77,14 @@ const styles = StyleSheet.create({
     fontSize: isAndroid() ? 15 : 30,
     fontWeight: '400',
     color: colors.black,
+    borderColor:'red',
+    borderWidth:1,
   },
   tvToggle: {
     // borderWidth:1,
     alignItems:'center',
+    // borderColor:'red',
+    // borderWidth:1,
     // justifyContent:'center',
     // padding: isAndroid() ? 2 : 20,
     flexDirection: 'row',
@@ -375,7 +380,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
     console.log('val', val);
     setShowSelected(false);
   };
-
+ 
   // useEffect(() => {
 
   //     async function fetchData() {
@@ -422,7 +427,9 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 borderRadius: StyleConfig.resHeight(20),
               }
             : {
-                width: 1400,
+               // width: 1400,
+                height: HEIGHT - StyleConfig.resHeight(50),
+                width: WIDTH - StyleConfig.resWidth(550),
                 backgroundColor: 'white',
                 borderRadius: 30,
               }
@@ -494,7 +501,6 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               // borderWidth:1,
               flexDirection: 'row',
               justifyContent: 'space-between',
-
               marginTop: StyleConfig.resHeight(20),
             }}>
             {/* <Pressable
@@ -579,7 +585,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           {/* <View> */}
           <ScrollView
             // horizontal
-            style={{height: StyleConfig.resHeight(HEIGHT + 50)}}>
+            style={{height:isAndroid()? StyleConfig.resHeight(HEIGHT + 20):StyleConfig.resHeight(HEIGHT*0.51),}}>
             <FlatList
               showsVerticalScrollIndicator={false}
               horizontal={false}

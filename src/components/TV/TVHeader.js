@@ -40,7 +40,11 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
 
     setFocus(val);
   });
-
+  const onBlur = useCallback(() => {
+    // console.log('onBlur called***');
+    setFocus(-1);
+    // setIsFocus(false);
+  }, []);
   useImperativeHandle(ref, () => ({
     setResetFocus() {
       setFocus(NONE);
@@ -75,17 +79,18 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         {/* <View style={{flex: 1}} /> */}
         <Pressable
           onFocus={() => onFocus(SEARCH)}
+          onBlur={() => onBlur()}
           onPress={() => onLocalChangeSelected()}
           tvParallaxProperties={{magnification: 1.1}}
           style={[
-            props.focus === 'header' && focus == SEARCH
+            focus == SEARCH
               ? styles.itemWrapperSelectedSearch
               : styles.itemWrapperSeach,
             // {width: WIDTH * 0.1},
           ]}>
           <Image
             style={
-              props.focus === 'header' && focus == SEARCH
+            focus == SEARCH
                 ? styles.headerIconFocus
                 : selected == SEARCH
                 ? styles.headerIconSelected
@@ -123,9 +128,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
-              props.focus === 'header' && focus == MOVIES
-                ? styles.itemWrapperSelected
-                : styles.itemWrapper,
+              focus == MOVIES ? styles.itemWrapperSelected : styles.itemWrapper,
               {width: WIDTH * 0.1},
             ]
             // styles.itemWrapperSelected :
@@ -137,7 +140,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           <Text
             numberOfLines={1}
             style={
-              props.focus === 'header' && focus == MOVIES
+               focus == MOVIES
                 ? styles.focusText
                 : selected == MOVIES
                 ? styles.selectedText
@@ -153,86 +156,48 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           tvParallaxProperties={{magnification: 1.1}}
           style={
             [
-              props.focus === 'header' && focus == TV_SHOW
+              focus == TV_SHOW
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
 
-                {width: WIDTH * 0.1},
-                ,
+              {width: WIDTH * 0.1},
+              ,
             ]
-            // props.focus === 90 ?
-            // styles.itemWrapper :
-            // focus == TV_SHOW ?
-            //  styles.itemWrapperSelected
-            //  : styles.itemWrapper
-
-            // focus == TV_SHOW
-            // ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             numberOfLines={1}
             style={
-              props.focus === 'header' && focus == TV_SHOW
+             focus == TV_SHOW
                 ? styles.focusTextShow
                 : styles.text
-              // props.focus === 90 ?
-              // styles.text :
-              // focus == TV_SHOW
-              //   ? styles.focusText
-              //   : selected == TV_SHOW
-              //   ? styles.selectedText
-              //   : styles.text
-              // focus == TV_SHOW
-              //   ? styles.focusText
-              //   : selected == TV_SHOW
-              //   ? styles.selectedText
-              //   : styles.text
             }>
             {t('texts.id_4')}
           </Text>
         </Pressable>
 
+        
         <Pressable
           onFocus={() => onFocus(SHORTS)}
           onPress={() => onLocalChangeSelected()}
-          onPress={() => alert('Test')}
-          // tvParallaxProperties={{magnification: 1.1}}
+          tvParallaxProperties={{magnification: 1.1}}
           style={
             [
-              props.focus === 'header' && focus == SHORTS
+              focus == SHORTS
                 ? styles.itemWrapperSelected
                 : styles.itemWrapper,
-                {width: WIDTH * 0.1},
 
+              {width: WIDTH * 0.1},
+              ,
             ]
-            // props.focus === 90 ?
-            // styles.itemWrapper :
-            // focus == SHORTS ?
-            //  styles.itemWrapperSelected
-            //  : styles.itemWrapper
-
-            // focus == SHORTS ? styles.itemWrapperSelected : styles.itemWrapper
           }>
           <Text
             numberOfLines={1}
             style={
-              props.focus === 'header' && focus == SHORTS
-                ? styles.focusText
+             focus == SHORTS
+                ? styles.focusTextShow
                 : styles.text
-              // props.focus === 90 ?
-              // styles.text :
-              // focus == SHORTS
-              //   ? styles.focusText
-              //   : selected == SHORTS
-              //   ? styles.selectedText
-              //   : styles.text
-              // focus == SHORTS
-              //   ? styles.focusText
-              //   : selected == SHORTS
-              //   ? styles.selectedText
-              //   : styles.text
             }>
-            {t('texts.id_6')}
+            {t('texts.id_4')}
           </Text>
         </Pressable>
 
@@ -318,7 +283,9 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onPress={() => onLocalChangeSelected()}
           // tvParallaxProperties={{magnification: 1.1}}
           style={
-            focus == MENU ? styles.itemWrapperSelectedMenu : styles.itemWrapperMenu
+            focus == MENU
+              ? styles.itemWrapperSelectedMenu
+              : styles.itemWrapperMenu
           }>
           <Image
             style={
@@ -348,17 +315,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: StyleConfig.resHeight(3),
     // marginVertical: 5,
-
     marginStart: isAndroid()
       ? StyleConfig.resWidth(20)
       : StyleConfig.resWidth(10),
-
     // marginEnd:100
     // marginRight:10
   },
   bannerIcon: {
     width: StyleConfig.resWidth(210),
-    height: StyleConfig.resWidth(160) /2,
+    height: StyleConfig.resWidth(160) / 2,
   },
   itemWrapperSelected: {
     // borderWidth: 1,
@@ -487,7 +452,6 @@ const styles = StyleSheet.create({
   },
   headerIconFocus: {
     width: StyleConfig.resWidth(30),
-
 
     height: StyleConfig.resHeight(30),
     tintColor: colors.white,

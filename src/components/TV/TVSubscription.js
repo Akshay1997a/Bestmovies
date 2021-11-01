@@ -3,6 +3,8 @@ import React, {
   useCallback,
   forwardRef,
   useImperativeHandle,
+  useEffect,
+  useSelector,
 } from 'react';
 import {
   View,
@@ -23,6 +25,13 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import StreamModal from './StreamModal';
 import primary_regular_font from '../../helper/fonts';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {
+  getProvidersList
+} from "../../network/requests.ts";
+import { State } from 'react-native-gesture-handler';
+import { logOnConsole } from '../../helper/globalFunctions';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -32,87 +41,87 @@ const DATA = [
   {id: 2, name: "Friend's Like"},
   {id: 3, name: 'Popularity'},
 ];
-const items = [
-  {
-    id: 1,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 2, name: 'Amzon prime video', image: AppImages.amazon},
-  {id: 3, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 4, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 5, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 6, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 7,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 8, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 9, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 10, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 11, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 12, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 13,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 14, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 15, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 16, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 17, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 18, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {
-    id: 18,
-    name: 'Netflix',
-    image: AppImages.netflix,
-    selected: false,
-  },
-  {id: 19, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
-  {id: 20, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 21, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 22, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 23, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 24, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 25, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 26, name: 'HBO', image: AppImages.hbo, selected: false},
-  {id: 27, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 28, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 29, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 30, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 31, name: 'Netflix', image: AppImages.netflix, selected: false},
-  {id: 32, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 33, name: 'Disney+', image: AppImages.disnep, selected: false},
-  {id: 34, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-  {id: 35, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
-];
+// const items = [
+//   {
+//     id: 1,
+//     name: 'Netflix',
+//     image: AppImages.netflix,
+//     selected: false,
+//   },
+//   {id: 2, name: 'Amzon prime video', image: AppImages.amazon},
+//   {id: 3, name: 'Netflix', image: AppImages.netflix, selected: true},
+//   {id: 4, name: 'Netflix', image: AppImages.netflix, selected: true},
+//   {id: 5, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 6, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {
+//     id: 7,
+//     name: 'Netflix',
+//     image: AppImages.netflix,
+//     selected: false,
+//   },
+//   {id: 8, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
+//   {id: 9, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 10, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 11, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 12, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {
+//     id: 13,
+//     name: 'Netflix',
+//     image: AppImages.netflix,
+//     selected: false,
+//   },
+//   {id: 14, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
+//   {id: 15, name: 'HBO', image: AppImages.hbo, selected: false},
+//   {id: 16, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 17, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 18, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   // {
+//   //   id: 18,
+//   //   name: 'Netflix',
+//   //   image: AppImages.netflix,
+//   //   selected: false,
+//   // },
+//   {id: 19, name: 'Amzon prime video', image: AppImages.amazon, selected: false},
+//   {id: 20, name: 'HBO', image: AppImages.hbo, selected: false},
+//   {id: 21, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 22, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 23, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 24, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 25, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 26, name: 'HBO', image: AppImages.hbo, selected: false},
+//   {id: 27, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 28, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 29, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 30, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 31, name: 'Netflix', image: AppImages.netflix, selected: false},
+//   {id: 32, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 33, name: 'Disney+', image: AppImages.disnep, selected: false},
+//   {id: 34, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+//   {id: 35, name: 'Apple TV+', image: AppImages.appleTv, selected: false},
+// ];
 
-// const styles = StyleSheet.create({
-//     backWrap:{
-//         paddingHorizontal: StyleConfig.resWidth(8),
-//         paddingVertical: StyleConfig.resHeight(4),
-//         margin: 4,
-//         marginLeft:10,
-//     },
-//     focusBackWrap:{
-//         backgroundColor: colors.tomatoRedLight,
-//         paddingHorizontal: StyleConfig.resWidth(8),
-//         paddingVertical: StyleConfig.resHeight(4),
-//         margin: 4,
-//         borderRadius:10,
-//         marginLeft:10
+// // const styles = StyleSheet.create({
+// //     backWrap:{
+// //         paddingHorizontal: StyleConfig.resWidth(8),
+// //         paddingVertical: StyleConfig.resHeight(4),
+// //         margin: 4,
+// //         marginLeft:10,
+// //     },
+// //     focusBackWrap:{
+// //         backgroundColor: colors.tomatoRedLight,
+// //         paddingHorizontal: StyleConfig.resWidth(8),
+// //         paddingVertical: StyleConfig.resHeight(4),
+// //         margin: 4,
+// //         borderRadius:10,
+// //         marginLeft:10
 
-//     }
-// })
+// //     }
+// // })
 
 const TVSubscriptionRender = (props) => {
   // console.log('props',props);
 
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSelected] = useState(false);
   const [data, setData] = useState(DATA);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -123,7 +132,16 @@ const TVSubscriptionRender = (props) => {
     //   onFocusedItem(item)
   });
   const onPressClick = (val) => {
+    console.log('onFocus----->>>>>>',val);
+    if(val.selected == true){
+      val.selected = false
+
+    }else{
+      val.selected = true
+
+    }
     props.action(val);
+    setSelected(true);
   };
 
   const onBlur = useCallback(() => {
@@ -131,18 +149,8 @@ const TVSubscriptionRender = (props) => {
 
     setFocus(false);
   }, []);
-  // useEffect(() => {
 
-  //     async function fetchData() {
-  //         fetch('https://60cde54091cc8e00178dc16b.mockapi.io/generes')
-  //         .then(res => res.json())
-  //         .then(resJson => {
-  //             setData(resJson)
-  //         }).catch(e => console.log(e));
-  //     }
-
-  //     fetchData();
-  //   }, [])
+  
   return (
     // <ScrollView
     // // showsVerticalScrollIndicator={true}
@@ -152,7 +160,7 @@ const TVSubscriptionRender = (props) => {
       onPress={() => onPressClick(props.item)}
       onFocus={() => {
         setFocus(true);
-        // onFocus();
+        // onFocus(true);
         setFocus(props.item.id);
       }}>
       <View style={focus ? styles.itemWrapperSelected : styles.itemWrapper}>
@@ -170,12 +178,13 @@ const TVSubscriptionRender = (props) => {
           }}>
           {props.item.selected ? (
             <Image
+            resizeMode="contain"
               style={{
-                height: StyleConfig.resHeight(44),
+                height: StyleConfig.resHeight(32),
                 position: 'absolute',
-                left: StyleConfig.resWidth(70),
+                left: StyleConfig.resWidth(-40),
                 top: StyleConfig.resHeight(40),
-                width: StyleConfig.resWidth(66),
+                width: StyleConfig.resWidth(32),
               }}
               source={AppImages.check_red}
             />
@@ -194,7 +203,7 @@ const TVSubscriptionRender = (props) => {
                     alignItems: 'center',
                   }
             }>
-            <Image style={styles.watchImage} source={props.item.image} />
+            <Image style={styles.watchImage} source={props.item.logo_url} />
             <Text
               style={
                 focus == props.item.id
@@ -222,13 +231,26 @@ const TVSubscriptionRender = (props) => {
 const TVSubscription = (props) => {
   const onPressClick = (index) => {
     props.action(index);
+    logOnConsole('data',index);
   };
+   ///const data = useSelector(state => state.state)
+  const [item,setItem] = useState([]);
 
+  useEffect(() => {
+    //logOnConsole('call streem modal');
+    console.log('call streem modal');
+    props.getProvidersList((res) => {
+    // console.log('provider respone', res.data.providers);
+     setItem(res.data);
+   });
+  }, []);
+  
+  //console.log("hello item providers",item.providers);
   return (
     <FlatList
       hasTVPreferredFocus={true}
       numColumns={5}
-      data={items}
+      data={item.providers}
       renderItem={({item, index}) => {
         return (
           <TVSubscriptionRender
@@ -242,8 +264,18 @@ const TVSubscription = (props) => {
     />
   );
 };
+//const mapStateToProps = state => ({providerData:state.providerData});
 
-export default TVSubscription;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getProvidersList,
+    },
+    dispatch,
+  );
+};
+
+export default connect(null,mapDispatchToProps) (TVSubscription);
 const styles = StyleSheet.create({
   container: {
     // paddingHorizontal:10,
@@ -272,6 +304,8 @@ const styles = StyleSheet.create({
     borderRadius: StyleConfig.resHeight(10),
     // // minWidth:  StyleConfig.resWidth(60),
     // alignItems: 'center',
+    borderWidth:1,
+    borderColor:'red',
     width: StyleConfig.resWidth(230),
     justifyContent: 'center',
     alignContent: 'center',
@@ -300,11 +334,11 @@ const styles = StyleSheet.create({
     // marginVertical: StyleConfig.resWidth(5),
   },
   watchImage: {
-    // borderWidth:1,
     paddingVertical: StyleConfig.resWidth(2),
     width: StyleConfig.resWidth(95),
     height: StyleConfig.resWidth(63),
-    borderRadius: StyleConfig.resWidth(6),
+    borderRadius: StyleConfig.resWidth(8),
+    overflow:'hidden',
     marginLeft: StyleConfig.resWidth(6),
     marginVertical: StyleConfig.resWidth(6),
     // paddingTop:40
@@ -313,6 +347,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resWidth(24),
+    lineHeight:StyleConfig.resHeight(28),
     fontWeight: '400',
     ...Platform.select({
       android: {
@@ -329,8 +364,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // borderWidth:1,
     // height: isAndroid()? 35:80,
+    // borderWidth:1,
+    // borderColor:'red',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resWidth(24),
+    lineHeight:StyleConfig.resHeight(28),
     fontWeight: '400',
     ...Platform.select({
       android: {

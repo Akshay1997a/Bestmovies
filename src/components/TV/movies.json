@@ -20,7 +20,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "5.7",
-            "feedback": "texts.id_186",
+            "feedback": "OK",
             "color": "#efcc00"
           },
           "approved_at_utc": null,
@@ -193,7 +193,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "9.2",
-            "feedback": "texts.id_182",
+            "feedback": "Good",
             "color": "#000000"
           },
           "approved_at_utc": null,
@@ -452,7 +452,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "6.8",
-            "feedback": "texts.id_185",
+            "feedback": "Best",
             "color": "#35b736"
           },
           "approved_at_utc": null,
@@ -702,7 +702,7 @@
             "match": "2.99\u20AC - 78%",
             "follower": "5.7",
             "rating": "8.5",
-            "feedback": "texts.id_185",
+            "feedback": "OK",
             "color": "#868686"
           },
           "approved_at_utc": null,

@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,9 @@ import {
   Image,
   Platform,
 } from 'react-native';
+import axios from 'axios';
+import {useFocusEffect} from '@react-navigation/core';
+import i18next from 'i18next';
 
 import TVHeader from '../../components/TV/TVHeader';
 import TVTopBar from '../../components/TV/TVTopBar';
@@ -181,10 +184,20 @@ const buttons = [
 const posts_json = MoviesJSON.data.children.map((child) => child.data);
 
 const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
 
+  let onEndReachedCalledDuringMomentum = false;
   const [topSelected, setTopSelected] = useState(0);
+  const [page, setPage] = useState(0);
+  const [language, setLanguage] = useState('en');
+
   const [selected, setSelected] = useState(MOVIES);
+  const [movies, setMovies] = useState([]);
+  const [moviesSearch, setMoviesSearch] = useState([]);
+
+  const [tvShoes, setTVShoes] = useState([]);
+  const [shorts, setTVShorts] = useState([]);
+
   const [selectedItem, setSelectedItem] = useState(posts ? posts[0] : null);
   const [showSelected, setShowSelected] = useState(NONE);
   const sidebar = useRef();
@@ -220,7 +233,11 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
   //   });
   // }
-
+  useFocusEffect(() => {
+    let lng = i18n.language;
+    console.log('CountryDataaasasassadadfasaffq', lng);
+   
+  });
   useEffect(() => {
     //   _enableTVEventHandler()
     // componentWillUnmount
@@ -228,7 +245,10 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     props.getTranslateFile(
       (res) => {
         console.log('Response from translate api', res);
+        getMovies();
+
         runTimeTranslations(res, res?.language);
+
       },
       (err) => {
         console.log('Error from translate file', err);
@@ -242,7 +262,87 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       // }
     };
   }, []);
+  const getMovies = (lan) =>{
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&type=m&output=ove&t_lang='+language+'&limit=' + 10,{
+      headers: {
+        't_lang': lan ? lan : language
+      }
+    })
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      
+      
+      setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
+      setMoviesSearch(response.data.data)
 
+      getTVShows();
+      getShorts();
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
+  const getTVShows = () =>{
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&type=t&output=ove&limit=' + 20)
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      setTVShoes(response.data.data)
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
+
+  const getShorts = () =>{
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&type=s&output=ove&limit=' + 20)
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      setTVShorts(response.data.data)
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
+
+
+  const getSearch = () =>{
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&type=m&output=bas&limit='+20+'&title='+text)
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      setMoviesSearch(response.data.data)
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
   onTileViewFocus = () => {
     // sidebar.current.setResetFocus()
     header?.current?.setResetFocus();
@@ -268,7 +368,11 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   function _handleEvent(value) {
     console.debug('value)))))00000', value);
     let data = '';
-    if (value == 33) {
+    if (value == 45) {
+      getSearch()
+      //right arrw search api
+      // data = text.slice(0, -1);
+     } else if (value == 33) {
       data = text.slice(0, -1);
     } else if (value == 29) {
       let str = text;
@@ -288,6 +392,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     }
     onChangeText(data);
   }
+  const loadMoreRandomData = () =>{
+    onEndReachedCalledDuringMomentum = false;
+    console.log('called');
+    // this.setState({page:this.state.page+1},
+    setPage(2);
+    //   ()=>
+   getMovies()
+  //  )
+  }
+  
   // console.log({selected, ADVERTISE_DATA})
   return (
     <View style={{backgroundColor: colors.white}}>
@@ -297,6 +411,12 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
         ref={header}
         selected={selected}
         onChangeSelected={(val) => {
+          let lng = i18n.language;
+          console.log('CountryDataaasasassadadfasaffq', lng);
+          if(val ==2 ){
+            setLanguage(language);
+            getMovies(lng);
+          }
           setSelected(val);
           if (val == MENU) {
             setShowSelected(ABOUT_US);
@@ -392,7 +512,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
             <FlatList
               contentContainerStyle={{paddingBottom: 1000}}
               hasTVPreferredFocus={true}
-              data={posts_json}
+              data={moviesSearch}
               numColumns={4}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => (
@@ -420,10 +540,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                   justifyContent: 'center',
                   alignContent: 'center',
                 }}>
-                <Text numberOfLines={1} style={styles.ranking}>
+                <Text 
+                        ellipsizeMode="tail"
+
+                numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
                 </Text>
-                <Text numberOfLines={1} style={styles.result}>
+                <Text numberOfLines={1}
+                        ellipsizeMode="tail"
+
+                 style={styles.result}>
                   {' '}
                   12,348 {t('texts.id_91')}{' '}
                 </Text>
@@ -478,10 +604,11 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
               <FlatList
                 style={{marginStart: 10}}
                 hasTVPreferredFocus={true}
-                contentContainerStyle={{paddingBottom: 50}}
+                // contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
                 numColumns={5}
-                data={posts}
+                extraData={movies}
+                data={movies}
                 renderItem={({item}) => (
                   <TVMovieListItem
                     item={item}
@@ -490,48 +617,109 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                     selected={MOVIES}
                   />
                 )}
+                // keyExtractor={(item, index) => index.toString()}
+                onEndReachedThreshold={0.5}
+                onMomentumScrollBegin = {() => {onEndReachedCalledDuringMomentum = false;}}
+                onEndReached ={() => loadMoreRandomData('test string')}
               />
             </View>
           </View>
         )}
 
         {selected == TV_SHOW && (
-          <View style={[{flex: 1}]} hasTVPreferredFocus={true}>
+          <View
+            style={[{flex: 1, backgroundColor: colors.white}]}
+            hasTVPreferredFocus={true}>
+            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
-              style={{height: StyleConfig.resHeight(900)}}>
-              {/* <FlatList
-                  hasTVPreferredFocus={true}
-                  data={posts}
-                  numColumns={5}
-                  contentContainerStyle={{paddingBottom:50}}
-                  keyExtractor={(item, index) => `item${index}`}
-                  renderItem = {({item}) => (
-                    <TVMovieListItem
-                      item={item}
-                      onFocusedItem={(item)=> setSelectedItem(item)}
-                      {...props} />
-                  )}
-                />  */}
+              style={{
+                backgroundColor: colors.white,
+                height: StyleConfig.resHeight(900),
+              }}>
+              <View
+                style={{
+                  // borderWidth:1,
+                  flexDirection: 'row',
+                marginTop: StyleConfig.resHeight(20),
+                  // marginVertical: ,
+                  backgroundColor: colors.white,
+                  marginHorizontal: StyleConfig.resWidth(20),
+                }}>
+                <Text numberOfLines={1} style={styles.ranking}>
+                  {t('texts.id_78')}
+                </Text>
+                <Text numberOfLines={1} style={styles.result}>
+                  {' '}
+                  12,348 {t('texts.id_91')}{' '}
+                </Text>
+              </View>
               <FlatList
+                style={{marginStart: 10}}
                 hasTVPreferredFocus={true}
                 contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
                 numColumns={5}
-                data={posts}
+                data={tvShoes}
                 renderItem={({item}) => (
                   <TVMovieListItem
                     item={item}
                     {...props}
                     type="movie"
-                    selected={MY_LIST}
+                    selected={TV_SHOW}
                   />
                 )}
               />
             </View>
           </View>
         )}
-
+{selected == SHORTS && (
+          <View
+            style={[{flex: 1, backgroundColor: colors.white}]}
+            hasTVPreferredFocus={true}>
+            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
+            <View
+              hasTVPreferredFocus={true}
+              style={{
+                backgroundColor: colors.white,
+                height: StyleConfig.resHeight(900),
+              }}>
+              <View
+                style={{
+                  // borderWidth:1,
+                  flexDirection: 'row',
+                marginTop: StyleConfig.resHeight(20),
+                  // marginVertical: ,
+                  backgroundColor: colors.white,
+                  marginHorizontal: StyleConfig.resWidth(20),
+                }}>
+                <Text numberOfLines={1} style={styles.ranking}>
+                  {t('texts.id_78')}
+                </Text>
+                <Text numberOfLines={1} style={styles.result}>
+                  {' '}
+                  12,348 {t('texts.id_91')}{' '}
+                </Text>
+              </View>
+              <FlatList
+                style={{marginStart: 10}}
+                hasTVPreferredFocus={true}
+                contentContainerStyle={{paddingBottom: 50}}
+                keyExtractor={(item, index) => `item${index}`}
+                numColumns={5}
+                data={shorts}
+                renderItem={({item}) => (
+                  <TVMovieListItem
+                    item={item}
+                    {...props}
+                    type="movie"
+                    selected={SHORTS}
+                  />
+                )}
+              />
+            </View>
+          </View>
+        )}
         {selected == MENU && showSelected == ABOUT_US && (
           <View hasTVPreferredFocus={true}>
             <TVSideBar
@@ -892,6 +1080,7 @@ const styles = StyleSheet.create({
     fontWeight: isAndroid() ? '400' : '400',
   },
   ranking: {
+    width: StyleConfig.resWidth(250),
     marginStart: StyleConfig.resWidth(14),
     fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
@@ -904,6 +1093,7 @@ const styles = StyleSheet.create({
     }),
   },
   result: {
+    width: StyleConfig.resWidth(250),
     fontFamily: primary_regular_font.primary_regular_font,
     color: colors.black,
     fontSize: StyleConfig.resWidth(32),

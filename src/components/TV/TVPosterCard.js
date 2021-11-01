@@ -118,7 +118,7 @@ let [
   MENU,
 ] = [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-const TVPosterCard = ({item, ...props}) => {
+const TVPosterCard = ({item,details, ...props}) => {
   const {t} = useTranslation();
 
   const headerHeight = useHeaderHeight();
@@ -149,7 +149,8 @@ const TVPosterCard = ({item, ...props}) => {
           <ImageBackground
             style={{width: '100%', height: '100%', borderRadius: 15,}}
             // resizeMode={'stretch'}
-            source={AppImages[item.thumbnail]}>
+            // source={AppImages[item.thumbnail]}>
+            source={{ uri: item?.image_url }}>
             {/* <View
               style={[
                 {
@@ -198,7 +199,7 @@ const TVPosterCard = ({item, ...props}) => {
               : StyleConfig.resWidth(40),
           }}>
           <Text numberOfLines={2} style={styles.titleText}>
-            {item?.title}
+            {item?.local_title}
           </Text>
           <Text style={styles.subTextSecondary}>
             Name of original title if foreign
@@ -363,7 +364,7 @@ const TVPosterCard = ({item, ...props}) => {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={styles.textSecondary}>Awards</Text>
-                      <Text style={styles.textSecondary}>9.2</Text>
+                      <Text style={styles.textSecondary}>{item.awards_rating}</Text>
                     </View>
                   </View>
                   <View>
@@ -373,7 +374,7 @@ const TVPosterCard = ({item, ...props}) => {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={styles.textSecondary}>Critics</Text>
-                      <Text style={styles.textSecondary}>8.1</Text>
+                      <Text style={styles.textSecondary}>{item.critics_rating_displayed}</Text>
                     </View>
                   </View>
                 </View>
@@ -424,7 +425,7 @@ const TVPosterCard = ({item, ...props}) => {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={styles.textSecondary}>Audience</Text>
-                      <Text style={styles.textSecondary}>9.0</Text>
+                      <Text style={styles.textSecondary}>{item.audience_rating_displayed}</Text>
                     </View>
                   </View>
                   <View>
@@ -434,7 +435,7 @@ const TVPosterCard = ({item, ...props}) => {
                         justifyContent: 'space-between',
                       }}>
                       <Text style={styles.textSecondary}>Box-Office</Text>
-                      <Text style={styles.textSecondary}>8.1</Text>
+                      <Text style={styles.textSecondary}>{item.box_office_rating}</Text>
                     </View>
                   </View>
                 </View>
@@ -451,7 +452,7 @@ const TVPosterCard = ({item, ...props}) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Text style={styles.ratingText}>8.2</Text>
+                  <Text style={styles.ratingText}>{item.rating}</Text>
                   <Text style={styles.ratingText}>Excellent</Text>
                 </View>
               </View>
@@ -470,11 +471,7 @@ const TVPosterCard = ({item, ...props}) => {
               // marginTop: StyleConfig.resHeight(20),
             }}>
             <Text style={styles.detailsText}>
-              In Gotham City, mentally troubled comedian Arthur Fleck is
-              disregarded and mistreated by society. He then embarks on a
-              downward spiral of revolution and bloody crime. This path brings
-              him into a dangerous downward spiral of revolution and bloody
-              crime
+             {details?.plots}
             </Text>
             <View>
               <Text style={[styles.textSecondary,{marginTop:5}]}>

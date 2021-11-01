@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Dimensions} from 'react-native';
+import axios from 'axios';
 import {connect} from 'react-redux';
 import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../redux/const';
 import {SET_COUNTER, SET_CURR_FOCUS} from '../../redux/const';
@@ -17,9 +18,53 @@ class HomeScreen extends React.Component {
     posts: [],
     modalVisible: false,
   };
+   getMovies = () =>{
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&output=bas&limit=' + 8)
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      // this.setState({posts:response.data.data});
+      const posts = MoviesJSON.data.children.map((child) => child.data);
+  
+      console.log(response.data.data);
+      this.setState({posts:response.data.data});
 
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
   async componentDidMount() {
     this.props.reduxSetCurrFocus(2);
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&output=bas&limit=' + 8)
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      // this.setState({posts:response.data.data});
+  
+      console.log(response.data.data);
+    const posts = MoviesJSON.data.children.map((child) => child.data);
+    this.setState({
+      posts: true,
+      // items: result.items
+    });
+      // this.setState({posts});
+
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+    // this.getMovies();
     // fetch(MoviesJSON,{
     //   headers: {
     //     "Content-Type": "application/json",
@@ -30,6 +75,7 @@ class HomeScreen extends React.Component {
     //   .then(json => {
     const posts = MoviesJSON.data.children.map((child) => child.data);
     this.setState({posts});
+
     // });
     // crashlytics().log('crashlytics log.');
     // crashlytics().log('crash on componentDidMount.');
@@ -37,7 +83,7 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    console.log('StyleConfig.isTV- ', StyleConfig.isTV);
+    console.log('StyleConfig.isTV- ', this.state.posts);
     return StyleConfig.isTV ? (
       <RenderTV
         posts={this.state.posts}

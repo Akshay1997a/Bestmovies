@@ -13,6 +13,8 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
+import Loader from '../../components/Loader';
+
 import TVMovieListItem from '../../components/TV/TVMovieListItem';
 import TVPosterCard from '../../components/TV/TVPosterCard';
 import TVCardDetail from '../../components/TV/TVCardDetail';
@@ -25,21 +27,8 @@ import strings from '../../helper/strings';
 import AppImages from '../../assets';
 import {useTranslation} from 'react-i18next';
 import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
+import axios from 'axios';
 
-// import {
-//   View,
-//   Text,
-//   Dimensions,
-//   StyleSheet,
-//   TouchableOpacity,
-//   Platform,
-//   Image,
-//   ImageBackground,
-//   ScrollView,
-//   Pressable
-
-// } from 'react-native';
-// import TVPosterCard from '../../components/TV/TVPosterCard'
 const CAST = [
   {
     id: 1,
@@ -233,6 +222,13 @@ const MyCarousel = ({item, posts, ...props}) => {
   const {t} = useTranslation();
 
   const [focus, setFocus] = useState(0);
+  const [movieItem, setMovieItem] = useState(null);
+  const [director, setDirector] = useState(null);
+  const [actor, setActor] = useState(null);
+  const [similarTitles, setSimilar] = useState(null);
+  const [isLoaded, setLoaded] = useState(false);
+  
+
   const onFocus = useCallback(() => {
     setFocus(0);
   }, [0]);
@@ -249,16 +245,100 @@ const MyCarousel = ({item, posts, ...props}) => {
   const goForward = () => {
     carouselRef.current.snapToNext();
   };
+  const getMovies = () =>{
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&output=det&limit=1&id='+item.id)
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      // setMovies(response.data.data)
+      console.log(response);
+      let data  = response.data.data[0];
+      let images  = data.images;
+    setEntries(images);
+    setMovieItem(data);
+    getSimilar(data.similar_titles)
+      getActorDirector(data.directors,data.actors);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
 
+  const getSimilar = (similar) =>{
+    var array = similar.split(',');
+    let req = '';
+
+    for(let i =0 ;i < array.length ;i++){
+      req += 'id='+array[i]+'&';
+    }
+    axios
+    .get('http://18.119.119.183:3003/titles?device=tv&output=ove&limit=20&id='+req)
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      setSimilar(response.data.data)
+    //   console.log(response);
+    //   let data  = response.data.data[0];
+    //   let images  = data.images;
+    // setEntries(images);
+    // setMovieItem(data);
+      // getActorDirector(data.directors,data.actors);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
+  const getActorDirector = (director,actors) =>{
+    var array = actors.split(',');
+    const idArry = [];
+    let req = '';
+    req+= 'id='+director;
+    for(let i =0 ;i < array.length ;i++){
+      req += '&id='+array[i];
+    }
+    axios
+    .get('http://18.119.119.183:3005/artists?output=overview&id='+req )
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      // setMovies(response.data.data)
+      let actor =  response.data.data;
+      let dir = response.data.data.slice(-1)[0] ;
+      let dirArry = [];
+      dirArry.push(dir);
+      setDirector(director);
+      setActor(actor);
+      console.log(response);
+      setLoaded(true);
+
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
   useEffect(() => {
-    setEntries(ENTRIES1);
+    getMovies()
+    // setEntries(ENTRIES1);
   }, []);
 
   const renderItem = ({item, index}, parallaxProps) => {
     return (
       <View style={styles.item}>
         <ImageBackground
-          source={{uri: item.illustration}}
+          source={{uri: item}}
           containerStyle={styles.imageContainer}
           style={[styles.image]}
         />
@@ -278,14 +358,16 @@ const MyCarousel = ({item, posts, ...props}) => {
     return (
       // <View style={styles.secondItem}>
       <Image
-        source={{uri: item.illustration}}
+        source={{uri: item}}
         // containerStyle={styles.imageContainer}
         style={[styles.bottomImage]}
       />
       // </View>
     );
   };
-
+  if (!isLoaded) {
+    return <Loader />;
+  }
   return (
     <View style={[styles.container, {}]}>
       <ScrollView>
@@ -337,7 +419,7 @@ const MyCarousel = ({item, posts, ...props}) => {
                 marginTop: HEIGHT * 0.33,
               },
             ]}>
-            <TVPosterCard item={item} {...props} />
+            <TVPosterCard item={item} details = {movieItem} {...props} />
           </View>
         </View>
         <View>
@@ -388,7 +470,7 @@ const MyCarousel = ({item, posts, ...props}) => {
                 {t('professions.code_df')}
               </Text>
               <View style={{flexDirection: 'row'}}>
-                <TVCast item={CAST[0]} {...props} image={item.director_image} />
+                <TVCast item={director?.[0]} {...props} image={item.director_image} />
               </View>
             </View>
             <View
@@ -401,7 +483,7 @@ const MyCarousel = ({item, posts, ...props}) => {
               </Text>
 
               <View style={{flexDirection: 'row'}}>
-                {CAST.map((obj, ind) => (
+                {actor.map((obj, ind) => (
                   <TVCast item={obj} type={'movie'} />
                 ))}
               </View>
@@ -419,7 +501,7 @@ const MyCarousel = ({item, posts, ...props}) => {
                 contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
                 numColumns={5}
-                data={posts}
+                data={similarTitles}
                 renderItem={({item}) => (
                   <TVMovieListItem item={item} {...props} type="movie" />
                 )}
