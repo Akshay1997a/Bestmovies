@@ -315,11 +315,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: StyleConfig.resHeight(3),
     // marginVertical: 5,
-
     marginStart: isAndroid()
       ? StyleConfig.resWidth(20)
       : StyleConfig.resWidth(10),
-
     // marginEnd:100
     // marginRight:10
   },
