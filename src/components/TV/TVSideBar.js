@@ -118,8 +118,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   const {t} = useTranslation();
 
   const [focus, setFocus] = useState(NONE);
-  const [key, setKey] = useState(9);
-  const [selected, setSelected] = useState(9);
+  const [key, setKey] = useState(0);
+  const [selected, setSelected] = useState(0);
   const [aboutUs, setAboutUsData] = useState(null);
 
   const [terms_of_use, setTerms] = useState(null);
@@ -258,7 +258,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
 
         {key == COUNTRY_LANGUAGE && (
           <View style={[{}]} >
-            <TVCountryLanguage {...props} />
+            {/* <TVCountryLanguage {...props} /> */}
           </View>
         )}
         {key == MOBILE_APP && (
