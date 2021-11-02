@@ -17,6 +17,8 @@ import i18next from 'i18next';
 import TVHeader from '../../components/TV/TVHeader';
 import TVTopBar from '../../components/TV/TVTopBar';
 import TVSideBar from '../../components/TV/TVSideBar';
+import TVCountryLanguage from '../../components/TV/TVCountryLanguage';
+
 import TVTileView from '../../components/TV/TVTileView';
 import TVMovieListItem from '../../components/TV/TVMovieListItem';
 import TVSearchListItem from '../../components/TV/TVSearchListItem';
@@ -48,7 +50,8 @@ import {getTranslateFile} from '../../network/requests';
 import transConstants from '../../helper/transConstants';
 import {useTranslation} from 'react-i18next';
 import {runTimeTranslations} from '../../i18n';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
+import TVCountyList from '../../components/TV/TVCountyList';
 let [
   NONE,
   SEARCH,
@@ -720,33 +723,27 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
             </View>
           </View>
         )}
-        {selected == MENU && showSelected == ABOUT_US && (
-          <View hasTVPreferredFocus={true}>
-            <TVSideBar
-              selected={MENU}
-              {...props}
-              onChangeSelected={(val) => setShowSelected(val)}
-            />
+        {selected == MENU &&  (
+          
+         <View style={{flexDirection:'row',borderWidth:1,height:HEIGHT}}>
+          <TVCountyList/>
+
+          <TVCountryLanguage 
+          // hasTVPreferredFocus={true}
+          {...props}/>
+        
+          
           </View>
         )}
 
-        {selected == MENU && showSelected == COUNTRY_LANGUAGE && (
+        {/* {selected == MENU && showSelected == COUNTRY_LANGUAGE && (
           <View hasTVPreferredFocus={true}>
             <Text>dadsdsd</Text>
-            {/* <TVSideBar onChangeSelected={(val)=> setShowSelected(val) }/> */}
-            {/* <FlatList
-                data={Const.ABOUT_US}
-                keyExtractor={(item, index) => `item${index}`}
-                renderItem={({item})=>{
-                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} />
-                  :
-                  <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
-                }}
-              /> */}
-          </View>
-        )}
+           
+          </View> */}
+        {/* )} */}
 
-        {selected == MENU && showSelected == ADVERTISE && (
+        {/* {selected == MENU && showSelected == ADVERTISE && (
           <View hasTVPreferredFocus={true}>
             <FlatList
               data={ADVERTISE_DATA}
@@ -925,7 +922,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
           <View hasTVPreferredFocus={true}>
             <View style={{flex: 1, backgroundColor: 'red'}} />
           </View>
-        )}
+        )} */}
       </View>
       <TVSortByModal
         keySort={SORT_BY}

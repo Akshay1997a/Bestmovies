@@ -13,6 +13,7 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
+  FlatList
 } from 'react-native';
 import BaseModal from './BaseModal';
 import colors from '../../helper/colors';
@@ -20,6 +21,8 @@ import StyleConfig from 'src/helper/StyleConfig';
 import AppImages from 'src/assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
+import TV from './TVCountyList';
+
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {useFocusEffect} from '@react-navigation/core';
@@ -35,6 +38,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 import {result} from 'lodash';
+import TVCountyList from './TVCountyList';
 
 const COUNTRY = [
   {id: 0, name: 'United States'},
@@ -47,6 +51,15 @@ const COUNTRY_LANGUAGE = [
   {id: 2, name: 'Title Country Version', code: 'es'},
   {id: 3, name: 'Title language Version', code: 'es'},
 ];
+
+const COUNTRY_LANGUAGE1 = [
+  {id: 10, name: 'Country'},
+  {id: 11, name: 'Language', code: 'en'},
+  {id: 12, name: 'Title Country Version', code: 'es'},
+  {id: 13, name: 'Title language Version', code: 'es'},
+];
+
+
 
 const DATA = {
   code_DZ: 'Algeria',
@@ -264,11 +277,11 @@ const TVCountryLanguage = (props) => {
   const {t, i18n} = useTranslation();
 
   const [selected, setSelected] = useState(0);
-  const [focus, setFocus] = useState('DZ');
+  const [focus, setFocus] = useState();
   const [data, setData] = useState(COUNTRY_LANGUAGE);
   const [country, setCountry] = useState(null);
   const [isCountryClick, setCountryClick] = useState(true);
-  const [dataList, setDataList] = useState(DATA);
+  const [dataList, setDataList] = useState(null);
   const [language, setLanguageList] = useState(null);
   const [titleLanguage, setTitleLanguageList] = useState(null);
   const [aboutUs, setAboutUsData] = useState(null);
@@ -302,9 +315,9 @@ const TVCountryLanguage = (props) => {
     let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
     let countryTemp = countryData?.translation?.countries_listed;
-    for (const item of LANGUAGES) {
-      languageMap.set('code_AD', 'Andorra');
-    }
+    // for (const item of LANGUAGES) {
+    //   languageMap.set('code_AD', 'Andorra');
+    // }
     countryTemp && setDataList(countryTemp);
     setCountry(countryTemp);
 
@@ -363,7 +376,7 @@ const TVCountryLanguage = (props) => {
   };
 
   const onFocus = useCallback((val) => {
-    // props.reduxSetCurrFocus('countryLang');
+    props.reduxSetCurrFocus('countryLang');
     setFocus(val);
   });
 
@@ -392,11 +405,12 @@ const TVCountryLanguage = (props) => {
     
     <View style={{flexDirection: 'row',marginTop: StyleConfig.resHeight(30)}}>
       <View style={styles.container}>
+      <View >
+
         {data.map((item, index) => {
           return (
-            <View style={[{width: WIDTH * 0.27}]}>
+            <View>
               <Pressable
-                hasTVPreferredFocus={true}
                 onPress={() => onPressHandle(item)}
                 onFocus={() => onFocus(item.id)}
                 onBlur={onBlur}
@@ -419,21 +433,94 @@ const TVCountryLanguage = (props) => {
             </View>
           );
         })}
+        </View>
       </View>
-      {isCountryClick ? (
-        // <ScrollView>
+      <View style={styles.container}>
+        {/* <TVCountyList/> */}
+      {/* <FlatList
+              contentContainerStyle={{paddingBottom: 1000}}
+              hasTVPreferredFocus={true}
+              data={COUNTRY_LANGUAGE1}
+              keyExtractor={(item, index) => `item${index}`}
+              renderItem={({item}) => (
+                // />
+                <Text
+                style={
+                  focus == item.id
+                    ? styles.focusText
+                    : selected == item.id
+                    ? styles.selectedText
+                    : styles.text
+                }>
+                {item.name}
+              </Text>
+              )}
+            /> */}
+      {/* {COUNTRY_LANGUAGE1.map((item, index) => {
+          return (
+            <View style={[{width: WIDTH * 0.27}]}>
+              <Pressable
+                hasTVPreferredFocus={true}
+                onPress={() => onPressHandle(item)}
+                onFocus={() => onFocus(item.id)}
+                // onBlur={onBlur}
+                style={
+                  item.id == focus
+                    ? styles.listfocusBackWrap
+                    : styles.listbackWrap
+                }>
+                <Text
+                  style={
+                    focus == item.id
+                      ? styles.focusText
+                      : selected == item.id
+                      ? styles.selectedText
+                      : styles.text
+                  }>
+                  {item.name}
+                </Text>
+              </Pressable>
+            </View>
+          );
+        })} */}
+
+      {/* {dataList !== null &&
+              Object.entries(dataList).map((item, index) => {
+                let [temp, code] = item[0].split('_');
+                return (
+                  <Pressable
+                  hasTVPreferredFocus={true}
+                  onPress={() => countryPress(code, item)}
+                onFocus={() => onFocus(code)}
+                onBlur={onBlur}
+                style={
+                  focus == code
+                    ? styles.listfocusBackWrap
+                    : styles.listbackWrap}
+                 
+                    >
+                    <Text
+                      style={code == focus ? styles.focusText : styles.text}>
+                      {item[1]}
+                    </Text>
+                  </Pressable>
+                  
+                );
+              })} */}
+              </View>
+      {/* {isCountryClick ? (
+      
           <View
             style={{
               width: WIDTH * 0.2,
-              
-              // borderWidth:1,
+           
               height: HEIGHT-100,
-              // marginLeft: isAndroid() ? 100 : 160,
+           
               paddingLeft: StyleConfig.resWidth(20),
               borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
-      {/* <ScrollView style={{margin: StyleConfig.resWidth(15)}}> */}
+      
 
             {dataList !== null &&
               Object.entries(dataList).map((item, index) => {
@@ -464,10 +551,10 @@ const TVCountryLanguage = (props) => {
                   
                 );
               })}
-              {/* </ScrollView> commented for fixing*/}
+             
           </View>
-        // </ScrollView>
-      ) : null}
+       
+      ) : null} */}
     </View>
   );
 };
