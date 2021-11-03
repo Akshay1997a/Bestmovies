@@ -340,6 +340,8 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
 
   const onPressClick = (val) => {
     console.log('onPressClick StreamModal***', val);
+    props.action(val);
+
     setCountry(val.code);
   };
   const saveProvides = (val) => {
@@ -600,7 +602,8 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                     item={item}
                     type="movie"
                     // onFocus={props?.onFocus}
-                    action={() => onPressClick(index)}
+                    action={(res) => onPressClick(res)}
+
                   />
                 );
               }}

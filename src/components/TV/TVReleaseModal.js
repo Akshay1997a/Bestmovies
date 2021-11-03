@@ -102,12 +102,12 @@ const TVReleaseModal = (props) => {
   const [data, setData] = useState(DATA);
   const onPressClick = (val) => {
     val.selected = true;
-    props.action(props.keySort);
+    props.action(props.keySort,val);
     setSelected(val.id);
   };
   const onBlur = useCallback(() => {
     // console.log('onBlur  CommonFilterTvModal called***', focus);
-    setFocus(-1);
+    // setFocus(-1);
   }, []);
   const onPressClickFrom = (val) => {
     console.log('onPressClick dadadadaa***KKKK', val);

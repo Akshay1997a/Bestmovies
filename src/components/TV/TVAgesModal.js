@@ -75,7 +75,7 @@ const TVAgesModal = (props) => {
   const [data, setData] = useState([]);
   const onPressClick = (val) => {
     val.selected = true;
-    props.action(props.keySort);
+    props.action(props.keySort,val);
     setSelected(val.id);
   };
   const onFocus = useCallback(() => {
@@ -85,7 +85,7 @@ const TVAgesModal = (props) => {
 
   const onBlur = useCallback(() => {
     console.log('onBlur called***');
-    setFocus(-1);
+    // setFocus(-1);
   }, []);
 
   useEffect(() => {

@@ -43,7 +43,12 @@ const TVStreamingModal = (props) => {
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
+  const onPressClick = (val) => {
+    console.log('onPressClick TVStreamingModal***', val);
+    props.action(props.keySort,val);
 
+    // setCountry(val.code);
+  };
   // useEffect(() => {
 
   //     async function fetchData() {
@@ -61,6 +66,8 @@ const TVStreamingModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
+      action={(res) => onPressClick(res)}
+
       title={'Sort'}>
       {/* <ScrollView> */}
         {data.map((item, index) => {

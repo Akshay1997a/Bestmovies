@@ -168,8 +168,10 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             numberOfLines={1}
             style={
               props.focus === 'header' &&    focus == TV_SHOW
-                ? styles.focusTextShow
-                : styles.text
+              ? styles.focusText
+              : selected == TV_SHOW
+              ? styles.selectedText
+              : styles.text
             }>
             {t('texts.id_4')}
           </Text>
@@ -194,10 +196,12 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             numberOfLines={1}
             style={
               props.focus === 'header' &&   focus == SHORTS
-                ? styles.focusTextShow
-                : styles.text
+              ? styles.focusText
+              : selected == SHORTS
+              ? styles.selectedText
+              : styles.text
             }>
-            {t('texts.id_4')}
+            {t('texts.id_6')}
           </Text>
         </Pressable>
 

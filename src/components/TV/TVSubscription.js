@@ -229,9 +229,9 @@ const TVSubscriptionRender = (props) => {
 };
 
 const TVSubscription = (props) => {
-  const onPressClick = (index) => {
-    props.action(index);
-    logOnConsole('data',index);
+  const onPressClick = (res) => {
+    props.action(res);
+    // logOnConsole('data',index);
   };
    ///const data = useSelector(state => state.state)
   const [item,setItem] = useState([]);
@@ -257,7 +257,7 @@ const TVSubscription = (props) => {
             item={item}
             type="movie"
             onFocus={props?.onFocus}
-            action={() => onPressClick(index)}
+            action={(res) => onPressClick(res)}
           />
         );
       }}

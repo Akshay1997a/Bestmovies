@@ -21,16 +21,16 @@ import {WIDTH} from '../../helper/globalFunctions';
 const DATA = [
   {id: 0, name: 'texts.id_172'},
   {id: 1, name: 'texts.id_159'},
-  {id: 2, name: '< $1'},
-  {id: 3, name: '< $2'},
-  {id: 4, name: '< $3'},
-  {id: 5, name: '< $4'},
-  {id: 6, name: '< $5'},
-  {id: 7, name: '< $6'},
-  {id: 8, name: '< $7'},
-  {id: 9, name: '< $9'},
-  {id: 10, name: '< $10'},
-  {id: 11, name: '< $11'},
+  {id: 2, name: '$1'},
+  {id: 3, name: '$2'},
+  {id: 4, name: '$3'},
+  {id: 5, name: '$4'},
+  {id: 6, name: '$5'},
+  {id: 7, name: '$6'},
+  {id: 8, name: '$7'},
+  {id: 9, name: '$9'},
+  {id: 10, name: '$10'},
+  {id: 11, name: '$11'},
 ];
 const isAndroid = () => {
   return Platform.OS == 'android';
@@ -91,12 +91,12 @@ const TVPriceModal = (props) => {
 
   const onPressClick = (val) => {
     val.selected = true;
-    props.action(props.keySort);
+    props.action(props.keySort,val);
     setSelected(val.id);
   };
   const onBlur = useCallback(() => {
     // console.log('onBlur  CommonFilterTvModal called***', focus);
-    setFocus(-1);
+    // setFocus(-1);
   }, []);
   return (
     <CommonFilterTvModal

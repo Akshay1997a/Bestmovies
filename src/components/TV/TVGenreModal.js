@@ -111,7 +111,7 @@ const TVGenreModal = (props) => {
   const [toggleBackgrpund, setToggleBackgrpund] = useState(false);
   const onBlur = useCallback(() => {
     // console.log('onBlur  CommonFilterTvModal called***', focus);
-    setFocus(-1);
+    // setFocus(-1);
   }, []);
   const onPressClick = (val) => {
     // val.selected = true;
@@ -127,7 +127,7 @@ const TVGenreModal = (props) => {
     }
 
     console.log('onPressClick TVCountryModal***', val);
-    // props.action(props.keySort);
+    props.action(props.keySort,val);
     //   props.onclose();
     // setSelected(val);
   };

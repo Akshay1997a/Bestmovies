@@ -95,12 +95,12 @@ const TVCountryModal = (props) => {
     // //   props.onclose();
     setSelected(val);
 
-    props.action(val);
+    props.action(props.keySort,val);
     // props.onclose();
   };
   const onBlur = useCallback(() => {
     // console.log('onBlur  CommonFilterTvModal called***', focus);
-    setFocus(-1);
+    // setFocus(-1);
   }, []);
 
   useFocusEffect(() => {

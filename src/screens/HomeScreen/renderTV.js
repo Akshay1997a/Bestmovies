@@ -52,6 +52,8 @@ import {useTranslation} from 'react-i18next';
 import {runTimeTranslations} from '../../i18n';
 import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 import TVCountyList from '../../components/TV/TVCountyList';
+import {endPoints} from '../../network/endPoints';
+
 let [
   NONE,
   SEARCH,
@@ -191,7 +193,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
   let onEndReachedCalledDuringMomentum = false;
   const [topSelected, setTopSelected] = useState(0);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [language, setLanguage] = useState('en');
 
   const [selected, setSelected] = useState(MOVIES);
@@ -200,6 +202,8 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
 
   const [tvShoes, setTVShoes] = useState([]);
   const [shorts, setTVShorts] = useState([]);
+  const [provider, setProviders] = useState('');
+  const [generes, setGeneras] = useState('');
 
   const [selectedItem, setSelectedItem] = useState(posts ? posts[0] : null);
   const [showSelected, setShowSelected] = useState(NONE);
@@ -265,9 +269,16 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       // }
     };
   }, []);
-  const getMovies = (lan) =>{
+  const getMovies = (lan,sort,provdersId,generes,age,price) =>{
+    let provider = provdersId ? provdersId : '';
+    let sort_id = sort ? sort : '';
+    let generes_code = generes ? generes : '';
+    let ages = age ? age : '';
+    let prices = price ? price : '';
+
+let url = 'device=tv&type=m&output=ove&offset='+page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
     axios
-    .get('http://18.119.119.183:3003/titles?device=tv&type=m&output=ove&t_lang='+language+'&limit=' + 10,{
+    .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
       headers: {
         't_lang': lan ? lan : language
       }
@@ -276,13 +287,20 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
       
-      
-      setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
-      setMoviesSearch(response.data.data)
+      if(response.data.data.length > 0){
+      setMovies(response.data.data)
 
-      getTVShows();
-      getShorts();
+      // setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
+      setMoviesSearch(response.data.data)
+      getTVShows('',sort_id,provider,generes_code,ages,prices);
+      getShorts('',sort_id,provider,generes_code,ages,prices);
       console.log(response);
+      setPage(page+1);
+      }else{
+      setMovies([])
+
+      }
+
     })
     .catch(function (error) {
       // handle error
@@ -292,14 +310,29 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       // always executed
     });
   }
-  const getTVShows = () =>{
+  const getTVShows = (lan,sort,provdersId,generes,age,price) =>{
+    let provider = provdersId ? provdersId : '';
+    let sort_id = sort ? sort : '';
+    let generes_code = generes ? generes : '';
+    let ages = age ? age : '';
+    let prices = price ? price : '';
+
+let url = 'device=tv&type=t&output=ove&offset='+page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
     axios
-    .get('http://18.119.119.183:3003/titles?device=tv&type=t&output=ove&limit=' + 20)
+    .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
+      headers: {
+        't_lang': lan ? lan : language
+      }
+    })
     .then(function (response) {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
+      if(response.data.data.length > 0){
       setTVShoes(response.data.data)
       console.log(response);
+      }else{
+      setTVShoes([])
+      }
     })
     .catch(function (error) {
       // handle error
@@ -310,14 +343,29 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     });
   }
 
-  const getShorts = () =>{
+  const getShorts =  (lan,sort,provdersId,generes,age,price) =>{
+    let provider = provdersId ? provdersId : '';
+    let sort_id = sort ? sort : '';
+    let generes_code = generes ? generes : '';
+    let ages = age ? age : '';
+    let prices = price ? price : '';
+
+let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
     axios
-    .get('http://18.119.119.183:3003/titles?device=tv&type=s&output=ove&limit=' + 20)
+    .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
+      headers: {
+        't_lang': lan ? lan : language
+      }
+    })
     .then(function (response) {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
-      setTVShorts(response.data.data)
-      console.log(response);
+      if(response.data.data.length > 0){
+        setTVShorts(response.data.data)
+        console.log(response);
+        }else{
+          setTVShorts([])
+        }
     })
     .catch(function (error) {
       // handle error
@@ -363,9 +411,55 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     onSideBarFocus(val);
   };
 
-  const onPressClick = (val) => {
+  const onPressClick = (val,type) => {
+    let sort = '';
+    let where = '';
+    let gener = '';
+    let age = '';
+    let price = '';
+
+    if(val === SORT_BY){
+      // console.log(SORT_BY);
+      if(type.id === 0){
+        sort = '&sort=r';
+      }else if(type.id === 1){
+        sort = '&sort=m';
+      }else if(type.id === 2){
+        sort = '&sort=f';
+      }else if(type.id === 3){
+        sort = '&sort=p';
+      }
+      // sort '&genre='+code;
+      // sort = type.id == 0 ? 'r' :'m'
+    }else if(val === STRREAMING){
+      where  = provider;
+      where += '&provider='+type.provider_id;
+      setProviders(where)
+    }else if(val === RELEASE){
+      console.log(RELEASE);
+
+    }else if(val === GENRE){
+      let [temp, code] = type.split('_');
+      console.log(code);
+      gener = generes;
+      gener += '&genre='+code;
+      setGeneras(gener);
+    }else if(val === COUNTRY){
+      console.log(COUNTRY);
+    }else if(val === AGES){
+      age= '&age='+type.ages;
+      console.log(AGES);
+    }else if(val === PRICE){
+      let [temp,prices] = type.name.split('$');
+      // price =temp;
+      price = '&price='+prices;
+      console.log(prices);
+    }
+    
+   
     setTopSelected(val);
-    // console.debug(' onPressClick value>>>>>', val);
+    getMovies('',sort,where,gener,age,price);
+    console.debug(' onPressClick value>>>>>dasfgasdbgvsfd', val);
   };
 
   function _handleEvent(value) {
@@ -399,7 +493,6 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     onEndReachedCalledDuringMomentum = false;
     console.log('called');
     // this.setState({page:this.state.page+1},
-    setPage(2);
     //   ()=>
    getMovies()
   //  )
@@ -421,6 +514,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
             getMovies(lng);
           }
           setSelected(val);
+          
           if (val == MENU) {
             setShowSelected(ABOUT_US);
             // sidebar.current.setResetFocus()
@@ -672,11 +766,14 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                     selected={TV_SHOW}
                   />
                 )}
+                onEndReachedThreshold={0.5}
+                onMomentumScrollBegin = {() => {onEndReachedCalledDuringMomentum = false;}}
+                onEndReached ={() => loadMoreRandomData('test string')}
               />
             </View>
           </View>
         )}
-{selected == SHORTS && (
+        {selected == SHORTS && (
           <View
             style={[{flex: 1, backgroundColor: colors.white}]}
             hasTVPreferredFocus={true}>
@@ -719,20 +816,19 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
                     selected={SHORTS}
                   />
                 )}
+                onEndReachedThreshold={0.5}
+                onMomentumScrollBegin = {() => {onEndReachedCalledDuringMomentum = false;}}
+                onEndReached ={() => loadMoreRandomData('test string')}
               />
             </View>
           </View>
         )}
         {selected == MENU &&  (
-          
          <View style={{flexDirection:'row',borderWidth:1,height:HEIGHT}}>
           <TVCountyList/>
-
           <TVCountryLanguage 
           // hasTVPreferredFocus={true}
           {...props}/>
-        
-          
           </View>
         )}
 
