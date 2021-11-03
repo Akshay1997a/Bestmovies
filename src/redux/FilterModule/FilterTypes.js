@@ -11,6 +11,8 @@ export const UPDATE_PROVIDERS = 'UPDATE_PROVIDERS';
 
 export const UPDATE_YEAR = 'UPDATE_YEAR';
 
+export const UPDATE_GENERES = 'UPDATE_GENERES';
+
 export const VIEW_STYLE = {
   FULL_VIEW: 'FULL_VIEW',
   GRID_VIEW: 'GRID_VIEW',

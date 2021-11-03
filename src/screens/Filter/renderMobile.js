@@ -98,6 +98,7 @@ class Filter extends React.Component {
       providerConfig,
       year,
       languages,
+      genres,
     } = this.props.filterConfig;
     const titleTextStyle = [styles.textTitle];
     if (selectedCountries.length > 0) {
@@ -118,6 +119,11 @@ class Filter extends React.Component {
     const languageTextStyle = [styles.textTitle];
     if (languages.length > 0) {
       languageTextStyle.push(styles.isActiveText);
+    }
+
+    const genresTextStyle = [styles.textTitle];
+    if (genres.length > 0) {
+      genresTextStyle.push(styles.isActiveText);
     }
 
     return (
@@ -220,15 +226,15 @@ class Filter extends React.Component {
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity 
-            onPress={() => this.props.navigation.navigate('Genres')} 
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Genres')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
                 xt
-                style={[styles.textTitle]}>
+                style={genresTextStyle}>
                 {t('texts.id_127')}
               </Text>
               <View style={{flexDirection: 'row'}}>
@@ -236,7 +242,9 @@ class Filter extends React.Component {
                   numberOfLines={3}
                   ellipsizeMode="tail"
                   style={styles.textSecond}>
-                  Comedy,Drama,Thriller,Action,Documentary,Horror
+                  {genres.length > 0
+                    ? genres.map((i) => i.name).join(', ')
+                    : 'Any'}
                 </Text>
               </View>
             </View>

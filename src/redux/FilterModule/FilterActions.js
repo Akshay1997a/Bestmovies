@@ -9,6 +9,7 @@ import {
   UPDATE_LANGUAGES,
   UPDATE_WATCHED,
   UPDATE_PRIVIOUSLY_BROWSED,
+  UPDATE_GENERES,
 } from './FilterTypes';
 
 export function modifyConfig(data) {
@@ -76,6 +77,13 @@ export function updateWatchedValue(data) {
 export function updatePreviouslyWatchedValue(data) {
   return {
     type: UPDATE_PRIVIOUSLY_BROWSED,
+    payload: data,
+  };
+}
+
+export function updateGenres(data) {
+  return {
+    type: UPDATE_GENERES,
     payload: data,
   };
 }

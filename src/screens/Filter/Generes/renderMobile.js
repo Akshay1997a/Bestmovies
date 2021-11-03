@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable radix */
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   Platform,
@@ -11,15 +11,18 @@ import {
   View,
   KeyboardAvoidingView,
 } from 'react-native';
-import { Text } from '../../../components/EnhanchedComponents';
+import {Text} from '../../../components/EnhanchedComponents';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HeaderModal from '../../../components/HeaderModal';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import primary_regular_font from '../../../helper/fonts';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { updateYear } from '../../../redux/FilterModule/FilterActions';
-import { YEARS_TYPE } from '../../../redux/FilterModule/FilterTypes';
-import { FilterInitialState } from '../../../redux/FilterModule/FilterReducer';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {
+  updateGenres,
+  updateYear,
+} from '../../../redux/FilterModule/FilterActions';
+import {YEARS_TYPE} from '../../../redux/FilterModule/FilterTypes';
+import {FilterInitialState} from '../../../redux/FilterModule/FilterReducer';
 import {
   fontScale,
   heightScale,
@@ -28,19 +31,86 @@ import {
 
 const WIDTH = Dimensions.get('window').width;
 
-const Catagories = ["Comedy"]
+const Catagories = [
+  {
+    name: 'Action & adventure',
+  },
+  {
+    name: 'Comedy',
+  },
+  {
+    name: 'Documentary',
+  },
+  {
+    name: 'Drama',
+  },
+  {
+    name: 'Family & animation',
+  },
+  {
+    name: 'Horror',
+  },
+  {
+    name: 'Music & musicals',
+  },
+  {
+    name: 'Romance',
+  },
+  {
+    name: 'Sci-Fi & fantasy',
+  },
+  {
+    name: 'TV programs',
+  },
+  {
+    name: 'Thriller & crime',
+  },
+  {
+    name: 'War & history',
+  },
+].map((item, index) => {
+  return {
+    id: index + 1,
+    ...item,
+  };
+});
 
 export default function RenderMobile(props) {
+  const genres = useSelector((state) => state.filterConfig.genres);
+  const dispatch = useDispatch();
+
+  const addItem = (item) => {
+    if (genres.some((i) => i.id === item.id)) {
+      let newArr = genres.filter((i) => i.id !== item.id);
+      dispatch(updateGenres(newArr));
+    } else {
+      dispatch(updateGenres([...genres, item]));
+    }
+  };
+
+  const clearGenres = () => {
+    dispatch(updateGenres([]));
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior="height"
       keyboardVerticalOffset={50}>
-      <HeaderModal title="Generes" {...props} />
-      <ScrollView contentContainerStyle={{ marginHorizontal: widthScale(11) }}>
-        {Catagories.map(i => (
+      <HeaderModal title="Genres" {...props} />
+      <ScrollView contentContainerStyle={{marginHorizontal: widthScale(11)}}>
+        <Button
+          key={'0'}
+          title={'Any'}
+          isActive={genres.length === 0}
+          onPress={clearGenres}
+        />
+        {Catagories.map((item) => (
           <Button
-            title={i}
+            key={item.id.toString()}
+            title={item.name}
+            isActive={genres.some((i) => i.id === item.id)}
+            onPress={() => addItem(item)}
           />
         ))}
       </ScrollView>
@@ -48,7 +118,7 @@ export default function RenderMobile(props) {
   );
 }
 
-const Button = ({ title, isActive, onPress }) => (
+const Button = ({title, isActive, onPress}) => (
   <TouchableOpacity
     style={[styles.butContainer, isActive && styles.butActive]}
     onPress={onPress}>
