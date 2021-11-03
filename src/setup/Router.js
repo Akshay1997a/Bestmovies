@@ -140,6 +140,21 @@ const StackNav = () => {
         )}
       />
       <Stack.Screen
+        name="Genres"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Generes {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
         name="CountryFilter"
         options={(props) => {
           return {

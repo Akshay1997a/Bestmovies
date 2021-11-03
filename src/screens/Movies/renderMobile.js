@@ -519,7 +519,7 @@ export class RenderMobile extends Component {
           visible={this.state.modalVisible}
           transparent={true}
           statusBarTranslucent={true}
-          animationType="slide">
+          animationType="none">
           <TouchableWithoutFeedback
             onPress={() => this.setState({modalVisible: false})}>
             <View style={[styles.shadowView]} />

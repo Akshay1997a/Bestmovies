@@ -697,7 +697,7 @@ class RenderMobile extends Component {
         </Modal>
         <Modal
           visible={this.state.modalVisible}
-          animationType="slide"
+          animationType="none"
           statusBarTranslucent={true}
           transparent={true}>
           <TouchableWithoutFeedback

@@ -220,7 +220,9 @@ class Filter extends React.Component {
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.butContainer}>
+          <TouchableOpacity 
+            onPress={() => this.props.navigation.navigate('Genres')} 
+            style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text
                 numberOfLines={1}
