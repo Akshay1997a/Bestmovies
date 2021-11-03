@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component, useEffect, useState} from 'react';
 import {
-  Text,
   View,
   TextInput,
   KeyboardAvoidingView,
@@ -9,6 +8,7 @@ import {
   InteractionManager,
   StyleSheet,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CardView from '../Movies/CardView';
 import Loader from '../../components/Loader';

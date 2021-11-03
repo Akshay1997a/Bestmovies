@@ -3,7 +3,6 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
@@ -12,6 +11,7 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import HeaderModal from '../../components/HeaderModal';
 import {APP_PLAYSTORE_URL} from '../../config/urls';

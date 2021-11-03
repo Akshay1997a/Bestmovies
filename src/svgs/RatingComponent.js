@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import Svg, {G, Ellipse, Defs, ClipPath} from 'react-native-svg';
 import _ from 'lodash';
 import primary_font from '../helper/fonts';
 import StyleConfig from '../helper/StyleConfig';
 import colors from '../helper/colors';
 import {fontScale} from '../helper/ResponsiveFonts';
+import {Text} from '../components/EnhanchedComponents';
 
 function EllipseComponent({size, ...props}) {
   const md = () => (

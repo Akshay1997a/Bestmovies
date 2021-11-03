@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  Text,
   View,
   Dimensions,
   SafeAreaView,
@@ -9,6 +8,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 import SearchBar from '../../components/SearchBar';
 import {COUNTRIES_LIST} from '../../config/CountriesList';
 import HeaderModal from '../../components/HeaderModal';
@@ -91,7 +91,7 @@ export class RenderMobile extends Component {
             onClear={this.onClearSearch}
           />
           <FlatList
-          bounces={false}
+            bounces={false}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={
               Platform.OS !== 'android' &&

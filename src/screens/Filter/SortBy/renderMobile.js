@@ -2,12 +2,12 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   Dimensions,
   Platform,
 } from 'react-native';
+import {Text} from '../../../components/EnhanchedComponents';
 import {useDispatch, useSelector} from 'react-redux';
 import HeaderModal from '../../../components/HeaderModal';
 import {updateSortByAction} from '../../../redux/FilterModule/FilterActions';

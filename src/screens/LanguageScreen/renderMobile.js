@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import {withTranslation} from 'react-i18next';
 import {
-  Text,
   View,
   Dimensions,
   SafeAreaView,
@@ -11,6 +10,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import HeaderModal from '../../components/HeaderModal';

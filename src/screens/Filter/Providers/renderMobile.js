@@ -2,7 +2,6 @@
 import {flatMap, update} from 'lodash';
 import React, {Component} from 'react';
 import {
-  Text,
   View,
   Dimensions,
   SafeAreaView,
@@ -14,6 +13,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
+import {Text} from '../../../components/EnhanchedComponents';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {COUNTRIES_LIST} from '../../../config/CountriesList';
 import Svg, {SvgFromUri as SVGImage, Rect} from 'react-native-svg';

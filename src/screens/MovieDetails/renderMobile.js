@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import {
   SafeAreaView,
-  Text,
   View,
   Dimensions,
   Image,
@@ -17,6 +16,7 @@ import {
   Animated,
   Platform,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/Feather';

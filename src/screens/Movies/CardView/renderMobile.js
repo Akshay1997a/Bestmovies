@@ -2,7 +2,6 @@
 import {wrap} from 'lodash';
 import React, {Component} from 'react';
 import {
-  Text,
   View,
   Dimensions,
   FlatList,
@@ -12,6 +11,7 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
+import {Text} from '../../../components/EnhanchedComponents';
 import Inocons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../../svgs/RatingComponent';

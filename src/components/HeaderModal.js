@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   Platform,
   Image,
 } from 'react-native';
+import {Text} from './EnhanchedComponents';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import primary_regular_font from '../helper/fonts';

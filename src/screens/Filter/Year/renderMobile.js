@@ -6,12 +6,12 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
   KeyboardAvoidingView,
 } from 'react-native';
+import {Text} from '../../../components/EnhanchedComponents';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import HeaderModal from '../../../components/HeaderModal';
 import {useTranslation} from 'react-i18next';

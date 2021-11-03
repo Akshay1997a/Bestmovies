@@ -137,7 +137,7 @@ export function TopBarSearchNavigator(props) {
       {/* <Tab.Screen name={'Title'} children={Search} /> */}
       <Tab.Screen name={t('texts.id_38')} component={Search} />
       <Tab.Screen name={t('texts.id_41')} component={Search} />
-      <Tab.Screen name={'User'} component={Search} />
+      <Tab.Screen name={'Users'} component={Search} />
     </Tab.Navigator>
   );
 }

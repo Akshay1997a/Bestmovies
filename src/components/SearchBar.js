@@ -20,7 +20,11 @@ export default function SearchBar(props) {
         size={widthScale(19)}
         style={{marginRight: widthScale(7)}}
       />
-      <TextInput style={styles.inputStyle} {...props} />
+      <TextInput
+        style={styles.inputStyle}
+        allowFontScaling={false}
+        {...props}
+      />
     </View>
   );
 }
@@ -39,6 +43,7 @@ export function SearchTitle(props) {
         <Icon name="search" size={widthScale(19)} color="#232323" />
       </TouchableOpacity>
       <TextInput
+        allowFontScaling={false}
         style={{
           flex: 1,
           fontSize: fontScale(18),

@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Image,
   Animated,
-  Text,
   ScrollView,
   TouchableNativeFeedback,
   StyleSheet,
@@ -16,6 +15,7 @@ import {
   Easing,
   StatusBar as RNStatusBar,
 } from 'react-native';
+import {Text} from '../components/EnhanchedComponents';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/Entypo';
 import FA5 from 'react-native-vector-icons/FontAwesome5';

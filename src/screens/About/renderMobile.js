@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   Image,
   InteractionManager,
   Platform,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 import Header, {
   TOTAL_HEADER_HEIGHT,
   useCollapsibleHeader,

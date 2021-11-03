@@ -3,7 +3,6 @@ import {values} from 'lodash';
 import React from 'react';
 import {
   View,
-  Text,
   TouchableOpacity,
   Dimensions,
   ScrollView,
@@ -11,6 +10,7 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
