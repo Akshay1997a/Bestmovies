@@ -529,6 +529,7 @@ export class RenderMobile extends Component {
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
               height: heightScale(248),
+              paddingHorizontal: widthScale(10),
               borderTopLeftRadius: 20,
               borderTopRightRadius: 20,
               alignItems: 'center',
@@ -946,7 +947,7 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   filterBut: {
-    width: '95%',
+    // width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,

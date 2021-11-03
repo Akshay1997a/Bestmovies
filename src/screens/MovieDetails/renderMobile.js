@@ -713,6 +713,7 @@ class RenderMobile extends Component {
               borderTopRightRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
+              paddingHorizontal: widthScale(10),
               elevation: 10,
             }}>
             <Text
@@ -1089,7 +1090,7 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   filterBut: {
-    width: '90%',
+    // width: '90%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
