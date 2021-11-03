@@ -1093,7 +1093,7 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   filterBut: {
-    // width: '90%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
