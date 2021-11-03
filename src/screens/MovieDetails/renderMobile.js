@@ -133,6 +133,7 @@ class RenderMobile extends Component {
       isLoaded: false,
       headerVisible: true,
       parentScroll: true,
+      scrollEnabled: true,
     };
     Orientation.lockToPortrait();
     this.scrollY = new Animated.Value(0);
@@ -465,6 +466,15 @@ class RenderMobile extends Component {
                     <Text style={styles.textFont}>Director </Text>
                     <ScrollView
                       horizontal={true}
+                      onTouchStart={(ev) => {
+                        this.setState({scrollEnabled: false});
+                      }}
+                      onMomentumScrollEnd={(e) => {
+                        this.setState({scrollEnabled: true});
+                      }}
+                      onScrollEndDrag={(e) => {
+                        this.setState({scrollEnabled: true});
+                      }}
                       nestedScrollEnabled={true}
                       showsHorizontalScrollIndicator={false}
                       contentContainerStyle={{
@@ -479,6 +489,17 @@ class RenderMobile extends Component {
                     <Text style={styles.textFont}>Cast</Text>
                     <ScrollView
                       horizontal={true}
+                      {...(Platform.OS === 'android' && {
+                        onTouchStart: (ev) => {
+                          this.setState({scrollEnabled: false});
+                        },
+                        // onMomentumScrollEnd: (e) => {
+                        //   this.setState({scrollEnabled: true});
+                        // },
+                        onScrollEndDrag: (e) => {
+                          this.setState({scrollEnabled: true});
+                        },
+                      })}
                       nestedScrollEnabled={true}
                       showsHorizontalScrollIndicator={false}
                       contentContainerStyle={{height: heightScale(156)}}>
@@ -677,6 +698,7 @@ class RenderMobile extends Component {
         <Modal
           visible={this.state.modalVisible}
           animationType="slide"
+          statusBarTranslucent={true}
           transparent={true}>
           <TouchableWithoutFeedback
             onPress={() => this.setState({modalVisible: false})}>
@@ -686,8 +708,9 @@ class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: heightScale(280),
-              borderRadius: 20,
+              height: heightScale(248),
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
               elevation: 10,
@@ -880,7 +903,7 @@ class RenderMobile extends Component {
           <View style={{flex: 1}}>
             <FlatList
               bounces={false}
-              scrollEnabled={this.state.parentScroll}
+              scrollEnabled={this.state.scrollEnabled}
               showsHorizontalScrollIndicator={false}
               horizontal={true}
               data={DATA}
@@ -1101,7 +1124,7 @@ const styles = StyleSheet.create({
   },
   soryByHead: {
     padding: 5,
-    fontFamily: 'VAG Rounded Next Bold',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: fontScale(22),
     color: '#ff3300',
     ...(Platform.OS === 'ios' && {

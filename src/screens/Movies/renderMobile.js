@@ -518,6 +518,7 @@ export class RenderMobile extends Component {
         <Modal
           visible={this.state.modalVisible}
           transparent={true}
+          statusBarTranslucent={true}
           animationType="slide">
           <TouchableWithoutFeedback
             onPress={() => this.setState({modalVisible: false})}>
@@ -527,8 +528,9 @@ export class RenderMobile extends Component {
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: heightScale(280),
-              borderRadius: 20,
+              height: heightScale(248),
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
               elevation: 10,

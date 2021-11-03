@@ -168,13 +168,17 @@ export default function RenderMobile(props) {
               placeholder="From"
               textAlign="center"
               value={
-                year.type === YEARS_TYPE.CUSTOME ? year.from.toString() : ''
+                year.type === YEARS_TYPE.CUSTOME &&
+                !isNaN(year.from) &&
+                year.from !== null
+                  ? year.from.toString()
+                  : ''
               }
               keyboardType="decimal-pad"
               onChangeText={(text) => {
                 setYear({
                   type: YEARS_TYPE.CUSTOME,
-                  from: parseInt(text),
+                  from: text !== '' ? parseInt(text) : '',
                   to: year.to,
                 });
               }}
@@ -185,12 +189,18 @@ export default function RenderMobile(props) {
               placeholder="to"
               textAlign="center"
               keyboardType="decimal-pad"
-              value={year.type === YEARS_TYPE.CUSTOME ? year.to.toString() : ''}
+              value={
+                year.type === YEARS_TYPE.CUSTOME &&
+                !isNaN(year.to) &&
+                year.to !== null
+                  ? year.to.toString()
+                  : ''
+              }
               onChangeText={(text) => {
                 setYear({
                   type: YEARS_TYPE.CUSTOME,
                   from: year.from,
-                  to: parseInt(text),
+                  to: text !== '' ? parseInt(text) : '',
                 });
               }}
             />

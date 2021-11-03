@@ -77,8 +77,8 @@ export function TopBarMainNavigator(props) {
         options={{title: 'TV shows'}}
       />
       <Tab.Screen name={t('texts.id_6')} component={MoviesStack} />
-      <Tab.Screen name={t('texts.id_8')} component={MoviesStack} />
-      <Tab.Screen name={t('texts.id_11')} component={MoviesStack} />
+      {/* <Tab.Screen name={t('texts.id_8')} component={MoviesStack} />
+      <Tab.Screen name={t('texts.id_11')} component={MoviesStack} /> */}
     </Tab.Navigator>
   );
 }

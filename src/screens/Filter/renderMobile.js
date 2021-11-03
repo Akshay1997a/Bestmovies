@@ -381,21 +381,24 @@ class Filter extends React.Component {
               </Text>
             </View>
           </View>
-          <TouchableOpacity
-            style={{padding: 5, marginTop: heightScale(16)}}
-            onPress={() => this.props.clearFilter()}>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={{
-                color: '#ff3300',
-                textAlign: 'center',
-                fontSize: fontScale(15),
-                fontWeight: '700',
-              }}>
-              {t('texts.id_111')}
-            </Text>
-          </TouchableOpacity>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity
+              style={{padding: 5, marginTop: heightScale(16)}}
+              onPress={() => this.props.clearFilter()}>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{
+                  color: '#ff3300',
+                  textAlign: 'center',
+                  fontSize: fontScale(15),
+                  fontWeight: '700',
+                  width: widthScale(200),
+                }}>
+                {t('texts.id_111')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     );
@@ -437,6 +440,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(16),
+    width: widthScale(255),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',

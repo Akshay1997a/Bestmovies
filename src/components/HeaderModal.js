@@ -23,7 +23,11 @@ export default function HeaderModal(props) {
     <View style={[styles.headerContainer]}>
       <View style={styles.closeBut}>
         <TouchableOpacity onPress={goBack}>
-          <CloseIcon />
+          {initialModalScreens.includes(name) ? (
+            <CloseIcon />
+          ) : (
+            <FontAwesomeIcon name={'chevron-left'} size={widthScale(25)} />
+          )}
         </TouchableOpacity>
       </View>
       <Text numberOfLines={1} style={[styles.title, {width: widthScale(300)}]}>
@@ -50,6 +54,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     marginHorizontal: 70,
     textAlign: 'center',
+    width: widthScale(300),
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),

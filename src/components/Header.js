@@ -137,9 +137,9 @@ const DefaultHeader = ({navigate}) => {
       <TouchableOpacity onPress={() => navigate('Search')}>
         <Icon name="ios-search" size={25} color="#232323" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigate('Profile')}>
+      {/* <TouchableOpacity onPress={() => navigate('Profile')}>
         <FA name="user" size={25} color="#232323" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity onPress={() => navigate('MenusList')}>
         <Icons name="dots-three-vertical" size={25} color="#232323" />
       </TouchableOpacity>
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
   },
   TabButActive: {
     borderBottomWidth: 2,

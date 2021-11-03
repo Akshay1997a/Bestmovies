@@ -30,37 +30,41 @@ import {
   widthScale,
 } from '../../../helper/ResponsiveFonts';
 
-export const DATA = [
-  {
-    id: '1',
-    name: 'Netflix',
-    image: require('../../../../assets/Providers/netflix_ic.png'),
-  },
-  {
-    id: '2',
-    name: 'Prime Video',
-    image: require('../../../../assets/Providers/prime_ic.png'),
-  },
-  {
-    id: '3',
-    name: 'Hulu',
-    image: require('../../../../assets/Providers/Hulu_ic.png'),
-  },
-  {
-    id: '4',
-    name: 'Apple TV+',
-    image: require('../../../../assets/Providers/apple_ic.png'),
-  },
-  {
-    id: '4',
-    name: 'Disny+',
-    image: require('../../../../assets/Providers/disny_ic.png'),
-  },
-]
-  .flatMap((i) => [i, i, i, i, i, i])
-  .map((item, index) => {
-    return {...item, id: index};
-  });
+const makeRepeated = (arr, repeats) =>
+  Array.from({length: repeats}, () => arr).flat();
+
+export const DATA = makeRepeated(
+  [
+    {
+      id: '1',
+      name: 'Netflix',
+      image: require('../../../../assets/Providers/netflix_ic.png'),
+    },
+    {
+      id: '2',
+      name: 'Prime Video',
+      image: require('../../../../assets/Providers/prime_ic.png'),
+    },
+    {
+      id: '3',
+      name: 'Hulu',
+      image: require('../../../../assets/Providers/Hulu_ic.png'),
+    },
+    {
+      id: '4',
+      name: 'Apple TV+',
+      image: require('../../../../assets/Providers/apple_ic.png'),
+    },
+    {
+      id: '4',
+      name: 'Disny+',
+      image: require('../../../../assets/Providers/disny_ic.png'),
+    },
+  ],
+  7,
+).map((item, index) => {
+  return {...item, id: index};
+});
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 const numColumns = 5;
@@ -137,7 +141,7 @@ export class RenderMobile extends Component {
     return (
       <View style={{width: widthScale(66)}}>
         <TouchableOpacity
-          style={{borderRadius: 8}}
+          style={{borderRadius: 5}}
           onPress={() => this.togalItem(data.id)}>
           <View
             style={{
@@ -151,7 +155,7 @@ export class RenderMobile extends Component {
                 style={{
                   height: heightScale(44),
                   width: widthScale(66),
-                  borderRadius: 10,
+                  borderRadius: 8,
                 }}
                 source={data.image}
               />
@@ -160,6 +164,8 @@ export class RenderMobile extends Component {
               numberOfLines={2}
               ellipsizeMode="tail"
               style={{
+                marginTop: heightScale(2),
+                height: heightScale(32),
                 textAlign: 'center',
                 color: activeProviders.includes(data.id) ? '#FF3300' : '#000',
               }}>
@@ -226,7 +232,7 @@ export class RenderMobile extends Component {
             ]}
             onPress={() => this.setState({selectedMenu: MENUS.MY_PROVIDES})}>
             <Text
-              numberOfLines={1}
+              numberOfLines={2}
               ellipsizeMode="tail"
               style={[
                 styles.butText,
@@ -323,19 +329,19 @@ export class RenderMobile extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{
+            ...styles.filterText,
+            marginTop: heightScale(10),
+            marginHorizontal: heightScale(10),
+          }}>
+          {t('texts.id_156')}: {providerConfig.selectedProviders.length}
+        </Text>
         <ScrollView
           nestedScrollEnabled={true}
           showsVerticalScrollIndicator={false}>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{
-              ...styles.filterText,
-              marginTop: heightScale(10),
-              marginHorizontal: heightScale(10),
-            }}>
-            {t('texts.id_156')}: {providerConfig.selectedProviders.length}
-          </Text>
           <ScrollView nestedScrollEnabled={true}>
             <FlatList
               bounces={false}
@@ -356,7 +362,9 @@ export class RenderMobile extends Component {
                 justifyContent: 'space-between',
               }}
               contentContainerStyle={{
-                paddingHorizontal: 10,
+                // paddingHorizontal: 10,
+                marginRight: widthScale(17),
+                marginLeft: widthScale(10),
                 marginTop: heightScale(8),
               }}
             />
@@ -477,19 +485,22 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   filterContainer: {
-    height: heightScale(150),
-    paddingHorizontal: 10,
+    height: heightScale(124),
+    paddingHorizontal: widthScale(10),
+    paddingVertical: heightScale(15),
     // paddingVertical: 20,
   },
   finterItem: {
     flexDirection: 'row',
     // paddingVertical: 10,
-    paddingTop: heightScale(12),
+    marginTop: heightScale(7),
+    height: heightScale(26),
   },
   filterText: {
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(16),
+    width: widthScale(297),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
