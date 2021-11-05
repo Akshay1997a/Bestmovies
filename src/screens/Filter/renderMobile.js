@@ -361,6 +361,7 @@ class Filter extends React.Component {
                 flexDirection: 'row',
               }}>
               <Switch
+                style={{marginRight: widthScale(10)}}
                 value={this.props.filterConfig.watched}
                 onValueChange={(value) => this.props.updateWatched(value)}
               />
@@ -378,6 +379,7 @@ class Filter extends React.Component {
                 marginTop: heightScale(9),
               }}>
               <Switch
+                style={{marginRight: widthScale(10)}}
                 value={this.props.filterConfig.previouslyBrowsed}
                 onValueChange={(value) =>
                   this.props.updatePriviouslyBrowsed(value)
