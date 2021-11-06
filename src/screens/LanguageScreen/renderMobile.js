@@ -464,7 +464,7 @@ export class RenderMobile extends Component {
   render() {
     let {t} = this.props;
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         {/* <Loader /> */}
         <HeaderModal title={t('texts.id_31')} {...this.props} />
         <View style={{marginTop: 0, paddingHorizontal: widthScale(10)}}>
@@ -508,7 +508,7 @@ export class RenderMobile extends Component {
             paddingHorizontal: widthScale(10),
           }}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

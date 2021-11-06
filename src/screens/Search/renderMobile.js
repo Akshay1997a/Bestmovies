@@ -52,7 +52,6 @@ export function RenderMobile() {
       <View
         style={{
           flex: 1,
-          paddingHorizontal: widthScale(10),
         }}>
         <CardView />
       </View>

@@ -651,13 +651,13 @@ class RenderMobile extends Component {
           style={{
             marginBottom: 60,
             marginTop: heightScale(15),
-            paddingHorizontal: 10,
           }}>
-          <Text style={styles.textFont}>Similer title</Text>
+          <Text style={[styles.textFont, {marginLeft: 10}]}>Similer title</Text>
           <View
             style={{
               flex: 1,
-              alignItems: 'center',
+              // alignItems: 'center',
+              overflow: 'visible'
             }}>
             <CardView />
           </View>

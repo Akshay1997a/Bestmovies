@@ -106,7 +106,7 @@ export default function RenderMobile(props) {
           marginTop: heightScale(5),
           marginBottom: heightScale(10),
         }}>
-        <Switch />
+        <Switch style={{marginRight: widthScale(10)}} />
         <Text style={styles.butTitle}>See subgenres</Text>
       </View>
       <ScrollView contentContainerStyle={{marginHorizontal: widthScale(11)}}>

@@ -81,7 +81,7 @@ export class RenderMobile extends Component {
     const {selectedCountries, filtereddCountries, searchString} = this.state;
     let {t} = this.props;
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
         <HeaderModal title={t('texts.id_140')} {...this.props} />
         <View style={{marginTop: 0, marginHorizontal: widthScale(10)}}>
           <SearchBar
@@ -119,7 +119,7 @@ export class RenderMobile extends Component {
             }}
           />
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }

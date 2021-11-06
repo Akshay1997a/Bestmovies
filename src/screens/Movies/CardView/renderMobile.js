@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import {wrap} from 'lodash';
-import React, {Component} from 'react';
+import { wrap } from 'lodash';
+import React, { Component } from 'react';
 import {
   View,
   Dimensions,
@@ -11,11 +11,11 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
-import {Text} from '../../../components/EnhanchedComponents';
+import { Text } from '../../../components/EnhanchedComponents';
 import Inocons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../../svgs/RatingComponent';
-import {isAndroid} from '../../../helper/fonts';
+import { isAndroid } from '../../../helper/fonts';
 import {
   fontScale,
   heightScale,
@@ -88,20 +88,22 @@ export class RenderMobile extends Component {
           borderColor: '#fff',
           backgroundColor: '#fff',
           elevation: 5,
-          shadowOffset: {width: 0, height: heightScale(2)},
+          shadowOffset: { width: 0, height: heightScale(2) },
           shadowOpacity: 0.25,
           shadowColor: '#000',
           shadowRadius: 3.84,
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          style={{ overflow: 'hidden', height: heightScale(320) }}>
           <View>
-            <View style={{justifyContent: 'center'}}>
+            <View style={{ justifyContent: 'center' }}>
               <Image
                 style={{
                   height: heightScale(240),
                   width: widthScale(175),
                   borderTopRightRadius: 8,
                   borderTopLeftRadius: 8,
+                  overflow: 'hidden'
                 }}
                 source={data.image}
               />
@@ -124,7 +126,7 @@ export class RenderMobile extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{paddingTop: 10, paddingHorizontal: 10}}>
+            <View style={{ paddingTop: 10, paddingHorizontal: 10 }}>
               <Text style={styles.textFont}>Parasite</Text>
             </View>
             <View
@@ -134,7 +136,7 @@ export class RenderMobile extends Component {
                 paddingBottom: 10,
                 marginTop: heightScale(3),
               }}>
-              <View style={{flex: 1}}>
+              <View style={{ flex: 1 }}>
                 <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
                 <Text style={[styles.textSecondary]}>
                   2016 - US - 17{' '}
@@ -197,27 +199,26 @@ export class RenderMobile extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{width: window - 20}}>
-        <FlatList
-          bounces={false}
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={
-            Platform.OS !== 'android' &&
-            (({highlighted}) => (
-              <View style={[highlighted && {marginLeft: 0}]} />
-            ))
-          }
-          data={DATA}
-          bounces={false}
-          renderItem={({item}) => this.renderItemComponent(item)}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
-          columnWrapperStyle={{
-            marginTop: heightScale(5),
-            justifyContent: 'space-between',
-          }}
-        />
-      </SafeAreaView>
+      <FlatList
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={
+          Platform.OS !== 'android' &&
+          (({ highlighted }) => (
+            <View style={[highlighted && { marginLeft: 0 }]} />
+          ))
+        }
+        data={DATA}
+        bounces={false}
+        renderItem={({ item }) => this.renderItemComponent(item)}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        contentContainerStyle={{ paddingHorizontal: 10 }}
+        columnWrapperStyle={{
+          marginTop: heightScale(5),
+          justifyContent: 'space-between',
+        }}
+      />
     );
   }
 }
@@ -282,9 +283,9 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     justifyContent: 'center',
   },
-  posterImageContainer: {justifyContent: 'center', marginVertical: 5},
-  posterImage: {height: heightScale(450), width: window - 20, borderRadius: 12},
-  posterDescContainer: {flexDirection: 'row', padding: 5},
+  posterImageContainer: { justifyContent: 'center', marginVertical: 5 },
+  posterImage: { height: heightScale(450), width: window - 20, borderRadius: 12 },
+  posterDescContainer: { flexDirection: 'row', padding: 5 },
   directorContainer: {
     width: window / 4,
     height: window / 2.9,
