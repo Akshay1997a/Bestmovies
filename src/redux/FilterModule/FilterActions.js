@@ -10,6 +10,8 @@ import {
   UPDATE_WATCHED,
   UPDATE_PRIVIOUSLY_BROWSED,
   UPDATE_GENERES,
+  UPDATE_AGE_RATING,
+  UPDATE_PRICING,
 } from './FilterTypes';
 
 export function modifyConfig(data) {
@@ -84,6 +86,20 @@ export function updatePreviouslyWatchedValue(data) {
 export function updateGenres(data) {
   return {
     type: UPDATE_GENERES,
+    payload: data,
+  };
+}
+
+export function updateAgeRating(data) {
+  return {
+    type: UPDATE_AGE_RATING,
+    payload: data,
+  };
+}
+
+export function updatePricing(data) {
+  return {
+    type: UPDATE_PRICING,
     payload: data,
   };
 }

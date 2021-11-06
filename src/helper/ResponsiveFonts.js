@@ -1,7 +1,9 @@
 'use strict';
 
 import {Dimensions, Platform} from 'react-native';
-export const {width, height} = Dimensions.get('screen');
+export const {width, height} = Dimensions.get(
+  Platform.OS === 'android' ? 'screen' : 'window',
+);
 
 const guidelineBaseWidth = 375;
 const guidelineBaseHeight = 812;

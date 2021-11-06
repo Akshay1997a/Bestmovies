@@ -99,6 +99,8 @@ class Filter extends React.Component {
       year,
       languages,
       genres,
+      ageRating,
+      pricing,
     } = this.props.filterConfig;
     const titleTextStyle = [styles.textTitle];
     if (selectedCountries.length > 0) {
@@ -124,6 +126,16 @@ class Filter extends React.Component {
     const genresTextStyle = [styles.textTitle];
     if (genres.length > 0) {
       genresTextStyle.push(styles.isActiveText);
+    }
+
+    const ageRatingTextStyle = [styles.textTitle];
+    if (ageRating.length > 0) {
+      ageRatingTextStyle.push(styles.isActiveText);
+    }
+
+    const pricingTextStyle = [styles.textTitle];
+    if (pricing.length > 0) {
+      pricingTextStyle.push(styles.isActiveText);
     }
 
     return (
@@ -189,7 +201,7 @@ class Filter extends React.Component {
                 {t('texts.id_144')} (US)
               </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: fontScale(15)}}>
+                <Text style={styles.textSecond}>
                   {providerConfig.selectedProviders.length
                     ? DATA.filter((i) =>
                         providerConfig.selectedProviders.includes(i.id),
@@ -219,7 +231,12 @@ class Filter extends React.Component {
                 {t('texts.id_112')}
               </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>{year.type}</Text>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
+                  {year.type}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -233,7 +250,6 @@ class Filter extends React.Component {
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
-                xt
                 style={genresTextStyle}>
                 {t('texts.id_127')}
               </Text>
@@ -266,7 +282,7 @@ class Filter extends React.Component {
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: fontScale(15)}}>
+                  style={styles.textSecond}>
                   {selectedCountries.length > 0
                     ? selectedCountries.join(', ')
                     : 'Any'}
@@ -278,21 +294,21 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            // onPress={() => this.props.navigation.navigate('Ages')}
+            onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
-                style={styles.textTitle}>
+                style={ageRatingTextStyle}>
                 {t('texts.id_141')}
               </Text>
               <View style={{flexDirection: 'row'}}>
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: fontScale(15)}}>
-                  {t('texts.id_172')}
+                  style={styles.textSecond}>
+                  {ageRating.length > 0 ? ageRating[0].age : 'Any'}
                 </Text>
               </View>
             </View>
@@ -301,21 +317,21 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            // onPress={() => this.props.navigation.navigate('Ages')}
+            onPress={() => this.props.navigation.navigate('Price')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
-                style={styles.textTitle}>
+                style={pricingTextStyle}>
                 {t('texts.id_158')}
               </Text>
               <View style={{flexDirection: 'row'}}>
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: fontScale(15)}}>
-                  {'< 10 €'}
+                  style={styles.textSecond}>
+                  {pricing.length > 0 ? pricing[0].price : 'Any'}
                 </Text>
               </View>
             </View>
@@ -337,7 +353,7 @@ class Filter extends React.Component {
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
-                  style={{fontSize: fontScale(15)}}>
+                  style={styles.textSecond}>
                   {languages.length > 0 ? languages.join(', ') : 'Any'}
                 </Text>
               </View>
@@ -361,6 +377,9 @@ class Filter extends React.Component {
                 flexDirection: 'row',
               }}>
               <Switch
+                style={{
+                  marginRight: widthScale(9),
+                }}
                 value={this.props.filterConfig.watched}
                 onValueChange={(value) => this.props.updateWatched(value)}
               />
@@ -378,6 +397,7 @@ class Filter extends React.Component {
                 marginTop: heightScale(9),
               }}>
               <Switch
+                style={{marginRight: widthScale(9)}}
                 value={this.props.filterConfig.previouslyBrowsed}
                 onValueChange={(value) =>
                   this.props.updatePriviouslyBrowsed(value)

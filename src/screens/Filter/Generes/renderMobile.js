@@ -28,6 +28,7 @@ import {
   heightScale,
   widthScale,
 } from '../../../helper/ResponsiveFonts';
+import Switch from '../../../components/Switch';
 
 const WIDTH = Dimensions.get('window').width;
 
@@ -98,6 +99,16 @@ export default function RenderMobile(props) {
       behavior="height"
       keyboardVerticalOffset={50}>
       <HeaderModal title="Genres" {...props} />
+      <View
+        style={{
+          flexDirection: 'row',
+          marginHorizontal: widthScale(11),
+          marginTop: heightScale(5),
+          marginBottom: heightScale(10),
+        }}>
+        <Switch />
+        <Text style={styles.butTitle}>See subgenres</Text>
+      </View>
       <ScrollView contentContainerStyle={{marginHorizontal: widthScale(11)}}>
         <Button
           key={'0'}

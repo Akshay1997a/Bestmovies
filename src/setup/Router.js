@@ -246,14 +246,18 @@ const StackNav = () => {
       />
       <Stack.Screen
         name="Price"
-        component={Price}
-        options={{
-          ...commonOptions,
-          headerShown: true,
-          headerStyle: {
-            elevation: 0,
-          },
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
         }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Price {...props} />
+          </View>
+        )}
       />
       <Stack.Screen
         name="Linkby"
