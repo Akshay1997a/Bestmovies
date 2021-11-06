@@ -60,7 +60,7 @@ export function TopBarMainNavigator(props) {
         activeTintColor: '#ff0000',
         inactiveTintColor: 'black',
         labelStyle: {
-          fontSize: 14,
+          fontSize: fontScale(14),
           color: '#000',
           fontFamily: primary_regular_font.primary_regular_font,
           ...(!isAndroid() && {
@@ -158,7 +158,7 @@ export function TopBarSecondaryNavigator(props) {
         inactiveTintColor: 'black',
         style: {paddingHorizontal: widthScale(10)},
         labelStyle: {
-          fontSize: 14,
+          fontSize: fontScale(14),
           color: '#000',
           fontFamily: primary_regular_font.primary_regular_font,
           ...(!isAndroid() && {

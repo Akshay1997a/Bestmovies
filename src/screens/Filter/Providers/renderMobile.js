@@ -30,7 +30,7 @@ import {
   widthScale,
 } from '../../../helper/ResponsiveFonts';
 
-const makeRepeated = (arr, repeats) =>
+export const makeRepeated = (arr, repeats) =>
   Array.from({length: repeats}, () => arr).flat();
 
 export const DATA = makeRepeated(
