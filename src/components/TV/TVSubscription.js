@@ -240,7 +240,7 @@ const TVSubscription = (props) => {
     //logOnConsole('call streem modal');
     console.log('call streem modal');
     props.getProvidersList((res) => {
-    // console.log('provider respone', res.data.providers);
+    console.log('provider respone', res.data.providers);
      setItem(res.data);
    });
   }, []);

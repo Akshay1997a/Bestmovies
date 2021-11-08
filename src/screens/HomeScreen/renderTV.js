@@ -327,7 +327,7 @@ let url = 'device=tv&type=m&output=ove&offset='+page+provider+prices+'&t_lang='+
       if(response.data.data.length > 0){
       setMovies(response.data.data)
 
-      // setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
+      setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
       setMoviesSearch(response.data.data)
       getTVShows('',sort_id,provider,generes_code,ages,prices);
       getShorts('',sort_id,provider,generes_code,ages,prices);
@@ -904,6 +904,40 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
                   backgroundColor: colors.white,
                   marginHorizontal: StyleConfig.resWidth(20),
                 }}>
+                  {selected == MENU && showSelected == COLLABORATE && (
+          <View >
+            <FlatList
+              data={COLLABORATE_DATA}
+              keyExtractor={(item, index) => `item${index}`}
+              renderItem={({item}) => {
+                return (
+                  <Pressable style={{flexDirection: 'row'}}>
+                    <>
+                      {item.type == 'image' ? (
+                        <Image
+                          source={{uri: item.data}}
+                          resizeMode={'stretch'}
+                          style={styles.aboutUsImg}
+                        />
+                      ) : (
+                        <Text
+                          style={
+                            item.type == 'title'
+                              ? styles.aboutUsTitle
+                              : item.type == 'subtitle'
+                              ? styles.aboutUsSubTitle
+                              : styles.aboutUsDetail
+                          }>
+                          {item.data}
+                        </Text>
+                      )}
+                    </>
+                  </Pressable>
+                );
+              }}
+            />
+          </View>
+        )}
                 {/* <Text numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
                 </Text>
@@ -991,7 +1025,7 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
           </View>
         )} */}
 
-        {selected == MENU && showSelected == COLLABORATE && (
+        {/* {selected == MENU && showSelected == COLLABORATE && (
           <View >
             <FlatList
               data={COLLABORATE_DATA}
@@ -1024,7 +1058,7 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
               }}
             />
           </View>
-        )}
+        )} */}
 
         {selected == MENU && showSelected == JOBS && (
           <View>
