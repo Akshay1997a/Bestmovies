@@ -18,7 +18,7 @@ import TVHeader from '../../components/TV/TVHeader';
 import TVTopBar from '../../components/TV/TVTopBar';
 import TVSideBar from '../../components/TV/TVSideBar';
 import TVCountryLanguage from '../../components/TV/TVCountryLanguage';
-
+import TVSIdeBarFlatList from '../../components/TV/TVSIdeBarFlatList';
 import TVTileView from '../../components/TV/TVTileView';
 import TVMovieListItem from '../../components/TV/TVMovieListItem';
 import TVSearchListItem from '../../components/TV/TVSearchListItem';
@@ -110,7 +110,44 @@ const TERMS_OF_USE_DATA = Const.ABOUT_US.map((item) =>
 const PRIVACY_POLICY_DATA = Const.ABOUT_US.map((item) =>
   item.id == 2 ? {...item, data: strings.privacy_policy} : item,
 );
-
+const MENU_DATA = [
+  // {
+  //   key: COUNTRY_LANGUAGE,
+  //   title: strings.country_language,
+  // },
+  // {
+  //   key: MOBILE_APP,
+  //   title: 'texts.id_16',
+  // },
+  // {
+  //   key: INVITE_FRIEND,
+  //   title: 'texts.id_18',
+  // },
+  // {
+  //   key: ABOUT_US,
+  //   title: strings.about_us,
+  // },
+  {
+    key: ADVERTISE,
+    title: strings.advertise,
+  },
+  {
+    key: COLLABORATE,
+    title: strings.collaborate,
+  },
+  {
+    key: JOBS,
+    title: strings.jobs,
+  },
+  {
+    key: TERMS_OF_USE,
+    title: strings.terms_of_use,
+  },
+  {
+    key: PRIVACY_POLICY,
+    title: strings.privacy_policy,
+  },
+];
 const buttons = [
   [
     {id: 1, value: 'a'},
@@ -516,8 +553,8 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
           setSelected(val);
           
           if (val == MENU) {
-            setShowSelected(ABOUT_US);
-            // sidebar.current.setResetFocus()
+            // setShowSelected(ADVERTISE);
+            sidebar.current.setResetFocus()
           }
         }}
       />
@@ -823,24 +860,67 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
             </View>
           </View>
         )}
-        {selected == MENU &&  (
-         <View style={{flexDirection:'row',borderWidth:1,height:HEIGHT}}>
-          <TVCountyList/>
-          <TVCountryLanguage 
-          // hasTVPreferredFocus={true}
-          {...props}/>
+        {selected == MENU && (
+          <View
+            style={[{flex: 1, backgroundColor: colors.white}]}
+            hasTVPreferredFocus={true}>
+            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
+            <View
+              hasTVPreferredFocus={true}
+              style={{
+                flexDirection:'row',
+                backgroundColor: colors.white,
+                height: StyleConfig.resHeight(900),
+              }}>
+                 <FlatList
+                style={{marginStart: 10}}
+                hasTVPreferredFocus={true}
+                contentContainerStyle={{paddingBottom: 50}}
+                keyExtractor={(item, index) => `item${index}`}
+                // numColumns={5}
+                data={MENU_DATA}
+                renderItem={({item}) => (
+                  <TVSIdeBarFlatList
+                    item={item}
+                    {...props}
+                    type="movie"
+                    selected={MENU}
+                    onChangeSelected={(val) => {
+                      console.log('onChangeSelected', val);
+                      setShowSelected(val);
+                    }}
+                  />
+                )}
+                onEndReachedThreshold={0.5}
+                onMomentumScrollBegin = {() => {onEndReachedCalledDuringMomentum = false;}}
+                onEndReached ={() => loadMoreRandomData('test string')}
+              />
+              <View
+                style={{
+                  // borderWidth:1,
+                  flexDirection: 'row',
+                marginTop: StyleConfig.resHeight(20),
+                  // marginVertical: ,
+                  backgroundColor: colors.white,
+                  marginHorizontal: StyleConfig.resWidth(20),
+                }}>
+                {/* <Text numberOfLines={1} style={styles.ranking}>
+                  {t('texts.id_78')}
+                </Text>
+                <Text numberOfLines={1} style={styles.result}>
+                  {' '}
+                  12,348 {t('texts.id_91')}{' '}
+                </Text> */}
+              </View>
+             
+            </View>
           </View>
         )}
 
-        {/* {selected == MENU && showSelected == COUNTRY_LANGUAGE && (
-          <View hasTVPreferredFocus={true}>
-            <Text>dadsdsd</Text>
-           
-          </View> */}
-        {/* )} */}
-
-        {/* {selected == MENU && showSelected == ADVERTISE && (
-          <View hasTVPreferredFocus={true}>
+        {/* {selected == MENU && (
+          <View  style={{flexDirection:'row'}}>
+            {selected == MENU && showSelected == ADVERTISE && (
+          <View >
             <FlatList
               data={ADVERTISE_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -873,9 +953,46 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
             />
           </View>
         )}
+          </View> 
+        )} */}
+
+        {/* {selected == MENU && showSelected == ADVERTISE && (
+          <View>
+            <FlatList
+              data={ADVERTISE_DATA}
+              keyExtractor={(item, index) => `item${index}`}
+              renderItem={({item}) => {
+                return (
+                  <Pressable style={{flexDirection: 'row'}}>
+                    <>
+                      {item.type == 'image' ? (
+                        <Image
+                          source={{uri: item.data}}
+                          resizeMode={'stretch'}
+                          style={styles.aboutUsImg}
+                        />
+                      ) : (
+                        <Text
+                          style={
+                            item.type == 'title'
+                              ? styles.aboutUsTitle
+                              : item.type == 'subtitle'
+                              ? styles.aboutUsSubTitle
+                              : styles.aboutUsDetail
+                          }>
+                          {item.data}
+                        </Text>
+                      )}
+                    </>
+                  </Pressable>
+                );
+              }}
+            />
+          </View>
+        )} */}
 
         {selected == MENU && showSelected == COLLABORATE && (
-          <View hasTVPreferredFocus={true}>
+          <View >
             <FlatList
               data={COLLABORATE_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -910,7 +1027,7 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
         )}
 
         {selected == MENU && showSelected == JOBS && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={JOBS_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -945,7 +1062,7 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
         )}
 
         {selected == MENU && showSelected == TERMS_OF_USE && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={TERMS_OF_USE_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -980,7 +1097,7 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
         )}
 
         {selected == MENU && showSelected == PRIVACY_POLICY && (
-          <View hasTVPreferredFocus={true}>
+          <View>
             <FlatList
               data={PRIVACY_POLICY_DATA}
               keyExtractor={(item, index) => `item${index}`}
@@ -1018,7 +1135,7 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
           <View hasTVPreferredFocus={true}>
             <View style={{flex: 1, backgroundColor: 'red'}} />
           </View>
-        )} */}
+        )}
       </View>
       <TVSortByModal
         keySort={SORT_BY}

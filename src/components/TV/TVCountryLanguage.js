@@ -376,14 +376,14 @@ const TVCountryLanguage = (props) => {
   };
 
   const onFocus = useCallback((val) => {
-    props.reduxSetCurrFocus('countryLang');
+    // props.reduxSetCurrFocus('countryLang');
     setFocus(val);
   });
 
   const onBlur = useCallback(() => {
     console.log('onBlur');
 
-    setFocus(-1);
+    // setFocus(-1);
   }, []);
 
   const convertArrayToObject = (array, key) => {

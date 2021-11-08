@@ -288,13 +288,13 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
          tvParallaxProperties={{magnification: 1.1}}
           // tvParallaxProperties={{magnification: 1.1}}
           style={
-            focus == MENU
+            props.focus === 'header' &&    focus == MENU
               ? styles.itemWrapperSelectedMenu
               : styles.itemWrapperMenu
           }>
           <Image
             style={
-              focus == MENU
+              props.focus === 'header' &&   focus == MENU
                 ? styles.headerIconFocus
                 : selected == MENU
                 ? styles.headerIconSelected

@@ -380,7 +380,7 @@ import React, {
     const onBlur = useCallback(() => {
       console.log('onBlur');
   
-      setFocus(-1);
+      // setFocus(-1);
     }, []);
   
     const convertArrayToObject = (array, key) => {
