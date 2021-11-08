@@ -553,7 +553,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
     if(selected === SHORTS){
       getShorts()
     }
-    if(selected === TVShow){
+    if(selected === TV_SHOW){
       getTVShows()
     }
   
