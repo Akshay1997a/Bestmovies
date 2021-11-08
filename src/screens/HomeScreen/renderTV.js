@@ -53,6 +53,8 @@ import {runTimeTranslations} from '../../i18n';
 import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 import TVCountyList from '../../components/TV/TVCountyList';
 import {endPoints} from '../../network/endPoints';
+import Movies from '../Movies';
+import TVShow from '../TVShow';
 
 let [
   NONE,
@@ -231,6 +233,9 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
   let onEndReachedCalledDuringMomentum = false;
   const [topSelected, setTopSelected] = useState(0);
   const [page, setPage] = useState(1);
+  const [tvShortsPage, setTvShortsPage] = useState(1);
+  const [tvShowPage, setTvShowsPage] = useState(1);
+
   const [language, setLanguage] = useState('en');
 
   const [selected, setSelected] = useState(MOVIES);
@@ -329,12 +334,13 @@ let url = 'device=tv&type=m&output=ove&offset='+page+provider+prices+'&t_lang='+
 
       setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
       setMoviesSearch(response.data.data)
-      getTVShows('',sort_id,provider,generes_code,ages,prices);
-      getShorts('',sort_id,provider,generes_code,ages,prices);
+      // getTVShows('',sort_id,provider,generes_code,ages,prices);
+      // getShorts('',sort_id,provider,generes_code,ages,prices);
       console.log(response);
       setPage(page+1);
       }else{
       setMovies([])
+      setPage(1);
 
       }
 
@@ -354,7 +360,7 @@ let url = 'device=tv&type=m&output=ove&offset='+page+provider+prices+'&t_lang='+
     let ages = age ? age : '';
     let prices = price ? price : '';
 
-let url = 'device=tv&type=t&output=ove&offset='+page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
+let url = 'device=tv&type=t&output=ove&offset='+tvShowPage+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
     axios
     .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
       headers: {
@@ -365,10 +371,15 @@ let url = 'device=tv&type=t&output=ove&offset='+page+provider+prices+'&t_lang='+
       // handle success
       // setAboutUsData(response.data.data.static_pages);
       if(response.data.data.length > 0){
-      setTVShoes(response.data.data)
+        // page === 1 ? response.data.data : [...movies, ...response.data.data]
+      setTVShoes(tvShowPage === 1 ? response.data.data : [...tvShoes, ...response.data.data])
+      setTvShowsPage(tvShowPage+1);
+
       console.log(response);
       }else{
       setTVShoes([])
+      setTvShowsPage(1);
+
       }
     })
     .catch(function (error) {
@@ -387,7 +398,7 @@ let url = 'device=tv&type=t&output=ove&offset='+page+provider+prices+'&t_lang='+
     let ages = age ? age : '';
     let prices = price ? price : '';
 
-let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
+let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
     axios
     .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
       headers: {
@@ -398,10 +409,14 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
       // handle success
       // setAboutUsData(response.data.data.static_pages);
       if(response.data.data.length > 0){
-        setTVShorts(response.data.data)
+        setTVShorts(tvShortsPage === 1 ? response.data.data : [...shorts, ...response.data.data])
+        setTvShortsPage(tvShortsPage+1)
+
         console.log(response);
         }else{
           setTVShorts([])
+        setTvShortsPage(1)
+
         }
     })
     .catch(function (error) {
@@ -454,6 +469,7 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
     let gener = '';
     let age = '';
     let price = '';
+    // setPage(0);
 
     if(val === SORT_BY){
       // console.log(SORT_BY);
@@ -531,7 +547,16 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
     console.log('called');
     // this.setState({page:this.state.page+1},
     //   ()=>
-   getMovies()
+    if(selected === MOVIES){
+      getMovies()
+    }
+    if(selected === SHORTS){
+      getShorts()
+    }
+    if(selected === TVShow){
+      getTVShows()
+    }
+  
   //  )
   }
   
@@ -547,11 +572,20 @@ let url = 'device=tv&type=s&output=ove&offset='+page+provider+prices+'&t_lang='+
           let lng = i18n.language;
           console.log('CountryDataaasasassadadfasaffq', lng);
           if(val ==2 ){
+          setPage(1);
             setLanguage(language);
             getMovies(lng);
           }
           setSelected(val);
-          
+          if(val === SHORTS){
+          setTvShortsPage(1)
+
+            getShorts();
+          }
+          if(val === TV_SHOW){
+          setTvShowsPage(1);
+            getTVShows();
+          }
           if (val == MENU) {
             // setShowSelected(ADVERTISE);
             sidebar.current.setResetFocus()
