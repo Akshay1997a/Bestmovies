@@ -203,7 +203,10 @@ const TVSubscriptionRender = (props) => {
                     alignItems: 'center',
                   }
             }>
-            <Image style={styles.watchImage} source={props.item.logo_url} />
+            <Image style={styles.watchImage}
+                source={{ uri: props.item.logo_url }}
+
+              />
             <Text
               style={
                 focus == props.item.id
