@@ -1,8 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 import {values} from 'lodash';
 import React from 'react';
 import {
   View,
-  Text,
   TouchableOpacity,
   Dimensions,
   ScrollView,
@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
+import {Text} from '../../components/EnhanchedComponents';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {connect} from 'react-redux';
@@ -32,6 +33,7 @@ import {withTranslation} from 'react-i18next';
 import primary_regular_font from '../../helper/fonts';
 import _ from 'lodash';
 import {DATA} from '../Filter/Providers/renderMobile';
+import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -72,7 +74,7 @@ class Filter extends React.Component {
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 5}}>
           <Text style={styles.textTitle}>{data.title}</Text>
-          <Text style={{fontSize: 15}}>{data.other}</Text>
+          <Text style={{fontSize: fontScale(15)}}>{data.other}</Text>
         </View>
         <View style={{flex: 1}}>
           <Icon {...iconStyle} />
@@ -96,6 +98,9 @@ class Filter extends React.Component {
       providerConfig,
       year,
       languages,
+      genres,
+      ageRating,
+      pricing,
     } = this.props.filterConfig;
     const titleTextStyle = [styles.textTitle];
     if (selectedCountries.length > 0) {
@@ -118,12 +123,27 @@ class Filter extends React.Component {
       languageTextStyle.push(styles.isActiveText);
     }
 
+    const genresTextStyle = [styles.textTitle];
+    if (genres.length > 0) {
+      genresTextStyle.push(styles.isActiveText);
+    }
+
+    const ageRatingTextStyle = [styles.textTitle];
+    if (ageRating.length > 0) {
+      ageRatingTextStyle.push(styles.isActiveText);
+    }
+
+    const pricingTextStyle = [styles.textTitle];
+    if (pricing.length > 0) {
+      pricingTextStyle.push(styles.isActiveText);
+    }
+
     return (
       <View style={{backgroundColor: '#fff', paddingBottom: 30}}>
         <HeaderModal title={t('texts.id_109')} {...this.props} />
         <ScrollView
           contentContainerStyle={{
-            marginHorizontal: 10,
+            marginHorizontal: widthScale(20),
             ...(Platform.OS === 'android' && {paddingBottom: 40}),
           }}>
           <TouchableOpacity
@@ -134,9 +154,19 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={styles.textTitle}>{t('texts.id_99')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={styles.textTitle}>
+                {t('texts.id_99')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>{sortBy}</Text>
+                <Text
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
+                  {sortBy}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -164,9 +194,14 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('Provider')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={providerTextStyle}>{t('texts.id_144')} (US)</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={providerTextStyle}>
+                {t('texts.id_144')} (US)
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>
+                <Text style={styles.textSecond}>
                   {providerConfig.selectedProviders.length
                     ? DATA.filter((i) =>
                         providerConfig.selectedProviders.includes(i.id),
@@ -189,21 +224,43 @@ class Filter extends React.Component {
               borderTopEndRadius: 15,
             }}>
             <View style={{flex: 1}}>
-              <Text style={yearTextStyle}>{t('texts.id_112')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={yearTextStyle}>
+                {t('texts.id_112')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>{year.type}</Text>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
+                  {year.type}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
               <Icon {...iconStyle} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.butContainer}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Genres')}
+            style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={[styles.textTitle]}>{t('texts.id_127')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={genresTextStyle}>
+                {t('texts.id_127')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecond}>
-                  Comedy,Drama,Thriller,Action,Documentary,Horror
+                <Text
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
+                  {genres.length > 0
+                    ? genres.map((i) => i.name).join(', ')
+                    : 'Any'}
                 </Text>
               </View>
             </View>
@@ -215,9 +272,17 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('CountryFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={titleTextStyle}>{t('texts.id_29')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={titleTextStyle}>
+                {t('texts.id_29')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
                   {selectedCountries.length > 0
                     ? selectedCountries.join(', ')
                     : 'Any'}
@@ -229,12 +294,22 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            // onPress={() => this.props.navigation.navigate('Ages')}
+            onPress={() => this.props.navigation.navigate('Ages')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>{t('texts.id_141')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={ageRatingTextStyle}>
+                {t('texts.id_141')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>{t('texts.id_172')}</Text>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
+                  {ageRating.length > 0 ? ageRating[0].age : 'Any'}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -242,12 +317,22 @@ class Filter extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            // onPress={() => this.props.navigation.navigate('Ages')}
+            onPress={() => this.props.navigation.navigate('Price')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={styles.textTitle}>{t('texts.id_158')}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={pricingTextStyle}>
+                {t('texts.id_158')}
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>{'< 10 €'}</Text>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
+                  {pricing.length > 0 ? pricing[0].price : 'Any'}
+                </Text>
               </View>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center'}}>
@@ -258,9 +343,17 @@ class Filter extends React.Component {
             onPress={() => this.props.navigation.navigate('LanguageFilter')}
             style={styles.butContainer}>
             <View style={{flex: 5.5}}>
-              <Text style={languageTextStyle}>Original Language</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={languageTextStyle}>
+                Original Language
+              </Text>
               <View style={{flexDirection: 'row'}}>
-                <Text style={{fontSize: 15}}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.textSecond}>
                   {languages.length > 0 ? languages.join(', ') : 'Any'}
                 </Text>
               </View>
@@ -274,46 +367,68 @@ class Filter extends React.Component {
               />
             </View>
           </TouchableOpacity>
-          <Text style={styles.textTitle}>{t('texts.id_167')}</Text>
-          <View style={{marginTop: 10}}>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={styles.textTitle}>
+            {t('texts.id_167')}
+          </Text>
+          <View style={{marginTop: heightScale(4)}}>
             <View
               style={{
                 flex: 1,
                 flexDirection: 'row',
               }}>
               <Switch
+                style={{
+                  marginRight: widthScale(9),
+                }}
                 value={this.props.filterConfig.watched}
                 onValueChange={(value) => this.props.updateWatched(value)}
               />
-              <Text style={styles.textSecond}>Watching</Text>
+              <Text
+                numberOfLines={3}
+                ellipsizeMode="tail"
+                style={styles.textSecond}>
+                Watching
+              </Text>
             </View>
             <View
               style={{
                 flex: 1,
                 flexDirection: 'row',
+                marginTop: heightScale(9),
               }}>
               <Switch
+                style={{marginRight: widthScale(9)}}
                 value={this.props.filterConfig.previouslyBrowsed}
                 onValueChange={(value) =>
                   this.props.updatePriviouslyBrowsed(value)
                 }
               />
-              <Text style={styles.textSecond}>{t('texts.id_171')}</Text>
+              <Text
+                numberOfLines={3}
+                ellipsizeMode="tail"
+                style={styles.textSecond}>
+                {t('texts.id_171')}
+              </Text>
             </View>
           </View>
-          <TouchableOpacity
-            style={{padding: 5}}
-            onPress={() => this.props.clearFilter()}>
-            <Text
-              style={{
-                color: '#ff3300',
-                textAlign: 'center',
-                fontSize: 15,
-                fontWeight: '700',
-              }}>
-              {t('texts.id_111')}
-            </Text>
-          </TouchableOpacity>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity
+              style={{padding: 5, marginTop: heightScale(16)}}
+              onPress={() => this.props.clearFilter()}>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{
+                  color: '#ff3300',
+                  textAlign: 'center',
+                  fontSize: fontScale(15),
+                  fontWeight: '700',
+                  width: widthScale(200),
+                }}>
+                {t('texts.id_111')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     );
@@ -344,8 +459,9 @@ const styles = StyleSheet.create({
   textTitle: {
     color: '#000',
     fontFamily: primary_regular_font.primary_bold_font,
-    fontSize: 18,
+    fontSize: fontScale(18),
     fontStyle: 'normal',
+    width: widthScale(315),
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
@@ -353,7 +469,8 @@ const styles = StyleSheet.create({
   textSecond: {
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 16,
+    fontSize: fontScale(16),
+    width: widthScale(255),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
@@ -372,10 +489,12 @@ const styles = StyleSheet.create({
   },
   butContainer: {
     flexDirection: 'row',
-    paddingVertical: 10,
+    // paddingVertical: heightScale(10),
     marginBottom: 1,
     borderBottomWidth: 1,
     borderBottomColor: '#eeeeee',
+    minHeight: heightScale(54),
+    marginTop: heightScale(7),
   },
   headerRightContainer: {
     flexDirection: 'row',

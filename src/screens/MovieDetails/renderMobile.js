@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
-  Text,
   View,
   Dimensions,
   Image,
@@ -17,16 +16,17 @@ import {
   Animated,
   Platform,
 } from 'react-native';
+import { Text } from '../../components/EnhanchedComponents';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/Feather';
 import Iconm from 'react-native-vector-icons/FontAwesome5';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import CardView from '../Movies/CardView';
 import Orientation from 'react-native-orientation';
 import Inocons from 'react-native-vector-icons/Ionicons';
-import {VIEW_STYLE} from '../../redux/FilterModule/FilterTypes';
-import {FILTER_TYPES} from '../Movies/renderMobile';
+import { VIEW_STYLE } from '../../redux/FilterModule/FilterTypes';
+import { FILTER_TYPES } from '../Movies/renderMobile';
 import Header, {
   HEADER_HEIGHT,
   TOTAL_HEADER_HEIGHT,
@@ -35,21 +35,23 @@ import Header, {
 import Movies from '../Movies';
 import Loader from '../../components/Loader';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import {TopBarContext} from '../../setup/TopBarNavigator';
-import {withCollapsebleHOC} from '../../components/Header';
+import { TopBarContext } from '../../setup/TopBarNavigator';
+import { withCollapsebleHOC } from '../../components/Header';
 import SVGTriangleBottom from '../../svgs/TriangleBottom';
 import SVGTriangleTop from '../../svgs/TriangleTop';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
-import {withTranslation} from 'react-i18next';
-import primary_regular_font from '../../helper/fonts';
-import {fontScale, heightScale, widthScale} from '../../helper/ResponsiveFonts';
+import { withTranslation } from 'react-i18next';
+import primary_regular_font, { isAndroid } from '../../helper/fonts';
+import { fontScale, heightScale, widthScale } from '../../helper/ResponsiveFonts';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import { makeRepeated } from '../Filter/Providers/renderMobile'
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 
-export const PROVIDER_DATA = [
+export const PROVIDER_DATA = makeRepeated([
   {
     id: '1',
     name: 'Free',
@@ -80,7 +82,7 @@ export const PROVIDER_DATA = [
     subName: '$6.99/m',
     image: require('../../../assets/Providers/disny_ic.png'),
   },
-].flatMap((i) => [i, i, i]);
+], 3)
 
 const DATA = [
   {
@@ -132,6 +134,7 @@ class RenderMobile extends Component {
       isLoaded: false,
       headerVisible: true,
       parentScroll: true,
+      scrollEnabled: true,
     };
     Orientation.lockToPortrait();
     this.scrollY = new Animated.Value(0);
@@ -141,29 +144,29 @@ class RenderMobile extends Component {
   }
 
   toggleHeader(flag) {
-    this.setState({headerVisible: flag});
+    this.setState({ headerVisible: flag });
   }
 
   showTip() {
-    const {hasTipShowned} = this.state;
+    const { hasTipShowned } = this.state;
     if (!hasTipShowned) {
-      this.setState({isIntroTipVisible: true});
+      this.setState({ isIntroTipVisible: true });
       setTimeout(() => {
-        this.setState({isIntroTipVisible: false, hasTipShowned: true});
+        this.setState({ isIntroTipVisible: false, hasTipShowned: true });
       }, 2000);
     }
   }
 
   onFilterSelect(type) {
-    this.setState({selectedFilter: type});
+    this.setState({ selectedFilter: type });
   }
 
   rendeDirector = (data, index) => (
     <TouchableOpacity
       key={index.toString()}
-      style={{...styles.directorContainer}}>
+      style={{ ...styles.directorContainer }}>
       <Image style={styles.directorImage} source={data.image} />
-      <View style={{flexWrap: 'wrap'}}>
+      <View style={{ flexWrap: 'wrap', height: heightScale(45) }}>
         <Text numberOfLines={2} style={styles.directorName}>
           {data.name}
         </Text>
@@ -173,8 +176,8 @@ class RenderMobile extends Component {
 
   renderProviderComponent = (data) => {
     return (
-      <View style={{width: window / 5 - 4}}>
-        <TouchableOpacity style={{borderRadius: 25, padding: 2}}>
+      <View style={{ width: widthScale(66) }}>
+        <TouchableOpacity style={{ borderRadius: 25, padding: 2 }}>
           <View
             style={{
               // position: 'relative',
@@ -184,12 +187,18 @@ class RenderMobile extends Component {
             <View>
               <Image
                 keyExtractor={data.id}
-                style={{height: heightScale(44), width: 66, borderRadius: 10}}
+                style={{
+                  height: heightScale(44),
+                  width: widthScale(66),
+                  borderRadius: 10,
+                }}
                 source={data.image}
               />
             </View>
-            <Text style={styles.sortbyButText}>{data.name}</Text>
-            <Text style={styles.sortbyButText}>{data.subName}</Text>
+            <View style={{ marginTop: heightScale(2), height: heightScale(33), width: widthScale(55), alignItems: 'center' }}>
+              <Text style={[styles.sortbyButText, { fontSize: fontScale(15), lineHeight: heightScale(15) }]}>{data.name}</Text>
+              <Text style={[styles.sortbyButText, { fontSize: fontScale(15), lineHeight: heightScale(15) }]}>{data.subName}</Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>
@@ -197,13 +206,13 @@ class RenderMobile extends Component {
   };
 
   renderSimilarItem = (data) => {
-    <View style={{borderRadius: 12, width: 150, margin: 10}}>
-      <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
+    <View style={{ borderRadius: 12, width: 150, margin: 10 }}>
+      <TouchableOpacity style={{ zIndex: 100, elevation: 2 }}>
         <Icon
           name="bookmark"
           size={40}
           color="#232323"
-          style={{position: 'absolute', top: -10, left: 100}}
+          style={{ position: 'absolute', top: -10, left: 100 }}
         />
       </TouchableOpacity>
       <Image
@@ -213,10 +222,10 @@ class RenderMobile extends Component {
           height: heightScale(200),
           resizeMode: 'cover',
           borderRadius: 12,
-          marginBottom: 10,
+          marginBottom: heightScale(10),
         }}
       />
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={styles.textFont}>Lynn O’Leeum</Text>
         <Text style={styles.textFont}>Percy Kewshun</Text>
         <Text numberOfLines={1} style={styles.textFont}>
@@ -231,16 +240,16 @@ class RenderMobile extends Component {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.setState({isLoaded: true});
+      this.setState({ isLoaded: true });
     });
   }
 
   moviewPoster = (data) => {
-    let {viewStyle} = this.props;
+    let { viewStyle } = this.props;
     viewStyle = VIEW_STYLE.FULL_VIEW;
     const playVideo = () => {
-      const {navigate} = this.props.navigation;
-      navigate('YoutubePlayer', {url: 'asdasd'});
+      const { navigate } = this.props.navigation;
+      navigate('YoutubePlayer', { url: 'asdasd' });
     };
 
     const onShare = () => {
@@ -267,7 +276,7 @@ class RenderMobile extends Component {
               },
             },
           ],
-          {useNativeDriver: true}, // Add this line
+          { useNativeDriver: true }, // Add this line
         )}
         horizontal={false}
         scrollEventThrottle={16}
@@ -275,24 +284,32 @@ class RenderMobile extends Component {
         bounces={false}
         contentContainerStyle={{
           // padding: 10,
+          // marginTop: heightScale(5),
           paddingTop: TOTAL_HEADER_HEIGHT,
         }}>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            marginBottom: 10,
+            marginTop: heightScale(3),
+            marginBottom: heightScale(11),
             paddingHorizontal: 10,
+            height: heightScale(23),
           }}>
-          <View style={{flex: 3, flexDirection: 'row'}}>
+          <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center' }}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <FontAwesome5Icon
-                name="angle-left"
-                size={23}
-                style={{marginRight: 10}}
+              <Image
+                source={require('../../../assets/Icons/back_ic.png')}
+                resizeMode="contain"
+                style={{
+                  width: widthScale(12),
+                  height: heightScale(20),
+                  marginRight: widthScale(10),
+                  transform: [{ rotateY: '180deg' }],
+                }}
               />
             </TouchableOpacity>
-            <Text style={styles.resultText}>Rating of best movies</Text>
+            <Text style={styles.resultText}>Ranking of best movies</Text>
           </View>
           <TouchableOpacity
             style={{
@@ -301,7 +318,7 @@ class RenderMobile extends Component {
               justifyContent: 'center',
             }}
             onPress={() => {
-              this.setState({modalVisible: true});
+              this.setState({ modalVisible: true });
             }}>
             <Text style={styles.sortbyButText}>Rating</Text>
             <Icon name="chevron-down" size={20} color="#232323" />
@@ -319,22 +336,7 @@ class RenderMobile extends Component {
               elevation: 5,
             }),
           }}>
-          <View style={{justifyContent: 'center'}}>
-            <TouchableOpacity
-              onPress={() => alert('heekk')}
-              style={{elevation: 1}}>
-              <View
-                style={{
-                  position: 'absolute',
-                  top: -10,
-                  right: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
-                <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
-              </View>
-            </TouchableOpacity>
+          <View style={{ justifyContent: 'center' }}>
             {!this.state.isIntroTipVisible &&
               viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <TouchableOpacity
@@ -352,10 +354,10 @@ class RenderMobile extends Component {
             <Image
               style={
                 viewStyle === VIEW_STYLE.FULL_VIEW
-                  ? {height: heightScale(495), width: window}
+                  ? { height: heightScale(497), width: window }
                   : {
-                      height: heightScale(250),
-                    }
+                    height: heightScale(240),
+                  }
               }
               source={data.image}
               onLoadEnd={() => {
@@ -381,87 +383,101 @@ class RenderMobile extends Component {
               </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', padding: 10}}>
-            <View style={{flex: 5}}>
-              <Text style={styles.titleFont}>Parasite</Text>
-              {viewStyle === VIEW_STYLE.FULL_VIEW && (
-                <Text style={[styles.textSecondary]}>
-                  Parasite(Original title)
-                </Text>
-              )}
-              <View style={{height: heightScale(10)}} />
-              <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
-              {viewStyle === VIEW_STYLE.FULL_VIEW && (
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.textSecondary}>
-                    2016 - US - 17{' '}
-                    <AntDesign name="like1" color="#35B736" size={18} />
-                  </Text>
-                </View>
-              )}
-              <View style={{flexDirection: 'row'}}>
-                <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
-                <TouchableOpacity>
-                  <Icon name="heart-outlined" size={20} color="#232323" />
-                </TouchableOpacity>
-              </View>
-            </View>
+          <View
+            style={{
+              flex: 5,
+              paddingHorizontal: widthScale(10),
+              paddingTop: heightScale(4),
+              position: 'relative',
+            }}>
+            <Text style={styles.titleFont}>Parasite</Text>
+            <Text
+              style={[
+                styles.textSecondary,
+                { marginTop: heightScale(-2), height: heightScale(24) },
+              ]}>
+              Gisaengchung (Original title)
+            </Text>
+            <View style={{ height: heightScale(10) }} />
+            <Text style={styles.textSecondary}>Drama, Thriller</Text>
+            <Text style={styles.textSecondary}>
+              2018 - South Korea - 134m - 16+
+            </Text>
+            <Text style={styles.textSecondary}>
+              2.99 € - 88% match - 29
+              <AntDesign name="like1" color="#35B736" size={18} />
+            </Text>
+            <TouchableOpacity
+              onPress={onShare}
+              style={{
+                position: 'absolute',
+                right: widthScale(11),
+                top: heightScale(4),
+              }}>
+              <Icon
+                name="reply"
+                size={widthScale(25)}
+                color="#232323"
+                style={{
+                  width: widthScale(25),
+                  height: heightScale(21),
+                  transform: [{ rotateY: '180deg' }],
+                }}
+              />
+            </TouchableOpacity>
             <View
               style={{
-                flex: 1,
-                justifyContent: 'space-between',
-                alignItems: 'flex-end',
+                position: 'absolute',
+                top: heightScale(62),
+                right: widthScale(15),
               }}>
-              {viewStyle === VIEW_STYLE.FULL_VIEW && (
-                <TouchableOpacity onPress={onShare}>
-                  <Icon
-                    name="reply"
-                    size={heightScale(25)}
-                    color="#232323"
-                    style={{transform: [{rotateY: '180deg'}]}}
-                  />
-                </TouchableOpacity>
-              )}
-
-              <View
+              <RatingComponent
+                size="lg"
+                rating={'9.2'}
+                textStyle={{ fontSize: fontScale(22) }}
+              />
+              <Text
                 style={{
-                  alignItems: 'center',
+                  fontSize: fontScale(14.67),
+                  fontFamily: primary_regular_font.primary_bold_font,
+                  ...(Platform.OS === 'ios' && {
+                    fontWeight: '700',
+                  }),
                 }}>
-                <RatingComponent size="lg" rating={'9.2'} />
-                <Text
-                  style={{
-                    fontSize: fontScale(14.67),
-                    fontFamily: primary_regular_font.primary_bold_font,
-                    ...(Platform.OS === 'ios' && {
-                      fontWeight: '700',
-                    }),
-                  }}>
-                  Best
-                </Text>
-              </View>
+                Excellent
+              </Text>
             </View>
           </View>
           {viewStyle === VIEW_STYLE.FULL_VIEW && (
-            <View style={{flex: 1, width: window, paddingHorizontal: 10}}>
-              <View>
+            <View style={{ flex: 1, width: window, paddingHorizontal: 10 }}>
+              <View style={{ marginTop: heightScale(11) }}>
                 <Text style={styles.textFont}>Plot</Text>
-                <Text style={styles.textDesc}>
+                <Text style={[styles.textDesc, { width: widthScale(355) }]}>
                   Greed and class discrimination threaten the newly formed
                   symbiotic relationship between the wealthy Park family and the
                   destitute Kim clan. Their adventures unfurl in three stories
                   that ingeniously trip back and forth in time.
                 </Text>
               </View>
-              <View style={{marginTop: 11, borderWidth: 0}}>
-                <View style={{flexDirection: 'row'}}>
+              <View style={{ marginTop: heightScale(11), borderWidth: 0 }}>
+                <View style={{ flexDirection: 'row' }}>
                   <View>
                     <Text style={styles.textFont}>Director </Text>
                     <ScrollView
                       horizontal={true}
+                      onTouchStart={(ev) => {
+                        this.setState({ scrollEnabled: false });
+                      }}
+                      onMomentumScrollEnd={(e) => {
+                        this.setState({ scrollEnabled: true });
+                      }}
+                      onScrollEndDrag={(e) => {
+                        this.setState({ scrollEnabled: true });
+                      }}
                       nestedScrollEnabled={true}
                       showsHorizontalScrollIndicator={false}
                       contentContainerStyle={{
-                        height: heightScale(162),
+                        height: heightScale(149),
                       }}>
                       {DATA.slice(0, 1).map((item, index) =>
                         this.rendeDirector(item, index),
@@ -472,9 +488,20 @@ class RenderMobile extends Component {
                     <Text style={styles.textFont}>Cast</Text>
                     <ScrollView
                       horizontal={true}
+                      {...(Platform.OS === 'android' && {
+                        onTouchStart: (ev) => {
+                          this.setState({ scrollEnabled: false });
+                        },
+                        // onMomentumScrollEnd: (e) => {
+                        //   this.setState({scrollEnabled: true});
+                        // },
+                        onScrollEndDrag: (e) => {
+                          this.setState({ scrollEnabled: true });
+                        },
+                      })}
                       nestedScrollEnabled={true}
                       showsHorizontalScrollIndicator={false}
-                      contentContainerStyle={{height: heightScale(152)}}>
+                      contentContainerStyle={{ height: heightScale(156) }}>
                       {DATA.map((item, index) =>
                         this.rendeDirector(item, index),
                       )}
@@ -483,13 +510,14 @@ class RenderMobile extends Component {
                 </View>
               </View>
               {/* For the Rating */}
-              <View style={{marginTop: 11}}>
+              <View style={{ marginTop: heightScale(21) }}>
                 <View
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                   }}>
-                  <Text style={styles.textFont}>Rating</Text>
+                  <Text style={styles.textFont}>Ratings</Text>
+                  <FeatherIcon name="info" color="gray" size={widthScale(20)} />
                 </View>
                 <View
                   style={{
@@ -503,9 +531,10 @@ class RenderMobile extends Component {
                   <View
                     style={{
                       flex: 1,
-                      padding: 6,
                       borderRightWidth: 2,
                       borderColor: '#4183E2',
+                      justifyContent: 'center',
+                      paddingHorizontal: 10,
                     }}>
                     <View>
                       <View
@@ -514,28 +543,6 @@ class RenderMobile extends Component {
                           justifyContent: 'space-between',
                         }}>
                         <Text style={styles.textSecondary}>Awards</Text>
-                        <Text style={styles.textSecondary}>9.3</Text>
-                      </View>
-                    </View>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text style={styles.textSecondary}>Critics</Text>
-                        <Text style={styles.textSecondary}>9.5</Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={{flex: 1, padding: 6}}>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text style={styles.textSecondary}>Audience</Text>
                         <Text style={styles.textSecondary}>9.0</Text>
                       </View>
                     </View>
@@ -545,12 +552,39 @@ class RenderMobile extends Component {
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                         }}>
-                        <Text style={styles.textSecondary}>Box-Office</Text>
-                        <Text style={styles.textSecondary}>8.1</Text>
+                        <Text style={styles.textSecondary}>Critics</Text>
+                        <Text style={styles.textSecondary}>8.2</Text>
                       </View>
                     </View>
                   </View>
-                  <View style={{justifyContent: 'space-between'}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      paddingHorizontal: 10,
+                    }}>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Audience</Text>
+                        <Text style={styles.textSecondary}>7.5</Text>
+                      </View>
+                    </View>
+                    <View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.textSecondary}>Box-Office</Text>
+                        <Text style={styles.textSecondary}>6.1</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{ justifyContent: 'space-between' }}>
                     <SVGTriangleTop />
                     <SVGTriangleBottom />
                   </View>
@@ -564,26 +598,34 @@ class RenderMobile extends Component {
                     <Text style={styles.ratingText}>9.2</Text>
                   </View>
                 </View>
-                <Text style={styles.textSecondary}>
-                  Won 2 oscars including best director
-                </Text>
-                <Text style={styles.textSecondary}>
-                  Won 2 oscars including best director
-                </Text>
+                <View
+                  style={{ marginTop: heightScale(5), height: heightScale(40) }}>
+                  <Text style={styles.textSecondary}>
+                    Won 2 Oscars including best director
+                  </Text>
+                  <Text style={styles.textSecondary}>
+                    Won 3 G. Globes including best film
+                  </Text>
+                </View>
               </View>
               {/* For the watch now flatlist */}
-              <View style={{marginTop: 25}}>
+              <View style={{ marginTop: heightScale(15) }}>
                 <Text style={styles.textFont}>Watch now</Text>
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                  }}>
                   {PROVIDER_DATA.map((item, index) =>
                     this.renderProviderComponent(item),
                   )}
                 </View>
               </View>
-              <View style={{marginTop: 25}}>
+              <View style={{ marginTop: heightScale(25) }}>
                 <Text style={styles.textFont}>Images</Text>
                 <Text />
-                <View style={{alignItems: 'center'}}>
+                <View style={{ alignItems: 'center' }}>
                   <Image
                     source={require('../../../assets/poster1.jpg')}
                     style={styles.images}
@@ -605,12 +647,17 @@ class RenderMobile extends Component {
             </View>
           )}
         </View>
-        <View style={{marginBottom: 60, marginTop: 25, paddingHorizontal: 10}}>
-          <Text style={styles.textFont}>Similer title</Text>
+        <View
+          style={{
+            marginBottom: 60,
+            marginTop: heightScale(15),
+          }}>
+          <Text style={[styles.textFont, {marginLeft: 10}]}>Similer title</Text>
           <View
             style={{
               flex: 1,
-              alignItems: 'center',
+              // alignItems: 'center',
+              overflow: 'visible'
             }}>
             <CardView />
           </View>
@@ -619,16 +666,16 @@ class RenderMobile extends Component {
     );
   };
   render() {
-    const {isIntroTipVisible, selectedFilter, isLoaded} = this.state;
-    const {onScroll} = this.props;
-    let {t} = this.props;
+    const { isIntroTipVisible, selectedFilter, isLoaded } = this.state;
+    const { onScroll } = this.props;
+    let { t } = this.props;
 
     if (!isLoaded) {
       return <Loader />;
     }
 
     return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         {/* <Header {...this.props} /> */}
         <Modal visible={false} transparent animationType="fade">
           <View
@@ -642,40 +689,50 @@ class RenderMobile extends Component {
             <View style={styles.shadowView} />
             <Image
               source={require('../../../assets/Icons/hand_ic.png')}
-              style={{width: heightScale(102), height: heightScale(102)}}
+              style={{ width: heightScale(102), height: heightScale(102) }}
             />
             <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
         </Modal>
         <Modal
           visible={this.state.modalVisible}
-          animationType="slide"
+          animationType="none"
+          statusBarTranslucent={true}
           transparent={true}>
           <TouchableWithoutFeedback
-            onPress={() => this.setState({modalVisible: false})}>
+            onPress={() => this.setState({ modalVisible: false })}>
             <View style={[styles.shadowView]} />
           </TouchableWithoutFeedback>
           <View
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: heightScale(280),
-              borderRadius: 20,
+              height: heightScale(248),
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
+              paddingHorizontal: widthScale(10),
               elevation: 10,
             }}>
-            <Text style={styles.soryByHead}>{t('texts.id_99')}</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.soryByHead}>
+              {t('texts.id_99')}
+            </Text>
             <TouchableOpacity
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_RATING
                     ? styles.modalTextSelected
@@ -689,16 +746,18 @@ class RenderMobile extends Component {
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_MATCH
                     ? styles.modalTextSelected
                     : styles.modalText
                 }>
-                Match
+                {t('texts.id_103')}
               </Text>
             </TouchableOpacity>
             <View style={styles.vDivider} />
@@ -706,12 +765,14 @@ class RenderMobile extends Component {
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE
                     ? styles.modalTextSelected
@@ -725,12 +786,14 @@ class RenderMobile extends Component {
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR
                     ? styles.modalTextSelected
@@ -753,30 +816,30 @@ class RenderMobile extends Component {
               top: screen - 300,
             }}>
             <Text
-              style={{fontSize: fontScale(18), fontWeight: '700', padding: 5}}>
+              style={{ fontSize: fontScale(18), fontWeight: '700', padding: 5 }}>
               Sort By
             </Text>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.setState({likeModal: false})}>
+            <TouchableOpacity onPress={() => this.setState({ likeModal: false })}>
               <Text>Close Model</Text>
             </TouchableOpacity>
           </View>
@@ -808,54 +871,53 @@ class RenderMobile extends Component {
                 }}>
                 Recommend title
               </Text>
-              <Icon name="share" size={25} style={{marginLeft: 20}} />
+              <Icon name="share" size={25} style={{ marginLeft: 20 }} />
             </View>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.setState({shearModal: false})}>
+              onPress={() => this.setState({ shearModal: false })}>
               <Text>Close Model</Text>
             </TouchableOpacity>
           </View>
         </Modal>
-        <SafeAreaView style={{flex: 1}}>
-          <View style={{flex: 1, marginTop: 5}}>
-            <View style={{flex: 1}}>
-              <FlatList
-                scrollEnabled={this.state.parentScroll}
-                showsHorizontalScrollIndicator={false}
-                horizontal={true}
-                data={DATA}
-                renderItem={({item}) => this.moviewPoster(item)}
-                keyExtractor={(item) => item.id}
-                // ItemSeparatorComponent={() => <View style={{width: 10}} />}
-                // nestedScrollEnabled={true}
-                pagingEnabled={true}
-                onMomentumScrollEnd={() => {
-                  this.props.reset();
-                }}
-              />
-            </View>
+        <View style={{ flex: 1, marginTop: heightScale(5) }}>
+          <View style={{ flex: 1 }}>
+            <FlatList
+              bounces={false}
+              scrollEnabled={this.state.scrollEnabled}
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              data={DATA}
+              renderItem={({ item }) => this.moviewPoster(item)}
+              keyExtractor={(item) => item.id}
+              // ItemSeparatorComponent={() => <View style={{width: 10}} />}
+              // nestedScrollEnabled={true}
+              pagingEnabled={true}
+              onMomentumScrollEnd={() => {
+                this.props.reset();
+              }}
+            />
           </View>
-        </SafeAreaView>
+        </View>
       </View>
     );
   }
@@ -930,7 +992,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(16),
-    lineHeight: 18,
+    lineHeight: heightScale(18),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
@@ -943,19 +1005,22 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     justifyContent: 'center',
   },
-  posterImageContainer: {justifyContent: 'center', marginVertical: 5},
-  posterImage: {height: heightScale(450), width: window - 20, borderRadius: 12},
-  posterDescContainer: {flexDirection: 'row', padding: 5},
+  posterImageContainer: { justifyContent: 'center', marginVertical: 5 },
+  posterImage: { height: heightScale(450), width: window - 20, borderRadius: 12 },
+  posterDescContainer: { flexDirection: 'row', padding: 5 },
   directorContainer: {
     width: widthScale(78),
     height: heightScale(149),
-    backgroundColor: '#fff',
     // padding: 5,
     marginRight: widthScale(7),
-    elevation: 5,
     alignItems: 'center',
     borderRadius: 10,
-    // overflow: 'hidden',
+    backgroundColor: '#fff',
+    shadowOffset: { width: 0, height: heightScale(2) },
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   directorImage: {
     height: heightScale(104),
@@ -1027,7 +1092,7 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   filterBut: {
-    width: '90%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -1045,8 +1110,8 @@ const styles = StyleSheet.create({
     }),
   },
   images: {
-    width: window - 20,
-    height: heightScale(300),
+    width: widthScale(355),
+    height: heightScale(242),
     resizeMode: 'cover',
     marginBottom: 10,
     borderRadius: 10,
@@ -1055,13 +1120,14 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(16),
     color: '#000',
+    lineHeight: heightScale(18),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
   },
   soryByHead: {
     padding: 5,
-    fontFamily: 'VAG Rounded Next Bold',
+    fontFamily: primary_regular_font.primary_bold_font,
     fontSize: fontScale(22),
     color: '#ff3300',
     ...(Platform.OS === 'ios' && {

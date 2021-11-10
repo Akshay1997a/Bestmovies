@@ -2,7 +2,6 @@
 import {flatMap, update} from 'lodash';
 import React, {Component} from 'react';
 import {
-  Text,
   View,
   Dimensions,
   SafeAreaView,
@@ -14,6 +13,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
+import {Text} from '../../../components/EnhanchedComponents';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {COUNTRIES_LIST} from '../../../config/CountriesList';
 import Svg, {SvgFromUri as SVGImage, Rect} from 'react-native-svg';
@@ -24,38 +24,47 @@ import primary_regular_font from '../../../helper/fonts';
 import {connect} from 'react-redux';
 import {updateProviders} from '../../../redux/FilterModule/FilterActions';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import {
+  fontScale,
+  heightScale,
+  widthScale,
+} from '../../../helper/ResponsiveFonts';
 
-export const DATA = [
-  {
-    id: '1',
-    name: 'Netflix',
-    image: require('../../../../assets/Providers/netflix_ic.png'),
-  },
-  {
-    id: '2',
-    name: 'Prime Video',
-    image: require('../../../../assets/Providers/prime_ic.png'),
-  },
-  {
-    id: '3',
-    name: 'Hulu',
-    image: require('../../../../assets/Providers/Hulu_ic.png'),
-  },
-  {
-    id: '4',
-    name: 'Apple TV+',
-    image: require('../../../../assets/Providers/apple_ic.png'),
-  },
-  {
-    id: '4',
-    name: 'Disny+',
-    image: require('../../../../assets/Providers/disny_ic.png'),
-  },
-]
-  .flatMap((i) => [i, i, i, i, i, i])
-  .map((item, index) => {
-    return {...item, id: index};
-  });
+export const makeRepeated = (arr, repeats) =>
+  Array.from({length: repeats}, () => arr).flat();
+
+export const DATA = makeRepeated(
+  [
+    {
+      id: '1',
+      name: 'Netflix',
+      image: require('../../../../assets/Providers/netflix_ic.png'),
+    },
+    {
+      id: '2',
+      name: 'Prime Video',
+      image: require('../../../../assets/Providers/prime_ic.png'),
+    },
+    {
+      id: '3',
+      name: 'Hulu',
+      image: require('../../../../assets/Providers/Hulu_ic.png'),
+    },
+    {
+      id: '4',
+      name: 'Apple TV+',
+      image: require('../../../../assets/Providers/apple_ic.png'),
+    },
+    {
+      id: '4',
+      name: 'Disny+',
+      image: require('../../../../assets/Providers/disny_ic.png'),
+    },
+  ],
+  7,
+).map((item, index) => {
+  return {...item, id: index};
+});
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
 const numColumns = 5;
@@ -130,9 +139,9 @@ export class RenderMobile extends Component {
       ...providerConfig.selectedProviders,
     ];
     return (
-      <View style={{width: window / 5 - 2}}>
+      <View style={{width: widthScale(66)}}>
         <TouchableOpacity
-          style={{borderRadius: 25, padding: 2}}
+          style={{borderRadius: 5}}
           onPress={() => this.togalItem(data.id)}>
           <View
             style={{
@@ -143,12 +152,20 @@ export class RenderMobile extends Component {
             <View style={{flex: 5}}>
               <Image
                 keyExtractor={data.id}
-                style={{height: 44, width: 66, borderRadius: 10}}
+                style={{
+                  height: heightScale(44),
+                  width: widthScale(66),
+                  borderRadius: 8,
+                }}
                 source={data.image}
               />
             </View>
             <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
               style={{
+                marginTop: heightScale(2),
+                height: heightScale(32),
                 textAlign: 'center',
                 color: activeProviders.includes(data.id) ? '#FF3300' : '#000',
               }}>
@@ -173,36 +190,12 @@ export class RenderMobile extends Component {
     return (
       <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
         <HeaderModal title={t('texts.id_144')} {...this.props} />
-        {selectedCountry && (
-          <View
-            style={{
-              alignItems: 'flex-end',
-              marginBottom: 20,
-              paddingHorizontal: 10,
-            }}>
-            <TouchableOpacity onPress={this.navigateToCountries.bind(this)}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text style={styles.filterText}>{t('texts.id_28')} :</Text>
-                <View style={{width: 10}} />
-                <SVGImage width={30} height={20} uri={selectedCountry.flag} />
-                <View style={{width: 10}} />
-                <Text style={styles.filterText}>US</Text>
-                <View style={{width: 10}} />
-                <Icon name="chevron-right" />
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            padding: 10,
+            paddingHorizontal: 10,
+            marginTop: heightScale(3),
           }}>
           <TouchableOpacity
             style={[
@@ -219,13 +212,15 @@ export class RenderMobile extends Component {
               this.setState({selectedMenu: MENUS.ALL, selectedProviders: []});
             }}>
             <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
               style={[
                 styles.butText,
                 providerConfig.selectedProviders.length === 0
                   ? styles.activeButText
                   : {},
               ]}>
-              All
+              Anywhere
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -237,6 +232,8 @@ export class RenderMobile extends Component {
             ]}
             onPress={() => this.setState({selectedMenu: MENUS.MY_PROVIDES})}>
             <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
               style={[
                 styles.butText,
                 providerConfig.selectedProviders.length !== 0
@@ -251,9 +248,12 @@ export class RenderMobile extends Component {
             style={[
               styles.butContainer,
               selectedMenu === MENUS.SAVE_AS_PROVIDER ? styles.butActive : {},
+              {width: widthScale(120)},
             ]}
             onPress={() => this.saveAsMyProvider()}>
             <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
               style={[
                 styles.butText,
                 selectedMenu === MENUS.SAVE_AS_PROVIDER
@@ -264,18 +264,87 @@ export class RenderMobile extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+        <View style={{marginHorizontal: widthScale(10), margin: 0}}>
+          {selectedCountry && (
+            <TouchableOpacity onPress={this.navigateToCountries.bind(this)}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: heightScale(15),
+                }}>
+                <View
+                  style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={[styles.filterTextBold, {width: widthScale(66)}]}>
+                    {t('texts.id_28')}:
+                  </Text>
+                  <SVGImage width={30} height={20} uri={selectedCountry.flag} />
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={[styles.filterText, {width: 'auto'}]}>
+                    US
+                  </Text>
+                </View>
+                <Icon
+                  name="chevron-right"
+                  size={widthScale(15)}
+                  style={{opacity: 0.2}}
+                />
+              </View>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity onPress={this.navigateToCountries.bind(this)}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: heightScale(10),
+              }}>
+              <View
+                style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={[styles.filterTextBold]}>
+                  TV platform:
+                </Text>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={[styles.filterText, {width: 'auto', marginLeft: 5}]}>
+                  Web, Amazon fire TV
+                </Text>
+              </View>
+              <Icon
+                name="chevron-right"
+                size={widthScale(15)}
+                style={{opacity: 0.2}}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={{
+            ...styles.filterText,
+            marginTop: heightScale(10),
+            marginHorizontal: heightScale(10),
+          }}>
+          {t('texts.id_156')}: {providerConfig.selectedProviders.length}
+        </Text>
         <ScrollView
           nestedScrollEnabled={true}
           showsVerticalScrollIndicator={false}>
-          <View style={{flexDirection: 'row'}}>
-            <View style={{flex: 5}}>
-              <Text style={{fontSize: 15, fontWeight: '700', margin: 10}}>
-                {t('texts.id_156')}: {providerConfig.selectedProviders.length}
-              </Text>
-            </View>
-          </View>
           <ScrollView nestedScrollEnabled={true}>
             <FlatList
+              bounces={false}
               showsVerticalScrollIndicator={true}
               ItemSeparatorComponent={
                 Platform.OS !== 'android' &&
@@ -289,8 +358,14 @@ export class RenderMobile extends Component {
               }
               keyExtractor={(item) => item.id.toString()}
               numColumns={numColumns}
+              columnWrapperStyle={{
+                justifyContent: 'space-between',
+              }}
               contentContainerStyle={{
-                paddingHorizontal: 5,
+                // paddingHorizontal: 10,
+                marginRight: widthScale(17),
+                marginLeft: widthScale(10),
+                marginTop: heightScale(8),
               }}
             />
           </ScrollView>
@@ -308,8 +383,13 @@ export class RenderMobile extends Component {
                 })
               }
             />
-            <View style={{width: 10}} />
-            <Text style={styles.filterText}>{t('texts.id_150')}</Text>
+            <View style={{width: widthScale(10)}} />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.filterText}>
+              {t('texts.id_150')}
+            </Text>
           </View>
           <View style={styles.finterItem}>
             <Switch
@@ -323,8 +403,13 @@ export class RenderMobile extends Component {
                 })
               }
             />
-            <View style={{width: 10}} />
-            <Text style={styles.filterText}>{t('texts.id_152')}</Text>
+            <View style={{width: widthScale(10)}} />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.filterText}>
+              {t('texts.id_152')}
+            </Text>
           </View>
           <View style={styles.finterItem}>
             <Switch
@@ -338,8 +423,13 @@ export class RenderMobile extends Component {
                 })
               }
             />
-            <View style={{width: 10}} />
-            <Text style={styles.filterText}>{t('texts.id_154')}</Text>
+            <View style={{width: widthScale(10)}} />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.filterText}>
+              {t('texts.id_154')}
+            </Text>
           </View>
         </View>
       </SafeAreaView>
@@ -373,19 +463,20 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: fontScale(16),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
   },
   butContainer: {
     // flex: 1,
-    height: 60,
+    height: heightScale(50),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    width: window / 3 - 10,
+    width: widthScale(108),
     backgroundColor: '#EFEFEF',
+    paddingHorizontal: 10,
   },
   butActive: {
     backgroundColor: '#FF3300',
@@ -394,29 +485,42 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   filterContainer: {
-    height: 200,
-    paddingHorizontal: 10,
-    paddingVertical: 20,
+    height: heightScale(124),
+    paddingHorizontal: widthScale(10),
+    paddingVertical: heightScale(15),
+    // paddingVertical: 20,
   },
   finterItem: {
     flexDirection: 'row',
-    paddingVertical: 10,
+    // paddingVertical: 10,
+    marginTop: heightScale(7),
+    height: heightScale(26),
   },
   filterText: {
     color: '#333333',
     fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: 16,
+    fontSize: fontScale(16),
+    width: widthScale(297),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
+    }),
+  },
+  filterTextBold: {
+    color: '#333333',
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: fontScale(16),
+    fontStyle: 'normal',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
     }),
   },
   checkContainer: {
     position: 'absolute',
     right: 0,
     top: 19,
-    width: 28,
-    height: 28,
+    width: widthScale(28),
+    height: heightScale(28),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 1000,
