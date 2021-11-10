@@ -129,10 +129,10 @@ const MENU_DATA = [
   //   key: ABOUT_US,
   //   title: strings.about_us,
   // },
-  {
-    key: ADVERTISE,
-    title: strings.advertise,
-  },
+  // {
+  //   key: ADVERTISE,
+  //   title: strings.advertise,
+  // },
   {
     key: COLLABORATE,
     title: strings.collaborate,
@@ -946,17 +946,45 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
               />
               <View
                 style={{
-                  // borderWidth:1,
-                  flexDirection: 'row',
+                  borderWidth:1,
+                  // flexDirection: 'row',
                 marginTop: StyleConfig.resHeight(20),
                   // marginVertical: ,
                   backgroundColor: colors.white,
                   marginHorizontal: StyleConfig.resWidth(20),
                 }}>
+                  
                   {selected == MENU && showSelected == COLLABORATE && (
-          <View >
+          // <View  >
+             <FlatList
+                style={{marginStart: 10}}
+                hasTVPreferredFocus={true}
+                contentContainerStyle={{paddingBottom: 50}}
+                keyExtractor={(item, index) => `item${index}`}
+                // numColumns={5}
+                data={MENU_DATA}
+                renderItem={({item}) => (
+                  <TVSIdeBarFlatList
+                    item={item}
+                    {...props}
+                    type="movie"
+                    selected={MENU}
+                    onChangeSelected={(val) => {
+                      console.log('onChangeSelected', val);
+                      setShowSelected(val);
+                    }}
+                  />
+                )}
+                onEndReachedThreshold={0.5}
+                onMomentumScrollBegin = {() => {onEndReachedCalledDuringMomentum = false;}}
+                onEndReached ={() => loadMoreRandomData('test string')}
+              />
+            
+        )}
+         {selected == MENU && showSelected == JOBS && (
+          <View>
             <FlatList
-              data={COLLABORATE_DATA}
+              data={JOBS_DATA}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
@@ -987,6 +1015,76 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
             />
           </View>
         )}
+        {selected == MENU && showSelected == TERMS_OF_USE && (
+          <View>
+            <FlatList
+              data={TERMS_OF_USE_DATA}
+              keyExtractor={(item, index) => `item${index}`}
+              renderItem={({item}) => {
+                return (
+                  <Pressable style={{flexDirection: 'row'}}>
+                    <>
+                      {item.type == 'image' ? (
+                        <Image
+                          source={{uri: item.data}}
+                          resizeMode={'stretch'}
+                          style={styles.aboutUsImg}
+                        />
+                      ) : (
+                        <Text
+                          style={
+                            item.type == 'title'
+                              ? styles.aboutUsTitle
+                              : item.type == 'subtitle'
+                              ? styles.aboutUsSubTitle
+                              : styles.aboutUsDetail
+                          }>
+                          {item.data}
+                        </Text>
+                      )}
+                    </>
+                  </Pressable>
+                );
+              }}
+            />
+          </View>
+        )}
+
+        {selected == MENU && showSelected == PRIVACY_POLICY && (
+          <View>
+            <FlatList
+              data={PRIVACY_POLICY_DATA}
+              keyExtractor={(item, index) => `item${index}`}
+              renderItem={({item}) => {
+                return (
+                  <Pressable style={{flexDirection: 'row'}}>
+                    <>
+                      {item.type == 'image' ? (
+                        <Image
+                          source={{uri: item.data}}
+                          resizeMode={'stretch'}
+                          style={styles.aboutUsImg}
+                        />
+                      ) : (
+                        <Text
+                          style={
+                            item.type == 'title'
+                              ? styles.aboutUsTitle
+                              : item.type == 'subtitle'
+                              ? styles.aboutUsSubTitle
+                              : styles.aboutUsDetail
+                          }>
+                          {item.data}
+                        </Text>
+                      )}
+                    </>
+                  </Pressable>
+                );
+              }}
+            />
+          </View>
+        )}
+
                 {/* <Text numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
                 </Text>
@@ -1109,7 +1207,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
           </View>
         )} */}
 
-        {selected == MENU && showSelected == JOBS && (
+        {/* {selected == MENU && showSelected == JOBS && (
           <View>
             <FlatList
               data={JOBS_DATA}
@@ -1142,9 +1240,9 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
               }}
             />
           </View>
-        )}
+        )} */}
 
-        {selected == MENU && showSelected == TERMS_OF_USE && (
+        {/* {selected == MENU && showSelected == TERMS_OF_USE && (
           <View>
             <FlatList
               data={TERMS_OF_USE_DATA}
@@ -1177,9 +1275,9 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
               }}
             />
           </View>
-        )}
+        )} */}
 
-        {selected == MENU && showSelected == PRIVACY_POLICY && (
+        {/* {selected == MENU && showSelected == PRIVACY_POLICY && (
           <View>
             <FlatList
               data={PRIVACY_POLICY_DATA}
@@ -1218,7 +1316,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
           <View hasTVPreferredFocus={true}>
             <View style={{flex: 1, backgroundColor: 'red'}} />
           </View>
-        )}
+        )} */}
       </View>
       <TVSortByModal
         keySort={SORT_BY}
