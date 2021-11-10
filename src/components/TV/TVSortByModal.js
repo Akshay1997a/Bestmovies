@@ -20,11 +20,24 @@ import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
 
 const DATA = [
-  {id: 0, name: 'texts.id_101'},
-  {id: 1, name: 'texts.id_103'},
-  {id: 2, name: 'texts.id_105'},
+  {id: 0, name: 'texts.id_101'},//rating
+  // {id: 1, name: 'texts.id_103'},//match
+  // {id: 2, name: 'texts.id_105'},//fried
   {id: 3, name: 'texts.id_107'},
 ];
+// var d = new Date(2012, 7, 25);
+// var pastYear = d.getDate() - 1;
+// d.setFullYear(pastYear);
+// console.log(d);
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear()-1;
+
+today = mm + '/' + dd + '/' + yyyy;
+console.log(today);
+
 
 const isAndroid = () => {
   return Platform.OS == 'android';

@@ -115,8 +115,15 @@ const TVCardDetail = ({item, ...props}) => {
             <View style={styles.match}>
               <View>
                 <Text style={styles.bornYear}>
-                      {item.genres + ' - ' +item.year
-                }</Text>
+                  {
+                    item.type === 'm' ?
+                    'Movie' + ' - ' +item.year:
+                    item.type === 't' ?
+                    'TV show'+ ' - ' +item.year :'Shorts'+ ' - ' +item.year
+                  }
+                      {/* {item.genres + ' - ' +item.year
+                } */}
+                </Text>
               </View>
               <View
                 style={{

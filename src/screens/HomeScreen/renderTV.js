@@ -311,18 +311,24 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       // }
     };
   }, []);
-  const getMovies = (lan,sort,provdersId,generes,age,price) =>{
+  const getMovies = (lan,sort,provdersId,generes,age,price,offset,t_country,t_lang) =>{
+    
     let provider = provdersId ? provdersId : '';
     let sort_id = sort ? sort : '';
     let generes_code = generes ? generes : '';
     let ages = age ? age : '';
     let prices = price ? price : '';
+    let offset_page = offset ? 1 : page;
+    let title_country = t_country ? t_country : '';
+    let title_lang = t_lang ? t_lang : '';
 
-let url = 'device=tv&type=m&output=ove&offset='+page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
+
+let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
     axios
     .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
       headers: {
-        't_lang': lan ? lan : language
+        't_lang': title_lang,
+        't_country' : title_country,
       }
     })
     .then(function (response) {
@@ -431,7 +437,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
 
   const getSearch = () =>{
     axios
-    .get('http://18.119.119.183:3003/titles?device=tv&type=m&output=bas&limit='+20+'&title='+text)
+    .get('http://18.119.119.183:3003/titles?device=tv&&output=bas&limit='+20+'&title='+text)
     .then(function (response) {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
@@ -469,6 +475,10 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
     let gener = '';
     let age = '';
     let price = '';
+    let offset = 1;
+    let t_country= '';
+    let t_lang= '';
+
     // setPage(0);
 
     if(val === SORT_BY){
@@ -498,7 +508,10 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
       gener += '&genre='+code;
       setGeneras(gener);
     }else if(val === COUNTRY){
-      console.log(COUNTRY);
+      let [temp, code] = type[0].split('_');
+      t_country = type[1];
+      t_lang = code
+      console.log(code);
     }else if(val === AGES){
       age= '&age='+type.ages;
       console.log(AGES);
@@ -511,7 +524,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
     
    
     setTopSelected(val);
-    getMovies('',sort,where,gener,age,price);
+    getMovies('',sort,where,gener,age,price,offset,t_country,t_lang);
     console.debug(' onPressClick value>>>>>dasfgasdbgvsfd', val);
   };
 
@@ -519,7 +532,6 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
     console.debug('value)))))00000', value);
     let data = '';
     if (value == 45) {
-      getSearch()
       //right arrw search api
       // data = text.slice(0, -1);
      } else if (value == 33) {
@@ -541,6 +553,9 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
       data = text == null ? value : text + value;
     }
     onChangeText(data);
+    if(data.length >= 3){
+      getSearch()
+    }
   }
   const loadMoreRandomData = () =>{
     onEndReachedCalledDuringMomentum = false;

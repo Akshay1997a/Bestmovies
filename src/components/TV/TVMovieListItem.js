@@ -241,7 +241,7 @@ const getMovies = () =>{
                         <AntDesign name="like1" color="#35B736" size={13} />
                       </Text> */}
                       <Text style={[styles.textSecondary]}>
-                        {`${item.price} match`}
+                        {item.price}
                       </Text>
                     </View>
 
@@ -254,11 +254,45 @@ const getMovies = () =>{
                       }}>
                        <RatingComponent
                         rating={item.rating}
-                        color={'red'}
+                        color={item.rating >= 9 ? 
+                          "black":
+                          item.rating >= 8 ? 
+                          '#868686' :
+                          item.rating >= 7 ? 
+                          '#4183E2' :
+                          item.rating >= 6 ?
+                        '#40CF00' :
+                        item.rating >= 5 ?
+                      '#EAC602' :
+                      item.rating >= 4 ?
+                    '#FF8500':
+                    item.rating >= 3 ?
+                  '#FF0000' :
+                  item.rating >= 2 ?
+                  '#EC3DEF' :
+                  item.rating >= 1 ?
+                '#9A2FAE' :'#9A5000'}
                       />
-                      {/* <Text
+                      <Text
                         style={{
-                          color: item.DATA.color,
+                          color: item.rating >= 9 ? 
+                          "black":
+                          item.rating >= 8 ? 
+                          '#868686' :
+                          item.rating >= 7 ? 
+                          '#4183E2' :
+                          item.rating >= 6 ?
+                        '#40CF00' :
+                        item.rating >= 5 ?
+                      '#EAC602' :
+                      item.rating >= 4 ?
+                    '#FF8500':
+                    item.rating >= 3 ?
+                  '#FF0000' :
+                  item.rating >= 2 ?
+                  '#EC3DEF' :
+                  item.rating >= 1 ?
+                '#9A2FAE' :'#9A5000',
                           fontFamily: primary_regular_font.primary_regular_font,
                           fontSize: StyleConfig.resHeight(24),
                           fontWeight: '400',
@@ -269,8 +303,25 @@ const getMovies = () =>{
                             },
                           }),
                         }}>
-                        {item.DATA.feedback}
-                      </Text> */} 
+                       {item.rating >= 9 ? 
+                          "Best":
+                          item.rating >= 8 ? 
+                          'Excellent' :
+                          item.rating >= 7 ? 
+                          'Great' :
+                          item.rating >= 6 ?
+                        'Good' :
+                        item.rating >= 5 ?
+                      'OK' :
+                      item.rating >= 4 ?
+                    'Weak':
+                    item.rating >= 3 ?
+                  'Poor' :
+                  item.rating >= 2 ?
+                  'Bad' :
+                  item.rating >= 1 ?
+                'Terrible' :'Worst'}
+                      </Text> 
                     </View>
                   </View>
                 </View>
