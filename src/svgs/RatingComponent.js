@@ -1,10 +1,12 @@
 import * as React from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import Svg, {G, Ellipse, Defs, ClipPath} from 'react-native-svg';
 import _ from 'lodash';
 import primary_font from '../helper/fonts';
 import StyleConfig from '../helper/StyleConfig';
 import colors from '../helper/colors';
+import {fontScale} from '../helper/ResponsiveFonts';
+import {Text} from '../components/EnhanchedComponents';
 
 function EllipseComponent({size, ...props}) {
   const md = () => (
@@ -98,16 +100,14 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-  
   },
   ratingText: {
-    color:colors.white,
+    color: colors.white,
     position: 'absolute',
     fontFamily: primary_font.primary_bold_font,
-    fontSize: StyleConfig.resHeight(24),
-    lineHeight:StyleConfig.resHeight(30),
-    // ...(Platform.OS === 'ios' && {
-    //   fontWeight: '700',
-    // }),
+    fontSize: fontScale(14),
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
 });

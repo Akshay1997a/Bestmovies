@@ -15,6 +15,7 @@ import SearchBar from '../../../components/SearchBar';
 import {updateLanguages} from '../../../redux/FilterModule/FilterActions';
 import {Button} from '../../Country/renderMobile';
 import _ from 'lodash';
+import {heightScale, widthScale} from '../../../helper/ResponsiveFonts';
 
 const DATA = _.uniqBy(
   [
@@ -469,15 +470,9 @@ class RenderMobile extends Component {
     const {searchString, filteredLanguages} = this.state;
     const {selectedLanguages, updateLanguage} = this.props;
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <HeaderModal title={'Original language'} {...this.props} />
-        <View style={{padding: 10}}>
-          <SearchBar
-            placeholder="Enter language"
-            value={searchString}
-            onChangeText={(text) => this.onSearchHandler(text)}
-            onClear={this.onClearSearch}
-          />
+        <View style={{marginTop: 0, paddingHorizontal: widthScale(10)}}>
           <View>
             <Button
               title="Any"
@@ -493,6 +488,7 @@ class RenderMobile extends Component {
             />
           </View>
           <FlatList
+          bounces={false}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={
               Platform.OS !== 'android' &&
@@ -510,9 +506,12 @@ class RenderMobile extends Component {
               />
             )}
             keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={{
+              paddingBottom: heightScale(20),
+            }}
           />
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }

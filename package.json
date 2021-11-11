@@ -12,6 +12,7 @@
     "cleanAC": "cd android && ./gradlew cleanBuildCache && cd ../",
     "runa": "npx react-native run-android",
     "cleann": "rm -rf node_modules && npm install",
+    "android-build": "watchman watch-del-all && cd android && ./gradlew --stop && ./gradlew clean && ./gradlew assembleRelease",
     "build": "cd android && ./gradlew assembleRelease && cd ../"
   },
   "dependencies": {
