@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     // marginLeft:10,
   },
   focustoggle: {
-    backgroundColor: colors.tomatoRed,
+   // backgroundColor: colors.tomatoRed,
     padding: StyleConfig.resWidth(10),
     // paddingVertical: StyleConfig.resWidth(8),
     // height: isAndroid() ? 40 : 90,
@@ -242,6 +242,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     minWidth: 60,
     alignItems: 'center',
+    // borderWidth:1,
+    // borderColor:'red',
   },
   itemWrapper: {
     justifyContent: 'center',
@@ -340,14 +342,13 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
 
   const onPressClick = (val) => {
     console.log('onPressClick StreamModal***', val);
-    props.action(val);
-
     setCountry(val.code);
   };
   const saveProvides = (val) => {
-    alert('successfull');
+    alert('successfull',val.code);
     console.log('saveProvides StreamModal***', val);
-    // setCountry(val.code)
+   // setCountry(val.code)
+    
   };
   const myProviders = () => {
     // setData(updatedData);
@@ -501,11 +502,12 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           <View
             style={{
               // borderWidth:1,
+              // borderColor:'red',
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginTop: StyleConfig.resHeight(20),
             }}>
-            {/* <Pressable
+            <Pressable
               focusable={!isSubscriptionSelected()}
               onFocus={() => {
                 !isSubscriptionSelected() && onFocusButton(1);
@@ -515,44 +517,44 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 focusHeader && selected === 1
                   ? styles.focusButton
                   : styles.notfocusButton
-              }> */}
+              }>
             <TVButton
               styles={focus ? styles.focusButton : styles.notfocusButton}
               textColor={isSubscriptionSelected() ? '#999999' : 'black'}
               text={t('texts.id_172')}
-              bgColor={colors.tomatoRed}
+             bgColor={colors.tomatoRed}
             />
-            {/* </Pressable> */}
+            </Pressable>
 
-            {/* <Pressable
-              onFocus={() => onFocusButton(2)}
+            <Pressable
+             onFocus={() => onFocusButton(2)}
               onPress={() => myProviders()}
               style={
                 focusHeader && selected === 2
                   ? styles.focusButton
                   : styles.notfocusButton
-              }> */}
+              }>
             <TVButton
               styles={focus ? styles.focusButton : styles.notfocusButton}
               textColor={isSubscriptionSelected() ? '#999999' : 'black'}
               text={t('texts.id_147')}
-              bgColor={colors.lightGrey}
+             //bgColor={colors.lightGrey}
             />
-            {/* </Pressable> */}
+            </Pressable>
 
-            {/* <Pressable
+            <Pressable
               focusable={isSubscriptionSelected()}
               onFocus={() => {
                 console.log('updated lengthttt', updatedData?.length);
                 isSubscriptionSelected() && onFocusButton(3);
               }}
-              onPress={() => saveProvides(1)}
-              //  onBlur={onBlur}
+              onPress={() => saveProvides(2)}
+               onBlur={onBlur}
               style={
                 focusHeader && selected === 3
                   ? styles.focusButton
                   : styles.notfocusButton
-              }> */}
+              }>
             <TVButton
               styles={focus ? styles.focusButton : styles.notfocusButton}
               textColor={isSubscriptionSelected() ? 'black' : '#999999'}
@@ -560,7 +562,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               text={t('texts.id_148')}
               bgColor={colors.lightGrey}
             />
-            {/* </Pressable> */}
+            </Pressable>
           </View>
           <View
             style={{
@@ -602,8 +604,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                     item={item}
                     type="movie"
                     // onFocus={props?.onFocus}
-                    action={(res) => onPressClick(res)}
-
+                    action={() => onPressClick(index)}
                   />
                 );
               }}
