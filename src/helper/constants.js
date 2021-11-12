@@ -21,6 +21,11 @@ export default {
 
   static_pages: [
     {
+      id: 1,
+      type: 'image',
+      data: 'https://drive.google.com/uc?id=1FilqcBgqvdWhdHXBEpxgozLU8cP27uBW&export=download',
+    },
+    {
       name: 'About us',
       heading_size: '0',
       subtitle_size: '0',

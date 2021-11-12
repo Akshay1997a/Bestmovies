@@ -10,7 +10,8 @@ import {
   Platform,
 } from 'react-native';
 import axios from 'axios';
-
+import i18next from 'i18next';
+import {runTimeTranslations} from '../../i18n';
 import Inocons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/TVRatingComponent';
@@ -38,10 +39,11 @@ let DATA = {
 };
 
 const TVCardDetail = ({item, ...props}) => {
-  const {t} = useTranslation();
+  const {t,i18n} = useTranslation();
   console.log('item', item);
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
+  const [countryList, setCountryList] = useState(null);
 
   const storeData = async (value) => {
     try {
@@ -67,8 +69,31 @@ const getMovies = () =>{
     // always executed
   });
 }
+const getGeneras = (code) =>{
+  let data = code.split(',');
+  let str  = '';
+  // let data = countryList;
+  if(data && countryList !== null){
+    for(const val of data) {
+       str = str+ countryList["code_"+ val];
+       return str;
+    // countryList !== null && Object.entries(countryList)?.map((item, index) => {
+    //   let [temp, code] = item[0].split('_')
+    //   if(code== val){
+    //     console.log(item)
+    //     str = item[1];
+    //     str+=str;
+    //     return str
+    //   }
+    // }) 
+  }
+}
+}
+
+
   const onFocus = useCallback(() => {
-    // console.log('OnFocus TVCardDetail***',props);
+    let res = getGeneras('ac');
+    console.log('OnFocus TVCardDetail***',res);
     props?.reduxSetCurrFocus?.('list');
     setFocus(0);
     setIsFocus(true);
@@ -81,6 +106,11 @@ const getMovies = () =>{
   }, []);
 
   useEffect(() => {
+    let lng = i18n.language;
+    let countryData = i18next.getDataByLanguage(lng);
+    let countryTemp = countryData?.translation?.genres;
+    countryTemp && setCountryList(countryTemp);
+
     const unsubscribe = props.navigation.addListener('focus', () => {
       // console.log('focus TVMovieList ');
     });
@@ -208,7 +238,7 @@ const getMovies = () =>{
                 numberOfLines={1}
                 style={styles.typeSecondary}>
                 {/* {t('texts.id_129')} */}
-                {item.genres}
+                {getGeneras(item.genres)}
               </Text>
 
               <View
