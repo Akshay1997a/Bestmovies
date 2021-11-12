@@ -724,8 +724,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
                   alignContent: 'center',
                 }}>
                 <Text 
-                        ellipsizeMode="tail"
-
+                ellipsizeMode="tail"
                 numberOfLines={1} style={styles.ranking}>
                   {t('texts.id_78')}
                 </Text>

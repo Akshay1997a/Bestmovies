@@ -29,6 +29,13 @@ import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {HEIGHT, logOnConsole, WIDTH} from '../../helper/globalFunctions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {
+  getCountryFlag
+} from "../../network/requests.ts";
+import { endPoints } from '../../network/endPoints';
+import axios from 'axios';
 // import ToggleSwitch from "toggle-switch-react-native";
 const isAndroid = () => {
   return Platform.OS == 'android';
@@ -316,7 +323,7 @@ const items = [
 const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   const {t} = useTranslation();
   const [selected, setSelected] = useState(-1);
-  const [country, setCountry] = useState('US');
+  const [countryFlag, setCountryFlag] = useState('US');
   const [data, setData] = useState(items);
   const [updatedData, setUpdatedData] = useState();
   const [free, setFreeToggle] = useState(false);
@@ -341,8 +348,13 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   });
 
   const onPressClick = (val) => {
-    console.log('onPressClick StreamModal***', val);
-    setCountry(val.code);
+    console.log('onPressClick StreamModal***', val.code);
+    let changeCode = val[0];
+     let newCode   = changeCode.slice(5);
+    console.log(newCode);
+    setCountryFlag(newCode);
+    oncloseModal();
+    getFlagList(newCode);
   };
   const saveProvides = (val) => {
     alert('successfull',val.code);
@@ -383,7 +395,31 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
     console.log('val', val);
     setShowSelected(false);
   };
- 
+  
+  const getFlagList=(cd)=>{
+    let countryCode = cd ? cd : '';
+    axios.get(endPoints.BASE_URL+endPoints.countryFlagList,{
+      headers:{
+        "cd":countryCode,
+      }
+    }).then((res)=>{
+      console.log('data show',res);
+      //setCountryFlag(res.data);
+      console.log('data country',countryFlag);
+    }).catch((error)=>{
+      console.log('show error',error);
+    })
+  }
+
+ useEffect(() => {
+  
+   props.getCountryFlag((res)=>{
+     console.log(res);
+   })
+  //  return () => {
+  //    cleanup
+  //  }
+ }, [])
   // useEffect(() => {
 
   //     async function fetchData() {
@@ -396,7 +432,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
 
   //     fetchData();
   //   }, [])
-
+console.log(countryFlag);
   const isSubscriptionSelected = () => {
     let selected = false;
     data.map((item, index) => {
@@ -441,6 +477,8 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           style={{
             marginHorizontal: isAndroid() ? StyleConfig.resHeight(50) : 50,
             marginTop: isAndroid() ? StyleConfig.resHeight(30) : 50,
+            // borderColor:'red',
+            // borderWidth:1,
           }}>
           <View style={{flexDirection: 'row'}}>
             <Pressable
@@ -490,7 +528,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                   />
                   <Text style={focus ? styles.focusCodeText : styles.text}>
                     {' '}
-                    {country}{' '}
+                    {countryFlag} {' '}
                   </Text>
                 </View>
               </Pressable>
@@ -706,4 +744,14 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   );
 });
 
-export default StreamModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getCountryFlag,
+    },
+    dispatch,
+  );
+};
+
+
+export default connect(null, mapDispatchToProps) (StreamModal);

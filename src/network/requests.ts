@@ -75,6 +75,30 @@ export const getLanguageList = (
 		);
 };
 
+export const getCountryFlag = (
+    param:any,
+	succesCallback: Function,
+	errorCallback: Function,
+) => {
+
+	return (dispatch: Function) =>
+		commonApiWrapper(
+            dispatch,
+			endPoints.countryFlagList + `cd=${param?.cd}`,
+			apiConstants.get_request_type,
+			apiConstants.raw_data_type,
+			null,
+			null,
+			null,
+			(response: any, dispatch: any) => {
+				if (succesCallback) {
+					succesCallback(response);
+				}
+			},
+			(err) => errorCallback(err),
+		);
+};
+
 
 export const getLanguageData = (
 	succesCallback: Function,

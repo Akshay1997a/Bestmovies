@@ -28,10 +28,12 @@ import primary_regular_font from '../../helper/fonts';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
-  getProvidersList
+  getProvidersList,getCountryFlag
 } from "../../network/requests.ts";
 import { State } from 'react-native-gesture-handler';
 import { logOnConsole } from '../../helper/globalFunctions';
+import axios from 'axios';
+import { endPoints } from '../../network/endPoints';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -238,10 +240,15 @@ const TVSubscription = (props) => {
   };
    ///const data = useSelector(state => state.state)
   const [item,setItem] = useState([]);
+ 
 
   useEffect(() => {
     //logOnConsole('call streem modal');
     console.log('call streem modal');
+   // getFlagList();
+    props.getCountryFlag((res)=>{
+      console.log('country flag',res);
+    })
     props.getProvidersList((res) => {
     console.log('provider respone', res.data.providers);
      setItem(res.data);
@@ -273,6 +280,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       getProvidersList,
+      getCountryFlag,
     },
     dispatch,
   );
