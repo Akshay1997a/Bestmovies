@@ -125,10 +125,10 @@ const MENU_DATA = [
   //   key: INVITE_FRIEND,
   //   title: 'texts.id_18',
   // },
-  // {
-  //   key: ABOUT_US,
-  //   title: strings.about_us,
-  // },
+  {
+    key: ABOUT_US,
+    title: strings.about_us,
+  },
   // {
   //   key: ADVERTISE,
   //   title: strings.advertise,
@@ -320,14 +320,14 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     let prices = price ? price : '';
     let offset_page = offset ? 1 : page;
     let title_country = t_country ? t_country : '';
-    let title_lang = t_lang ? t_lang : '';
+    let title_lang = t_lang ? t_lang : lan;
 
 
 let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
     axios
     .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
       headers: {
-        't_lang': title_lang,
+        't_lang': title_lang ? title_lang : '',
         't_country' : title_country,
       }
     })
@@ -336,7 +336,7 @@ let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_
       // setAboutUsData(response.data.data.static_pages);
       
       if(response.data.data.length > 0){
-      setMovies(response.data.data)
+      // setMovies(response.data.data)
 
       setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
       setMoviesSearch(response.data.data)
@@ -537,23 +537,28 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
      } else if (value == 33) {
       data = text.slice(0, -1);
     } else if (value == 29) {
+      
+      // space
       let str = text;
-      str = str.substring(0, str.length - 1);
+      str+='';
       data = str;
     } else if (value == 30) {
-      data = text;
-      data = '';
+      //back with arow
+      let str = text;
+      str = str?.substring(0, str.length - 1);
+      data = str;
     } else if (value == 12) {
       data = text == null ? value : text + '\n';
     } else if (value == 13) {
       data = text.slice(0, -1);
     } else if (value == 31) {
+      //delete
       data = null;
     } else {
       data = text == null ? value : text + value;
     }
     onChangeText(data);
-    if(data.length >= 3){
+    if(data?.length >= 3){
       getSearch()
     }
   }
@@ -602,8 +607,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
             getTVShows();
           }
           if (val == MENU) {
-            // setShowSelected(ADVERTISE);
-            sidebar.current.setResetFocus()
+            setShowSelected(ABOUT_US);
+            // sidebar.current.setResetFocus()
           }
         }}
       />
@@ -637,32 +642,14 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
                 marginRight: 20,
                 marginLeft: 10,
               }}>
-              {/* <View style={{flexDirection:'row',marginBottom:10}} >
-                  <View style={styles.title}>
-
-                        <Text style={styles.titleText}>Title</Text>
-                  </View>
-                  <View style={styles.artist}>
-                  <Text style={{fontSize: isAndroid() ? 14: 28,fontWeight:'400',color:colors.black}}>Artist</Text>
-
-                  </View>
-                  <View style={styles.artist}>
-                  <Text style={{fontSize: isAndroid() ? 14: 28,fontWeight:'400',color:colors.black}}>User</Text>
-                  </View>
-              </View> */}
+              
 
               <View style={styles.tetxInputLayout}>
                 <View style={{flex: 1, flexDirection: 'row'}}>
                   <View style={{flex: 0.1, alignSelf: 'center'}}>
                     <Image style={styles.search} source={AppImages.icSearch} />
                   </View>
-                  {/* <TextInput
-                      placeholder={strings.search}
-                      placeholderTextColor={colors.black}
-                      keyboardType={strings.email_address}
-                      style={{backgroundColor:colors.lightGrey, flex:0.8,alignSelf:'center',fontSize:34,fontFamily:primary_regular_font.primary_regular_font,fontWeight:'700'}}
-                      onChangeText={text => setText(text)}
-                    /> */}
+                  
                   <TextInput
                     onSelectionChange={(event) =>
                       console.log(
@@ -710,7 +697,6 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         )}
         {selected == MY_LIST && (
           <View hasTVPreferredFocus={true}>
-            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
               style={{height: StyleConfig.resHeight(900), borderWidth: 1}}>
@@ -813,7 +799,6 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
           <View
             style={[{flex: 1, backgroundColor: colors.white}]}
             hasTVPreferredFocus={true}>
-            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
               style={{
@@ -822,10 +807,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
               }}>
               <View
                 style={{
-                  // borderWidth:1,
                   flexDirection: 'row',
                 marginTop: StyleConfig.resHeight(20),
-                  // marginVertical: ,
                   backgroundColor: colors.white,
                   marginHorizontal: StyleConfig.resWidth(20),
                 }}>
@@ -863,7 +846,6 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
           <View
             style={[{flex: 1, backgroundColor: colors.white}]}
             hasTVPreferredFocus={true}>
-            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
               style={{
@@ -872,10 +854,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
               }}>
               <View
                 style={{
-                  // borderWidth:1,
                   flexDirection: 'row',
                 marginTop: StyleConfig.resHeight(20),
-                  // marginVertical: ,
                   backgroundColor: colors.white,
                   marginHorizontal: StyleConfig.resWidth(20),
                 }}>
@@ -909,11 +889,19 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
             </View>
           </View>
         )}
-        {selected == MENU && (
+        {selected == MENU && showSelected == ABOUT_US && (
+          <View hasTVPreferredFocus={true}>
+            <TVSideBar
+              selected={MENU}
+              {...props}
+              onChangeSelected={(val) => setShowSelected(val)}
+            />
+          </View>
+        )}
+        {/* {selected == MENU && (
           <View
             style={[{flex: 1, backgroundColor: colors.white}]}
             hasTVPreferredFocus={true}>
-            {/* <TVTileView type={selected} onFocus={onTileViewFocus} item={selectedItem} hasTVPreferredFocus={true} /> */}
             <View
               hasTVPreferredFocus={true}
               style={{
@@ -926,7 +914,6 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
                 hasTVPreferredFocus={true}
                 contentContainerStyle={{paddingBottom: 50}}
                 keyExtractor={(item, index) => `item${index}`}
-                // numColumns={5}
                 data={MENU_DATA}
                 renderItem={({item}) => (
                   <TVSIdeBarFlatList
@@ -1085,18 +1072,12 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
           </View>
         )}
 
-                {/* <Text numberOfLines={1} style={styles.ranking}>
-                  {t('texts.id_78')}
-                </Text>
-                <Text numberOfLines={1} style={styles.result}>
-                  {' '}
-                  12,348 {t('texts.id_91')}{' '}
-                </Text> */}
+               
               </View>
              
             </View>
           </View>
-        )}
+        )} */}
 
         {/* {selected == MENU && (
           <View  style={{flexDirection:'row'}}>
