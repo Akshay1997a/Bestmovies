@@ -38,7 +38,7 @@ import Language from '../screens/LanguageScreen';
 const Stack = createStackNavigator();
 
 const StackNav = () => {
-  const insets = useSafeAreaInsets();
+  // const insets = useSafeAreaInsets();
   const commonOptions = {
     headerBackImage: () => <FontAwesome5 name="angle-left" size={30} />,
     headerShown: false,
@@ -55,7 +55,7 @@ const StackNav = () => {
         backgroundColor: 'rgba(0,0,0,0.2)',
         overflow: 'hidden',
         // marginTop: insets.top,
-        marginBottom: insets.bottom,
+        // marginBottom: insets.bottom,
       },
       cardOverlayEnabled: true,
       animationTypeForReplace: 'push',
@@ -136,6 +136,21 @@ const StackNav = () => {
         children={(props) => (
           <View style={[styles.ModalContainer]}>
             <Year {...props} />
+          </View>
+        )}
+      />
+      <Stack.Screen
+        name="Genres"
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
+        }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Generes {...props} />
           </View>
         )}
       />
@@ -231,14 +246,18 @@ const StackNav = () => {
       />
       <Stack.Screen
         name="Price"
-        component={Price}
-        options={{
-          ...commonOptions,
-          headerShown: true,
-          headerStyle: {
-            elevation: 0,
-          },
+        options={(props) => {
+          return {
+            ...modalScreenOptions(props),
+            headerShown: false,
+            animationEnabled: false,
+          };
         }}
+        children={(props) => (
+          <View style={[styles.ModalContainer]}>
+            <Price {...props} />
+          </View>
+        )}
       />
       <Stack.Screen
         name="Linkby"
@@ -333,11 +352,9 @@ const StackNav = () => {
 
 const Router = () => {
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <StackNav />
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <StackNav />
+    </NavigationContainer>
   );
 };
 export default Router;
@@ -347,10 +364,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ModalContainer: {
-    height: '100%',
-    marginTop: Platform.OS === 'android' ? STATUS_BAR_HEIGHT : 48,
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    flex: 1,
+    marginTop: STATUS_BAR_HEIGHT,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
     backgroundColor: '#fff',
     overflow: 'hidden',
     elevation: 10,

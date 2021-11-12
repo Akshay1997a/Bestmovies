@@ -12,6 +12,9 @@ import {
   UPDATE_LANGUAGES,
   UPDATE_WATCHED,
   UPDATE_PRIVIOUSLY_BROWSED,
+  UPDATE_GENERES,
+  UPDATE_AGE_RATING,
+  UPDATE_PRICING,
 } from './FilterTypes';
 
 export const FilterInitialState = {
@@ -28,8 +31,11 @@ export const FilterInitialState = {
     from: null,
     to: null,
   },
+  genres: [],
   countries: [],
   languages: [],
+  ageRating: [],
+  pricing: [],
   watched: false,
   previouslyBrowsed: false,
 };
@@ -88,10 +94,28 @@ export default function FilterReducer(state = FilterInitialState, action) {
         year: action.payload,
       };
 
+    case UPDATE_GENERES:
+      return {
+        ...state,
+        genres: action.payload,
+      };
+
     case UPDATE_LANGUAGES:
       return {
         ...state,
         languages: action.payload,
+      };
+
+    case UPDATE_AGE_RATING:
+      return {
+        ...state,
+        ageRating: action.payload,
+      };
+
+    case UPDATE_PRICING:
+      return {
+        ...state,
+        pricing: action.payload,
       };
 
     default:

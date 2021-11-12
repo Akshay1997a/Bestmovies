@@ -139,8 +139,8 @@ android {
         applicationId "com.Bestmovies"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "3.0"
         multiDexEnabled true
     }
     
@@ -202,7 +202,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.android.support:multidex:1.0.3'
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'com.google.firebase:firebase-analytics'
+    // implementation 'com.google.firebase:firebase-analytics'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     apply plugin: 'com.google.gms.google-services'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {

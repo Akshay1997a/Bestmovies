@@ -1,10 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable prettier/prettier */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   SafeAreaView,
-  Text,
   View,
   Dimensions,
   Image,
@@ -17,26 +16,27 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
+import { Text } from '../../components/EnhanchedComponents';
 // import { TouchableOpacity} from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Entypo';
 import Icons from 'react-native-vector-icons/Feather';
 import Iconm from 'react-native-vector-icons/FontAwesome5';
 import Inocons from 'react-native-vector-icons/Ionicons';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Orientation from 'react-native-orientation';
-import {VIEW_STYLE} from '../../redux/FilterModule/FilterTypes';
+import { VIEW_STYLE } from '../../redux/FilterModule/FilterTypes';
 import {
   TOTAL_HEADER_HEIGHT,
   useCollapsibleHeaderHOC,
 } from '../../components/Header';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../svgs/RatingComponent';
-import {bindActionCreators} from 'redux';
-import {getTranslateFile} from '../../network/requests';
-import {runTimeTranslations} from '../../i18n';
-import {withTranslation} from 'react-i18next';
-import primary_regular_font from '../../helper/fonts';
-import {fontScale, heightScale} from '../../helper/ResponsiveFonts';
+import { bindActionCreators } from 'redux';
+import { getTranslateFile } from '../../network/requests';
+import { runTimeTranslations } from '../../i18n';
+import { withTranslation } from 'react-i18next';
+import primary_regular_font, { isAndroid } from '../../helper/fonts';
+import { fontScale, heightScale, widthScale } from '../../helper/ResponsiveFonts';
 
 const window = Dimensions.get('window').width;
 const screen = Dimensions.get('window').height;
@@ -108,23 +108,23 @@ export class RenderMobile extends Component {
   }
 
   showTip() {
-    const {hasTipShowned} = this.state;
+    const { hasTipShowned } = this.state;
     if (!hasTipShowned) {
-      this.setState({isIntroTipVisible: true});
+      this.setState({ isIntroTipVisible: true });
       setTimeout(() => {
-        this.setState({isIntroTipVisible: false, hasTipShowned: true});
+        this.setState({ isIntroTipVisible: false, hasTipShowned: true });
       }, 2000);
     }
   }
 
   onFilterSelect(type) {
-    this.setState({selectedFilter: type});
+    this.setState({ selectedFilter: type });
   }
 
   rendeDirector = (data) => (
     <TouchableOpacity style={styles.directorContainer}>
       <Image style={styles.directorImage} source={data.image} />
-      <View style={{flexWrap: 'wrap'}}>
+      <View style={{ flexWrap: 'wrap' }}>
         <Text numberOfLines={2} style={styles.directorName}>
           {data.name}
         </Text>
@@ -133,13 +133,13 @@ export class RenderMobile extends Component {
   );
 
   renderSimilarItem = (data) => {
-    <View style={{borderRadius: 12, width: 150, margin: 10}}>
-      <TouchableOpacity style={{zIndex: 100, elevation: 2}}>
+    <View style={{ borderRadius: 12, width: 150, margin: 10 }}>
+      <TouchableOpacity style={{ zIndex: 100, elevation: 2 }}>
         <Icon
           name="bookmark"
           size={40}
           color="#232323"
-          style={{position: 'absolute', top: -10, left: 100}}
+          style={{ position: 'absolute', top: -10, left: 100 }}
         />
       </TouchableOpacity>
       <Image
@@ -152,7 +152,7 @@ export class RenderMobile extends Component {
           marginBottom: 10,
         }}
       />
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={styles.textFont}>Lynn O’Leeum</Text>
         <Text style={styles.textFont}>Percy Kewshun</Text>
         <Text numberOfLines={1} style={styles.textFont}>
@@ -166,10 +166,10 @@ export class RenderMobile extends Component {
   };
 
   moviewPoster = (data) => {
-    const {viewStyle} = this.props;
-    const {navigate} = this.props.navigation;
+    const { viewStyle } = this.props;
+    const { navigate } = this.props.navigation;
     const playVideo = () => {
-      navigate('YoutubePlayer', {url: 'asdasd'});
+      navigate('YoutubePlayer', { url: 'asdasd' });
     };
 
     const goToMovieDetails = () => {
@@ -191,10 +191,12 @@ export class RenderMobile extends Component {
     return (
       <View
         style={{
-          flex: viewStyle === VIEW_STYLE.FULL_VIEW ? 1 : 0,
           justifyContent: 'center',
           borderRadius: 8,
-          overflow: 'hidden',
+          ...(isAndroid() && {
+            overflow: 'hidden',
+          }),
+          height: heightScale(320),
           ...(viewStyle === VIEW_STYLE.GRID_VIEW && {
             borderWidth: 1,
             borderColor: '#fff',
@@ -207,11 +209,12 @@ export class RenderMobile extends Component {
           }),
         }}>
         <TouchableOpacity
+        style={{overflow: 'hidden', height: heightScale(320)}}
           disabled={viewStyle === VIEW_STYLE.FULL_VIEW}
           onPress={goToMovieDetails}>
-          <View>
-            <View style={{justifyContent: 'center'}}>
-              <TouchableOpacity style={{elevation: 1}}>
+          <View style={{overflow: 'hidden'}}>
+            <View style={{ justifyContent: 'center', overflow: 'hidden' }}>
+              {/* <TouchableOpacity style={{elevation: 1}}>
                 <View
                   style={{
                     position: 'absolute',
@@ -224,7 +227,7 @@ export class RenderMobile extends Component {
                   <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
                   <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               {!this.state.isIntroTipVisible &&
                 viewStyle === VIEW_STYLE.FULL_VIEW && (
                   <TouchableOpacity
@@ -240,21 +243,15 @@ export class RenderMobile extends Component {
                   </TouchableOpacity>
                 )}
               <Image
-                style={
-                  viewStyle === VIEW_STYLE.FULL_VIEW
-                    ? {
-                        height: heightScale(450),
-                        width: window - 20,
-                        borderRadius: 8,
-                      }
-                    : {
-                        height: heightScale(240),
-                        width: window / 2 - 15,
-                        borderTopRightRadius: 8,
-                        borderTopLeftRadius: 8,
-                      }
-                }
+                style={{
+                  height: heightScale(240),
+                  width: widthScale(175),
+                  borderTopRightRadius: 8,
+                  borderTopLeftRadius: 8,
+                  overflow: 'hidden'
+                }}
                 source={data.image}
+                resizeMode="cover"
                 onLoadEnd={() => {
                   this.showTip();
                 }}
@@ -278,8 +275,8 @@ export class RenderMobile extends Component {
                 </Text>
               </View>
             </View>
-            <View style={{paddingTop: 5, paddingHorizontal: 10}}>
-              <Text style={styles.textFont}>Parasite</Text>
+            <View style={{ marginTop: heightScale(9), paddingHorizontal: widthScale(10) }}>
+              <Text style={[styles.textFont, {height: heightScale(14), lineHeight: heightScale(17)}]}>Parasite</Text>
               {viewStyle === VIEW_STYLE.FULL_VIEW && (
                 <Text style={[styles.textSecondary, styles.italic]}>
                   Parasite(Original title)
@@ -289,10 +286,12 @@ export class RenderMobile extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                paddingHorizontal: 10,
-                paddingBottom: 5,
+                paddingHorizontal: widthScale(10),
+                paddingBottom: heightScale(10),
+                marginTop: heightScale(3),
+                position: 'relative'
               }}>
-              <View style={{flex: 1}}>
+              <View style={{ flex: 1}}>
                 <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
                 <Text style={[styles.textSecondary]}>
                   2016 - US - 17{' '}
@@ -302,8 +301,8 @@ export class RenderMobile extends Component {
                 <View
                   style={{
                     position: 'absolute',
-                    right: 0,
-                    top: 20,
+                    right: widthScale(0),
+                    bottom: heightScale(3),
                   }}>
                   <RatingComponent rating={9.2} />
                 </View>
@@ -350,9 +349,9 @@ export class RenderMobile extends Component {
           </View>
         </TouchableOpacity>
         {viewStyle === VIEW_STYLE.FULL_VIEW && (
-          <View style={{flex: 1, width: window - 20}}>
-            <View style={{height: window / 2, marginTop: 25}}>
-              <View style={{flexDirection: 'row'}}>
+          <View style={{ flex: 1, width: window - 20 }}>
+            <View style={{ height: window / 2, marginTop: 25 }}>
+              <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.textFont}>Director </Text>
                 <Text style={styles.textFont}>Cast</Text>
               </View>
@@ -360,7 +359,7 @@ export class RenderMobile extends Component {
                 horizontal={true}
                 nestedScrollEnabled={true}
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{flex: 1}}>
+                contentContainerStyle={{ flex: 1 }}>
                 {DATA.map((item) => this.rendeDirector(item))}
               </ScrollView>
             </View>
@@ -374,7 +373,7 @@ export class RenderMobile extends Component {
               </Text>
             </View>
             {/* For the Rating */}
-            <View style={{marginTop: 25}}>
+            <View style={{ marginTop: 25 }}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -383,8 +382,8 @@ export class RenderMobile extends Component {
                 <Text style={styles.textFont}>Rating</Text>
                 <Text style={styles.textSecondary}>Overall: 9.1</Text>
               </View>
-              <View style={{borderWidth: 1, flexDirection: 'row'}}>
-                <View style={{flex: 1, padding: 6, borderRightWidth: 1}}>
+              <View style={{ borderWidth: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 1, padding: 6, borderRightWidth: 1 }}>
                   <View>
                     <View
                       style={{
@@ -406,7 +405,7 @@ export class RenderMobile extends Component {
                     </View>
                   </View>
                 </View>
-                <View style={{flex: 1, padding: 6}}>
+                <View style={{ flex: 1, padding: 6 }}>
                   <View>
                     <View
                       style={{
@@ -437,7 +436,7 @@ export class RenderMobile extends Component {
               </Text>
             </View>
             {/* For the watch now flatlist */}
-            <View style={{height: window / 2, marginTop: 25}}>
+            <View style={{ height: window / 2, marginTop: 25 }}>
               <Text style={styles.textFont}>Watch now</Text>
               <ScrollView
                 horizontal={true}
@@ -446,10 +445,10 @@ export class RenderMobile extends Component {
                 {DATA.map((item) => this.rendeDirector(item))}
               </ScrollView>
             </View>
-            <View style={{marginTop: 25}}>
+            <View style={{ marginTop: 25 }}>
               <Text style={styles.textFont}>Images</Text>
               <Text />
-              <View style={{alignItems: 'center'}}>
+              <View style={{ alignItems: 'center' }}>
                 <Image
                   source={require('../../../assets/poster1.jpg')}
                   style={{
@@ -494,11 +493,11 @@ export class RenderMobile extends Component {
     );
   };
   render() {
-    const {isIntroTipVisible, selectedFilter} = this.state;
-    const {viewStyle} = this.props;
-    let {t} = this.props;
+    const { isIntroTipVisible, selectedFilter } = this.state;
+    const { viewStyle } = this.props;
+    let { t } = this.props;
     return (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <Modal
           visible={viewStyle === VIEW_STYLE.FULL_VIEW && isIntroTipVisible}
           transparent
@@ -513,7 +512,7 @@ export class RenderMobile extends Component {
             <View style={styles.shadowView} />
             <Image
               source={require('../../../assets/Icons/hand_ic.png')}
-              style={{width: 102, height: heightScale(102)}}
+              style={{ width: 102, height: heightScale(102) }}
             />
             <Text style={styles.swipTitle}>Swipe to scroll titles</Text>
           </View>
@@ -521,32 +520,42 @@ export class RenderMobile extends Component {
         <Modal
           visible={this.state.modalVisible}
           transparent={true}
-          animationType="slide">
+          statusBarTranslucent={true}
+          animationType="none">
           <TouchableWithoutFeedback
-            onPress={() => this.setState({modalVisible: false})}>
+            onPress={() => this.setState({ modalVisible: false })}>
             <View style={[styles.shadowView]} />
           </TouchableWithoutFeedback>
           <View
             style={{
               backgroundColor: '#f7f7f5',
               marginTop: 'auto',
-              height: heightScale(280),
-              borderRadius: 20,
+              height: heightScale(248),
+              paddingHorizontal: widthScale(10),
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
               alignItems: 'center',
               paddingVertical: 10,
               elevation: 10,
             }}>
-            <Text style={styles.soryByHead}>{t('texts.id_99')}</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              style={styles.soryByHead}>
+              {t('texts.id_99')}
+            </Text>
             <TouchableOpacity
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_RATING &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_RATING)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_RATING
                     ? styles.modalTextSelected
@@ -560,10 +569,12 @@ export class RenderMobile extends Component {
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_MATCH &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() => this.onFilterSelect(FILTER_TYPES.FILTER_BY_MATCH)}>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_MATCH
                     ? styles.modalTextSelected
@@ -577,12 +588,14 @@ export class RenderMobile extends Component {
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_FRIENDS_LIKE)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_FRIENDS_LIKE
                     ? styles.modalTextSelected
@@ -596,12 +609,14 @@ export class RenderMobile extends Component {
               style={[
                 styles.filterBut,
                 selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR &&
-                  styles.filterSelected,
+                styles.filterSelected,
               ]}
               onPress={() =>
                 this.onFilterSelect(FILTER_TYPES.FILTER_BY_POPULAR)
               }>
               <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
                 style={
                   selectedFilter === FILTER_TYPES.FILTER_BY_POPULAR
                     ? styles.modalTextSelected
@@ -624,30 +639,30 @@ export class RenderMobile extends Component {
               top: screen - 300,
             }}>
             <Text
-              style={{fontSize: fontScale(18), fontWeight: '700', padding: 5}}>
+              style={{ fontSize: fontScale(18), fontWeight: '700', padding: 5 }}>
               Sort By
             </Text>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.setState({likeModal: false})}>
+            <TouchableOpacity onPress={() => this.setState({ likeModal: false })}>
               <Text>Close Model</Text>
             </TouchableOpacity>
           </View>
@@ -679,79 +694,86 @@ export class RenderMobile extends Component {
                 }}>
                 Recommend title
               </Text>
-              <Icon name="share" size={25} style={{marginLeft: 20}} />
+              <Icon name="share" size={25} style={{ marginLeft: 20 }} />
             </View>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="plus" size={25} />
               <Text style={styles.modalText}>Watch Later</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-up" size={25} />
               <Text style={styles.modalText}>Liked</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="eye" size={25} />
               <Text style={styles.modalText}>Watched</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flexDirection: 'row', alignItems: 'center'}}>
+              style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Iconm name="thumbs-down" size={25} />
               <Text style={styles.modalText}>Dislike</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => this.setState({shearModal: false})}>
+              onPress={() => this.setState({ shearModal: false })}>
               <Text>Close Model</Text>
             </TouchableOpacity>
           </View>
         </Modal>
-        <SafeAreaView style={{flex: 1}}>
-          <View style={{flex: 1, marginTop: 5}}>
-            <FlatList
-              key={viewStyle}
-              bounces={false}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                padding: 10,
-                paddingTop: TOTAL_HEADER_HEIGHT,
-              }}
-              ListHeaderComponent={() => (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                  }}>
-                  <View style={{flex: 3}}>
-                    <Text style={styles.resultText}>{t('texts.id_78')}</Text>
-                  </View>
-                  <TouchableOpacity
-                    style={{
-                      alignItems: 'flex-end',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                    }}
-                    onPress={() => {
-                      this.setState({modalVisible: true});
-                    }}>
-                    <Text style={styles.sortbyButText}>Rating</Text>
-                    <Icon name="chevron-down" size={20} color="#232323" />
-                  </TouchableOpacity>
+        <View style={{ flex: 1, marginTop: 5 }}>
+          <FlatList
+            bounces={false}
+            key={viewStyle}
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              padding: 10,
+              paddingTop: TOTAL_HEADER_HEIGHT,
+            }}
+            ListHeaderComponent={() => (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  height: heightScale(30),
+                  alignItems: 'center',
+                  // backgroundColor: 'red',
+                }}>
+                <View style={{ flex: 3 }}>
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={[styles.resultText, { width: widthScale(224) }]}>
+                    {t('texts.id_78')}
+                  </Text>
                 </View>
-              )}
-              data={DATA}
-              renderItem={({item}) => this.moviewPoster(item)}
-              keyExtractor={(item) => item.id + viewStyle}
-              {...(viewStyle === VIEW_STYLE.GRID_VIEW && {numColumns: 2})}
-              {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
-                columnWrapperStyle: {
-                  marginTop: 10,
-                  justifyContent: 'space-between',
-                },
-              })}
-            />
-          </View>
-        </SafeAreaView>
+                <TouchableOpacity
+                  style={{
+                    alignItems: 'flex-end',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                  }}
+                  onPress={() => {
+                    this.setState({ modalVisible: true });
+                  }}>
+                  <Text style={styles.sortbyButText}>Rating</Text>
+                  <Icon name="chevron-down" size={20} color="#232323" />
+                </TouchableOpacity>
+              </View>
+            )}
+            data={DATA}
+            renderItem={({ item }) => this.moviewPoster(item)}
+            keyExtractor={(item) => item.id + viewStyle}
+            {...(viewStyle === VIEW_STYLE.GRID_VIEW && { numColumns: 2 })}
+            {...(viewStyle === VIEW_STYLE.GRID_VIEW && {
+              columnWrapperStyle: {
+                marginTop: heightScale(5),
+                justifyContent: 'space-between',
+              },
+            })}
+          />
+        </View>
         {/* <View style={{marginBottom: 60, marginTop: 25}}>
           <Text style={styles.textFont}>Similer title</Text>
           <View style={{flex: 1, alignItems: 'center'}}>
@@ -829,7 +851,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(14),
-    lineHeight: 15,
+    lineHeight: heightScale(15),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
@@ -842,9 +864,9 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     justifyContent: 'center',
   },
-  posterImageContainer: {justifyContent: 'center', marginVertical: 5},
-  posterImage: {height: heightScale(450), width: window - 20, borderRadius: 12},
-  posterDescContainer: {flexDirection: 'row', padding: 5},
+  posterImageContainer: { justifyContent: 'center', marginVertical: 5 },
+  posterImage: { height: heightScale(450), width: window - 20, borderRadius: 12 },
+  posterDescContainer: { flexDirection: 'row', padding: 5 },
   directorContainer: {
     width: window / 4,
     height: window / 2.9,
@@ -875,6 +897,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: primary_regular_font.primary_bold_font,
     fontSize: fontScale(16),
+    width: widthScale(250),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
@@ -926,7 +949,7 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   filterBut: {
-    width: '95%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -946,5 +969,9 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
+  },
+  separator: {
+    height: 1,
+    width: "100%",
   },
 });

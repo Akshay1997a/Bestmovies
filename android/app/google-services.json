@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "733136754273",
-    "project_id": "bestmovies-eb6ec",
-    "storage_bucket": "bestmovies-eb6ec.appspot.com"
+    "project_number": "628062369561",
+    "project_id": "bestmovies-4de8a",
+    "storage_bucket": "bestmovies-4de8a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:733136754273:android:2e728ce4fdad9bd5b3fc20",
+        "mobilesdk_app_id": "1:628062369561:android:89e21659ed3d33f54b7788",
         "android_client_info": {
           "package_name": "com.Bestmovies"
         }
       },
       "oauth_client": [
         {
-          "client_id": "733136754273-srj3kdi26621f6op7jpe2i1t3jsuvh7p.apps.googleusercontent.com",
+          "client_id": "628062369561-rssqt64h7jtc62rjq0abj75at3amr8j6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC-TCEH81GhnFeecMAqEwPwrgq93ke6GkU"
+          "current_key": "AIzaSyAe9Y5bULnySVSLKXrb9lhcyQqIPXwNsLE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "733136754273-srj3kdi26621f6op7jpe2i1t3jsuvh7p.apps.googleusercontent.com",
+              "client_id": "628062369561-rssqt64h7jtc62rjq0abj75at3amr8j6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

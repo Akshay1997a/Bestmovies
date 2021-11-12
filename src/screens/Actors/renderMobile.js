@@ -159,6 +159,7 @@ export class RenderMobile extends Component {
           </TouchableOpacity>
         </View>
         <FlatList
+          bounces={false}
           showsVerticalScrollIndicator={false}
           ItemSeparatorComponent={
             Platform.OS === 'android'
