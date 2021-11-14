@@ -86,6 +86,17 @@ const styles = StyleSheet.create({
     margin: isAndroid() ? 0 : 4,
     borderRadius: 10,
   },
+  selectedText: {
+    fontSize: StyleConfig.resWidth(28),
+    fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
+    color: colors.tomatoRed,
+    fontFamily: primary_regular_font.primary_regular_font,
+  },
 });
 
 const TVCountryLanguage = (props) => {
@@ -93,6 +104,8 @@ const TVCountryLanguage = (props) => {
   const {t, i18n} = useTranslation();
 
   const [selected, setSelected] = useState(-1);
+  const [middleSelected, setMiddleSelected] = useState(0);
+
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(COUNTRY);
   // const [country, setCountry] = useState(DATA);
@@ -171,7 +184,7 @@ const TVCountryLanguage = (props) => {
   // };
   const countryPress = (code, item) => {
     console.log('responseeeeee>>>>>>itemitemitemitem', item);
-
+    setSelected(code)
     let data = {
       cd: code?.toLowerCase(),
     };
@@ -190,7 +203,7 @@ const TVCountryLanguage = (props) => {
       item,
     );
     // setCountryClick(true);
-    setSelected(item.id);
+    setMiddleSelected(item.id);
     if (item.id == 0) {
       setDataList(country);
     } else if (item.id == 1) {
@@ -217,17 +230,17 @@ const TVCountryLanguage = (props) => {
   const onBlur = useCallback(() => {
     console.log('onBlur');
 
-    setFocus(false);
+    setFocus(-1);
   }, []);
 
   console.log('countryList', countryList);
   return (
-    <ScrollView>
-      <View style={{flexDirection: 'row', minHeight: 1000,}}>
+    // <ScrollView>
+      <View style={{flexDirection: 'row',}}>
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
-              <View style={[{width: WIDTH * 0.18, marginLeft: 10}]}>
+              <View style={[{width: WIDTH * 0.28, marginLeft: 10}]}>
                 <Pressable
                   onPress={() => onPressHandle(item)}
                   //  onBlur={onBlur()}
@@ -236,19 +249,21 @@ const TVCountryLanguage = (props) => {
                   style={
                     props.focus === 'countryLang' && item.id == focus
                       ? styles.focusBackWrap
-                      : //   { borderRadius:20, marginHorizontal:10, backgroundColor: colors.tomatoRed }
-                        {}
+                      : styles.backWrap
                   }>
                   <Text
                     style={{
                       fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: isAndroid() ? 16 : 30,
+                      fontSize: StyleConfig.resWidth(28),
                       fontWeight: '400',
-                      padding: isAndroid() ? 2 : 8,
+                      // padding: isAndroid() ? 2 : 8,
                       paddingHorizontal: 15,
                       color:
-                        props.focus === 'countryLang' && item.id == focus
+                       item.id == focus
                           ? colors.white
+                          :
+                          middleSelected == item.id
+                            ? colors.tomatoRed
                           : colors.black,
                     }}>
                     {item.name}
@@ -259,9 +274,10 @@ const TVCountryLanguage = (props) => {
           })}
           
         </View>
-        
+        <ScrollView>
         {isCountryClick ? (
           <View
+          hasTVPreferredFocus={true}
             style={{
               // marginLeft: isAndroid() ? 100 : 160,
               borderLeftWidth: 1,
@@ -283,12 +299,13 @@ const TVCountryLanguage = (props) => {
                     <Text
                       style={{
                         fontFamily: primary_regular_font.primary_regular_font,
-                        fontSize: isAndroid() ? 16 : 30,
-                        fontWeight: '400',
+                        fontSize: StyleConfig.resWidth(28),
+                        fontWeight: '700',
                         color:
                           code == focus
-                            ? colors.white
-                            : colors.black,
+                            ? colors.white :
+                            selected == code
+                            ? colors.tomatoRed  : colors.black,
                       }}>
                       {item[1]}
                     </Text>
@@ -299,8 +316,9 @@ const TVCountryLanguage = (props) => {
           </View>
           
         ) : null}
+     </ScrollView>
+
       </View>
-    </ScrollView>
   );
 };
 

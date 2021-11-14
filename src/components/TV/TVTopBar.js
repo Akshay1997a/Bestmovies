@@ -247,6 +247,12 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
     console.log('onFocus TVBar***');
 
     setFocus(val);
+    if (val === 'Arrow') {
+      setIsScroll(true);
+    } else  if (val === 'BackArrow') {
+      setIsScroll(false);
+      // onChangeSelected(val.key);
+    }
   });
 
   const getData = async () => {
@@ -265,9 +271,9 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
     val.selected = true;
     console.log('onPressClick TVSideBar******', val);
     if (val.key === 'Arrow') {
-      setIsScroll(true);
+      // setIsScroll(true);
     } else {
-      setIsScroll(false);
+      // setIsScroll(false);
       onChangeSelected(val.key);
     }
   };

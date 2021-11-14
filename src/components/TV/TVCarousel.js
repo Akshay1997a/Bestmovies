@@ -28,7 +28,8 @@ import AppImages from '../../assets';
 import {useTranslation} from 'react-i18next';
 import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 import axios from 'axios';
-
+import i18next from 'i18next';
+import {runTimeTranslations} from '../../i18n';
 const CAST = [
   {
     id: 1,
@@ -219,7 +220,7 @@ const {width: screenWidth, height} = Dimensions.get('window');
 
 const MyCarousel = ({item, posts, ...props}) => {
   // console.log('props',props);
-  const {t} = useTranslation();
+  const {t,i18n} = useTranslation();
 
   const [focus, setFocus] = useState(0);
   const [movieItem, setMovieItem] = useState(null);
@@ -227,6 +228,7 @@ const MyCarousel = ({item, posts, ...props}) => {
   const [actor, setActor] = useState(null);
   const [similarTitles, setSimilar] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
+  const [countriesListed, setCountryList] = useState(null);
   
 
   const onFocus = useCallback(() => {
@@ -258,7 +260,9 @@ const MyCarousel = ({item, posts, ...props}) => {
     setEntries(images);
     setMovieItem(data);
     getSimilar(data.similar_titles)
-      getActorDirector(data.directors,data.actors);
+      getActor(data.directors,data.actors);
+      getDirector(data.directors,data.actors);
+
     })
     .catch(function (error) {
       // handle error
@@ -297,27 +301,29 @@ const MyCarousel = ({item, posts, ...props}) => {
       // always executed
     });
   }
-  const getActorDirector = (director,actors) =>{
+  const getActor = (director,actors) =>{
     var array = actors.split(',');
     const idArry = [];
     let req = '';
-    req+= 'id='+director;
     for(let i =0 ;i < array.length ;i++){
       req += '&id='+array[i];
     }
     axios
-    .get('http://18.119.119.183:3005/artists?output=overview&id='+req )
+    .get('http://18.119.119.183:3005/artists?output=overview'+req )
     .then(function (response) {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
       // setMovies(response.data.data)
+      let lng = i18n.language;
+      let countryData = i18next.getDataByLanguage(lng);
+      let countries_listed = countryData?.translation?.countries_listed;
       let actor =  response.data.data;
-      let dir = response.data.data.slice(-1)[0] ;
-      let dirArry = [];
-      dirArry.push(dir);
-      setDirector(director);
+      for(let i =0 ;i < actor.length ;i++){
+        let req = actor[i];
+        let str = countries_listed["code_"+ req.country_cd];
+        req.country_cd = str;
+      }
       setActor(actor);
-      console.log(response);
       setLoaded(true);
 
     })
@@ -329,7 +335,58 @@ const MyCarousel = ({item, posts, ...props}) => {
       // always executed
     });
   }
+  const getDirector = (director,actors) =>{
+    var array = actors.split(',');
+    const idArry = [];
+    let req = '';
+    let dir = '';
+    dir = '&id='+director;
+    // for(let i =0 ;i < array.length ;i++){
+    //   req += '&id='+array[i];
+    // }
+    axios
+    .get('http://18.119.119.183:3005/artists?output=overview'+dir )
+    .then(function (response) {
+      // handle success
+      // setAboutUsData(response.data.data.static_pages);
+      // setMovies(response.data.data)
+      let lng = i18n.language;
+      let countryData = i18next.getDataByLanguage(lng);
+      let countries_listed = countryData?.translation?.countries_listed;
+      let director =  response.data.data;
+      for(let i =0 ;i < director.length ;i++){
+        let req = director[i];
+        let str = countries_listed["code_"+ req.country_cd];
+        req.country_cd = str;
+      }
+      setDirector(director);
+     
+
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+  }
+  const getCountry = (code) =>{
+    // let data = code.split(',');
+    let str  = '';
+    // let data = countryList;
+    // if(data && countryList !== null){
+    //   for(const val of data) {
+    //      str = str+ countryList["code_"+ val];
+    //      return str;
+    // }
+  // }
+  }
   useEffect(() => {
+
+   
+    // setCountryList(countries_listed)
+
     getMovies()
     // setEntries(ENTRIES1);
   }, []);
@@ -470,7 +527,7 @@ const MyCarousel = ({item, posts, ...props}) => {
                 {t('professions.code_df')}
               </Text>
               <View style={{flexDirection: 'row'}}>
-                <TVCast item={director?.[0]} {...props} image={item.director_image} />
+                <TVCast item={director?.[0]} {...props} image={item?.director_image} />
               </View>
             </View>
             <View

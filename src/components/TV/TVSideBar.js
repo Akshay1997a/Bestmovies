@@ -6,6 +6,8 @@ import React, {
   useEffect
 } from 'react';
 import {View, Pressable, StyleSheet, Text, Image} from 'react-native';
+import axios from 'axios';
+
 import {FlatList} from 'react-native-gesture-handler';
 import colors from '../../helper/colors';
 import strings from '../../helper/strings';
@@ -116,10 +118,10 @@ const MENU_DATA = [
 const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   console.log('props>>>', props);
 
-  const {t} = useTranslation();
+  const {t,i18n} = useTranslation();
 
   const [focus, setFocus] = useState(NONE);
-  const [key, setKey] = useState(9);
+  const [key, setKey] = useState(-1);
   const [selected, setSelected] = useState(9);
   const [aboutUs, setAboutUsData] = useState(null);
   const [terms, setTerms] = useState(null);
@@ -129,7 +131,13 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     props.reduxSetCurrFocus('menu');
     setKey(val)
     setFocus(val);
+    setSelected(val);
+
   });
+  const onBlur = useCallback(() => {
+    // console.log('onBlur TVSideBar***');
+    // setFocus(-1);
+  }, []);
   const onPressHandle = (val) => {
     setKey(val);
     setSelected(val);
@@ -151,7 +159,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
 
       let  abArray = [];
 
-  res.data.static_pages !== null && Object.entries(response.data.static_pages[0])?.map((item, index) => {
+      response.data.data.static_pages !== null && Object.entries(response.data.data.static_pages[0])?.map((item, index) => {
     // let data = item;
     let type  = '';
     if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
@@ -162,6 +170,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       type = 'subtitle'
     }else if(item[0] === 'image1_url' || item[0] === 'image2_url' ||item[0] === 'image3_url' ||item[0] === 'image4_url' ||item[0] === 'image5_url' || item[0] === 'image6_url' ){
       type = 'image'
+    }else{
+      type = '';
     }
     
     let obje  ={
@@ -169,7 +179,10 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       type: type,
       data :item[1]
     }
-    abArray.push(obje)
+    if(type){
+      abArray.push(obje)
+
+    }
 
       // let [temp, code] = item[0].split('_')
       // if(code== val){
@@ -180,10 +193,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       // }
     })
       setTerms(abArray);
-      // let data = res;
-      // handle success
-      // setAboutUsData(response.data.data.static_pages);
-      // setMoviesSearch(response.data.data)
       console.log(response);
     })
     .catch(function (error) {
@@ -195,9 +204,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     });
   }
   useEffect(() => {
-    // let lng = i18n.language;
-    // let countryData = i18next.getDataByLanguage(lng);
-    // let countryTemp = countryData?.translation?.countries_listed;
+    getSearch()
+    let lng = i18n.language;
+    let countryData = i18next.getDataByLanguage(lng);
+    let staticPages = countryData?.translation?.static_pages;
+
+    // alert(Object.keys(staticPages)[0]); // returns first
+// alert(Object.keys(staticPages)[1]); // returns second
+//     staticPages !== null && Object.entries(staticPages[0])?.map((item, index) => {
+// let key = item
+  
+//   })
+    // console.log(Object.keys(staticPages));
     // // for (const item of LANGUAGES) {
     // //   languageMap.set('code_AD', 'Andorra');
     // // }
@@ -211,28 +229,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     //   setTitleLanguageList(titleLanguage);
     // });
     props.getStaticData((res) => {
-      // res.data.static_pages !=null && res.data.static_pages.map((item, index) => {
-      //   let value = item.heading1;
-      // })
       let aboutdata = [];
-    
-  //     for(const val of res.data.static_pages) {
-  //       var size = Object.keys(val).length;
-  //       for(let i =0 ;i<size;i++){
-  //           let data = {
-  //             id: i,
-  //             type: 'image',
-  //             data: val,
-  //           };
-  //           aboutdata.push(data);
-  //       }
-        
-       
-
-  //       // return str;
-  //  }
   let  abArray = [];
-
   res.data.static_pages !== null && Object.entries(res.data.static_pages[0])?.map((item, index) => {
     // let data = item;
     let type  = '';
@@ -244,6 +242,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       type = 'subtitle'
     }else if(item[0] === 'image1_url' || item[0] === 'image2_url' ||item[0] === 'image3_url' ||item[0] === 'image4_url' ||item[0] === 'image5_url' || item[0] === 'image6_url' ){
       type = 'image'
+    }else{
+      type = '';
     }
     
     let obje  ={
@@ -251,7 +251,9 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       type: type,
       data :item[1]
     }
-    abArray.push(obje)
+    if(type){
+      abArray.push(obje)
+    }
 
       // let [temp, code] = item[0].split('_')
       // if(code== val){
@@ -268,24 +270,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   console.log(props.headerSelected, MENU_DATA);
   return (
     <>
-      {/* {props.headerSelected == PROFILE ? 
-            <View style={styles.container}>
-                {PROFILE_DATA.map((item, index) => {
-                    return (
-                        <Pressable
-                            key={item.key}
-                            onFocus={() => onFocus(item.key)}
-                            onPress={() => onChangeSelected(item.key)}
-                            tvParallaxProperties={{ magnification: 1.1 }}
-                            style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                            <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
-                        </Pressable>
-                    )
-                })}
-
-            </View> : */}
-
-      {/* props.headerSelected == MENU ? */}
       <View
         style={{
           flexDirection: 'row',
@@ -301,6 +285,9 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
                   key={item.key}
                   onFocus={() => {
                     onFocus(item.key);
+                  }}
+                  onBlur={() => {
+                    onBlur();
                   }}
                   onPress={() => onPressHandle(item.key)}
                   tvParallaxProperties={{magnification: 1.1}}
@@ -332,7 +319,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         </View>
 
         {key == COUNTRY_LANGUAGE && (
-          <View style={[{}]} hasTVPreferredFocus={true}>
+          <View>
             <TVCountryLanguage {...props}></TVCountryLanguage>
             {/* <Text>fsfs</Text> */}
             {/* <TVCountryLanguage {...props}></TVCountryLanguage> */}
@@ -417,14 +404,18 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
         )}
 
         {key == ABOUT_US && (
-          <View >
+          <View  >
             <FlatList
              
               data={aboutUs}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
-                  <Pressable style={{flexDirection: 'row'}}>
+                  <Pressable style={{flexDirection: 'row'}}
+                  // onFocus={() => {
+                  //   onFocus(item.data);
+                  // }}
+                  >
 
                   <>
                   {item.type == 'image' ? (
@@ -661,7 +652,7 @@ item?.image1_url ?
         {key == TERMS_OF_USE && (
           <View>
             <FlatList
-              data={TERMS_OF_USE_DATA}
+              data={terms}
               keyExtractor={(item, index) => `item${index}`}
               renderItem={({item}) => {
                 return (
@@ -791,35 +782,48 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.black,
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
     fontFamily: primary_regular_font.primary_regular_font,
   },
   selectedText: {
-    fontSize: isAndroid() ? 12 : 32,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '700',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_bold_font,
+      },
+    }),
     color: colors.tomatoRed,
     fontFamily: primary_regular_font.primary_regular_font,
   },
   focusText: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
     paddingLeft: 10,
   },
   textTitle: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '700',
     fontFamily: primary_regular_font.primary_regular_font,
   },
   focusTextTitle: {
-    fontSize: isAndroid() ? 16 : 26,
+  
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
   },
   textSelected: {
-    fontSize: isAndroid() ? 16 : 27,
+    fontSize: StyleConfig.resWidth(28),
+
     fontWeight: '700',
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
