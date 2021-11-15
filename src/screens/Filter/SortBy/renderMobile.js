@@ -2,17 +2,18 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   Dimensions,
   Platform,
 } from 'react-native';
+import {Text} from '../../../components/EnhanchedComponents';
 import {useDispatch, useSelector} from 'react-redux';
 import HeaderModal from '../../../components/HeaderModal';
 import {updateSortByAction} from '../../../redux/FilterModule/FilterActions';
 import {SORT_BY_FILTER} from '../../../redux/FilterModule/FilterTypes';
 import primary_regular_font from '../../../helper/fonts';
+import {widthScale} from '../../../helper/ResponsiveFonts';
 
 const {height} = Dimensions.get('screen');
 
@@ -24,7 +25,7 @@ export default function RenderMobile(props) {
   return (
     <View style={styles.container}>
       <HeaderModal title={t('texts.id_99')} {...props} />
-      <View style={{padding: 10}}>
+      <View style={{paddingHorizontal: widthScale(11)}}>
         {Object.entries(SORT_BY_FILTER).map((value, index) => (
           <Button
             key={index.toString()}
@@ -42,7 +43,10 @@ const Button = ({title, isActive, onPress}) => (
   <TouchableOpacity
     style={[styles.butContainer, isActive && styles.butActive]}
     onPress={onPress}>
-    <Text style={[styles.butTitle, isActive && styles.butActiveText]}>
+    <Text
+      numberOfLines={1}
+      ellipsizeMode="tail"
+      style={[styles.butTitle, isActive && styles.butActiveText]}>
       {title}
     </Text>
   </TouchableOpacity>
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
   },
   butContainer: {
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   butActive: {
     backgroundColor: '#FF4D01',

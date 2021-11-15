@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import {wrap} from 'lodash';
-import React, {Component} from 'react';
+import { wrap } from 'lodash';
+import React, { Component } from 'react';
 import {
-  Text,
   View,
   Dimensions,
   FlatList,
@@ -12,9 +11,17 @@ import {
   SafeAreaView,
   Platform,
 } from 'react-native';
+import { Text } from '../../../components/EnhanchedComponents';
 import Inocons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RatingComponent from '../../../svgs/RatingComponent';
+import { isAndroid } from '../../../helper/fonts';
+import {
+  fontScale,
+  heightScale,
+  widthScale,
+} from '../../../helper/ResponsiveFonts';
+import primary_regular_font from '../../../helper/fonts';
 
 const DATA = [
   {
@@ -73,39 +80,30 @@ export class RenderMobile extends Component {
           flex: 0,
           justifyContent: 'center',
           borderRadius: 8,
+          ...(isAndroid() && {
+            overflow: 'hidden',
+          }),
+          height: heightScale(320),
           borderWidth: 1,
           borderColor: '#fff',
           backgroundColor: '#fff',
           elevation: 5,
-          shadowOffset: {width: 0, height: 2},
+          shadowOffset: { width: 0, height: heightScale(2) },
           shadowOpacity: 0.25,
           shadowColor: '#000',
           shadowRadius: 3.84,
-          overflow: 'hidden',
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          style={{ overflow: 'hidden', height: heightScale(320) }}>
           <View>
-            <View style={{justifyContent: 'center'}}>
-              <TouchableOpacity style={{elevation: 1}}>
-                <View
-                  style={{
-                    position: 'absolute',
-                    top: -10,
-                    right: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: 5000,
-                  }}>
-                  <Inocons name="md-bookmark-sharp" size={40} color="#EAC602" />
-                  <Text style={{position: 'absolute', color: '#fff'}}>OK</Text>
-                </View>
-              </TouchableOpacity>
+            <View style={{ justifyContent: 'center' }}>
               <Image
                 style={{
-                  height: 250,
-                  width: window / 2 - 15,
+                  height: heightScale(240),
+                  width: widthScale(175),
                   borderTopRightRadius: 8,
                   borderTopLeftRadius: 8,
+                  overflow: 'hidden'
                 }}
                 source={data.image}
               />
@@ -119,37 +117,79 @@ export class RenderMobile extends Component {
                 <Text
                   allowFontScaling={true}
                   numberOfLines={2}
-                  style={{fontSize: 50, color: 'white', fontWeight: '700'}}>
+                  style={{
+                    fontSize: fontScale(50),
+                    color: 'white',
+                    fontWeight: '700',
+                  }}>
                   {data.name}
                 </Text>
               </View>
             </View>
-            <View style={{paddingTop: 5, paddingHorizontal: 5}}>
+            <View style={{ paddingTop: 10, paddingHorizontal: 10 }}>
               <Text style={styles.textFont}>Parasite</Text>
             </View>
             <View
               style={{
                 flexDirection: 'row',
-                paddingHorizontal: 5,
-                paddingBottom: 5,
+                paddingHorizontal: 10,
+                paddingBottom: 10,
+                marginTop: heightScale(3),
               }}>
-              <View style={{flex: 1}}>
+              <View style={{ flex: 1 }}>
                 <Text style={styles.textSecondary}>Crime, Dram, Romantic</Text>
+                <Text style={[styles.textSecondary]}>
+                  2016 - US - 17{' '}
+                  <AntDesign name="like1" color="#35B736" size={13} />
+                </Text>
+                <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
+                    position: 'absolute',
+                    right: 2,
+                    bottom: 5,
                   }}>
-                  <Text style={[styles.textSecondary]}>
-                    2016 - US - 17{' '}
-                    <AntDesign name="like1" color="#35B736" size={13} />
-                  </Text>
                   <RatingComponent rating={9.2} />
                 </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.textSecondary}>2.90$ - 88% match</Text>
-                </View>
               </View>
+              {/* <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'space-evenly',
+                  alignItems: 'flex-end',
+                }}>
+                {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                  <TouchableOpacity onPress={onShare}>
+                    <Icon
+                      name="reply"
+                      size={24}
+                      color="#232323"
+                      style={{transform: [{rotateY: '180deg'}]}}
+                    />
+                  </TouchableOpacity>
+                )}
+
+                <View
+                  style={{
+                    backgroundColor: 'black',
+                    height: viewStyle === VIEW_STYLE.FULL_VIEW ? 30 : 20,
+                    width: viewStyle === VIEW_STYLE.FULL_VIEW ? 50 : 40,
+                    borderRadius: 1000,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{fontSize: fontScale(18), fontWeight: '700', color: 'white'}}>
+                    9.1
+                  </Text>
+                </View>
+                {viewStyle === VIEW_STYLE.FULL_VIEW && (
+                  <Text
+                    style={{fontWeight: '700', fontSize: fontScale(20), marginLeft: 17}}>
+                    Best
+                  </Text>
+                )}
+              </View> */}
             </View>
           </View>
         </TouchableOpacity>
@@ -159,26 +199,26 @@ export class RenderMobile extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{width: window - 20}}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          ItemSeparatorComponent={
-            Platform.OS !== 'android' &&
-            (({highlighted}) => (
-              <View style={[highlighted && {marginLeft: 0}]} />
-            ))
-          }
-          data={DATA}
-          bounces={false}
-          renderItem={({item}) => this.renderItemComponent(item)}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
-          columnWrapperStyle={{
-            marginTop: 10,
-            justifyContent: 'space-between',
-          }}
-        />
-      </SafeAreaView>
+      <FlatList
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={
+          Platform.OS !== 'android' &&
+          (({ highlighted }) => (
+            <View style={[highlighted && { marginLeft: 0 }]} />
+          ))
+        }
+        data={DATA}
+        bounces={false}
+        renderItem={({ item }) => this.renderItemComponent(item)}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+        contentContainerStyle={{ paddingHorizontal: 10 }}
+        columnWrapperStyle={{
+          marginTop: heightScale(5),
+          justifyContent: 'space-between',
+        }}
+      />
     );
   }
 }
@@ -186,42 +226,167 @@ export class RenderMobile extends Component {
 export default RenderMobile;
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    borderRadius: 5,
-    backgroundColor: '#fdfff7',
-    flex: 1,
-    alignItems: 'center',
-    margin: 3,
-    elevation: 5,
-  },
   textFont: {
     color: '#333333',
-    fontFamily: 'Helvetica Neue',
-    fontSize: 13,
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: fontScale(14),
+    // lineHeight: heightScale(13),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '700',
     }),
   },
+  seprater: {
+    backgroundColor: 'red',
+    height: heightScale(1),
+  },
+  modalText: {
+    padding: 10,
+    fontFamily: 'VAG Rounded Next Regular',
+    color: '#000',
+    fontSize: fontScale(20),
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
+  },
+  modalTextSelected: {
+    padding: 10,
+    fontFamily: 'VAG Rounded Next Bold',
+    color: '#fff',
+    fontSize: fontScale(20),
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
+  },
+  shadow: {
+    borderColor: 'red',
+    borderWidth: 1,
+    overflow: 'hidden',
+    shadowColor: 'red',
+    shadowRadius: 10,
+    shadowOpacity: 1,
+  },
   textSecondary: {
-    color: '#000000',
+    color: '#000',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: fontScale(14),
+    lineHeight: heightScale(15),
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '400',
+    }),
+  },
+  italic: {
+    fontStyle: 'italic',
+  },
+  moviewPosterContainer: {
+    flex: 1,
+    paddingRight: 15,
+    justifyContent: 'center',
+  },
+  posterImageContainer: { justifyContent: 'center', marginVertical: 5 },
+  posterImage: { height: heightScale(450), width: window - 20, borderRadius: 12 },
+  posterDescContainer: { flexDirection: 'row', padding: 5 },
+  directorContainer: {
+    width: window / 4,
+    height: window / 2.9,
+    backgroundColor: '#fff',
+    padding: 5,
+    marginRight: 15,
+    elevation: 5,
+    alignItems: 'center',
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  directorImage: {
+    height: '80%',
+    width: window / 4,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  },
+  directorName: {
+    color: '#333333',
     fontFamily: 'Helvetica Neue',
-    fontSize: 13,
+    fontSize: fontScale(12),
+    fontStyle: 'normal',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
+  },
+  resultText: {
+    color: '#000',
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: fontScale(16),
+    width: widthScale(250),
+    fontStyle: 'normal',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
+  },
+  sortbyButText: {
+    color: '#000',
+    fontFamily: primary_regular_font.primary_regular_font,
+    fontSize: fontScale(14),
     fontStyle: 'normal',
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',
     }),
   },
-  textFontOther: {
-    fontSize: 12,
-    fontWeight: '200',
+  blurView: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 0,
   },
-  seprater: {
-    backgroundColor: 'red',
-    height: 1,
+  icContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 100,
+    padding: 2,
   },
-  modalText: {
-    fontSize: 18,
-    padding: 10,
+  swipTitle: {
+    color: '#FFFFFF',
+    fontFamily: 'Helvetica Neue',
+    fontSize: fontScale(22),
+    fontStyle: 'normal',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
+    zIndex: 100,
+  },
+  shadowView: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    opacity: 0.2,
+    backgroundColor: '#000',
+  },
+  vDivider: {
+    width: '100%',
+    height: heightScale(1),
+    backgroundColor: 'gray',
+    opacity: 0.1,
+  },
+  filterBut: {
+    width: '95%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  filterSelected: {
+    color: '#fff',
+    backgroundColor: '#ff3300',
+  },
+  filterSelectedText: {
+    color: '#fff',
+  },
+  soryByHead: {
+    padding: 5,
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: fontScale(22),
+    color: '#ff3300',
+    ...(Platform.OS === 'ios' && {
+      fontWeight: '700',
+    }),
   },
 });

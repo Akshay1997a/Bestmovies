@@ -9,7 +9,7 @@ function SVGTriangleBottom(props) {
       className="prefix__svgContainer"
       style={{
         width: 13,
-        height: 20,
+        height: 28,
       }}
       {...props}>
       <G clipPath="url(#prefix__clip-s-Triangle_297750)">

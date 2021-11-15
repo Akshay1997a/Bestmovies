@@ -201,7 +201,9 @@ const TVPosterCard = ({item,details, ...props}) => {
           <Text numberOfLines={2} style={styles.titleText}>
             {item?.local_title}
           </Text>
-          <Text style={styles.subTextSecondary}>
+          <Text 
+          ellipsizeMode="tail" numberOfLines={1}
+          style={styles.subTextSecondary}>
             Name of original title if foreign
           </Text>
           {/* <View
@@ -232,28 +234,32 @@ const TVPosterCard = ({item,details, ...props}) => {
                 // borderColor: 'red',
                 // marginTop: StyleConfig.resHeight(20),
               }}>
-              <Text numberOfLines={1} style={styles.textSecondary}>
-                {`${t('texts.id_134')} - 2019 - 154 min -18+`}
+              <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
+                {/* {`${t('texts.id_134')} - 2019 - 154 min -18+`} */}
+                {item?.genres+' - ' + item.year+' - '+ details.duration+' min'+'-'+item.age_rating+'+'} 
+
               </Text>
               {/* <View> */}
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.headTextSecondary}>
                   {t('professions.code_df')}:
                 </Text>
-                <Text style={styles.textSecondary}> Todd Phillips</Text>
+                <Text 
+                ellipsizeMode="tail" numberOfLines={1}
+                style={styles.textSecondary}> Todd Phillips</Text>
               </View>
 
               <View
                 style={{
                   flexDirection: 'row',
                 }}>
-                <Text numberOfLines={1} style={styles.headTextSecondary}>
+                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.headTextSecondary}>
                   {t('texts.id_14')}
                 </Text>
-                <Text numberOfLines={1} style={styles.textSecondary}>
+                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
                   :
                 </Text>
-                <Text numberOfLines={1} style={styles.textSecondary}>
+                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
                   {' '}
                   Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy
                 </Text>
@@ -327,7 +333,7 @@ const TVPosterCard = ({item,details, ...props}) => {
                   flexDirection: 'row',
                   // justifyContent: 'space-between',
                 }}>
-                <Text numberOfLines={1} style={styles.textSecondary}>
+                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
                   {`78% ${t('texts.id_104')} - 12`}
                 </Text>
                 <Icon
@@ -363,8 +369,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text style={styles.textSecondary}>Awards</Text>
-                      <Text style={styles.textSecondary}>{item.awards_rating}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_210')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.awards_rating}</Text>
                     </View>
                   </View>
                   <View>
@@ -373,8 +379,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text style={styles.textSecondary}>Critics</Text>
-                      <Text style={styles.textSecondary}>{item.critics_rating_displayed}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_211')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.critics_rating_displayed}</Text>
                     </View>
                   </View>
                 </View>
@@ -424,8 +430,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text style={styles.textSecondary}>Audience</Text>
-                      <Text style={styles.textSecondary}>{item.audience_rating_displayed}</Text>
+                      <Text  ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_212')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.audience_rating_displayed}</Text>
                     </View>
                   </View>
                   <View>
@@ -434,8 +440,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text style={styles.textSecondary}>Box-Office</Text>
-                      <Text style={styles.textSecondary}>{item.box_office_rating}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_213')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.box_office_rating}</Text>
                     </View>
                   </View>
                 </View>
@@ -453,7 +459,24 @@ const TVPosterCard = ({item,details, ...props}) => {
                     alignItems: 'center',
                   }}>
                   <Text style={styles.ratingText}>{item.rating}</Text>
-                  <Text style={styles.ratingText}>Excellent</Text>
+                  <Text style={styles.ratingText}>{item.rating >= 9 ? 
+                          "Best":
+                          item.rating >= 8 ? 
+                          'Excellent' :
+                          item.rating >= 7 ? 
+                          'Great' :
+                          item.rating >= 6 ?
+                        'Good' :
+                        item.rating >= 5 ?
+                      'OK' :
+                      item.rating >= 4 ?
+                    'Weak':
+                    item.rating >= 3 ?
+                  'Poor' :
+                  item.rating >= 2 ?
+                  'Bad' :
+                  item.rating >= 1 ?
+                'Terrible' :'Worst'}</Text>
                 </View>
               </View>
               {/* <Text style={styles.textSecondary}>
@@ -474,7 +497,7 @@ const TVPosterCard = ({item,details, ...props}) => {
              {details?.plots}
             </Text>
             <View>
-              <Text style={[styles.textSecondary,{marginTop:5}]}>
+              <Text  ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{marginTop:5}]}>
                 {
                   'Won 2 oscars including best director\nWon 1 G. Globe including best movie'
                 }
@@ -543,11 +566,11 @@ const TVPosterCard = ({item,details, ...props}) => {
                           width: StyleConfig.resWidth(88),
                           borderRadius: StyleConfig.resWidth(10),
                         }}
-                        source={obj.image}
+                        source={obj?.image}
                       />
                     </View>
-                    <Text style={styles.sortbyButText}>{obj.name}</Text>
-                    <Text style={styles.sortbyButText}>{obj.subName}</Text>
+                    <Text style={styles.sortbyButText}>{obj?.name}</Text>
+                    <Text style={styles.sortbyButText}>{obj?.subName}</Text>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -632,6 +655,8 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     // borderWidth: 1,
+    width:StyleConfig.resWidth(120),
+
     lineHeight: StyleConfig.resHeight(30),
     color: colors.white,
     fontWeight: '400',
@@ -672,6 +697,7 @@ const styles = StyleSheet.create({
     }),
   },
   headTextSecondary: {
+    width:StyleConfig.resWidth(120),
     lineHeight: StyleConfig.resHeight(30),
     color: colors.white,
     fontWeight: '700',
