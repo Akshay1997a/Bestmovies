@@ -51,7 +51,7 @@ const stylesl = StyleSheet.create({
     // borderWidth:1,
     // borderWidth: 1,
 
-    width: StyleConfig.resWidth(200),
+    width: StyleConfig.resWidth(170),
     fontSize: StyleConfig.resWidth(30),
     fontWeight: '400',
     ...Platform.select({

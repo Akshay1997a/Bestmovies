@@ -430,6 +430,8 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               }
             : {
                // width: 1400,
+               borderWidth:1,
+               borderColor:'red',
                 height: HEIGHT - StyleConfig.resHeight(50),
                 width: WIDTH - StyleConfig.resWidth(550),
                 backgroundColor: 'white',
@@ -453,7 +455,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
             </Pressable>
 
             <View style={{flex: 0.8, marginStart: StyleConfig.resWidth(30)}}>
-              <Text numberOfLines={1} style={styles.heading}>
+              <Text numberOfLines={1} style={[styles.heading,{width:215}]}>
                 {t('texts.id_144')}
               </Text>
             </View>
@@ -475,7 +477,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                     numberOfLines={1}
                     style={[
                       focus ? styles.focusTextCountry : styles.countryText,
-                      {maxWidth: 200},
+                      {width: 150},
                     ]}>
                     {t('texts.id_28')}:{'  '}
                   </Text>
@@ -517,7 +519,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                   : styles.notfocusButton
               }> */}
             <TVButton
-              styles={focus ? styles.focusButton : styles.notfocusButton}
+              styles={[focus ? styles.focusButton : styles.notfocusButton,]}
               textColor={isSubscriptionSelected() ? '#999999' : 'black'}
               text={t('texts.id_172')}
               bgColor={colors.tomatoRed}
@@ -570,7 +572,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               paddingVertical: StyleConfig.resHeight(10),
             }}>
             <View>
-              <Text numberOfLines={1} style={styles.sbscriptionText}>
+              <Text numberOfLines={1} style={[styles.sbscriptionText,{width:StyleConfig.resWidth(200)}]}>
                 {t('texts.id_156')}: 3
               </Text>
             </View>
@@ -633,7 +635,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 />
               )}
             </Pressable>
-            <Text numberOfLines={1} style={styles.download}>
+            <Text numberOfLines={1} style={[styles.download,{width:StyleConfig.resWidth(200)}]}>
               {t('texts.id_150')}
             </Text>
           </View>
@@ -658,7 +660,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 />
               )}
             </Pressable>
-            <Text numberOfLines={1} style={styles.download}>
+            <Text numberOfLines={1} style={[styles.download,{width:StyleConfig.resWidth(200)}]}>
               {t('texts.id_152')}
             </Text>
           </View>
@@ -686,7 +688,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
               )}
             </Pressable>
             {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
-            <Text numberOfLines={1} style={styles.download}>
+            <Text numberOfLines={1} style={[styles.download,{width:StyleConfig.resWidth(200)}]}>
 
               {t('texts.id_154')}
             </Text>
