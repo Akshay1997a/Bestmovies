@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback,useEffect} from 'react';
 import {
   View,
   Pressable,
@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AppImages from '../../assets';
 import {WIDTH} from '../../helper/globalFunctions';
 import {useTranslation} from 'react-i18next';
+import i18next from 'i18next';
 
 let DATA = {
   feedback: 'texts.id_214',
@@ -36,11 +37,12 @@ let DATA = {
 };
 
 const TVCast = (props) => {
-  console.log('item0000000dadwdqad', props.item.name);
-  const {item} = props.item;
-  const {t} = useTranslation();
+  // console.log('item0000000dadwdqad', props.item.name);
+  const {item} = props?.item;
+  const {t,i18n} = useTranslation();
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);
+  const [countriesListed, setCountryList] = useState(null);
 
   const onFocus = useCallback(() => {
     console.log('OnFocus called***');
@@ -53,7 +55,17 @@ const TVCast = (props) => {
     setFocus(-1);
     setIsFocus(false);
   }, []);
+  // useEffect(() => {
 
+  // //   let lng = i18n.language;
+  // //   let countryData = i18next.getDataByLanguage(lng);
+  // //   let countries_listed = countryData?.translation?.countries_listed;
+  // //   setCountryList(countries_listed)
+  // //  let str = countries_listed["code_"+ 'DZ'];
+
+  //   // getMovies()
+  //   // setEntries(ENTRIES1);
+  // }, []);
   return (
     <View>
       <Pressable
@@ -85,10 +97,14 @@ const TVCast = (props) => {
           <View style={{marginStart: StyleConfig.resWidth(5)}}>
             <View>
               <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
-                {props.item.name}
+                {props.item?.name}
               </Text>
               <Text style={styles.typeSecondary}>
-                {t(props.item.professions)}
+                {props.item?.professions === 'a,d' ?
+                 t('texts.id_11')+' , '+t('texts.id_10') :
+                 props.item?.professions === 'a'?
+                  t('texts.id_11'):
+                 props.item?.professions === 'd' ? t('texts.id_10'):  ''}
               </Text>
 
               <View

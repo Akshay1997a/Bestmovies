@@ -115,8 +115,15 @@ const TVCardDetail = ({item, ...props}) => {
             <View style={styles.match}>
               <View>
                 <Text style={styles.bornYear}>
-                      {item.genres + ' - ' +item.year
-                }</Text>
+                  {
+                    item.type === 'm' ?
+                    'Movie' + ' - ' +item.year:
+                    item.type === 't' ?
+                    'TV show'+ ' - ' +item.year :'Shorts'+ ' - ' +item.year
+                  }
+                      {/* {item.genres + ' - ' +item.year
+                } */}
+                </Text>
               </View>
               <View
                 style={{
@@ -125,7 +132,24 @@ const TVCardDetail = ({item, ...props}) => {
                 }}>
                 <RatingComponent
                   rating={item.rating}
-                  color={'red'}
+                  color={item.rating >= 9 ? 
+                    "black":
+                    item.rating >= 8 ? 
+                    '#868686' :
+                    item.rating >= 7 ? 
+                    '#4183E2' :
+                    item.rating >= 6 ?
+                  '#40CF00' :
+                  item.rating >= 5 ?
+                '#EAC602' :
+                item.rating >= 4 ?
+              '#FF8500':
+              item.rating >= 3 ?
+            '#FF0000' :
+            item.rating >= 2 ?
+            '#EC3DEF' :
+            item.rating >= 1 ?
+          '#9A2FAE' :'#9A5000'}
                 />
               </View>
 
