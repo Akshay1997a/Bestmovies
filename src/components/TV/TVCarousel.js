@@ -535,7 +535,7 @@ const MyCarousel = ({item, posts, ...props}) => {
                 marginTop: isAndroid() ? 6 : 16,
                 marginLeft: isAndroid() ? 10 : 30,
               }}>
-              <Text numberOfLines={1} style={styles.director}>
+              <Text numberOfLines={1} style={[styles.director,{width:180}]}>
                 {t('texts.id_14')}
               </Text>
 
