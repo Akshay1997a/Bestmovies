@@ -57,7 +57,7 @@ const TVCast = (props) => {
   return (
     <View>
       <Pressable
-        style={styles.container}
+        style={[styles.container]}
         onFocus={onFocus}
         onBlur={onBlur}
         // key={item.id}
@@ -71,8 +71,7 @@ const TVCast = (props) => {
           <View hasTVPreferredFocus={false}>
             <View style={styles.notHighlightFocused}>
               <ImageBackground
-                              source={{ uri: props.item.photo_url }}
-
+              source={{ uri: props.item.photo_url }}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -132,10 +131,11 @@ const TVCast = (props) => {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                     }}>
-                    <Text style={[styles.textSecondary,]}>
-                      {`${t('texts.id_215')} ${props.item.birth_year}`}
+                    <Text numberOfLines={1} style={[styles.textSecondary,{width:110}]}>
+                      {t('texts.id_215')}
                       {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
                     </Text>
+                    <Text style={[styles.textSecondary,{right:70}]}>{props.item.birth_year}</Text>
                     <RatingComponent
                       rating={props.item.rating}
                       color={props.item.color}
@@ -406,8 +406,6 @@ const styles = StyleSheet.create({
     marginVertical: StyleConfig.resHeight(20),
     marginHorizontal: StyleConfig.resWidth(5),
     // borderRadius:StyleConfig.resHeight(20),
-    // borderWidth:1,
-    // borderColor:'black'
   },
   // top: {
   //   textAlign: 'center',

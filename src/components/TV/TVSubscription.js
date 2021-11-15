@@ -4,7 +4,6 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useEffect,
-  useSelector,
 } from 'react';
 import {
   View,
@@ -25,15 +24,17 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import StreamModal from './StreamModal';
 import primary_regular_font from '../../helper/fonts';
-import {connect} from 'react-redux';
+import {connect, useDispatch,useSelector} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {
   getProvidersList,getCountryFlag
 } from "../../network/requests.ts";
+import { setProviders } from '../../redux/actions/providersModule/providerActions';
 import { State } from 'react-native-gesture-handler';
 import { logOnConsole } from '../../helper/globalFunctions';
 import axios from 'axios';
 import { endPoints } from '../../network/endPoints';
+import { SAVE_USER_DATA } from '../../redux/actions/providersModule/providerTypes';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -122,7 +123,8 @@ const DATA = [
 
 const TVSubscriptionRender = (props) => {
   // console.log('props',props);
-
+ const dispatch = useDispatch();
+ const providerState = useSelector(state => state.providersData);
   const [selected, setSelected] = useState(false);
   const [data, setData] = useState(DATA);
   const [isFocus, setIsFocus] = useState(false);
@@ -137,12 +139,11 @@ const TVSubscriptionRender = (props) => {
     console.log('onFocus----->>>>>>',val);
     if(val.selected == true){
       val.selected = false
-
     }else{
       val.selected = true
-
     }
     props.action(val);
+    dispatch({type:SAVE_USER_DATA,payload:val});
     setSelected(true);
   };
 
@@ -152,7 +153,10 @@ const TVSubscriptionRender = (props) => {
     setFocus(false);
   }, []);
 
-  
+  const myProviders =({item})=>{
+     console.log('item data',item);
+  }
+  console.log('data save in redux',providerState);
   return (
     // <ScrollView
     // // showsVerticalScrollIndicator={true}
@@ -193,7 +197,9 @@ const TVSubscriptionRender = (props) => {
           ) : null}
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+        onPress={()=> myProviders(props.item)}
+        >
           <View
             style={
               isAndroid()
@@ -234,8 +240,9 @@ const TVSubscriptionRender = (props) => {
 };
 
 const TVSubscription = (props) => {
-  const onPressClick = (res) => {
+  const myProviders = (res) => {
     props.action(res);
+    console.log('data for providers',res);
     // logOnConsole('data',index);
   };
    ///const data = useSelector(state => state.state)
@@ -246,9 +253,6 @@ const TVSubscription = (props) => {
     //logOnConsole('call streem modal');
     console.log('call streem modal');
    // getFlagList();
-    props.getCountryFlag((res)=>{
-      console.log('country flag',res);
-    })
     props.getProvidersList((res) => {
     console.log('provider respone', res.data.providers);
      setItem(res.data);
@@ -267,7 +271,7 @@ const TVSubscription = (props) => {
             item={item}
             type="movie"
             onFocus={props?.onFocus}
-            action={(res) => onPressClick(res)}
+            action={(res) => myProviders(res)}
           />
         );
       }}
