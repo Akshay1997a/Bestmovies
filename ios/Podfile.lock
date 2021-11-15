@@ -22,10 +22,10 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
-  - FirebaseCoreDiagnostics (8.6.0):
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Logger (~> 7.4)
+  - FirebaseCoreDiagnostics (8.9.0):
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/Environment (~> 7.6)
+    - GoogleUtilities/Logger (~> 7.6)
     - nanopb (~> 2.30908.0)
   - FirebaseCrashlytics (8.4.0):
     - FirebaseCore (~> 8.0)
@@ -34,10 +34,10 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseInstallations (8.6.0):
+  - FirebaseInstallations (8.9.0):
     - FirebaseCore (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/UserDefaults (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.6)
+    - GoogleUtilities/UserDefaults (~> 7.6)
     - PromisesObjC (< 3.0, >= 1.2)
   - Flipper (0.30.2):
     - Flipper-Folly (= 2.1.1)
@@ -86,15 +86,15 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - glog (0.3.5)
-  - GoogleDataTransport (9.1.0):
+  - GoogleDataTransport (9.1.2):
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Environment (7.5.1):
+  - GoogleUtilities/Environment (7.6.0):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.5.1):
+  - GoogleUtilities/Logger (7.6.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/UserDefaults (7.5.1):
+  - GoogleUtilities/UserDefaults (7.6.0):
     - GoogleUtilities/Logger
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -536,12 +536,12 @@ SPEC CHECKSUMS:
   CocoaLibEvent: 80507925cc2857ace161e25ac1000745c145ac19
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: a4376cfdaffcb31c5bccc46e40a16a4c1cb32f53
-  FBReactNativeSpec: e0f3598a6e248797c6263b4e4b51b16e6177984e
+  FBReactNativeSpec: f3815c3d55d136f597216c66fb5755498043a0f1
   Firebase: 54cdc8bc9c9b3de54f43dab86e62f5a76b47034f
   FirebaseCore: 31f389c37ac1ea52454a53d3081f2d7019485a4a
-  FirebaseCoreDiagnostics: 3721920bde3a9a6d5aa093c1d25e9d3e47f694af
+  FirebaseCoreDiagnostics: 5daa63f1c1409d981a2d5007daa100b36eac6a34
   FirebaseCrashlytics: c9eb562b2f6bd5ee5e880144fd5ef1bfe46c5dc5
-  FirebaseInstallations: 0ede6ffcd215b8f93c19d9b06c1c54e2d4107e98
+  FirebaseInstallations: caa7c8e0d3e2345b8829d2fa9ca1b4dfbf2fcc85
   Flipper: b96fca3f1d3cfcb78df7d8eaed51ea9a71b69e92
   Flipper-DoubleConversion: 1349df2e033b72bffcb6e54db199cab53b9dcebd
   Flipper-Folly: abac1a67bc5390a09770454b9314af6c1a29ced8
@@ -550,8 +550,8 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d4c7baf814323f8f0911559944b87bbbd3c63da4
   FlipperKit: 31028f4bd9b85b8f2a98aa4d7f169b394d009439
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
-  GoogleUtilities: 3df19e3c24f7bbc291d8b5809aa6b0d41e642437
+  GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
+  GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 7cbe4bc3c032ace1c0ce897d6b5d58a3b9f6b8e2
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
@@ -595,4 +595,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9439ec3cc8ba6820183c5884a45d7e9f4e31a9c9
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
