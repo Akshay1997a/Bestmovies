@@ -35,7 +35,7 @@ const TVButton = ({
 
 const stylesl = StyleSheet.create({
   button: {
-    backgroundColor: '#efefef',
+   backgroundColor: '#efefef',
     borderRadius: 20,
     // borderWidth:1,
     // marginRight:20,

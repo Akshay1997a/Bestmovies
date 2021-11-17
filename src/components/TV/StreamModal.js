@@ -29,6 +29,13 @@ import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {HEIGHT, logOnConsole, WIDTH} from '../../helper/globalFunctions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {
+  getCountryFlag
+} from "../../network/requests.ts";
+import { endPoints } from '../../network/endPoints';
+import axios from 'axios';
 // import ToggleSwitch from "toggle-switch-react-native";
 const isAndroid = () => {
   return Platform.OS == 'android';
@@ -149,7 +156,7 @@ const styles = StyleSheet.create({
     // marginLeft:10,
   },
   focustoggle: {
-    backgroundColor: colors.tomatoRed,
+   // backgroundColor: colors.tomatoRed,
     padding: StyleConfig.resWidth(10),
     // paddingVertical: StyleConfig.resWidth(8),
     // height: isAndroid() ? 40 : 90,
@@ -160,7 +167,6 @@ const styles = StyleSheet.create({
   focusButton: {
     backgroundColor: colors.tomatoRed,
     borderRadius: StyleConfig.resWidth(30),
-
     // height: isAndroid() ? 40 : 90,
     // borderWidth: 1,
     // marginRight:20,
@@ -175,7 +181,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGrey,
     borderRadius: StyleConfig.resWidth(10),
     height: isAndroid() ? StyleConfig.resHeight(80) : 90,
-    // borderWidth: 1,
     // marginRight:20,
     // paddingRight: 15,
     width: '32%',
@@ -238,10 +243,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     marginHorizontal: 18,
-    backgroundColor: colors.tomatoRed,
+    //backgroundColor: colors.tomatoRed,
     borderRadius: 30,
     minWidth: 60,
     alignItems: 'center',
+    // borderWidth:1,
+    // borderColor:'red',
   },
   itemWrapper: {
     justifyContent: 'center',
@@ -314,7 +321,8 @@ const items = [
 const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   const {t} = useTranslation();
   const [selected, setSelected] = useState(-1);
-  const [country, setCountry] = useState('US');
+  const [countryCode, setCountryCode] = useState('US');
+  const [countryFlag,setCountryFlag] = useState([]);
   const [data, setData] = useState(items);
   const [updatedData, setUpdatedData] = useState();
   const [free, setFreeToggle] = useState(false);
@@ -339,15 +347,19 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   });
 
   const onPressClick = (val) => {
-    console.log('onPressClick StreamModal***', val);
-    props.action(val);
-
-    setCountry(val.code);
+    console.log('onPressClick StreamModal***', val.code);
+    let changeCode = val[0];
+    let newCode   = changeCode.slice(5);
+    console.log(newCode);
+    setCountryCode(newCode);
+    oncloseModal();
+    //getFlagList(newCode);
   };
+
   const saveProvides = (val) => {
-    alert('successfull');
+    alert('successfull',val.code);
     console.log('saveProvides StreamModal***', val);
-    // setCountry(val.code)
+   // setCountry(val.code)
   };
   const myProviders = () => {
     // setData(updatedData);
@@ -382,7 +394,31 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
     console.log('val', val);
     setShowSelected(false);
   };
- 
+  
+  const getFlagList=(cd)=>{
+    let countryCode = cd ? cd : '';
+    axios.get(endPoints.BASE_URL+endPoints.countryFlagList ,{
+      headers:{
+        "cd":countryCode,
+      }
+    }).then((res)=>{
+      console.log('data show',res);
+      setCountryFlag(res.data);
+      console.log('data country',countryFlag);
+    }).catch((error)=>{
+      console.log('show error',error);
+    })
+  }
+
+ useEffect(() => {
+  getFlagList();
+   props.getCountryFlag((res)=>{
+     console.log(res);
+   })
+  //  return () => {
+  //    cleanup
+  //  }
+ }, [])
   // useEffect(() => {
 
   //     async function fetchData() {
@@ -395,6 +431,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
 
   //     fetchData();
   //   }, [])
+console.log(countryFlag);
 
   const isSubscriptionSelected = () => {
     let selected = false;
@@ -440,6 +477,8 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           style={{
             marginHorizontal: isAndroid() ? StyleConfig.resHeight(50) : 50,
             marginTop: isAndroid() ? StyleConfig.resHeight(30) : 50,
+            // borderColor:'red',
+            // borderWidth:1,
           }}>
           <View style={{flexDirection: 'row'}}>
             <Pressable
@@ -489,7 +528,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                   />
                   <Text style={focus ? styles.focusCodeText : styles.text}>
                     {' '}
-                    {country}{' '}
+                    {countryCode} {' '}
                   </Text>
                 </View>
               </Pressable>
@@ -501,11 +540,12 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
           <View
             style={{
               // borderWidth:1,
+              // borderColor:'red',
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginTop: StyleConfig.resHeight(20),
             }}>
-            {/* <Pressable
+            <Pressable
               focusable={!isSubscriptionSelected()}
               onFocus={() => {
                 !isSubscriptionSelected() && onFocusButton(1);
@@ -515,52 +555,52 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                 focusHeader && selected === 1
                   ? styles.focusButton
                   : styles.notfocusButton
-              }> */}
+              }>
             <TVButton
-              styles={focus ? styles.focusButton : styles.notfocusButton}
+             // styles={focus ? styles.focusButton : styles.notfocusButton}
               textColor={isSubscriptionSelected() ? '#999999' : 'black'}
               text={t('texts.id_172')}
-              bgColor={colors.tomatoRed}
+             bgColor={colors.tomatoRed}
             />
-            {/* </Pressable> */}
+            </Pressable>
 
-            {/* <Pressable
-              onFocus={() => onFocusButton(2)}
+            <Pressable
+             onFocus={() => onFocusButton(2)}
               onPress={() => myProviders()}
               style={
                 focusHeader && selected === 2
                   ? styles.focusButton
                   : styles.notfocusButton
-              }> */}
+              }>
             <TVButton
-              styles={focus ? styles.focusButton : styles.notfocusButton}
+              //styles={focus ? styles.focusButton : styles.notfocusButton}
               textColor={isSubscriptionSelected() ? '#999999' : 'black'}
               text={t('texts.id_147')}
-              bgColor={colors.lightGrey}
+             bgColor={colors.lightGrey}
             />
-            {/* </Pressable> */}
+            </Pressable>
 
-            {/* <Pressable
+            <Pressable
               focusable={isSubscriptionSelected()}
               onFocus={() => {
                 console.log('updated lengthttt', updatedData?.length);
                 isSubscriptionSelected() && onFocusButton(3);
               }}
-              onPress={() => saveProvides(1)}
-              //  onBlur={onBlur}
+              onPress={() => saveProvides()}
+              // onBlur={onBlur}
               style={
                 focusHeader && selected === 3
                   ? styles.focusButton
                   : styles.notfocusButton
-              }> */}
+              }>
             <TVButton
-              styles={focus ? styles.focusButton : styles.notfocusButton}
+             // styles={focus ? styles.focusButton : styles.notfocusButton}
               textColor={isSubscriptionSelected() ? 'black' : '#999999'}
               selected={selected}
               text={t('texts.id_148')}
-              bgColor={colors.lightGrey}
+             // bgColor={colors.lightGrey}
             />
-            {/* </Pressable> */}
+            </Pressable>
           </View>
           <View
             style={{
@@ -602,8 +642,7 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
                     item={item}
                     type="movie"
                     // onFocus={props?.onFocus}
-                    action={(res) => onPressClick(res)}
-
+                    action={() => onPressClick(index)}
                   />
                 );
               }}
@@ -705,4 +744,14 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   );
 });
 
-export default StreamModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getCountryFlag,
+    },
+    dispatch,
+  );
+};
+
+
+export default connect(null, mapDispatchToProps) (StreamModal);

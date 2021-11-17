@@ -7,6 +7,7 @@ export const endPoints = {
     languageData:"languages",
     staticData:"static-pages?",
     title:"titles?",
+    countryFlagList:"countries?",
     
 
 }

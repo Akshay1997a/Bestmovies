@@ -282,6 +282,24 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   console.log(props.headerSelected, MENU_DATA);
   return (
     <>
+      {/* {props.headerSelected == PROFILE ? 
+            <View style={styles.container}>
+                {PROFILE_DATA.map((item, index) => {
+                    return (
+                        <Pressable
+                            key={item.key}
+                            onFocus={() => onFocus(item.key)}
+                            onPress={() => onChangeSelected(item.key)}
+                            tvParallaxProperties={{ magnification: 1.1 }}
+                            style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
+                            <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
+                        </Pressable>
+                    )
+                })}
+
+            </View> : */}
+
+      {/* props.headerSelected == MENU ? */}
       <View
         style={{
           flexDirection: 'row',
@@ -794,7 +812,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.black,
-    fontSize: StyleConfig.resWidth(28),
+    fontSize: isAndroid() ? 16 : 26,
     fontWeight: '400',
     ...Platform.select({
       android: {
@@ -804,7 +822,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   selectedText: {
-    fontSize: StyleConfig.resWidth(28),
+    fontSize: isAndroid() ? 12 : 32,
     fontWeight: '700',
     ...Platform.select({
       android: {
@@ -815,7 +833,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   focusText: {
-    fontSize: StyleConfig.resWidth(28),
+    fontSize: isAndroid() ? 16 : 26,
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
     paddingLeft: 10,
