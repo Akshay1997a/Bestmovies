@@ -337,8 +337,28 @@ let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_
       
       if(response.data.data.length > 0){
       // setMovies(response.data.data)
+      let lng = i18n.language;
+      let countryData = i18next.getDataByLanguage(lng);
+      let countries_listed = countryData?.translation?.countries_listed;
+      let movie =  response.data.data;
+      
+      for(let i =0 ;i < movie.length ;i++){
+        let req = movie[i];
+        let str = '';
+        let country = req.origins.split(',');
+        for(let j =0 ;j < country.length ;j++){
+         let locstr = countries_listed["code_"+ country[j]];
+         if(country.length > 1 && j <country.length-1){
+            str+=locstr+','
+         }else{
+          str += locstr
+         }
 
-      setMovies(page === 1 ? response.data.data : [...movies, ...response.data.data])
+        }
+        // let str = countries_listed["code_"+ req.country_cd];
+        movie[i].origins = str;
+      }
+      setMovies(page === 1 ? movie : [...movies, ...movie])
       setMoviesSearch(response.data.data)
       // getTVShows('',sort_id,provider,generes_code,ages,prices);
       // getShorts('',sort_id,provider,generes_code,ages,prices);

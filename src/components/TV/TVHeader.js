@@ -81,7 +81,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
           onFocus={() => onFocus(SEARCH)}
           onBlur={() => onBlur()}
           onPress={() => onLocalChangeSelected()}
-          tvParallaxProperties={{magnification: 1.1}}
+          // tvParallaxProperties={{magnification: 1.1}}
           style={[
             props.focus === 'header' &&  focus == SEARCH
               ? styles.itemWrapperSelectedSearch
@@ -125,6 +125,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         <Pressable
           onFocus={() => onFocus(MOVIES)}
           onPress={() => onLocalChangeSelected()}
+          
           // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
@@ -153,7 +154,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         <Pressable
           onFocus={() => onFocus(TV_SHOW)}
           onPress={() => onLocalChangeSelected()}
-          tvParallaxProperties={{magnification: 1.1}}
+          // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
               props.focus === 'header' && focus == TV_SHOW
@@ -181,7 +182,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         <Pressable
           onFocus={() => onFocus(SHORTS)}
           onPress={() => onLocalChangeSelected()}
-          tvParallaxProperties={{magnification: 1.1}}
+          // tvParallaxProperties={{magnification: 1.1}}
           style={
             [
               props.focus === 'header' && focus == SHORTS
@@ -285,7 +286,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         <Pressable
          onFocus={() => onFocus(MENU)}
          onPress={() => onLocalChangeSelected()}
-         tvParallaxProperties={{magnification: 1.1}}
+        //  tvParallaxProperties={{magnification: 1.1}}
           // tvParallaxProperties={{magnification: 1.1}}
           style={
             props.focus === 'header' &&    focus == MENU

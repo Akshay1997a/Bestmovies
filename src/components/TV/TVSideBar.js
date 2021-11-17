@@ -125,6 +125,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   const [selected, setSelected] = useState(9);
   const [aboutUs, setAboutUsData] = useState(null);
   const [terms, setTerms] = useState(null);
+  const [data, setData] = useState(null);
 
   const onFocus = useCallback((val) => {
     console.log('onFocus TVSideBar>>>', val);
@@ -205,10 +206,21 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   }
   useEffect(() => {
     getSearch()
+    let  abArray = [];
     let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
     let staticPages = countryData?.translation?.static_pages;
-
+    staticPages !== null && Object.entries(staticPages)?.map((item, index) => {
+      let items = item
+      // let obje  ={
+      //   key: TERMS_OF_USE,
+      //  title: strings.terms_of_use,
+      // }
+      // if(type){
+      //   abArray.push(obje)
+      // }
+    }
+    )
     // alert(Object.keys(staticPages)[0]); // returns first
 // alert(Object.keys(staticPages)[1]); // returns second
 //     staticPages !== null && Object.entries(staticPages[0])?.map((item, index) => {
@@ -768,7 +780,7 @@ const styles = StyleSheet.create({
     paddingVertical: isAndroid() ? 0 : 6,
     // marginHorizontal: isAndroid() ? 0 : 6,
     backgroundColor: colors.tomatoRed,
-    borderRadius: 30,
+    borderRadius: StyleConfig.resWidth(20),
     // minWidth:60,
     marginVertical: isAndroid() ? 0 : 20,
     // justifyContent:'center',
@@ -807,6 +819,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
     paddingLeft: 10,
+    fontWeight: '700',
   },
   textTitle: {
     fontSize: StyleConfig.resWidth(28),

@@ -68,6 +68,11 @@ const isAndroid = () => {
   return Platform.OS == 'android';
 };
 const styles = StyleSheet.create({
+  verticleLine: {
+    height: '100%',
+    width: 1,
+    backgroundColor: '#909090',
+  },
   container: {
     // flexDirection: 'row',
     marginLeft: isAndroid() ? 10 : 150,
@@ -78,6 +83,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: StyleConfig.resWidth(8),
     // paddingVertical:   isAndroid() ? 0: StyleConfig.resHeight(2),
     margin: 4,
+  },
+  focusText: {
+    fontSize: StyleConfig.resWidth(28),
+    color: colors.white,
+    fontFamily: primary_regular_font.primary_regular_font,
+    paddingLeft: 10,
+    fontWeight: '700',
+
+  },
+  text: {
+    color: colors.black,
+    fontSize: StyleConfig.resWidth(28),
+    fontWeight: '400',
+    ...Platform.select({
+      android: {
+        fontFamily: primary_regular_font.primary_regular_font,
+      },
+    }),
+    fontFamily: primary_regular_font.primary_regular_font,
   },
   focusBackWrap: {
     backgroundColor: colors.tomatoRed,
@@ -236,7 +260,7 @@ const TVCountryLanguage = (props) => {
   console.log('countryList', countryList);
   return (
     // <ScrollView>
-      <View style={{flexDirection: 'row',}}>
+      <View style={{flexDirection: 'row',height:1000}}>
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
@@ -252,35 +276,47 @@ const TVCountryLanguage = (props) => {
                       : styles.backWrap
                   }>
                   <Text
-                    style={{
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: StyleConfig.resWidth(28),
-                      fontWeight: '400',
-                      // padding: isAndroid() ? 2 : 8,
-                      paddingHorizontal: 15,
-                      color:
-                       item.id == focus
-                          ? colors.white
-                          :
-                          middleSelected == item.id
-                            ? colors.tomatoRed
-                          : colors.black,
-                    }}>
+                    style={
+                    //   {
+                    //   fontFamily: primary_regular_font.primary_regular_font,
+                    //   fontSize: StyleConfig.resWidth(28),
+                    //   fontWeight: '400',
+                    //   // padding: isAndroid() ? 2 : 8,
+                    //   paddingHorizontal: 15,
+                    //   color:
+                    //    item.id == focus
+                    //       ? colors.white
+                    //       :
+                    //       props.focus === 'countryLang' &&   middleSelected == item.id
+                    //         ? colors.tomatoRed
+                    //       : colors.black,
+                    // }
+
+                    props.focus === 'countryLang' && item.id == focus   ? styles.focusText
+                    :  props.focus === 'countryLang' &&   middleSelected == item.id
+                    ? styles.selectedText
+                    : styles.text
+                    }>
                     {item.name}
                   </Text>
                 </Pressable>
               </View>
+              
             );
           })}
           
         </View>
+        <View style={styles.verticleLine}></View>
+
         <ScrollView>
+          
         {isCountryClick ? (
           <View
-          hasTVPreferredFocus={true}
+          // hasTVPreferredFocus={true}
             style={{
               // marginLeft: isAndroid() ? 100 : 160,
-              borderLeftWidth: 1,
+                  // flexDirection:'row',
+              // borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
             {dataList !== null &&
@@ -292,21 +328,27 @@ const TVCountryLanguage = (props) => {
                     onFocus={() => onFocus(code)}
                     // onFocus={() => setFocus(code)}
                     style={
-                     code == focus
+                      props.focus === 'countryLang' &&  code == focus
                         ? styles.focusBackWrap
                         : styles.backWrap
                     }>
                     <Text
-                      style={{
-                        fontFamily: primary_regular_font.primary_regular_font,
-                        fontSize: StyleConfig.resWidth(28),
-                        fontWeight: '700',
-                        color:
-                          code == focus
-                            ? colors.white :
-                            selected == code
-                            ? colors.tomatoRed  : colors.black,
-                      }}>
+                      style={
+                        props.focus === 'countryLang' && code == focus   ? styles.focusText
+                        :  props.focus === 'countryLang' &&    selected == code
+                        ? styles.selectedText
+                        : styles.text
+                      //   {
+                      //   fontFamily: primary_regular_font.primary_regular_font,
+                      //   fontSize: StyleConfig.resWidth(28),
+                      //   fontWeight: '400',
+                      //   color:
+                      //   props.focus === 'countryLang' && code == focus
+                      //       ? colors.white :
+                      //       props.focus === 'countryLang' &&    selected == code
+                      //       ? colors.tomatoRed  : colors.black,
+                      // }
+                      }>
                       {item[1]}
                     </Text>
                   </Pressable>
