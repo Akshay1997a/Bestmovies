@@ -238,7 +238,7 @@ const getGeneras = (code) =>{
                 numberOfLines={1}
                 style={styles.typeSecondary}>
                 {/* {t('texts.id_129')} */}
-                {getGeneras(item.genres)}
+                {item.genres}
               </Text>
 
               <View
@@ -281,6 +281,7 @@ const getGeneras = (code) =>{
                         justifyContent: 'center',
                         alignContent: 'center',
                         alignItems: 'center',
+                        alignSelf:'center'
                       }}>
                        <RatingComponent
                         rating={item.rating}
@@ -540,16 +541,12 @@ const styles = StyleSheet.create({
     flex: 0,
     justifyContent: 'center',
     borderRadius: 8,
-    // overflow: 'hidden',
-    // borderWidth: 1,
-    // borderColor: '#fff',
     backgroundColor: '#fff',
     elevation: 2,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowColor: '#000',
     shadowRadius: 3.84,
-
     width: isAndroid() ? 180 : 360,
     borderWidth: isAndroid()
       ? StyleConfig.resWidth(10)
@@ -557,13 +554,8 @@ const styles = StyleSheet.create({
     height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.28,
     borderColor: colors.tomatoRed,
     overflow: 'hidden',
-    // padding: 1,
-    // paddingBottom:1,
-    // paddingVertical:2,
-    // paddingHorizontal:2
   },
   notHighlightFocused: {
-    // style={{
     flex: 0,
     justifyContent: 'center',
     borderRadius: 8,
@@ -576,18 +568,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowColor: '#000',
     shadowRadius: 3.84,
-    // }}
-    // borderWidth: isAndroid()
-    //   ? StyleConfig.resWidth(1)
-    //   : StyleConfig.resWidth(0),
-    // borderRadius: isAndroid()
-    //   ? StyleConfig.resHeight(20)
-    //   : StyleConfig.resHeight(30),
     width: isAndroid() ? 180 : 360,
-    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.27,
-    // StyleConfig.width * 0.3,
-    // paddingTop: 1,
-    // margin:2,
-    // overflow: 'hidden',
+    height: isAndroid() ? StyleConfig.width * 0.28 : WIDTH * 0.28,
   },
 });

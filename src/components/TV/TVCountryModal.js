@@ -21,7 +21,8 @@ import i18n from 'i18next';
 import {useFocusEffect} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -119,6 +120,8 @@ const TVCountryModal = (props) => {
 
   return (
     <CommonFilterTvModal
+    {...props}
+
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
@@ -133,11 +136,11 @@ const TVCountryModal = (props) => {
                 onBlur={onBlur}
                 onPress={() => onPressClick(item)}
                 onFocus={() => setFocus(code)}
-                style={code == focus ? styles.focusBackWrap : styles.backWrap}>
+                style={  props.focus== 'remove'  && code == focus ? styles.focusBackWrap : styles.backWrap}>
                 <Text
                   numberOfLines={1}
                   style={
-                    code == focus
+                    props.focus== 'remove'  && code == focus
                       ? styles.whiteStyle
                       : item.selected
                       ? styles.tomatoStyle
@@ -170,4 +173,14 @@ const TVCountryModal = (props) => {
   );
 };
 
-export default TVCountryModal;
+// export default TVCountryModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+  
+  },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(TVCountryModal);

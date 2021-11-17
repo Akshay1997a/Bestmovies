@@ -285,7 +285,42 @@ const MyCarousel = ({item, posts, ...props}) => {
     .then(function (response) {
       // handle success
       // setAboutUsData(response.data.data.static_pages);
-      setSimilar(response.data.data)
+      let lng = i18n.language;
+      let countryData = i18next.getDataByLanguage(lng);
+      let countries_listed = countryData?.translation?.countries_listed;
+      let genres_listed = countryData?.translation?.genres;
+
+      let movie =  response.data.data;
+      
+      for(let i =0 ;i < movie.length ;i++){
+        let req = movie[i];
+        let str = '';
+        let strGenres = '';
+
+        let country = req.origins.split(',');
+        let genres = req.genres.split(',');
+        for(let j =0 ;j < country.length ;j++){
+         let locstr = countries_listed["code_"+ country[j]];
+         if(country.length > 1 && j <country.length-1){
+            str+=locstr+','
+         }else{
+          str += locstr
+         }
+
+        }
+        for(let k =0 ;k < genres.length ;k++){
+          let locstrGen = genres_listed["code_"+ genres[k]];
+          if(genres.length > 1 && k <genres.length-1){
+            strGenres+=locstrGen+','
+          }else{
+            strGenres += locstrGen
+          }
+         }
+        // let str = countries_listed["code_"+ req.country_cd];
+        movie[i].origins = str;
+        movie[i].genres = strGenres;
+      }
+      setSimilar(movie)
     //   console.log(response);
     //   let data  = response.data.data[0];
     //   let images  = data.images;

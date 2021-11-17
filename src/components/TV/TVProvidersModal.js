@@ -7,7 +7,8 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import CommonFilterTvModal from './CommonFilterTvModal';
 import {useTranslation} from 'react-i18next';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const DATA = [
   {id: 0, name: 'New'},
   {id: 1, name: 'This year'},
@@ -58,6 +59,8 @@ const TVProvidersModal = (props) => {
   const {t} = useTranslation();
   return (
     <CommonFilterTvModal
+    {...props}
+
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}

@@ -20,7 +20,8 @@ import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const DATA = [
   {id: 0, name: 'New'},
   {id: 1, name: 'This year'},
@@ -132,6 +133,8 @@ const TVReleaseModal = (props) => {
     //             <View style={{width: StyleConfig.resWidth(36), margin:4}} />
     //         </View>
     <CommonFilterTvModal
+    {...props}
+
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
@@ -147,12 +150,12 @@ const TVReleaseModal = (props) => {
                   onPress={() => onPressClick(item)}
                   onFocus={() => setFocus(item.id)}
                   style={
-                    item.id == focus ? styles.focusBackWrap : styles.backWrap
+                    props.focus== 'remove'  &&   item.id == focus ? styles.focusBackWrap : styles.backWrap
                   }>
                   <Text
                     numberOfLines={1}
                     style={
-                      item.id == focus
+                      props.focus== 'remove'  && item.id == focus
                         ? styles.whiteStyle
                         : item.id == selected
                         ? styles.tomatoStyle
@@ -192,4 +195,14 @@ const TVReleaseModal = (props) => {
   );
 };
 
-export default TVReleaseModal;
+// export default TVReleaseModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+  
+  },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(TVReleaseModal);

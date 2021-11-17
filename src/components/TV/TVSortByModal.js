@@ -18,7 +18,8 @@ import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const DATA = [
   {id: 0, name: 'texts.id_101'},//rating
   // {id: 1, name: 'texts.id_103'},//match
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     color: colors.tomatoRed,
   },
   backWrap: {
+    
     paddingHorizontal: isAndroid()
       ? StyleConfig.resWidth(0)
       : StyleConfig.resWidth(8),
@@ -94,6 +96,8 @@ const TVSortByModal = (props, key) => {
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
   const [data, setData] = useState(DATA);
+  const [isFocus, setIsFocus] = useState(false);
+
   const onPressClick = (val) => {
     val.selected = true;
     props.action(props.keySort,val);
@@ -102,8 +106,14 @@ const TVSortByModal = (props, key) => {
   const onBlur = useCallback(() => {
     // console.log('onBlur  CommonFilterTvModal called***', focus);
     // setFocus(-1);
-  }, []);
+    setIsFocus(false)
 
+  }, []);
+  const onFocus = useCallback((item) => {
+    // console.log('OnFocus CommonFilterTvModal called***', focus);
+    setFocus(item);
+    setIsFocus(true)
+  }, []);
   // useEffect(() => {
 
   //     async function fetchData() {
@@ -118,6 +128,7 @@ const TVSortByModal = (props, key) => {
   //   }, [])
   return (
     <CommonFilterTvModal
+    {...props}
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
@@ -128,21 +139,29 @@ const TVSortByModal = (props, key) => {
           {data.map((item, index) => {
             return (
               <Pressable
-                onBlur={onBlur}
+                onBlur={() => onBlur(item)}
                 onPress={() => onPressClick(item)}
-                onFocus={() => setFocus(item.id)}
+                onFocus={() => onFocus(item.id)}
                 style={
-                  item.id == focus ? styles.focusBackWrap : styles.backWrap
-                }>
+                  props.focus== 'remove'  &&  item.id == focus ? styles.focusBackWrap : styles.backWrap
+                }
+                // style={({pressed, hovered, focused}) =>
+
+                
+                // focused ? styles.focusBackWrap : styles.backWrap}
+              
+                >
                 <Text
                   numberOfLines={1}
+                  
                   style={
-                    item.id == focus
+                 props.focus== 'remove'  &&  item.id == focus 
                       ? styles.whiteStyle
                       : item.id == selected
                       ? styles.tomatoStyle
                       : styles.blackStyle
-                  }>
+                  }
+                  >
                   {t(item.name)}
                 </Text>
               </Pressable>
@@ -154,4 +173,14 @@ const TVSortByModal = (props, key) => {
   );
 };
 
-export default TVSortByModal;
+// export default TVSortByModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+  
+  },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(TVSortByModal);

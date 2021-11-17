@@ -16,7 +16,8 @@ import AppImages from '../../assets';
 import strings from '../../helper/strings';
 import primary_regular_font from '../../helper/fonts';
 import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const DATA = [
   {id: 0, name: 'Quality'},
   {id: 1, name: 'Match'},
@@ -80,13 +81,17 @@ const CommonFilterTvModal = (props) => {
 
   const onFocus = useCallback(() => {
     console.log('OnFocus CommonFilterTvModal called***', focus);
-    setFocus(0);
+    setFocus(-1);
     setIsFocus(false);
+    props.reduxSetCurrFocus('commonFilterTvModal');
+
   }, [0]);
 
   const onBlur = useCallback(() => {
     console.log('onBlur  CommonFilterTvModal called***', focus);
     setFocus(-1);
+    props.reduxSetCurrFocus('remove');
+
   }, []);
   // useEffect(() => {
 
@@ -161,7 +166,8 @@ const CommonFilterTvModal = (props) => {
             onPress={props.onclose}
             style={({pressed, hovered, focused}) =>
               focused ? styles.focusBackWrap : styles.backWrap
-            }>
+            }
+            >
             <Image source={AppImages.back_bk} style={styles.highlightFocused} />
           </Pressable>
           <Text
@@ -189,4 +195,15 @@ const CommonFilterTvModal = (props) => {
   );
 };
 
-export default CommonFilterTvModal;
+// export default CommonFilterTvModal;
+// export default TVSortByModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+  
+  },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(CommonFilterTvModal);

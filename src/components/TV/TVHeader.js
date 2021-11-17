@@ -79,14 +79,15 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
         {/* <View style={{flex: 1}} /> */}
         <Pressable
           onFocus={() => onFocus(SEARCH)}
-          onBlur={() => onBlur()}
+          
+          // onBlur={() => onBlur()}
           onPress={() => onLocalChangeSelected()}
           // tvParallaxProperties={{magnification: 1.1}}
           style={[
             props.focus === 'header' &&  focus == SEARCH
-              ? styles.itemWrapperSelectedSearch
-              : styles.itemWrapperSeach,
-            // {width: WIDTH * 0.1},
+              ? styles.itemWrapperSelected
+              : styles.itemWrapper,
+            {width: WIDTH * 0.1},
           ]}>
           <Image
             style={
@@ -332,25 +333,18 @@ const styles = StyleSheet.create({
     height: StyleConfig.resWidth(160) / 2,
   },
   itemWrapperSelected: {
-    // borderWidth: 1,
-    justifyContent: 'center',
-    // paddingHorizontal: StyleConfig.resWidth(60),
-    // paddingVertical: StyleConfig.resHeight(5),
-    // marginHorizontal:  StyleConfig.resWidth(5),
     backgroundColor: colors.tomatoRed,
+    justifyContent: 'center',
+    paddingHorizontal: StyleConfig.resWidth(20),
+    marginHorizontal: StyleConfig.resWidth(18),
     borderRadius: StyleConfig.resWidth(10),
-    // minWidth: StyleConfig.resWidth(160),
     alignItems: 'center',
   },
   itemWrapper: {
-    // borderWidth: 1,
     justifyContent: 'center',
     paddingHorizontal: StyleConfig.resWidth(20),
-    // paddingVertical: StyleConfig.resHeight(5),
     marginHorizontal: StyleConfig.resWidth(18),
-    // backgroundColor: colors.tomatoRed,
     borderRadius: StyleConfig.resWidth(10),
-    // minWidth: StyleConfig.resWidth(100),
     alignItems: 'center',
   },
   itemWrapperMenu: {
@@ -364,15 +358,21 @@ const styles = StyleSheet.create({
     // minWidth: StyleConfig.resWidth(100),
     alignItems: 'center',
   },
-  itemWrapperSelectedSearch: {
-    // borderWidth: 1,
+  itemWrapperSeach: {
     justifyContent: 'center',
-    paddingHorizontal: StyleConfig.resWidth(10),
-    paddingVertical: StyleConfig.resHeight(10),
+    paddingHorizontal: StyleConfig.resWidth(20),
+    marginHorizontal: StyleConfig.resWidth(18),
+    borderRadius: StyleConfig.resWidth(10),
+    minWidth: StyleConfig.resWidth(100),
+    alignItems: 'center',
+  },
+  itemWrapperSelectedSearch: {
+    justifyContent: 'center',
+    // paddingHorizontal: StyleConfig.resWidth(10),
+    // paddingVertical: StyleConfig.resHeight(10),
     backgroundColor: colors.tomatoRed,
     borderRadius: StyleConfig.resWidth(30),
     minWidth: StyleConfig.resWidth(10),
-    // minWidth: StyleConfig.resWidth(160),
     alignItems: 'center',
   },
   itemWrapperSelectedMenu: {
@@ -387,17 +387,7 @@ const styles = StyleSheet.create({
     // minWidth: StyleConfig.resWidth(160),
     alignItems: 'center',
   },
-  itemWrapperSeach: {
-    // borderWidth: 1,
-    justifyContent: 'center',
-    paddingHorizontal: StyleConfig.resWidth(20),
-    // paddingVertical: StyleConfig.resHeight(5),
-    marginHorizontal: StyleConfig.resWidth(18),
-    // backgroundColor: colors.tomatoRed,
-    borderRadius: StyleConfig.resWidth(10),
-    minWidth: StyleConfig.resWidth(100),
-    alignItems: 'center',
-  },
+  
   text: {
     fontSize: StyleConfig.resWidth(32),
     fontFamily: primary_regular_font.primary_regular_font,

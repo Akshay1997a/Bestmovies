@@ -136,6 +136,8 @@ const TVCountryLanguage = (props) => {
   // const [isCountryClick, setCountryClick] = useState(true);
   const [countryList, setCountryList] = useState(null);
   const [country, setCountry] = useState(null);
+  const [titleCountry, setTitleCountry] = useState(null);
+
     const [isCountryClick, setCountryClick] = useState(true);
     const [dataList, setDataList] = useState(null);
     const [language, setLanguageList] = useState(null);
@@ -144,13 +146,15 @@ const TVCountryLanguage = (props) => {
   useEffect(() => {
     let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
-    let countryTemp = countryData?.translation?.countries_listed;
+    let countryTemp = countryData?.translation?.countries_displayed;
+    let countryVersion = countryData?.translation?.countries_listed;
+
     // for (const item of LANGUAGES) {
     //   languageMap.set('code_AD', 'Andorra');
     // }
     countryTemp && setDataList(countryTemp);
     setCountry(countryTemp);
-
+    setTitleCountry(countryVersion)
     props.getLanguageData((res) => {
       let data = convertArrayToObject(res.data.display, 'code');
       let titleLanguage = convertArrayToObject(res.data.list, 'code');
@@ -233,7 +237,7 @@ const TVCountryLanguage = (props) => {
     } else if (item.id == 1) {
       setDataList(language);
     } else if (item.id == 2) {
-      setDataList(country);
+      setDataList(titleCountry);
     } else if (item.id == 3) {
       setDataList(titleLanguage);
     }

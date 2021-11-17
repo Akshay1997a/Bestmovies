@@ -17,7 +17,8 @@ import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const DATA = [
   {id: 0, name: '---'},
   {id: 1, name: '+ Add friend'},
@@ -83,6 +84,8 @@ const TVLikedByModal = (props) => {
   //   }, [])
   return (
     <CommonFilterTvModal
+    {...props}
+
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
@@ -119,4 +122,14 @@ const TVLikedByModal = (props) => {
   );
 };
 
-export default TVLikedByModal;
+// export default TVLikedByModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+  
+  },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(TVLikedByModal);

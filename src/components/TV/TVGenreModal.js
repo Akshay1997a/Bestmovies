@@ -19,6 +19,8 @@ import CommonFilterTvModal from './CommonFilterTvModal';
 import primary_regular_font from '../../helper/fonts';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -134,6 +136,8 @@ const TVGenreModal = (props) => {
 
   return (
     <CommonFilterTvModal
+    {...props}
+
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
@@ -178,11 +182,11 @@ const TVGenreModal = (props) => {
               onBlur={onBlur}
               onPress={() => onPressClick(item)}
               onFocus={() => setFocus(index)}
-              style={index == focus ? styles.focusBackWrap : styles.backWrap}>
+              style={  props.focus== 'remove'  && index == focus ? styles.focusBackWrap : styles.backWrap}>
               <Text
                 numberOfLines={1}
                 style={
-                  index == focus
+                  props.focus== 'remove'  &&  index == focus
                     ? styles.whiteStyle
                     : selectedGenres.includes(item)
                     ? styles.tomatoStyle
@@ -217,4 +221,14 @@ const TVGenreModal = (props) => {
   );
 };
 
-export default TVGenreModal;
+// export default TVGenreModal;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+  
+  },
+    dispatch,
+  );
+};
+
+export default connect(null, mapDispatchToProps)(TVGenreModal);

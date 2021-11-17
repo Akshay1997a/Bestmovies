@@ -20,7 +20,8 @@ import i18n from 'i18next';
 import {useFocusEffect} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {WIDTH} from '../../helper/globalFunctions';
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 const isAndroid = () => {
   return Platform.OS == 'android';
 };
@@ -114,6 +115,8 @@ const TVCountryModal = (props) => {
 
   return (
     <CommonFilterTvModal
+    {...props}
+
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}

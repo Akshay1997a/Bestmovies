@@ -314,7 +314,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                 onFocus={() => onFocus(item.key)}
                 onBlur={onBlur}
                 onPress={() => onChangeSelected(item.key)}
-                tvParallaxProperties={{magnification: 1.1}}
+                // tvParallaxProperties={{magnification: 1.1}}
                 style={
                   focus == item.key
                     ? styles.itemWrapperSelected
@@ -351,7 +351,8 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                         key={item.key}
                         onFocus={() => onFocus(item.key)}
                         onPress={() => onPressClick(item)}
-                        tvParallaxProperties={{magnification: 1.1}}>
+                        // tvParallaxProperties={{magnification: 1.1}}
+                        >
                         {item.key === 'BackArrow' ? (
                           <BackArrow item={item} />
                         ) : (
@@ -444,7 +445,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                         key={item.key}
                         onFocus={() => onFocus(item.key)}
                         onPress={() => onPressClick(item)}
-                        tvParallaxProperties={{magnification: 1.1}}
+                        // tvParallaxProperties={{magnification: 1.1}}
                         style={[{flexGrow: 1, justifyContent: 'center'}]}
                         // style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper}
                       >

@@ -340,12 +340,17 @@ let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_
       let lng = i18n.language;
       let countryData = i18next.getDataByLanguage(lng);
       let countries_listed = countryData?.translation?.countries_listed;
+      let genres_listed = countryData?.translation?.genres;
+
       let movie =  response.data.data;
       
       for(let i =0 ;i < movie.length ;i++){
         let req = movie[i];
         let str = '';
+        let strGenres = '';
         let country = req.origins.split(',');
+        let genres = req.genres.split(',');
+
         for(let j =0 ;j < country.length ;j++){
          let locstr = countries_listed["code_"+ country[j]];
          if(country.length > 1 && j <country.length-1){
@@ -355,8 +360,18 @@ let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_
          }
 
         }
+        for(let k =0 ;k < genres.length ;k++){
+          let locstrGen = genres_listed["code_"+ genres[k]];
+          if(genres.length > 1 && k <genres.length-1){
+            strGenres+=locstrGen+','
+          }else{
+            strGenres += locstrGen
+          }
+         }
         // let str = countries_listed["code_"+ req.country_cd];
         movie[i].origins = str;
+        movie[i].genres = strGenres;
+
       }
       setMovies(page === 1 ? movie : [...movies, ...movie])
       setMoviesSearch(response.data.data)
@@ -1319,6 +1334,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         )} */}
       </View>
       <TVSortByModal
+      // hasTVPreferredFocus={true}
+      {...props}
         keySort={SORT_BY}
         action={onPressClick}
         selected={true}
@@ -1327,6 +1344,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(SORT_BY)}
       />
       <TVLikedByModal
+      {...props}
+
         keySort={LIKEDBY}
         action={onPressClick}
         selected={true}
@@ -1335,6 +1354,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(LIKEDBY)}
       />
       <TVStreamingModal
+      {...props}
+
         action={onPressClick}
         keySort={STRREAMING}
         visible={showSelected == STRREAMING}
@@ -1342,6 +1363,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(STRREAMING)}
       />
       <TVAgesModal
+      {...props}
+
         action={onPressClick}
         keySort={AGES}
         visible={showSelected == AGES}
@@ -1349,6 +1372,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(AGES)}
       />
       <TVReleaseModal
+      {...props}
+
         action={onPressClick}
         keySort={RELEASE}
         visible={showSelected == RELEASE}
@@ -1356,6 +1381,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(RELEASE)}
       />
       <TVCountryModal
+      {...props}
+
         action={onPressClick}
         keySort={COUNTRY}
         visible={showSelected == COUNTRY}
@@ -1363,6 +1390,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(COUNTRY)}
       />
       <TVGenreModal
+      {...props}
+
         action={onPressClick}
         keySort={GENRE}
         visible={showSelected == GENRE}
@@ -1370,6 +1399,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(GENRE)}
       />
       <TVPriceModal
+      {...props}
+
         action={onPressClick}
         keySort={PRICE}
         visible={showSelected == PRICE}
@@ -1377,6 +1408,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
         onclose={() => oncloseModal(PRICE)}
       />
       <TVProvidersModal
+      
         action={onPressClick}
         keySort={PROVIDERS}
         visible={showSelected == PROVIDERS}

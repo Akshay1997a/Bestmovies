@@ -119,6 +119,10 @@ const styles = StyleSheet.create({
     marginTop: -5,
   },
   ratingText: {
+    // alignContent:'center',
+    // justifyContent:'center',
+    textAlign:'center',
+    // alignSelf:'center',
     color: colors.white,
     position: 'absolute',
     fontFamily: primary_font.primary_bold_font,
