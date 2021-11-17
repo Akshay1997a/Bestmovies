@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     // marginLeft:10,
   },
   focustoggle: {
-   // backgroundColor: colors.tomatoRed,
+   backgroundColor: colors.tomatoRed,
     padding: StyleConfig.resWidth(10),
     // paddingVertical: StyleConfig.resWidth(8),
     // height: isAndroid() ? 40 : 90,
@@ -492,7 +492,7 @@ console.log(countryFlag);
             </Pressable>
 
             <View style={{flex: 0.8, marginStart: StyleConfig.resWidth(30)}}>
-              <Text numberOfLines={1} style={styles.heading}>
+              <Text numberOfLines={1} style={[styles.heading,{maxWidth:StyleConfig.resWidth(285)}]}>
                 {t('texts.id_144')}
               </Text>
             </View>
@@ -514,7 +514,7 @@ console.log(countryFlag);
                     numberOfLines={1}
                     style={[
                       focus ? styles.focusTextCountry : styles.countryText,
-                      {maxWidth: 200},
+                      {maxWidth:StyleConfig.resWidth(150)},
                     ]}>
                     {t('texts.id_28')}:{'  '}
                   </Text>
@@ -610,7 +610,7 @@ console.log(countryFlag);
               paddingVertical: StyleConfig.resHeight(10),
             }}>
             <View>
-              <Text numberOfLines={1} style={styles.sbscriptionText}>
+              <Text numberOfLines={1} style={[styles.sbscriptionText,{maxWidth:StyleConfig.resWidth(200)}]}>
                 {t('texts.id_156')}: 3
               </Text>
             </View>
@@ -672,7 +672,7 @@ console.log(countryFlag);
                 />
               )}
             </Pressable>
-            <Text numberOfLines={1} style={styles.download}>
+            <Text numberOfLines={1} style={[styles.download,{maxWidth:StyleConfig.resWidth(420)}]}>
               {t('texts.id_150')}
             </Text>
           </View>
@@ -697,7 +697,7 @@ console.log(countryFlag);
                 />
               )}
             </Pressable>
-            <Text numberOfLines={1} style={styles.download}>
+            <Text numberOfLines={1} style={[styles.download,{maxWidth:StyleConfig.resWidth(420)}]}>
               {t('texts.id_152')}
             </Text>
           </View>
@@ -725,7 +725,7 @@ console.log(countryFlag);
               )}
             </Pressable>
             {/* <ToggleSwitch size="small" disabled isOn={true}  /> */}
-            <Text numberOfLines={1} style={styles.download}>
+            <Text numberOfLines={1} style={[styles.download,{maxWidth:StyleConfig.resWidth(420)}]}>
 
               {t('texts.id_154')}
             </Text>

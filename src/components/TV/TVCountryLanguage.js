@@ -264,7 +264,7 @@ const TVCountryLanguage = (props) => {
   console.log('countryList', countryList);
   return (
     // <ScrollView>
-      <View style={{flexDirection: 'row',height:1000}}>
+      <View style={{flexDirection: 'row',}}>
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
@@ -280,27 +280,20 @@ const TVCountryLanguage = (props) => {
                       : styles.backWrap
                   }>
                   <Text
-                    style={
-                    //   {
-                    //   fontFamily: primary_regular_font.primary_regular_font,
-                    //   fontSize: StyleConfig.resWidth(28),
-                    //   fontWeight: '400',
-                    //   // padding: isAndroid() ? 2 : 8,
-                    //   paddingHorizontal: 15,
-                    //   color:
-                    //    item.id == focus
-                    //       ? colors.white
-                    //       :
-                    //       props.focus === 'countryLang' &&   middleSelected == item.id
-                    //         ? colors.tomatoRed
-                    //       : colors.black,
-                    // }
-
-                    props.focus === 'countryLang' && item.id == focus   ? styles.focusText
-                    :  props.focus === 'countryLang' &&   middleSelected == item.id
-                    ? styles.selectedText
-                    : styles.text
-                    }>
+                    style={{
+                      fontFamily: primary_regular_font.primary_regular_font,
+                      fontSize: StyleConfig.resWidth(28),
+                      fontWeight: '400',
+                      // padding: isAndroid() ? 2 : 8,
+                      paddingHorizontal: 15,
+                      color:
+                       item.id == focus
+                          ? colors.white
+                          :
+                          middleSelected == item.id
+                            ? colors.tomatoRed
+                          : colors.black,
+                    }}>
                     {item.name}
                   </Text>
                 </Pressable>
@@ -310,13 +303,10 @@ const TVCountryLanguage = (props) => {
           })}
           
         </View>
-        <View style={styles.verticleLine}></View>
-
         <ScrollView>
-          
         {isCountryClick ? (
           <View
-          // hasTVPreferredFocus={true}
+          hasTVPreferredFocus={true}
             style={{
               // marginLeft: isAndroid() ? 100 : 160,
                   // flexDirection:'row',
@@ -337,22 +327,16 @@ const TVCountryLanguage = (props) => {
                         : styles.backWrap
                     }>
                     <Text
-                      style={
-                        props.focus === 'countryLang' && code == focus   ? styles.focusText
-                        :  props.focus === 'countryLang' &&    selected == code
-                        ? styles.selectedText
-                        : styles.text
-                      //   {
-                      //   fontFamily: primary_regular_font.primary_regular_font,
-                      //   fontSize: StyleConfig.resWidth(28),
-                      //   fontWeight: '400',
-                      //   color:
-                      //   props.focus === 'countryLang' && code == focus
-                      //       ? colors.white :
-                      //       props.focus === 'countryLang' &&    selected == code
-                      //       ? colors.tomatoRed  : colors.black,
-                      // }
-                      }>
+                      style={{
+                        fontFamily: primary_regular_font.primary_regular_font,
+                        fontSize: StyleConfig.resWidth(28),
+                        fontWeight: '700',
+                        color:
+                          code == focus
+                            ? colors.white :
+                            selected == code
+                            ? colors.tomatoRed  : colors.black,
+                      }}>
                       {item[1]}
                     </Text>
                   </Pressable>

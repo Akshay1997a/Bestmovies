@@ -206,21 +206,10 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   }
   useEffect(() => {
     getSearch()
-    let  abArray = [];
     let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
     let staticPages = countryData?.translation?.static_pages;
-    staticPages !== null && Object.entries(staticPages)?.map((item, index) => {
-      let items = item
-      // let obje  ={
-      //   key: TERMS_OF_USE,
-      //  title: strings.terms_of_use,
-      // }
-      // if(type){
-      //   abArray.push(obje)
-      // }
-    }
-    )
+
     // alert(Object.keys(staticPages)[0]); // returns first
 // alert(Object.keys(staticPages)[1]); // returns second
 //     staticPages !== null && Object.entries(staticPages[0])?.map((item, index) => {
@@ -282,24 +271,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   console.log(props.headerSelected, MENU_DATA);
   return (
     <>
-      {/* {props.headerSelected == PROFILE ? 
-            <View style={styles.container}>
-                {PROFILE_DATA.map((item, index) => {
-                    return (
-                        <Pressable
-                            key={item.key}
-                            onFocus={() => onFocus(item.key)}
-                            onPress={() => onChangeSelected(item.key)}
-                            tvParallaxProperties={{ magnification: 1.1 }}
-                            style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                            <Text style={focus == item.key ? styles.focusTextTitle : styles.text}>{item.title}</Text>
-                        </Pressable>
-                    )
-                })}
-
-            </View> : */}
-
-      {/* props.headerSelected == MENU ? */}
       <View
         style={{
           flexDirection: 'row',
@@ -812,7 +783,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.black,
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '400',
     ...Platform.select({
       android: {
@@ -822,7 +793,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   selectedText: {
-    fontSize: isAndroid() ? 12 : 32,
+    fontSize: StyleConfig.resWidth(28),
     fontWeight: '700',
     ...Platform.select({
       android: {
@@ -833,7 +804,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
   },
   focusText: {
-    fontSize: isAndroid() ? 16 : 26,
+    fontSize: StyleConfig.resWidth(28),
     color: colors.white,
     fontFamily: primary_regular_font.primary_regular_font,
     paddingLeft: 10,
