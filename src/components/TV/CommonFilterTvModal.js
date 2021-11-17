@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     borderRadius: StyleConfig.resWidth(20),
   },
   highlightFocused: {
-    height: 20,
-    width: 10,
+    height: 25,
+    width: 15,
   },
   notHighlightFocused: {
     height: 100,
@@ -104,42 +104,44 @@ const CommonFilterTvModal = (props) => {
     <BaseModal visible={props?.visible} oncloseModal={props.oncloseModal}>
       <View
         style={{
-          minWidth:
-            isAndroid() && props.title == 'Sort by'
-              ? StyleConfig.resWidth(700)
-              : props.title == 'Release year'
-              ? StyleConfig.resWidth(700)
-              : props.title == 'Genres'
-              ? StyleConfig.resWidth(700)
-              : props.title == 'Country of origin'
-              ? StyleConfig.resWidth(700)
-              : props.title == 'Age rating'
-              ? StyleConfig.resWidth(700)
-              : props.title == 'Price'
-              ? StyleConfig.resWidth(700)
-              : props.title == 'Your country'
-              ? StyleConfig.resWidth(700)
-              : props.title == 'From'
-              ? StyleConfig.resWidth(500)
-              : 200,
-          maxHeight:
-            isAndroid() && props.title == 'Sort by'
-              ? HEIGHT * 0.3
-              : props.title == 'Release year'
-              ? HEIGHT * 0.67
-              : props.title == 'Genres'
-              ? HEIGHT * 0.8
-              : props.title == 'Country of origin'
-              ? HEIGHT * 0.8
-              : props.title == 'Age rating'
-              ? HEIGHT * 0.8
-              : props.title == 'Price'
-              ? HEIGHT * 0.6
-              : props.title == 'Your country'
-              ? HEIGHT * 0.8
-              : props.title == 'From'
-              ? HEIGHT * 0.6
-              : 200,
+          // minWidth:
+          //   isAndroid() && props.title == 'Sort by'
+          //     ? StyleConfig.resWidth(700)
+          //     : props.title == 'Release year'
+          //     ? StyleConfig.resWidth(700)
+          //     : props.title == 'Genres'
+          //     ? StyleConfig.resWidth(700)
+          //     : props.title == 'Country of origin'
+          //     ? StyleConfig.resWidth(700)
+          //     : props.title == 'Age rating'
+          //     ? StyleConfig.resWidth(700)
+          //     : props.title == 'Price'
+          //     ? StyleConfig.resWidth(700)
+          //     : props.title == 'Your country'
+          //     ? StyleConfig.resWidth(700)
+          //     : props.title == 'From'
+          //     ? StyleConfig.resWidth(500)
+          //     : 200,
+          // maxHeight:
+          //   isAndroid() && props.title == 'Sort by'
+          //     ? HEIGHT * 0.3
+          //     : props.title == 'Release year'
+          //     ? HEIGHT * 0.67
+          //     : props.title == 'Genres'
+          //     ? HEIGHT * 0.8
+          //     : props.title == 'Country of origin'
+          //     ? HEIGHT * 0.8
+          //     : props.title == 'Age rating'
+          //     ? HEIGHT * 0.8
+          //     : props.title == 'Price'
+          //     ? HEIGHT * 0.6
+          //     : props.title == 'Your country'
+          //     ? HEIGHT * 0.8
+          //     : props.title == 'From'
+          //     ? HEIGHT * 0.6
+          //     : 200,
+              width:StyleConfig.resWidth(600),
+              height:StyleConfig.resHeight(302),
 
           // : HEIGHT * 0.9,
           backgroundColor: colors.white,
@@ -162,7 +164,7 @@ const CommonFilterTvModal = (props) => {
             style={({pressed, hovered, focused}) =>
               focused ? styles.focusBackWrap : styles.backWrap
             }>
-            <Image source={AppImages.back_bk} style={styles.highlightFocused} />
+            <Image source={AppImages.back_bk} style={[styles.highlightFocused,]} />
           </Pressable>
           <Text
             numberOfLines={1}
@@ -170,17 +172,19 @@ const CommonFilterTvModal = (props) => {
               fontFamily: primary_regular_font.primary_bold_font,
               fontSize: StyleConfig.resWidth(34),
               fontWeight: '700',
-              ...Platform.select({
-                android: {
-                  fontFamily: primary_regular_font.primary_light_font,
-                },
-              }),
+              lineHeight:48,
+              // ...Platform.select({
+              //   android: {
+              //     fontFamily: primary_bold_font.primary_light_font,
+              //   },
+              // }),
+              width:StyleConfig.resWidth(220),
               textAlign: 'center',
               // maxWidth: WIDTH * 0.2,
             }}>
             {props?.title}
           </Text>
-          <View style={{width: StyleConfig.resWidth(36), margin: 4}}
+          <View style={{width: StyleConfig.resWidth(36), margin: 4,}}
            />
         </View>
         {props?.children}

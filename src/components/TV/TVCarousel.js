@@ -397,7 +397,7 @@ const MyCarousel = ({item, posts, ...props}) => {
         <ImageBackground
           source={{uri: item}}
           containerStyle={styles.imageContainer}
-          style={[styles.image]}
+          style={[styles.image,]}
         />
         {/* <Text style={styles.title} numberOfLines={2}>
           {item.title}
@@ -415,9 +415,10 @@ const MyCarousel = ({item, posts, ...props}) => {
     return (
       // <View style={styles.secondItem}>
       <Image
+     // resizeMode='center'
         source={{uri: item}}
         // containerStyle={styles.imageContainer}
-        style={[styles.bottomImage]}
+        style={[styles.bottomImage,]}
       />
       // </View>
     );
@@ -505,8 +506,9 @@ const MyCarousel = ({item, posts, ...props}) => {
             loop={true}
             autoplayDelay={400}
             autoplay={true}
+            ///fadingEdgeLength={0}
             ref={carouselRef}
-            sliderWidth={WIDTH}
+            sliderWidth={WIDTH /0.8}
             sliderHeight={HEIGHT}
             itemWidth={isAndroid()?StyleConfig.resWidth(480):StyleConfig.resWidth(480)}
             itemHeight={isAndroid()?StyleConfig.resHeight(360):StyleConfig.resHeight(360)}

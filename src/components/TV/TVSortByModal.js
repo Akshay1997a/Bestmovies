@@ -124,7 +124,7 @@ const TVSortByModal = (props, key) => {
       title={t('texts.id_99')}
       titleId={'sort_by'}>
       <ScrollView>
-        <View style={{margin: StyleConfig.resWidth(15)}}>
+        <View style={{margin: StyleConfig.resWidth(15),}}>
           {data.map((item, index) => {
             return (
               <Pressable
@@ -136,12 +136,13 @@ const TVSortByModal = (props, key) => {
                 }>
                 <Text
                   numberOfLines={1}
+                  ellipsizeMode='tail'
                   style={
-                    item.id == focus
+                    [item.id == focus
                       ? styles.whiteStyle
                       : item.id == selected
                       ? styles.tomatoStyle
-                      : styles.blackStyle
+                      : styles.blackStyle,{width:StyleConfig.resWidth(250)}]
                   }>
                   {t(item.name)}
                 </Text>

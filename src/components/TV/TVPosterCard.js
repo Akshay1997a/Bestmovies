@@ -198,12 +198,12 @@ const TVPosterCard = ({item,details, ...props}) => {
               ? StyleConfig.resWidth(27)
               : StyleConfig.resWidth(40),
           }}>
-          <Text numberOfLines={2} style={styles.titleText}>
+          <Text numberOfLines={1} style={[styles.titleText,]}>
             {item?.local_title}
           </Text>
           <Text 
           ellipsizeMode="tail" numberOfLines={1}
-          style={styles.subTextSecondary}>
+          style={[styles.subTextSecondary,{width:StyleConfig.resWidth(400)}]}>
             Name of original title if foreign
           </Text>
           {/* <View
@@ -234,32 +234,29 @@ const TVPosterCard = ({item,details, ...props}) => {
                 // borderColor: 'red',
                 // marginTop: StyleConfig.resHeight(20),
               }}>
-              <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
+              <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(350)}]}>
                 {/* {`${t('texts.id_134')} - 2019 - 154 min -18+`} */}
                 {item?.genres+' - ' + item.year+' - '+ details.duration+' min'+'-'+item.age_rating+'+'} 
 
               </Text>
               {/* <View> */}
               <View style={{flexDirection: 'row'}}>
-                <Text style={styles.headTextSecondary}>
+                <Text style={[styles.headTextSecondary,]}>
                   {t('professions.code_df')}:
                 </Text>
                 <Text 
                 ellipsizeMode="tail" numberOfLines={1}
-                style={styles.textSecondary}> Todd Phillips</Text>
+                style={[styles.textSecondary,{width:StyleConfig.resWidth(200)}]}> Todd Phillips</Text>
               </View>
 
               <View
                 style={{
                   flexDirection: 'row',
                 }}>
-                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.headTextSecondary}>
-                  {t('texts.id_14')}
+                <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.headTextSecondary,{width:StyleConfig.resWidth(80),}]}>
+                  {t('texts.id_14')}:
                 </Text>
-                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
-                  :
-                </Text>
-                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
+                <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(610),}]}>
                   {' '}
                   Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy
                 </Text>
@@ -333,7 +330,7 @@ const TVPosterCard = ({item,details, ...props}) => {
                   flexDirection: 'row',
                   // justifyContent: 'space-between',
                 }}>
-                <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>
+                <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{marginBottom:5,width:StyleConfig.resWidth(180)}]}>
                   {`78% ${t('texts.id_104')} - 12`}
                 </Text>
                 <Icon
@@ -362,6 +359,7 @@ const TVPosterCard = ({item,details, ...props}) => {
                     borderRightWidth: StyleConfig.resWidth(2),
                     paddingHorizontal: StyleConfig.resWidth(10),
                     borderColor: colors.white,
+                    borderWidth:1.5,
                   }}>
                   <View>
                     <View
@@ -369,8 +367,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_210')}</Text>
-                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.awards_rating}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(100)}]}>{t('texts.id_210')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(40)}]}>{item.awards_rating}</Text>
                     </View>
                   </View>
                   <View>
@@ -379,8 +377,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_211')}</Text>
-                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.critics_rating_displayed}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(100)}]}>{t('texts.id_211')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(40)}]}>{item.critics_rating_displayed}</Text>
                     </View>
                   </View>
                 </View>
@@ -423,6 +421,9 @@ const TVPosterCard = ({item,details, ...props}) => {
                     justifyContent: 'center',
                     paddingHorizontal: StyleConfig.resWidth(10),
                     borderColor: colors.white,
+                    borderTopWidth:2,
+                    borderStartWidth:2,
+                    borderBottomWidth:2,
                   }}>
                   <View>
                     <View
@@ -430,8 +431,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text  ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_212')}</Text>
-                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.audience_rating_displayed}</Text>
+                      <Text  ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(120)}]}>{t('texts.id_212')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(40)}]}>{item.audience_rating_displayed}</Text>
                     </View>
                   </View>
                   <View>
@@ -440,8 +441,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                       }}>
-                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{t('texts.id_213')}</Text>
-                      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.textSecondary}>{item.box_office_rating}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{width:StyleConfig.resWidth(120)}]}>{t('texts.id_213')}</Text>
+                      <Text ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,,{width:StyleConfig.resWidth(40)}]}>{item.box_office_rating}</Text>
                     </View>
                   </View>
                 </View>
@@ -458,8 +459,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Text style={styles.ratingText}>{item.rating}</Text>
-                  <Text style={styles.ratingText}>{item.rating >= 9 ? 
+                  <Text style={[styles.ratingText,{width:StyleConfig.resWidth(60),textAlign:'center'}]}>{item.rating}</Text>
+                  <Text style={[styles.ratingText,{width:StyleConfig.resWidth(100),textAlign:'center'}]}>{item.rating >= 9 ? 
                           "Best":
                           item.rating >= 8 ? 
                           'Excellent' :
@@ -497,9 +498,9 @@ const TVPosterCard = ({item,details, ...props}) => {
              {details?.plots}
             </Text>
             <View>
-              <Text  ellipsizeMode="tail" numberOfLines={1} style={[styles.textSecondary,{marginTop:5}]}>
+              <Text  ellipsizeMode="tail" numberOfLines={2} style={[styles.textSecondary,{marginTop:5,width:StyleConfig.resWidth(500)}]}>
                 {
-                  'Won 2 oscars including best director\nWon 1 G. Globe including best movie'
+                  "Won 2 oscars including best director\nWon 1 G. Globe including best movie"
                 }
               </Text>
               <Text style={styles.textSecondary} />
@@ -512,12 +513,9 @@ const TVPosterCard = ({item,details, ...props}) => {
               style={{
                 flexDirection: 'row',
                 flex: 1,
-                marginTop:5,
+                marginTop:12,
                 width:Platform.OS==="ios"? StyleConfig.resWidth(WIDTH*0.776):StyleConfig.resWidth(WIDTH*0.8 *1.95),
-                // alignItems: 'flex-end',
                 justifyContent:'space-evenly',
-                // borderWidth: 1,
-                 //borderColor:'red'
               }}>
               {/* <Icon  type="fontawesome" name={"play-circle"} style={{fontSize:80, color:colors.white}} /> */}
               <View
@@ -530,8 +528,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                 }>
                 <Image
                   style={{
-                    height: StyleConfig.resHeight(66),
-                    width: StyleConfig.resWidth(66),
+                    height: StyleConfig.resHeight(60),
+                    width: StyleConfig.resWidth(60),
                     borderRadius: StyleConfig.resWidth(10),
                     // marginTop: StyleConfig.resHeight(10),
                     marginRight: StyleConfig.resHeight(10),
@@ -562,8 +560,8 @@ const TVPosterCard = ({item,details, ...props}) => {
                       <Image
                         keyExtractor={obj.id}
                         style={{
-                          height: StyleConfig.resHeight(66),
-                          width: StyleConfig.resWidth(88),
+                          height: StyleConfig.resHeight(60),
+                          width: StyleConfig.resWidth(90),
                           borderRadius: StyleConfig.resWidth(10),
                         }}
                         source={obj?.image}
@@ -655,16 +653,15 @@ const styles = StyleSheet.create({
   },
   textSecondary: {
     // borderWidth: 1,
-    width:StyleConfig.resWidth(120),
-
+    // width:StyleConfig.resWidth(120),
     lineHeight: StyleConfig.resHeight(30),
     color: colors.white,
     fontWeight: '400',
-    fontFamily: primary_regular_font.primary_regular_font,
-    fontSize: StyleConfig.resHeight(24),
+    fontFamily: primary_regular_font.primary_bold_font,
+    fontSize: StyleConfig.resHeight(26),
     ...Platform.select({
       android: {
-        fontFamily: primary_regular_font.primary_regular_font,
+        fontFamily: primary_regular_font.primary_bold_font,
       },
     }),
   },
