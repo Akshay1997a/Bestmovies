@@ -121,8 +121,8 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   const {t,i18n} = useTranslation();
 
   const [focus, setFocus] = useState(NONE);
-  const [key, setKey] = useState(-1);
-  const [selected, setSelected] = useState(9);
+  const [key, setKey] = useState(9);
+  const [selected, setSelected] = useState(-1);
   const [aboutUs, setAboutUsData] = useState(null);
   const [terms, setTerms] = useState(null);
   const [data, setData] = useState(null);
@@ -153,15 +153,68 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
       setFocus(val);
     },
   }));
+  const getAllSearch = (data) =>{
+     data.shift();
+      data.pop()
+       let  abArray = [];
+
+    let requests = data !== null && data.map(item => {
+      if(item.key!=9)
+      return new Promise((resolve, reject) => {
+        props.getStaticData(item.key, (res) => {
+          console.log('responseeeeee', res);
+          if (res.length <0) { reject(err) }
+          if (res)  {
+            resolve(res)}
+        });
+      })
+   })
+
+    Promise.all(requests) 
+     .then(body => { 
+        body.forEach(res => {
+       if (res)
+      //  console.log(JSON.parse(res))
+      //  let response = JSON.parse(res);
+       res.data.static_pages !== null && Object.entries(res.data.static_pages[0])?.map((item, index) => {
+     let type  = '';
+     if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
+         type = 'title'
+     }else  if(item[0] === 'text1' || item[0] === 'text2' ||item[0] === 'text3' ||item[0] === 'text4' ||item[0] === 'text5' ||item[0] === 'text6' ){
+       type = 'detail'
+     }else if(item[0] === 'subtitle1' || item[0] === 'subtitle2' ||item[0] === 'subtitle3' ||item[0] === 'subtitle4' ||item[0] === 'subtitle5' ||item[0] === 'subtitle6' ){
+       type = 'subtitle'
+     }else if(item[0] === 'image1_url' || item[0] === 'image2_url' ||item[0] === 'image3_url' ||item[0] === 'image4_url' ||item[0] === 'image5_url' || item[0] === 'image6_url' ){
+       type = 'image'
+     }else{
+       type = '';
+     }
+     let obje  ={
+       id : index,
+       type: type,
+       data :item[1]
+     }
+     if(type){
+       abArray.push(obje)
+     }
+     })
+     let fdata = abArray;
+     if(abArray.length >0){
+      setAboutUsData(abArray)
+
+     }
+      //  setTerms(abArray)
+          //  productsToReturn.push(JSON.parse(res).productInfo)
+        })
+     })
+    
+  }
   const getSearch = () =>{
     axios
     .get('http://18.119.119.183:3002/static-pages?device=web&slug=terms_sample')
     .then(function (response) {
-
       let  abArray = [];
-
       response.data.data.static_pages !== null && Object.entries(response.data.data.static_pages[0])?.map((item, index) => {
-    // let data = item;
     let type  = '';
     if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
         type = 'title'
@@ -174,7 +227,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     }else{
       type = '';
     }
-    
     let obje  ={
       id : index,
       type: type,
@@ -182,16 +234,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     }
     if(type){
       abArray.push(obje)
-
     }
-
-      // let [temp, code] = item[0].split('_')
-      // if(code== val){
-      //   console.log(item)
-      //   str = item[1];
-      //   str+=str;
-      //   return str
-      // }
     })
       setTerms(abArray);
       console.log(response);
@@ -205,17 +248,50 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     });
   }
   useEffect(() => {
-    getSearch()
+    // getSearch()
     let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
     let staticPages = countryData?.translation?.static_pages;
+   let  MENU_DATA = []
+   let  side_MENU_DATA = []
 
+   MENU_DATA.push(
+    {
+      key: COUNTRY_LANGUAGE,
+      title: strings.country_language,
+    },
+   )
     // alert(Object.keys(staticPages)[0]); // returns first
 // alert(Object.keys(staticPages)[1]); // returns second
-//     staticPages !== null && Object.entries(staticPages[0])?.map((item, index) => {
-// let key = item
-  
-//   })
+    staticPages !== null && Object.entries(staticPages)?.map((item, index) => {
+let key = item
+let obje  ={
+  key: item[0],
+  title: item[1],
+}
+MENU_DATA.push(obje);
+  })
+  let mData  = MENU_DATA;
+  getAllSearch(mData)
+  side_MENU_DATA.push(
+    {
+      key: COUNTRY_LANGUAGE,
+      title: strings.country_language,
+    },
+   )
+  //  let  MENU_DATA = []
+   staticPages !== null && Object.entries(staticPages)?.map((item, index) => {
+    let key = item
+    let obje  ={
+      key: item[0],
+      title: item[1],
+    }
+    side_MENU_DATA.push(obje);
+      })
+      side_MENU_DATA.pop()
+
+  setData(side_MENU_DATA)
+
     // console.log(Object.keys(staticPages));
     // // for (const item of LANGUAGES) {
     // //   languageMap.set('code_AD', 'Andorra');
@@ -229,44 +305,50 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     //   setLanguageList(data);
     //   setTitleLanguageList(titleLanguage);
     // });
-    props.getStaticData((res) => {
-      let aboutdata = [];
-  let  abArray = [];
-  res.data.static_pages !== null && Object.entries(res.data.static_pages[0])?.map((item, index) => {
-    // let data = item;
-    let type  = '';
-    if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
-        type = 'title'
-    }else  if(item[0] === 'text1' || item[0] === 'text2' ||item[0] === 'text3' ||item[0] === 'text4' ||item[0] === 'text5' ||item[0] === 'text6' ){
-      type = 'detail'
-    }else if(item[0] === 'subtitle1' || item[0] === 'subtitle2' ||item[0] === 'subtitle3' ||item[0] === 'subtitle4' ||item[0] === 'subtitle5' ||item[0] === 'subtitle6' ){
-      type = 'subtitle'
-    }else if(item[0] === 'image1_url' || item[0] === 'image2_url' ||item[0] === 'image3_url' ||item[0] === 'image4_url' ||item[0] === 'image5_url' || item[0] === 'image6_url' ){
-      type = 'image'
-    }else{
-      type = '';
-    }
+    // props.getStaticData('data', (res) => {
+    //   console.log('responseeeeee', res);
+      
+    // });
+  
     
-    let obje  ={
-      id : index,
-      type: type,
-      data :item[1]
-    }
-    if(type){
-      abArray.push(obje)
-    }
+  //   props.getStaticData((res) => {
+  //     let aboutdata = [];
+  // let  abArray = [];
+  // res.data.static_pages !== null && Object.entries(res.data.static_pages[0])?.map((item, index) => {
+  //   // let data = item;
+  //   let type  = '';
+  //   if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
+  //       type = 'title'
+  //   }else  if(item[0] === 'text1' || item[0] === 'text2' ||item[0] === 'text3' ||item[0] === 'text4' ||item[0] === 'text5' ||item[0] === 'text6' ){
+  //     type = 'detail'
+  //   }else if(item[0] === 'subtitle1' || item[0] === 'subtitle2' ||item[0] === 'subtitle3' ||item[0] === 'subtitle4' ||item[0] === 'subtitle5' ||item[0] === 'subtitle6' ){
+  //     type = 'subtitle'
+  //   }else if(item[0] === 'image1_url' || item[0] === 'image2_url' ||item[0] === 'image3_url' ||item[0] === 'image4_url' ||item[0] === 'image5_url' || item[0] === 'image6_url' ){
+  //     type = 'image'
+  //   }else{
+  //     type = '';
+  //   }
+    
+  //   let obje  ={
+  //     id : index,
+  //     type: type,
+  //     data :item[1]
+  //   }
+  //   if(type){
+  //     abArray.push(obje)
+  //   }
 
-      // let [temp, code] = item[0].split('_')
-      // if(code== val){
-      //   console.log(item)
-      //   str = item[1];
-      //   str+=str;
-      //   return str
-      // }
-    })
-      setAboutUsData(abArray);
-      // let data = res;
-    });
+  //     // let [temp, code] = item[0].split('_')
+  //     // if(code== val){
+  //     //   console.log(item)
+  //     //   str = item[1];
+  //     //   str+=str;
+  //     //   return str
+  //     // }
+  //   })
+  //     setAboutUsData(abArray);
+  //     // let data = res;
+  //   });
   }, []);
   console.log(props.headerSelected, MENU_DATA);
   return (
@@ -277,7 +359,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           marginLeft: 30,
         }}>
         <View style={[styles.container]}>
-          {MENU_DATA.map((item, index) => {
+          {data !== null && data.map((item, index) => {
             return (
               <View
                 key={index}
@@ -319,23 +401,49 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
           })}
         </View>
 
-        {key == COUNTRY_LANGUAGE && (
+        {key == COUNTRY_LANGUAGE ?  (
           <View>
             <TVCountryLanguage {...props}></TVCountryLanguage>
-            {/* <Text>fsfs</Text> */}
-            {/* <TVCountryLanguage {...props}></TVCountryLanguage> */}
+          </View>
+        ):
+         (
+          <View>
+            <FlatList
+              data={aboutUs}
+              keyExtractor={(item, index) => `item${index}`}
+              renderItem={({item}) => {
+                return (
+                  <Pressable style={{flexDirection: 'row'}}
+                  >
 
-            {/* <FlatList 
-                data={COLLABORATE_DATA}
-                keyExtractor={(item, index) => `item${index}`}
-                renderItem={({item})=>{
-                  return <Pressable style={{flexDirection: 'row'}}><>{item.type == "image" ? <Image source={{uri: item.data}} resizeMode={'stretch'} style={styles.aboutUsImg} /> : 
-                  <Text style={item.type == "title" ? styles.aboutUsTitle : item.type == "subtitle" ? styles.aboutUsSubTitle: styles.aboutUsDetail}>{item.data}</Text>}</></Pressable>
-                }}
-              /> */}
+                  <>
+                  {item.type == 'image' ? (
+                        <Image
+                          source={{uri: item.data}}
+                          resizeMode={'stretch'}
+                          style={styles.aboutUsImg}
+                        />
+                      ) : (
+                        <Text
+                          style={
+                            item.type == 'title'
+                              ? styles.aboutUsTitle
+                              : item.type == 'subtitle'
+                              ? styles.aboutUsSubTitle
+                              : styles.aboutUsDetail
+                          }>
+                          {item.data}
+                        </Text>
+                      )}
+                    </>
+                
+                  </Pressable>
+                );
+              }}
+            />
           </View>
         )}
-        {key == MOBILE_APP && (
+        {/* {key == MOBILE_APP && (
           <View hasTVPreferredFocus={true}>
             <FlatList
               data={Const.MOBILE_APP}
@@ -402,153 +510,10 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
               }}
             />
           </View>
-        )}
+        )} */}
 
-        {key == ABOUT_US && (
-          <View  >
-            <FlatList
-             
-              data={aboutUs}
-              keyExtractor={(item, index) => `item${index}`}
-              renderItem={({item}) => {
-                return (
-                  <Pressable style={{flexDirection: 'row'}}
-                  // onFocus={() => {
-                  //   onFocus(item.data);
-                  // }}
-                  >
-
-                  <>
-                  {item.type == 'image' ? (
-                        <Image
-                          source={{uri: item.data}}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                      ) : (
-                        <Text
-                          style={
-                            item.type == 'title'
-                              ? styles.aboutUsTitle
-                              : item.type == 'subtitle'
-                              ? styles.aboutUsSubTitle
-                              : styles.aboutUsDetail
-                          }>
-                          {item.data}
-                        </Text>
-                      )}
-                    </>
-                
-                    {/* {
-
-item?.image1_url ?
-                    <Image
-                            source={{ uri: item?.image1_url }}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                        :null
-                    }
-                         <Text
-                          style={styles.aboutUsTitle}>{item.heading1}</Text>
-                          <Text
-                          style={styles.aboutUsSubTitle}>{item.subtitle1}</Text>
-                           <Text
-                          style={styles.aboutUsDetail}>{item.text1}</Text>
-                          {
-
-item?.image1_url ?
-                    <Image
-                            source={{ uri: item?.image1_url }}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                        :null
-                    }
-                         <Text
-                          style={styles.aboutUsTitle}>{item.heading2}</Text>
-                          <Text
-                          style={styles.aboutUsSubTitle}>{item.subtitle2}</Text>
-                           <Text
-                          style={styles.aboutUsDetail}>{item.text2}</Text>
-                          {
-
-item?.image1_url ?
-                    <Image
-                            source={{ uri: item?.image1_url }}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                        :null
-                    }
-                         <Text
-                          style={styles.aboutUsTitle}>{item.heading3}</Text>
-                          <Text
-                          style={styles.aboutUsSubTitle}>{item.subtitle3}</Text>
-                           <Text
-                          style={styles.aboutUsDetail}>{item.text3}</Text>
-                          {
-
-item?.image1_url ?
-                    <Image
-                            source={{ uri: item?.image1_url }}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                        :null
-                    }
-                       <Text
-                        style={styles.aboutUsTitle}>{item.heading4}</Text>
-                        <Text
-                        style={styles.aboutUsSubTitle}>{item.subtitle4}</Text>
-                         <Text
-                        style={styles.aboutUsDetail}>{item.text4}</Text>
-                        {
-
-item?.image1_url ?
-                    <Image
-                            source={{ uri: item?.image1_url }}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                        :null
-                    }
-                     <Text
-                      style={styles.aboutUsTitle}>{item.heading5}</Text>
-                      <Text
-                      style={styles.aboutUsSubTitle}>{item.subtitle5}</Text>
-                       <Text
-                      style={styles.aboutUsDetail}>{item.text5}</Text> */}
-
-                      {/* {item.type == 'image' ? (
-                        <Image
-                          source={{uri: item.data}}
-                          resizeMode={'stretch'}
-                          style={styles.aboutUsImg}
-                        />
-                      ) : (
-                        <Text
-                          style={[
-                            item.type == 'title'
-                              ? styles.aboutUsTitle
-                              : item.type == 'subtitle'
-                              ? styles.aboutUsSubTitle
-                              : styles.aboutUsDetail,
-                            {
-                              flexWrap: 'wrap',
-                            },
-                          ]}>
-                          {item.data}
-                        </Text>
-                      )} */}
-                    {/* </> */}
-                  </Pressable>
-                );
-              }}
-            />
-          </View>
-        )}
-        {key == ADVERTISE && (
+        
+        {/* {key == ADVERTISE && (
           <View hasTVPreferredFocus={true}>
             <FlatList
               data={ADVERTISE}
@@ -717,26 +682,8 @@ item?.image1_url ?
               }}
             />
           </View>
-        )}
+        )} */}
       </View>
-      {/* :
-
-                <View style={styles.container}>
-                    {DATA.map((item, index) => {
-                        return (
-                            <Pressable
-                                key={item.key}
-                                onFocus={() => onFocus(item.key)}
-                                onPress={() => onChangeSelected(item.key)}
-                                tvParallaxProperties={{ magnification: 1.1 }}
-                                style={focus == item.key ? styles.itemWrapperSelected : styles.itemWrapper} >
-                                <Text style={focus == item.key ? styles.focusTextTitle : styles.textTitle}>{item.title}</Text>
-                                <Text style={focus == item.key ? styles.focusText : styles.text}>{item.details}</Text>
-                            </Pressable>
-                        )
-                    })}
-
-                </View>} */}
     </>
   );
 });

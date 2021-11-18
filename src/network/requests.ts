@@ -123,6 +123,7 @@ export const getLanguageData = (
 		);
 };
 export const getStaticData = (
+	param:any,
 	succesCallback: Function,
 	errorCallback: Function,
 ) => {
@@ -130,7 +131,7 @@ export const getStaticData = (
 	return (dispatch: Function) =>
 		commonApiWrapper(
             dispatch,
-			endPoints.staticData + `device=tv&slug=about`,
+			endPoints.staticData + 'device=tv&slug='+param,
 			apiConstants.get_request_type,
 			apiConstants.raw_data_type,
 			null,

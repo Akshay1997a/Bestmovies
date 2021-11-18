@@ -336,14 +336,11 @@ let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_
       // setAboutUsData(response.data.data.static_pages);
       
       if(response.data.data.length > 0){
-      // setMovies(response.data.data)
       let lng = i18n.language;
       let countryData = i18next.getDataByLanguage(lng);
       let countries_listed = countryData?.translation?.countries_listed;
       let genres_listed = countryData?.translation?.genres;
-
       let movie =  response.data.data;
-      
       for(let i =0 ;i < movie.length ;i++){
         let req = movie[i];
         let str = '';
@@ -373,7 +370,7 @@ let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_
         movie[i].genres = strGenres;
 
       }
-      setMovies(page === 1 ? movie : [...movies, ...movie])
+      setMovies(offset_page === 1 ? movie : [...movies, ...movie])
       setMoviesSearch(response.data.data)
       // getTVShows('',sort_id,provider,generes_code,ages,prices);
       // getShorts('',sort_id,provider,generes_code,ages,prices);
@@ -412,8 +409,43 @@ let url = 'device=tv&type=t&output=ove&offset='+tvShowPage+provider+prices+'&t_l
       // handle success
       // setAboutUsData(response.data.data.static_pages);
       if(response.data.data.length > 0){
+
+        let lng = i18n.language;
+      let countryData = i18next.getDataByLanguage(lng);
+      let countries_listed = countryData?.translation?.countries_listed;
+      let genres_listed = countryData?.translation?.genres;
+      let movie =  response.data.data;
+      for(let i =0 ;i < movie.length ;i++){
+        let req = movie[i];
+        let str = '';
+        let strGenres = '';
+        let country = req.origins.split(',');
+        let genres = req.genres.split(',');
+
+        for(let j =0 ;j < country.length ;j++){
+         let locstr = countries_listed["code_"+ country[j]];
+         if(country.length > 1 && j <country.length-1){
+            str+=locstr+','
+         }else{
+          str += locstr
+         }
+
+        }
+        for(let k =0 ;k < genres.length ;k++){
+          let locstrGen = genres_listed["code_"+ genres[k]];
+          if(genres.length > 1 && k <genres.length-1){
+            strGenres+=locstrGen+','
+          }else{
+            strGenres += locstrGen
+          }
+         }
+        // let str = countries_listed["code_"+ req.country_cd];
+        movie[i].origins = str;
+        movie[i].genres = strGenres;
+
+      }
         // page === 1 ? response.data.data : [...movies, ...response.data.data]
-      setTVShoes(tvShowPage === 1 ? response.data.data : [...tvShoes, ...response.data.data])
+      setTVShoes(tvShowPage === 1 ? movie : [...tvShoes, ...movie])
       setTvShowsPage(tvShowPage+1);
 
       console.log(response);
@@ -450,7 +482,41 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
       // handle success
       // setAboutUsData(response.data.data.static_pages);
       if(response.data.data.length > 0){
-        setTVShorts(tvShortsPage === 1 ? response.data.data : [...shorts, ...response.data.data])
+        let lng = i18n.language;
+        let countryData = i18next.getDataByLanguage(lng);
+        let countries_listed = countryData?.translation?.countries_listed;
+        let genres_listed = countryData?.translation?.genres;
+        let movie =  response.data.data;
+        for(let i =0 ;i < movie.length ;i++){
+          let req = movie[i];
+          let str = '';
+          let strGenres = '';
+          let country = req.origins.split(',');
+          let genres = req.genres.split(',');
+  
+          for(let j =0 ;j < country.length ;j++){
+           let locstr = countries_listed["code_"+ country[j]];
+           if(country.length > 1 && j <country.length-1){
+              str+=locstr+','
+           }else{
+            str += locstr
+           }
+  
+          }
+          for(let k =0 ;k < genres.length ;k++){
+            let locstrGen = genres_listed["code_"+ genres[k]];
+            if(genres.length > 1 && k <genres.length-1){
+              strGenres+=locstrGen+','
+            }else{
+              strGenres += locstrGen
+            }
+           }
+          // let str = countries_listed["code_"+ req.country_cd];
+          movie[i].origins = str;
+          movie[i].genres = strGenres;
+  
+        }
+        setTVShorts(tvShortsPage === 1 ? movie : [...shorts, ...movie])
         setTvShortsPage(tvShortsPage+1)
 
         console.log(response);
@@ -559,6 +625,8 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
     
    
     setTopSelected(val);
+    setMovies([])
+
     getMovies('',sort,where,gener,age,price,offset,t_country,t_lang);
     console.debug(' onPressClick value>>>>>dasfgasdbgvsfd', val);
   };

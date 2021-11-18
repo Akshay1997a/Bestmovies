@@ -33,7 +33,7 @@ import {
 } from '../../network/requests';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {WIDTH} from '../../helper/globalFunctions';
+import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 
 const COUNTRY = [
   {id: 0, name: 'Country',code:'co'},
@@ -264,11 +264,11 @@ const TVCountryLanguage = (props) => {
   console.log('countryList', countryList);
   return (
     // <ScrollView>
-      <View style={{flexDirection: 'row',}}>
+      <View style={{flexDirection: 'row',height:HEIGHT}}>
         <View style={styles.container}>
           {data.map((item, index) => {
             return (
-              <View style={[{width: WIDTH * 0.28, marginLeft: 10}]}>
+              <View style={[{width: WIDTH * 0.28, marginLeft: 10,}]}>
                 <Pressable
                   onPress={() => onPressHandle(item)}
                   //  onBlur={onBlur()}
@@ -280,20 +280,27 @@ const TVCountryLanguage = (props) => {
                       : styles.backWrap
                   }>
                   <Text
-                    style={{
-                      fontFamily: primary_regular_font.primary_regular_font,
-                      fontSize: StyleConfig.resWidth(28),
-                      fontWeight: '400',
-                      // padding: isAndroid() ? 2 : 8,
-                      paddingHorizontal: 15,
-                      color:
-                       item.id == focus
-                          ? colors.white
-                          :
-                          middleSelected == item.id
-                            ? colors.tomatoRed
-                          : colors.black,
-                    }}>
+                    style={
+                    //   {
+                    //   fontFamily: primary_regular_font.primary_regular_font,
+                    //   fontSize: StyleConfig.resWidth(28),
+                    //   fontWeight: '400',
+                    //   // padding: isAndroid() ? 2 : 8,
+                    //   paddingHorizontal: 15,
+                    //   color:
+                    //    item.id == focus
+                    //       ? colors.white
+                    //       :
+                    //       middleSelected == item.id
+                    //         ? colors.tomatoRed
+                    //       : colors.black,
+                    // }
+
+                    props.focus === 'countryLang' && item.id == focus
+                    ? styles.focusText :
+                    selected == item.id
+                     ? styles.selectedText  :styles.text
+                    }>
                     {item.name}
                   </Text>
                 </Pressable>
@@ -303,16 +310,18 @@ const TVCountryLanguage = (props) => {
           })}
           
         </View>
+        <View style={styles.verticleLine}></View>
         <ScrollView>
+          
         {isCountryClick ? (
           <View
-          hasTVPreferredFocus={true}
             style={{
               // marginLeft: isAndroid() ? 100 : 160,
                   // flexDirection:'row',
               // borderLeftWidth: 1,
               borderLeftColor: colors.borderColor,
             }}>
+              
             {dataList !== null &&
               Object.entries(dataList).map((item, index) => {
                 let [temp, code] = item[0].split('_');
@@ -327,16 +336,22 @@ const TVCountryLanguage = (props) => {
                         : styles.backWrap
                     }>
                     <Text
-                      style={{
-                        fontFamily: primary_regular_font.primary_regular_font,
-                        fontSize: StyleConfig.resWidth(28),
-                        fontWeight: '700',
-                        color:
-                          code == focus
-                            ? colors.white :
+                      style={
+                      //   {
+                      //   fontFamily: primary_regular_font.primary_regular_font,
+                      //   fontSize: StyleConfig.resWidth(28),
+                      //   fontWeight: '700',
+                      //   color:
+                      //   props.focus === 'countryLang' && code == focus
+                      //       ? colors.white :
+                      //       selected == code
+                      //       ? colors.tomatoRed  : colors.black,
+                      // }
+                      props.focus === 'countryLang' && code == focus
+                            ? styles.focusText :
                             selected == code
-                            ? colors.tomatoRed  : colors.black,
-                      }}>
+                             ? styles.selectedText  :styles.text
+                      }>
                       {item[1]}
                     </Text>
                   </Pressable>

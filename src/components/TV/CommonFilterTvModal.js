@@ -168,14 +168,8 @@ const CommonFilterTvModal = (props) => {
             onPress={props.onclose}
             style={({pressed, hovered, focused}) =>
               focused ? styles.focusBackWrap : styles.backWrap
-<<<<<<< HEAD
-            }
-            >
-            <Image source={AppImages.back_bk} style={styles.highlightFocused} />
-=======
             }>
             <Image source={AppImages.back_bk} style={[styles.highlightFocused,]} />
->>>>>>> 598221f46ccfa91b11fd5e11a1c2d2ab5977d95f
           </Pressable>
           <Text
             numberOfLines={1}
