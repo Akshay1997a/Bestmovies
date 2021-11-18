@@ -104,7 +104,7 @@ export class RenderTV extends Component {
     <TouchableOpacity
       style={{borderRadius: 25, padding: 10}}
       keyExtractor={data.id}>
-      <Text style={{fontSize: 15, fontWeight: '700', marginLeft: 50}}>
+      <Text style={{fontSize: 15, fontWeight: '700', marginLeft: 50,borderWidth:2}}>
         {data.age}
       </Text>
     </TouchableOpacity>

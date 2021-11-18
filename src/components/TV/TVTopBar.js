@@ -359,7 +359,7 @@ const TVSideBar = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
                           <View style={{flexDirection: 'row'}}>
                             <View
                               style={{
-                                width: WIDTH / StyleConfig.resWidth(13.2),
+                                width: isAndroid()?WIDTH / StyleConfig.resWidth(13.2):WIDTH / StyleConfig.resWidth(6.5),
                                 flex: 1,
                                 justifyContent: 'center',
                                 marginHorizontal: StyleConfig.resWidth(5),
@@ -539,7 +539,6 @@ const styles = StyleSheet.create({
   },
   container: {
     marginStart: StyleConfig.resWidth(30),
-
     // backgroundColor: 'red',
     backgroundColor: colors.lightGrey,
     height: isAndroid() ? StyleConfig.resWidth(95) : StyleConfig.resWidth(90),

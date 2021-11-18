@@ -513,7 +513,7 @@ const TVPosterCard = ({item,details, ...props}) => {
               style={{
                 flexDirection: 'row',
                 flex: 1,
-                marginTop:12,
+                alignItems:'center',
                 width:Platform.OS==="ios"? StyleConfig.resWidth(WIDTH*0.776):StyleConfig.resWidth(WIDTH*0.8 *1.95),
                 justifyContent:'space-evenly',
               }}>
@@ -634,6 +634,8 @@ const styles = StyleSheet.create({
     // marginTop: StyleConfig.resHeight(20),
     // borderRadius: StyleConfig.resHeight(30),
     // flex: 1,
+    // borderColor:'red',
+    // borderWidth:1,
     width: WIDTH * 0.19,
     height: WIDTH * 0.3,
   },

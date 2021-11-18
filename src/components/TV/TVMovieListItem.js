@@ -271,7 +271,7 @@ const getGeneras = (code) =>{
                         <AntDesign name="like1" color="#35B736" size={13} />
                       </Text> */}
                       <Text style={[styles.textSecondary]}>
-                        {item.price}
+                       90.5$
                       </Text>
                     </View>
 
@@ -281,7 +281,7 @@ const getGeneras = (code) =>{
                         justifyContent: 'center',
                         alignContent: 'center',
                         alignItems: 'center',
-                        alignSelf:'center'
+                        alignSelf:'center',
                       }}>
                        <RatingComponent
                         rating={item.rating}
@@ -324,13 +324,13 @@ const getGeneras = (code) =>{
                   '#EC3DEF' :
                   item.rating >= 1 ?
                 '#9A2FAE' :'#9A5000',
-                          fontFamily: primary_regular_font.primary_regular_font,
+                          fontFamily: primary_regular_font.primary_bold_font,
                           fontSize: StyleConfig.resHeight(24),
-                          fontWeight: '400',
+                          fontWeight: '700',
                           ...Platform.select({
                             android: {
                               fontFamily:
-                                primary_regular_font.primary_regular_font,
+                                primary_regular_font.primary_bold_font,
                             },
                           }),
                         }}>

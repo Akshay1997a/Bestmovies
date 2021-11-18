@@ -109,44 +109,44 @@ const CommonFilterTvModal = (props) => {
     <BaseModal visible={props?.visible} oncloseModal={props.oncloseModal}>
       <View
         style={{
-          // minWidth:
-          //   isAndroid() && props.title == 'Sort by'
-          //     ? StyleConfig.resWidth(700)
-          //     : props.title == 'Release year'
-          //     ? StyleConfig.resWidth(700)
-          //     : props.title == 'Genres'
-          //     ? StyleConfig.resWidth(700)
-          //     : props.title == 'Country of origin'
-          //     ? StyleConfig.resWidth(700)
-          //     : props.title == 'Age rating'
-          //     ? StyleConfig.resWidth(700)
-          //     : props.title == 'Price'
-          //     ? StyleConfig.resWidth(700)
-          //     : props.title == 'Your country'
-          //     ? StyleConfig.resWidth(700)
-          //     : props.title == 'From'
-          //     ? StyleConfig.resWidth(500)
-          //     : 200,
-          // maxHeight:
-          //   isAndroid() && props.title == 'Sort by'
-          //     ? HEIGHT * 0.3
-          //     : props.title == 'Release year'
-          //     ? HEIGHT * 0.67
-          //     : props.title == 'Genres'
-          //     ? HEIGHT * 0.8
-          //     : props.title == 'Country of origin'
-          //     ? HEIGHT * 0.8
-          //     : props.title == 'Age rating'
-          //     ? HEIGHT * 0.8
-          //     : props.title == 'Price'
-          //     ? HEIGHT * 0.6
-          //     : props.title == 'Your country'
-          //     ? HEIGHT * 0.8
-          //     : props.title == 'From'
-          //     ? HEIGHT * 0.6
-          //     : 200,
-              width:StyleConfig.resWidth(600),
-              height:StyleConfig.resHeight(302),
+          minWidth:
+            Platform.OS==='ios' && props.title == 'Sort by'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Release year'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Genres'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Country of origin'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Age rating'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Price'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'Your country'
+              ? StyleConfig.resWidth(700)
+              : props.title == 'From'
+              ? StyleConfig.resWidth(500)
+              : 200,
+          height:
+           Platform.OS==='ios' && props.title == 'Sort by'
+              ? HEIGHT * 0.3
+              : props.title == 'Release year'
+              ? HEIGHT * 0.67
+              : props.title == 'Genres'
+              ? HEIGHT * 0.8
+              : props.title == 'Country of origin'
+              ? HEIGHT * 0.9
+              : props.title == 'Age rating'
+              ? HEIGHT * 0.8
+              : props.title == 'Price'
+              ? HEIGHT * 0.6
+              : props.title == 'Your country'
+              ? HEIGHT * 0.8
+              : props.title == 'From'
+              ? HEIGHT * 0.6
+              : 200,
+              // width:StyleConfig.resWidth(600),
+              // height:StyleConfig.resHeight(302),
 
           // : HEIGHT * 0.9,
           backgroundColor: colors.white,
@@ -172,6 +172,7 @@ const CommonFilterTvModal = (props) => {
             <Image source={AppImages.back_bk} style={[styles.highlightFocused,]} />
           </Pressable>
           <Text
+          ellipsizeMode='tail'
             numberOfLines={1}
             style={{
               fontFamily: primary_regular_font.primary_bold_font,
@@ -183,7 +184,7 @@ const CommonFilterTvModal = (props) => {
               //     fontFamily: primary_bold_font.primary_light_font,
               //   },
               // }),
-              width:StyleConfig.resWidth(220),
+              width:StyleConfig.resWidth(300),
               textAlign: 'center',
               // maxWidth: WIDTH * 0.2,
             }}>

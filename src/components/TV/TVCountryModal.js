@@ -127,7 +127,7 @@ const TVCountryModal = (props) => {
       onclose={props?.onclose}
       title={t('texts.id_137')}
       titleId={'country_of_origin'}>
-      {/* <ScrollView style={{margin: StyleConfig.resWidth(15)}}> */}
+      <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
         {countryList !== null &&
           Object.entries(countryList).map((item, index) => {
             let [temp, code] = item[0].split('_');
@@ -168,7 +168,7 @@ const TVCountryModal = (props) => {
               </Pressable>
             );
           })}
-      {/* </ScrollView> */}
+      </ScrollView>
     </CommonFilterTvModal>
   );
 };
