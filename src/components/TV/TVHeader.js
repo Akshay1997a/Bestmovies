@@ -90,6 +90,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
             {width: WIDTH * 0.1},
           ]}>
           <Image
+          resizeMode="contain"
             style={
               props.focus === 'header' && focus == SEARCH
                 ? styles.headerIconFocus
@@ -295,6 +296,7 @@ const TVHeader = forwardRef(({selected, onChangeSelected, ...props}, ref) => {
               : styles.itemWrapperMenu
           }>
           <Image
+          resizeMode='contain'
             style={
               props.focus === 'header' &&   focus == MENU
                 ? styles.headerIconFocus
@@ -448,8 +450,7 @@ const styles = StyleSheet.create({
   },
   headerIconFocus: {
     width: StyleConfig.resWidth(30),
-
-    height: StyleConfig.resHeight(30),
-    tintColor: colors.white,
+    height: StyleConfig.resHeight(50),
+   tintColor: colors.white,
   },
 });

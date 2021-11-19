@@ -814,7 +814,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
                 }}>
                 <Text 
                 ellipsizeMode="tail"
-                numberOfLines={1} style={styles.ranking}>
+                numberOfLines={1} style={[styles.ranking]}>
                   {t('texts.id_78')}
                 </Text>
                 <Text numberOfLines={1}
@@ -864,10 +864,10 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
                   backgroundColor: colors.white,
                   marginHorizontal: StyleConfig.resWidth(20),
                 }}>
-                <Text numberOfLines={1} style={styles.ranking}>
+                <Text ellipsizeMode='tail' numberOfLines={1} style={[styles.ranking,{color:'#333333'}]}>
                   {t('texts.id_78')}
                 </Text>
-                <Text numberOfLines={1} style={styles.result}>
+                <Text ellipsizeMode='tail' numberOfLines={1} style={styles.result}>
                   {' '}
                   12,348 {t('texts.id_91')}{' '}
                 </Text>
@@ -910,7 +910,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
               <View
                 style={{
                   flexDirection: 'row',
-                marginTop: StyleConfig.resHeight(20),
+                  marginTop: StyleConfig.resHeight(20),
                   backgroundColor: colors.white,
                   marginHorizontal: StyleConfig.resWidth(20),
                 }}>
@@ -957,7 +957,7 @@ let url = 'device=tv&type=s&output=ove&offset='+tvShortsPage+provider+prices+'&t
               <View
                 style={{
                   flexDirection: 'row',
-                marginTop: StyleConfig.resHeight(20),
+                  marginTop: StyleConfig.resHeight(20),
                   backgroundColor: colors.white,
                   marginHorizontal: StyleConfig.resWidth(20),
                 }}>
@@ -1571,10 +1571,10 @@ const styles = StyleSheet.create({
     fontWeight: isAndroid() ? '400' : '400',
   },
   ranking: {
-    width: StyleConfig.resWidth(250),
+    width: StyleConfig.resWidth(350),
     marginStart: StyleConfig.resWidth(14),
     fontFamily: primary_regular_font.primary_regular_font,
-    color: colors.black,
+    //color: colors.black,
     fontSize: StyleConfig.resWidth(32),
     fontWeight: '700',
     ...Platform.select({

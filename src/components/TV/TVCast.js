@@ -38,7 +38,7 @@ let DATA = {
 
 const TVCast = (props) => {
   // console.log('item0000000dadwdqad', props.item.name);
-  const {item} = props?.item;
+  const {item} = props??item;
   const {t,i18n} = useTranslation();
   const [focus, setFocus] = useState(0);
   const [isFocus, setIsFocus] = useState(false);

@@ -120,7 +120,7 @@ const getGeneras = (code) =>{
   return (
     <View>
       <Pressable
-        style={styles.container}
+        style={[styles.container]}
         onFocus={onFocus}
         onBlur={onBlur}
         key={item.id}
@@ -324,9 +324,11 @@ const getGeneras = (code) =>{
                   '#EC3DEF' :
                   item.rating >= 1 ?
                 '#9A2FAE' :'#9A5000',
+                          width:StyleConfig.resWidth(130),
                           fontFamily: primary_regular_font.primary_bold_font,
                           fontSize: StyleConfig.resHeight(24),
                           fontWeight: '700',
+                          textAlign:'center',
                           ...Platform.select({
                             android: {
                               fontFamily:

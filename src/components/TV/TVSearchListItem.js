@@ -50,7 +50,7 @@ const TVCardDetail = ({item, ...props}) => {
   return (
     <View>
       <Pressable
-        style={styles.container}
+        style={[styles.container]}
         onFocus={onFocus}
         onBlur={onBlur}
         key={item.id}
@@ -112,7 +112,7 @@ const TVCardDetail = ({item, ...props}) => {
 
               </Text>
             </View>
-            <View style={styles.match}>
+            <View style={[styles.match,{marginTop:5}]}>
               <View>
                 <Text style={styles.bornYear}>
                   {
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     width: isAndroid()
       ? StyleConfig.resHeight(300)
       : StyleConfig.resHeight(300),
-    fontFamily: primary_regular_font.primary_regular_font,
+    fontFamily: primary_regular_font.primary_bold_font,
     // paddingVertical: StyleConfig.resHeight(8),
     fontSize: StyleConfig.resHeight(24),
     fontWeight: '700',
@@ -205,12 +205,12 @@ const styles = StyleSheet.create({
         fontFamily: primary_regular_font.primary_bold_font,
       },
     }),
-    color: 'black',
+    color: '#000000',
   },
   bornYear: {
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: StyleConfig.resHeight(24),
-    color: 'black',
+    color: '#000000',
     fontWeight: '400',
     ...Platform.select({
       android: {
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     // width: isAndroid() ? 140 : 333,
   },
   container: {
-    marginVertical: StyleConfig.resHeight(10),
+    marginVertical: StyleConfig.resHeight(3.8),
     marginHorizontal: StyleConfig.resWidth(10),
     // borderRadius:StyleConfig.resHeight(20),
     // borderWidth:1,

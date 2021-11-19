@@ -23,7 +23,7 @@ import {WIDTH} from '../../helper/globalFunctions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 const DATA = [
-  {id: 0, name: 'New'},
+  {id: 0, name: 'Any'},
   {id: 1, name: 'This year'},
   {id: 2, name: 'texts.id_122'},
   {id: 3, name: 'Last 3 years'},
@@ -145,6 +145,7 @@ const TVReleaseModal = (props) => {
           <View>
             {data.map((item, index) => {
               return (
+
                 <Pressable
                   onBlur={onBlur}
                   onPress={() => onPressClick(item)}

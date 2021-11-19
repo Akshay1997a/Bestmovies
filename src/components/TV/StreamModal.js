@@ -347,12 +347,12 @@ const StreamModal = forwardRef(({onChangeSelected, ...props}, ref) => {
   });
 
   const onPressClick = (val) => {
-    console.log('onPressClick StreamModal***', val.code);
-    let changeCode = val[0];
-    let newCode   = changeCode.slice(5);
-    console.log(newCode);
-    setCountryCode(newCode);
-    oncloseModal();
+    // console.log('onPressClick StreamModal***', val.code);
+    // let changeCode = val[0];
+    // let newCode   = changeCode.slice(5);
+    // console.log(newCode);
+    // setCountryCode(newCode);
+    // oncloseModal();
     //getFlagList(newCode);
   };
 

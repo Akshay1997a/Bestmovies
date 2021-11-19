@@ -73,7 +73,20 @@ const TVAgesModal = (props) => {
   const {t} = useTranslation();
   const [selected, setSelected] = useState(-1);
   const [focus, setFocus] = useState(-1);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {id:1,age:"Any"},
+    {id:2,age:18},
+    {id:3,age:17},
+    {id:4,age:16},
+    {id:5,age:15},
+    {id:6,age:14},
+    {id:7,age:13},
+    {id:8,age:11},
+    {id:9,age:9},
+    {id:10,age:7},
+    {id:11,age:4},
+    {id:12,age:2},
+  ]);
   const onPressClick = (val) => {
     val.selected = true;
     props.action(props.keySort,val);
@@ -89,18 +102,20 @@ const TVAgesModal = (props) => {
     // setFocus(-1);
   }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      fetch('https://60cde54091cc8e00178dc16b.mockapi.io/ages')
-        .then((res) => res.json())
-        .then((resJson) => {
-          setData(resJson);
-        })
-        .catch((e) => console.log(e));
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     fetch('https://60cde54091cc8e00178dc16b.mockapi.io/ages')
+  //       .then((res) => res.json())
+  //       .then((resJson) => {
+  //         console.log('age data',resJson);
+  //         setData(resJson);
 
-    fetchData();
-  }, []);
+  //       })
+  //       .catch((e) => console.log(e));
+  //   }
+
+  //   fetchData();
+  // }, []);
   return (
     <CommonFilterTvModal
     {...props}
@@ -125,7 +140,7 @@ const TVAgesModal = (props) => {
                     ? styles.tomatoStyle
                     : styles.blackStyle
                 }>
-                {item.ages + '+'}
+                {item.age === 'Any'? 'Any': item.age + '+'}
               </Text>
               {/* <Text style={{fontFamily:primary_regular_font.primary_regular_font,fontSize: isAndroid() ? 15: 30,fontWeight:'400', color: item.id == focus ? colors.white : colors.black}}>{item.ages+'+'}</Text> */}
             </Pressable>
