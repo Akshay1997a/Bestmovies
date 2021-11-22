@@ -30,192 +30,7 @@ import {HEIGHT, WIDTH} from '../../helper/globalFunctions';
 import axios from 'axios';
 import i18next from 'i18next';
 import {runTimeTranslations} from '../../i18n';
-const CAST = [
-  {
-    id: 1,
-    feedback: 'texts.id_214',
-    rating: '123',
-    name: 'Todd Phillips',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#868686',
-    thumbnail: 'cast2',
-  },
-  {
-    id: 2,
-    feedback: 'texts.id_214',
-    rating: '57',
-    name: 'Jaqquin Phoenix',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: colors.black,
-    thumbnail: 'cast5',
-  },
-  {
-    id: 3,
-    feedback: 'texts.id_214',
-    rating: '8',
-    name: 'Robert Denaro',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: colors.black,
-    thumbnail: 'cast4',
-  },
-  {
-    id: 4,
-    feedback: 'texts.id_214',
-    rating: '473',
-    name: 'Brett Cullin',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#868686',
-    thumbnail: 'cast3',
-  },
-  {
-    id: 5,
-    feedback: 'texts.id_214',
-    rating: '12,50',
-    name: 'ShiaWigham',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#4183e2',
-    thumbnail: 'cast4',
-  },
-  {
-    id: 6,
-    feedback: 'texts.id_214',
-    rating: '24,85',
-    name: 'Todd Phillips',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#35b736',
-    thumbnail: 'cast5',
-  },
 
-  {
-    id: 7,
-    feedback: 'texts.id_214',
-    rating: '128',
-    name: 'Todd Phillips',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#35b736',
-    thumbnail: 'cast5',
-  },
-  {
-    id: 8,
-    feedback: 'texts.id_214',
-    rating: '128',
-    name: 'Todd Phillips',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#35b736',
-    thumbnail: 'cast3',
-  },
-  {
-    id: 9,
-    feedback: 'texts.id_214',
-    rating: '128',
-    name: 'Todd Phillips',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#35b736',
-    thumbnail: 'cast2',
-  },
-  {
-    id: 10,
-    feedback: 'texts.id_214',
-    rating: '128',
-    name: 'Todd Phillips',
-    type: 'texts.id_129',
-    country: 'countries.code_US',
-    dob: '1927',
-    bornYear: '2019 -',
-    match: '78% match - 12 ',
-    follower: '5.7',
-    designation: 'texts.id_12',
-    color: '#35b736',
-    thumbnail: 'cast4',
-  },
-];
-
-const ENTRIES1 = [
-  // {
-  //   title: 'Beautiful and dramatic Antelope Canyon',
-  //   subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-  //   illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  // },
-  // {
-  //   title: 'Beautiful and dramatic Antelope Canyon',
-  //   subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-  //   illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  // },
-  {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-  },
-  {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-  },
-  {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
-  },
-];
 const {width: screenWidth, height} = Dimensions.get('window');
 
 const MyCarousel = ({item, posts, ...props}) => {
@@ -228,7 +43,6 @@ const MyCarousel = ({item, posts, ...props}) => {
   const [actor, setActor] = useState(null);
   const [similarTitles, setSimilar] = useState(null);
   const [isLoaded, setLoaded] = useState(false);
-  const [countriesListed, setCountryList] = useState(null);
   
 
   const onFocus = useCallback(() => {
@@ -406,6 +220,7 @@ const MyCarousel = ({item, posts, ...props}) => {
       // always executed
     });
   }
+
   const getCountry = (code) =>{
     // let data = code.split(',');
     let str  = '';
@@ -577,7 +392,7 @@ const MyCarousel = ({item, posts, ...props}) => {
               </Text>
 
               <View style={{flexDirection: 'row'}}>
-                {actor.map((obj, ind) => (
+                {actor?.map((obj, ind) => (
                   <TVCast item={obj} type={'movie'} />
                 ))}
               </View>

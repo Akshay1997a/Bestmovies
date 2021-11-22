@@ -120,7 +120,7 @@ const TVCast = (props) => {
                       justifyContent: 'space-between',
                     }}>
                     <Text style={[styles.textSecondary]}>
-                      {t(props.item.country_cd)}
+                      {t(props.item?.country_cd)}
                       {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
                     </Text>
                     <Text style={[styles.textSecondary]}>
@@ -152,10 +152,10 @@ const TVCast = (props) => {
                       {t('texts.id_215')}
                       {/* <AntDesign name="like1" color="#35B736" size={13} /> */}
                     </Text>
-                    <Text style={[styles.textSecondary,{right:70}]}>{props.item.birth_year}</Text>
+                    <Text style={[styles.textSecondary,{right:70}]}>{props.item?.birth_year}</Text>
                     <RatingComponent
-                      rating={props.item.rating}
-                      color={props.item.color}
+                      rating={props.item?.rating}
+                      color={props.item?.color}
                     />
                   </View>
                 </View>
