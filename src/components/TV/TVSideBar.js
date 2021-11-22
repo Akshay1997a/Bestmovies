@@ -154,11 +154,14 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     },
   }));
   const getAllSearch = (data) =>{
-     data.shift();
-      data.pop()
+    let  filtered = data.filter(function(value, index, arr){ 
+      let item = value.key
+      let result =  typeof item == "string" && item.includes("web") ||
+          item == 9;
+      return result === false;
+  })
        let  abArray = [];
-
-    let requests = data !== null && data.map(item => {
+     let requests = filtered !== null && filtered.map(item => {
       if(item.key!=9)
       return new Promise((resolve, reject) => {
         props.getStaticData(item.key, (res) => {
@@ -210,45 +213,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     
   }
   const getSearch = () =>{
-    axios
-    .get('http://18.119.119.183:3002/static-pages?device=web&slug=terms_sample')
-    .then(function (response) {
-      let  abArray = [];
-      response.data.data.static_pages !== null && Object.entries(response.data.data.static_pages[0])?.map((item, index) => {
-    let type  = '';
-    if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
-        type = 'title'
-    }else  if(item[0] === 'text1' || item[0] === 'text2' ||item[0] === 'text3' ||item[0] === 'text4' ||item[0] === 'text5' ||item[0] === 'text6' ){
-      type = 'detail'
-    }else if(item[0] === 'subtitle1' || item[0] === 'subtitle2' ||item[0] === 'subtitle3' ||item[0] === 'subtitle4' ||item[0] === 'subtitle5' ||item[0] === 'subtitle6' ){
-      type = 'subtitle'
-    }else if(item[0] === 'image1_url' || item[0] === 'image2_url' ||item[0] === 'image3_url' ||item[0] === 'image4_url' ||item[0] === 'image5_url' || item[0] === 'image6_url' ){
-      type = 'image'
-    }else{
-      type = '';
-    }
-    let obje  ={
-      id : index,
-      type: type,
-      data :item[1]
-    }
-    if(type){
-      abArray.push(obje)
-    }
-    })
-      setTerms(abArray);
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
-  }
-  useEffect(() => {
-    // getSearch()
     let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
     let staticPages = countryData?.translation?.static_pages;
@@ -288,67 +252,17 @@ MENU_DATA.push(obje);
     }
     side_MENU_DATA.push(obje);
       })
-      side_MENU_DATA.pop()
-
-  setData(side_MENU_DATA)
-
-    // console.log(Object.keys(staticPages));
-    // // for (const item of LANGUAGES) {
-    // //   languageMap.set('code_AD', 'Andorra');
-    // // }
-    // countryTemp && setDataList(countryTemp);
-    // setCountry(countryTemp);
-
-    // props.getLanguageData((res) => {
-    //   let data = convertArrayToObject(res.data.display, 'code');
-    //   let titleLanguage = convertArrayToObject(res.data.list, 'code');
-    //   setLanguageList(data);
-    //   setTitleLanguageList(titleLanguage);
-    // });
-    // props.getStaticData('data', (res) => {
-    //   console.log('responseeeeee', res);
-      
-    // });
-  
+      let  filtered = side_MENU_DATA.filter(function(value, index, arr){ 
+        let item = value.key
+        let result =  typeof item == "string" && item.includes("web") 
+            
+        return result === false;
+      })
+  setData(filtered);
+  }
+  useEffect(() => {
+     getSearch()
     
-  //   props.getStaticData((res) => {
-  //     let aboutdata = [];
-  // let  abArray = [];
-  // res.data.static_pages !== null && Object.entries(res.data.static_pages[0])?.map((item, index) => {
-  //   // let data = item;
-  //   let type  = '';
-  //   if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
-  //       type = 'title'
-  //   }else  if(item[0] === 'text1' || item[0] === 'text2' ||item[0] === 'text3' ||item[0] === 'text4' ||item[0] === 'text5' ||item[0] === 'text6' ){
-  //     type = 'detail'
-  //   }else if(item[0] === 'subtitle1' || item[0] === 'subtitle2' ||item[0] === 'subtitle3' ||item[0] === 'subtitle4' ||item[0] === 'subtitle5' ||item[0] === 'subtitle6' ){
-  //     type = 'subtitle'
-  //   }else if(item[0] === 'image1_url' || item[0] === 'image2_url' ||item[0] === 'image3_url' ||item[0] === 'image4_url' ||item[0] === 'image5_url' || item[0] === 'image6_url' ){
-  //     type = 'image'
-  //   }else{
-  //     type = '';
-  //   }
-    
-  //   let obje  ={
-  //     id : index,
-  //     type: type,
-  //     data :item[1]
-  //   }
-  //   if(type){
-  //     abArray.push(obje)
-  //   }
-
-  //     // let [temp, code] = item[0].split('_')
-  //     // if(code== val){
-  //     //   console.log(item)
-  //     //   str = item[1];
-  //     //   str+=str;
-  //     //   return str
-  //     // }
-  //   })
-  //     setAboutUsData(abArray);
-  //     // let data = res;
-  //   });
   }, []);
   console.log(props.headerSelected, MENU_DATA);
   return (
@@ -403,7 +317,7 @@ MENU_DATA.push(obje);
 
         {key == COUNTRY_LANGUAGE ?  (
           <View>
-            <TVCountryLanguage {...props}></TVCountryLanguage>
+            <TVCountryLanguage {...props}  acion={getSearch}></TVCountryLanguage>
           </View>
         ):
          (

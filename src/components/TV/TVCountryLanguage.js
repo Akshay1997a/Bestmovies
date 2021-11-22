@@ -144,27 +144,24 @@ const TVCountryLanguage = (props) => {
     const [titleLanguage, setTitleLanguageList] = useState(null);
     const [aboutUs, setAboutUsData] = useState(null);
   useEffect(() => {
-    let lng = i18n.language;
+    
+    props.getLanguageData((res) => {
+      let lng = i18n.language;
     let countryData = i18next.getDataByLanguage(lng);
     let countryTemp = countryData?.translation?.countries_displayed;
     let countryVersion = countryData?.translation?.countries_listed;
-
-    // for (const item of LANGUAGES) {
-    //   languageMap.set('code_AD', 'Andorra');
-    // }
     countryTemp && setDataList(countryTemp);
     setCountry(countryTemp);
     setTitleCountry(countryVersion)
-    props.getLanguageData((res) => {
       let data = convertArrayToObject(res.data.display, 'code');
       let titleLanguage = convertArrayToObject(res.data.list, 'code');
       setLanguageList(data);
       setTitleLanguageList(titleLanguage);
     });
-    props.getStaticData((res) => {
-      setAboutUsData(res);
-      // let data = res;
-    });
+    // props.getStaticData((res) => {
+    //   setAboutUsData(res);
+    //   // let data = res;
+    // });
   }, []);
   const convertArrayToObject = (array, key) => {
     const initialValue = {};
@@ -191,7 +188,10 @@ const TVCountryLanguage = (props) => {
     props.getTranslateFile(
       (res) => {
         console.log('Response from translate api', res);
+    // props.reduxSetCurrFocus(res?.language);
         runTimeTranslations(res, res?.language);
+    props.acion(res?.language)
+
       },
       (err) => {
         console.log('Error from translate file', err);
