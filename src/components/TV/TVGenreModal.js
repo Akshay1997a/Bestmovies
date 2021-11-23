@@ -142,7 +142,7 @@ const TVGenreModal = (props) => {
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
       title={t('texts.id_127')}
-      titleId={'genres'}>
+      titleId={'id_127'}>
       <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
         <View
           style={{marginStart: StyleConfig.resWidth(10), flexDirection: 'row'}}>

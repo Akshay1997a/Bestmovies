@@ -107,7 +107,7 @@ const TVPriceModal = (props) => {
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
       title={t('texts.id_158')}
-      titleId={'price'}>
+      titleId={'id_158'}>
       <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
         {data.map((item, index) => {
           return (

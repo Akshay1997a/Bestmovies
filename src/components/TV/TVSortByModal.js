@@ -133,7 +133,7 @@ const TVSortByModal = (props, key) => {
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
       title={t('texts.id_99')}
-      titleId={'sort_by'}>
+      titleId={'id_99'}>
       <ScrollView>
         <View style={{margin: StyleConfig.resWidth(15),}}>
           {data.map((item, index) => {

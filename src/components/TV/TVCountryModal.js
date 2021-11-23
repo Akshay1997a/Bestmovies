@@ -89,12 +89,12 @@ const TVCountryModal = (props) => {
 
   // const [ data, setData] = useState([])
 
-  const onPressClick = (val) => {
+  const onPressClick = (val,code) => {
     val.selected = true;
     console.log('onPressClick TVCountryModal***', val);
     // props.action(props.keySort);
     // //   props.onclose();
-    setSelected(val);
+    setSelected(code);
 
     props.action(props.keySort,val);
     // props.onclose();
@@ -126,7 +126,7 @@ const TVCountryModal = (props) => {
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
       title={t('texts.id_137')}
-      titleId={'country_of_origin'}>
+      titleId={'id_137'}>
       <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
         {countryList !== null &&
           Object.entries(countryList).map((item, index) => {
@@ -134,7 +134,7 @@ const TVCountryModal = (props) => {
             return (
               <Pressable
                 onBlur={onBlur}
-                onPress={() => onPressClick(item)}
+                onPress={() => onPressClick(item,code)}
                 onFocus={() => setFocus(code)}
                 style={  props.focus== 'remove'  && code == focus ? styles.focusBackWrap : styles.backWrap}>
                 <Text
@@ -142,7 +142,7 @@ const TVCountryModal = (props) => {
                   style={
                     props.focus== 'remove'  && code == focus
                       ? styles.whiteStyle
-                      : item.selected
+                      : selected == code
                       ? styles.tomatoStyle
                       : styles.blackStyle
                   }>

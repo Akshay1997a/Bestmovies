@@ -275,7 +275,7 @@ const TVCountryLanguage = (props) => {
                   onFocus={() => onFocus(item.id)}
                   //   onFocus={()=> setFocus(item.id)}
                   style={
-                    props.focus === 'countryLang' && item.id == focus
+                    item.id == focus
                       ? styles.focusBackWrap
                       : styles.backWrap
                   }>
@@ -296,9 +296,9 @@ const TVCountryLanguage = (props) => {
                     //       : colors.black,
                     // }
 
-                    props.focus === 'countryLang' && item.id == focus
+                     item.id == focus
                     ? styles.focusText :
-                    selected == item.id
+                    middleSelected == item.id
                      ? styles.selectedText  :styles.text
                     }>
                     {item.name}

@@ -63,6 +63,7 @@ const TVStreamingModal = (props) => {
   //   }, [])
   return (
     <StreamModal
+    {...props}
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}

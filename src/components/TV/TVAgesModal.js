@@ -123,7 +123,9 @@ const TVAgesModal = (props) => {
       visible={props?.visible}
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
-      title={t('texts.id_141')}>
+      title={t('texts.id_141')}
+      titleId={'id_141'}>
+
       <ScrollView style={{margin: StyleConfig.resWidth(15)}}>
         {data.map((item, index) => {
           return (

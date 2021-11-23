@@ -139,7 +139,7 @@ const TVReleaseModal = (props) => {
       oncloseModal={props.oncloseModal}
       onclose={props?.onclose}
       title={t('texts.id_114')}
-      titleId={'release_year'}>
+      titleId={'id_114'}>
       <ScrollView>
         <View style={{margin: StyleConfig.resWidth(15)}}>
           <View>

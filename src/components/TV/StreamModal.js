@@ -733,6 +733,7 @@ console.log(countryFlag);
         </View>
       </View>
       <TVYourCountryModal
+      {...props}
         action={onPressClick}
         visible={showSelected == true}
         oncloseModal={() => oncloseModal(false)}

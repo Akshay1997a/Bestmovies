@@ -110,39 +110,39 @@ const CommonFilterTvModal = (props) => {
       <View
         style={{
           minWidth:
-            Platform.OS==='ios' && props.title == 'Sort by'
+            Platform.OS==='ios' && props.titleId == 'id_99'
               ? StyleConfig.resWidth(700)
-              : props.title == 'Release year'
+              : props.titleId == 'id_114'
               ? StyleConfig.resWidth(700)
-              : props.title == 'Genres'
+              : props.titleId == 'id_127'
               ? StyleConfig.resWidth(700)
-              : props.title == 'Country of origin'
+              : props.titleId == 'id_137'
               ? StyleConfig.resWidth(700)
-              : props.title == 'Age rating'
+              : props.titleId == 'id_141'
               ? StyleConfig.resWidth(700)
-              : props.title == 'Price'
+              : props.titleId == 'id_158'
               ? StyleConfig.resWidth(700)
-              : props.title == 'Your country'
+              : props.titleId == 'id_140'
               ? StyleConfig.resWidth(700)
-              : props.title == 'From'
+              : props.titleId == 'From'
               ? StyleConfig.resWidth(500)
               : 200,
           height:
-           Platform.OS==='ios' && props.title == 'Sort by'
+           Platform.OS==='ios' && props.titleId == 'id_99'
               ? HEIGHT * 0.3
-              : props.title == 'Release year'
+              : props.titleId == 'id_114'
               ? HEIGHT * 0.67
-              : props.title == 'Genres'
+              : props.titleId == 'id_127'
               ? HEIGHT * 0.8
-              : props.title == 'Country of origin'
+              : props.titleId == 'id_137'
               ? HEIGHT * 0.9
-              : props.title == 'Age rating'
+              : props.titleId == 'id_141'
               ? HEIGHT * 0.8
-              : props.title == 'Price'
+              : props.titleId == 'id_158'
               ? HEIGHT * 0.6
-              : props.title == 'Your country'
+              : props.titleId == 'id_140'
               ? HEIGHT * 0.8
-              : props.title == 'From'
+              : props.titleId == 'From'
               ? HEIGHT * 0.6
               : 200,
               // width:StyleConfig.resWidth(600),

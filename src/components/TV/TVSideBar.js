@@ -164,7 +164,7 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
      let requests = filtered !== null && filtered.map(item => {
       if(item.key!=9)
       return new Promise((resolve, reject) => {
-        props.getStaticData(item.key, (res) => {
+        props.getStaticData(item.key, (res,err) => {
           console.log('responseeeeee', res);
           if (res.length <0) { reject(err) }
           if (res)  {
@@ -204,7 +204,6 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
      let fdata = abArray;
      if(abArray.length >0){
       setAboutUsData(abArray)
-
      }
       //  setTerms(abArray)
           //  productsToReturn.push(JSON.parse(res).productInfo)
@@ -243,7 +242,6 @@ MENU_DATA.push(obje);
       title: strings.country_language,
     },
    )
-  //  let  MENU_DATA = []
    staticPages !== null && Object.entries(staticPages)?.map((item, index) => {
     let key = item
     let obje  ={
@@ -252,10 +250,10 @@ MENU_DATA.push(obje);
     }
     side_MENU_DATA.push(obje);
       })
+      
       let  filtered = side_MENU_DATA.filter(function(value, index, arr){ 
         let item = value.key
         let result =  typeof item == "string" && item.includes("web") 
-            
         return result === false;
       })
   setData(filtered);
