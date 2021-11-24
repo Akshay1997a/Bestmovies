@@ -6,6 +6,8 @@ import { countryFlagReducer } from '../countryFlagModule/countryFlagReducer';
 import counterReducer from './counterReducer';
 import currFocusReducer from './currFocusReducer';
 import uiReducer from './uiReducer';
+import usersSettingReducer from './usersSettingReducer';
+
 
 // Redux: Root Reducer
 export default combineReducers({
@@ -14,4 +16,6 @@ export default combineReducers({
   UI: uiReducer,
   userProvider:providerReducer,
   countryFlag:countryFlagReducer,
+  setting:usersSettingReducer,
+
 });

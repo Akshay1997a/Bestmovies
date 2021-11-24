@@ -311,7 +311,7 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
       // }
     };
   }, []);
-  const getMovies = (lan,sort,provdersId,generes,age,price,offset,t_country,t_lang) =>{
+  const getMovies = (lan,sort,provdersId,generes,age,price,offset,filter_country) =>{
     
     let provider = provdersId ? provdersId : '';
     let sort_id = sort ? sort : '';
@@ -319,16 +319,23 @@ const RenderTV = ({posts, modalVisible, selectedImage, ...props}) => {
     let ages = age ? age : '';
     let prices = price ? price : '';
     let offset_page = offset ? 1 : page;
-    let title_country = t_country ? t_country : '';
-    let title_lang = t_lang ? t_lang : lan;
-
-
-let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+'&t_lang='+language+sort_id+generes_code+ages+'&limit=' + 20
+    let title_country =   props.setting?.t_country ? props.setting?.t_country  : '';
+    let title_lang =  props.setting?.t_language ? props.setting?.t_language  : '';
+    let user_country = filter_country ? filter_country :  props.setting?.country ? props.setting?.country  : '';
+    let user_lang =  props.setting?.language ? props.setting?.language  : '';
+    let lng = i18n.language;
+    if(language != lng){
+      offset_page = 1
+      setLanguage(lng)
+    }
+let url = 'device=tv&type=m&output=ove&offset='+offset_page+provider+prices+sort_id+generes_code+ages+'&limit=' + 20
     axios
     .get(endPoints.TITLE_BASE_URL+endPoints.title+url,{
       headers: {
-        't_lang': title_lang ? title_lang : '',
+        't_lang': title_lang,
         't_country' : title_country,
+        'user_country': user_country,
+        'user_language': user_lang
       }
     })
     .then(function (response) {

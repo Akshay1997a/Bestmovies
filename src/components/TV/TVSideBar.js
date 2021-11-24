@@ -115,8 +115,11 @@ const MENU_DATA = [
   //   title: strings.privacy_policy,
   // },
 ];
+let keyValue = new Map()
+
 const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   console.log('props>>>', props);
+  let  filtered = [];
 
   const {t,i18n} = useTranslation();
 
@@ -128,11 +131,14 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
   const [data, setData] = useState(null);
 
   const onFocus = useCallback((val) => {
-    console.log('onFocus TVSideBar>>>', val);
+    console.log('onFocus TVSideBar>>>', props);
     props.reduxSetCurrFocus('menu');
     setKey(val)
     setFocus(val);
     setSelected(val);
+    let data = keyValue.get(val);
+    console.log(data)
+    setAboutUsData(data)
 
   });
   const onBlur = useCallback(() => {
@@ -176,9 +182,12 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
     Promise.all(requests) 
      .then(body => { 
         body.forEach(res => {
-       if (res)
+       if (res){
       //  console.log(JSON.parse(res))
       //  let response = JSON.parse(res);
+      
+
+
        res.data.static_pages !== null && Object.entries(res.data.static_pages[0])?.map((item, index) => {
      let type  = '';
      if(item[0] === 'name' || item[0] === 'heading1' || item[0] === 'heading2' || item[0] === 'heading3' || item[0] === 'heading4' || item[0] === 'heading5' ){
@@ -203,8 +212,17 @@ const TVSideBar = forwardRef(({onChangeSelected, ...props}, ref) => {
      })
      let fdata = abArray;
      if(abArray.length >0){
-      setAboutUsData(abArray)
+
+      let updatedata = filtered !== null && filtered.map(item => {
+        if(item.title=== res.data.static_pages[0].name){
+            keyValue.set(item.key,abArray)
+          // item.data = res.data.static_pages;
+          // return item
+        }
+      })
+
      }
+    }
       //  setTerms(abArray)
           //  productsToReturn.push(JSON.parse(res).productInfo)
         })
@@ -251,7 +269,7 @@ MENU_DATA.push(obje);
     side_MENU_DATA.push(obje);
       })
       
-      let  filtered = side_MENU_DATA.filter(function(value, index, arr){ 
+        filtered = side_MENU_DATA.filter(function(value, index, arr){ 
         let item = value.key
         let result =  typeof item == "string" && item.includes("web") 
         return result === false;
@@ -269,9 +287,10 @@ MENU_DATA.push(obje);
         style={{
           flexDirection: 'row',
           marginLeft: 30,
+          height:HEIGHT
         }}>
         <View style={[styles.container]}>
-          {data !== null && data.map((item, index) => {
+          {  data !== null && data.map((item, index) => {
             return (
               <View
                 key={index}

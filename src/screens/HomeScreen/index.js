@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {INCREASE_COUNTER, DECREASE_COUNTER} from '../../redux/const';
-import {SET_COUNTER, SET_CURR_FOCUS} from '../../redux/const';
+import {SET_COUNTER, SET_CURR_FOCUS,SET_USER_SETTING,RESET_USER_SETTING} from '../../redux/const';
 import RenderTV from './renderTV';
 import RenderMobile from './renderMobile';
 import colors from '../../helper/colors';
@@ -105,6 +105,8 @@ const mapStateToProps = (state) => {
   return {
     counter: state.counter.counter,
     focus: state.focus.focus,
+    setting: state.setting.setting,
+
   };
 };
 // Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
@@ -114,6 +116,11 @@ const mapDispatchToProps = (dispatch) => {
     reduxSetCurrFocus: (value) =>
       dispatch({
         type: SET_CURR_FOCUS,
+        value: value,
+      }),
+      reduxUserSetting: (value) =>
+      dispatch({
+        type: SET_USER_SETTING,
         value: value,
       }),
     // Decrease Counter

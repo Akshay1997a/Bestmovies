@@ -615,7 +615,7 @@ console.log(countryFlag);
               </Text>
             </View>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={styles.tvPlatform}>TV platform:</Text>
+              <Text style={styles.tvPlatform}>{t('texts.id_244')}:</Text>
               <Text numberOfLines={1} style={styles.download}>
                 {' '}
                 Amazon fire TV, Google TV

@@ -211,7 +211,21 @@ const TVCountryLanguage = (props) => {
   //   // setFocus(val);
   // };
   const countryPress = (code, item) => {
-    console.log('responseeeeee>>>>>>itemitemitemitem', item);
+    console.log('responseeeeee>>>>>>itemitemitemitem', middleSelected);
+    let  dataUser = props.setting;
+    if (middleSelected == 0) { //country 
+      dataUser.country = code;
+      props.reduxUserSetting(dataUser);
+    } else if (middleSelected == 1) { //language
+      dataUser.language = code;
+      props.reduxUserSetting(dataUser);
+    } else if (middleSelected == 2) { //title country
+      dataUser.t_country = code;
+      props.reduxUserSetting(dataUser);
+    } else if (middleSelected == 3) { //title language
+      dataUser.t_language = code;
+      props.reduxUserSetting(dataUser);
+    }
     setSelected(code)
     let data = {
       cd: code?.toLowerCase(),
