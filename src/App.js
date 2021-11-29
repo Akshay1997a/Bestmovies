@@ -13,7 +13,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <Loader />
-      <TVRouter />
+      <Router />
     </Provider>
   );
 }

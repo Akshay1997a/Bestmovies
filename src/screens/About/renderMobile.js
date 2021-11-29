@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
     height: heightScale(69),
   },
   Row2: {
-    padding: heightScale(10),
+    padding: widthScale(10),
+    width: widthScale(354),
   },
   heading: {
     color: '#ff3300',
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
     fontFamily: primary_regular_font.primary_regular_font,
     fontSize: fontScale(16),
     marginTop: heightScale(5),
+    letterSpacing: -0.2,
     width: widthScale(354),
     ...(Platform.OS === 'ios' && {
       fontWeight: '400',

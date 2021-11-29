@@ -17,6 +17,7 @@ console.group = function () {};
 
 enableScreens(true);
 // React Native App
+console.log('store1', store);
 export default function App(props) {
   const [statusBarColor, setStatusBarColor] = useState('#fff');
   return (

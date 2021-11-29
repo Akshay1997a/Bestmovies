@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
     paddingLeft: 9,
     paddingRight: 11,
     borderRadius: 10,
+    marginBottom: heightScale(5),
   },
   butActive: {
     backgroundColor: '#FF4D01',

@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   butContainer: {
     padding: 10,
     borderRadius: 15,
+    marginBottom: heightScale(5),
   },
   butActive: {
     backgroundColor: '#FF4D01',
