@@ -34,41 +34,20 @@ const WIDTH = Dimensions.get('window').width;
 
 const Catagories = [
   {
-    name: 'Action & adventure',
+    type: 'Action & Adventure',
+    subTitles: ['Action', 'Adventure', 'Western', 'Sports'],
   },
-  {
-    name: 'Comedy',
-  },
-  {
-    name: 'Documentary',
-  },
-  {
-    name: 'Drama',
-  },
-  {
-    name: 'Family & animation',
-  },
-  {
-    name: 'Horror',
-  },
-  {
-    name: 'Music & musicals',
-  },
-  {
-    name: 'Romance',
-  },
-  {
-    name: 'Sci-Fi & fantasy',
-  },
-  {
-    name: 'TV programs',
-  },
-  {
-    name: 'Thriller & crime',
-  },
-  {
-    name: 'War & history',
-  },
+  {type: 'Comedy', subTitles: []},
+  {type: 'Documentary', subTitles: []},
+  {type: 'Drama', subTitles: ['Drama', 'Biography']},
+  {type: 'Family & animation', subTitles: ['Family', 'Animation']},
+  {type: 'Horror', subTitles: []},
+  {type: 'Music & musicals', subTitles: ['Music', 'musicals']},
+  {type: 'Romance', subTitles: []},
+  {type: 'Sci-Fi & fantasy', subTitles: ['Science friction', 'Fantacy']},
+  {type: 'TV Programs', subTitles: ['Talk show', 'Game shows', 'Reality TV']},
+  {type: 'Thriller & crime', subTitles: ['Thriller', 'Mistry', 'Crime']},
+  {type: 'War & history', subTitles: ['War', 'History']},
 ].map((item, index) => {
   return {
     id: index + 1,
@@ -77,15 +56,33 @@ const Catagories = [
 });
 
 export default function RenderMobile(props) {
+  const [isSubGenresVisible, setSubGeneresVisible] = useState(false);
   const genres = useSelector((state) => state.filterConfig.genres);
   const dispatch = useDispatch();
 
   const addItem = (item) => {
-    if (genres.some((i) => i.id === item.id)) {
-      let newArr = genres.filter((i) => i.id !== item.id);
+    if (genres.some((i) => i.value === item.value)) {
+      let newArr = genres.filter((i) => i.value !== item.value);
       dispatch(updateGenres(newArr));
     } else {
       dispatch(updateGenres([...genres, item]));
+    }
+  };
+
+  const addByCatagory = (items) => {
+    if (genres.some((i) => i.type === items.type)) {
+      let newArr = genres.filter((i) => i.type !== items.type);
+      dispatch(updateGenres(newArr));
+    } else {
+      let newArr;
+      if (items.values.length) {
+        newArr = items.values.map((i) => {
+          return {type: items.type, value: i};
+        });
+      } else {
+        newArr = [{type: items.type, value: items.type}];
+      }
+      dispatch(updateGenres([...genres, ...newArr]));
     }
   };
 
@@ -106,7 +103,11 @@ export default function RenderMobile(props) {
           marginTop: heightScale(5),
           marginBottom: heightScale(10),
         }}>
-        <Switch style={{marginRight: widthScale(10)}} />
+        <Switch
+          style={{marginRight: widthScale(10)}}
+          value={isSubGenresVisible}
+          onValueChange={(val) => setSubGeneresVisible(val)}
+        />
         <Text style={styles.butTitle}>See subgenres</Text>
       </View>
       <ScrollView contentContainerStyle={{marginHorizontal: widthScale(11)}}>
@@ -116,22 +117,49 @@ export default function RenderMobile(props) {
           isActive={genres.length === 0}
           onPress={clearGenres}
         />
-        {Catagories.map((item) => (
-          <Button
-            key={item.id.toString()}
-            title={item.name}
-            isActive={genres.some((i) => i.id === item.id)}
-            onPress={() => addItem(item)}
-          />
-        ))}
+        {!isSubGenresVisible
+          ? Catagories.map((item) => {
+              return item.subTitles.map((i, ind) => (
+                <Button
+                  key={ind.toString()}
+                  title={i}
+                  isActive={genres.some((el) => el.value === i)}
+                  onPress={() => addItem({type: item.type, value: i})}
+                />
+              ));
+            })
+          : Catagories.map((item) => {
+              return [item.type, ...item.subTitles].map((i, ind) => (
+                <Button
+                  key={ind.toString()}
+                  title={i}
+                  isActive={
+                    ind === 0
+                      ? genres.some((el) => el.type === item.type)
+                      : genres.some((el) => el.value === i)
+                  }
+                  style={ind !== 0 && {paddingHorizontal: 40}}
+                  onPress={() => {
+                    if (ind === 0) {
+                      addByCatagory({
+                        type: item.type,
+                        values: [...item.subTitles],
+                      });
+                    } else {
+                      addItem({type: item.type, value: i});
+                    }
+                  }}
+                />
+              ));
+            })}
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
-const Button = ({title, isActive, onPress}) => (
+const Button = ({title, isActive, onPress, ...rest}) => (
   <TouchableOpacity
-    style={[styles.butContainer, isActive && styles.butActive]}
+    style={[styles.butContainer, rest.style, isActive && styles.butActive]}
     onPress={onPress}>
     <Text
       numberOfLines={1}
